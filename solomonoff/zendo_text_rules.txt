@@ -1,0 +1,74 @@
+#Rule
+... if {Condition}.
+
+#Condition
+it contains {QualifiedNumber} {AnyPiece}
+it contains no {Attributes} pieces
+it consists entirely of {Attributes} pieces
+it consists entirely of {Attributes} pieces, and there is/are {QualifiedNumber} of them
+all of its {Attributes} pieces are {Attributes}
+it contains at least one {AnyPiece} {Relation} a {AnyPiece}
+all of its {Attributes} pieces are {Relation} a {AnyPiece}
+the {NumericProperty} of its {Attributes} pieces is {Comparison} that of its {Attributes} pieces
+the {NumericProperty} of its {AnyPiece} is {Parity}
+{Condition}, and {Condition}
+{Condition}, or {Condition}
+
+#Comparison
+less than
+greater than
+equal to
+not equal to
+
+#NumericProperty
+number
+pip-count
+
+#Parity
+even
+odd
+
+#QualifiedNumber
+at least {Number}
+exactly {Number}
+no more than {Number}
+not exactly {Number}
+
+#Number
+1
+2
+3
+
+#Relation
+touching
+pointing at
+
+#AnyPiece
+piece(s)
+{Attributes} piece(s)
+
+#Attributes
+{Place}
+{Orientation}
+{Size}
+{Color}
+
+#Color
+red
+yellow
+green
+blue
+
+#Size
+small
+medium
+large
+
+#Orientation
+upright
+flat
+
+#Place
+grounded
+ungrounded
+

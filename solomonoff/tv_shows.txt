@@ -1,0 +1,108 @@
+#Show
+{Network}'s {Superlative} {Place} {Thing}
+{Noun}
+{Noun} {Noun}
+{Noun} and {Noun}
+{Place} {Noun}
+{Noun} {Thing}
+{Thing} {Noun}
+
+#Network
+ABC
+AMC
+A&E
+BBC
+BET
+Bravo
+CBS
+CNN
+Comedy
+D-Science
+Discovery
+DIY
+Food
+Fox
+Fox Bus
+FoxNews
+Fuel
+FX
+GSN
+H2
+HDLN
+History
+HGTV
+Lifetime
+Military
+MSNBC
+NatGeo
+NBC
+OWN
+Spike
+SyFy
+TBS
+TNT
+Travel
+TV Land
+USA
+WB
+WE
+WGN
+
+#Superlative
+Funniest
+Happiest
+Biggest
+Most Popular
+Most +1\'d
+Coolest
+Zaniest
+Weirdest
+Most Extreme
+Top Ten
+
+#Place
+Home
+Work
+Outdoor
+Internet
+Downtown
+Cat
+Google
+Celebrity
+Holywood
+American
+
+#Thing
+Videos
+Weddings
+Pictures
+Recipes
+Blogs
+Memes
+News
+
+#Noun
+Time
+Year
+People
+Way
+Day
+Life
+World
+School
+Family
+Country
+Work
+Night
+Water
+Money
+Business
+Law
+War
+House
+Power
+Information
+History
+Party
+Research
+Food

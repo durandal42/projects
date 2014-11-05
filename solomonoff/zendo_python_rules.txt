@@ -1,0 +1,65 @@
+#Rule
+all({PieceSet}, {PiecePredicate})  # all pieces in a set satisfy a predicate
+exists({PieceSet}, {PiecePredicate})  # some piece in a set satisfy a predicate
+{NumberPredicate}({Metric}({PieceSet}))  # some metric across a set satisfies a numerical predicate
+({Rule}) or ({Rule})  # OR two rules together
+({Rule}) and ({Rule})  # AND two rules together
+not {Rule}  # negate a rule
+
+#PieceSet
+pieces  # all pieces
+filter({PiecePredicate}, {PieceSet})
+
+#Metric
+count
+pip_count
+distinct_attribute_values_represented({Attribute})
+
+#PiecePredicate
+attribute_is({AttributeValuePair})  # a particular attribute has a particular value
+(lambda x: {PiecePredicate}(x) and {PiecePredicate}(x))  # AND two predicates
+(lambda x: {PiecePredicate}(x) or {PiecePredicate}(x))  # OR two predicates
+(lambda x: not {PiecePredicate}(x))  # negate a predicate
+
+#Attribute
+'size'
+'color'
+#'location'
+#'orientation'
+
+#AttributeValuePair
+'size', {Size}
+'color', {Color}
+#'location', {Location}
+#'orientation', {Orientation}
+
+#NumberPredicate
+even
+odd
+exactly({Number})
+greater_than({Number})
+less_than({Number})
+not {NumberPredicate}  # negate a predicate
+
+#Number
+0  # zero
+1+{Number}  # successor
+
+#Color
+RED
+YELLOW
+GREEN
+BLUE
+
+#Size
+SMALL
+MEDIUM
+LARGE
+
+#Location
+GROUNDED
+UNGROUNDED
+
+#Orientation
+UPRIGHT
+FLAT

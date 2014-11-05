@@ -1,0 +1,185 @@
+“Easy”:
+punting: relationship:pointing
+- has a piece pointing at another piece
+
+punting: relationship:touching
+- has at least 2 pieces which are touching
+
+- has exactly one red and exactly one blue
+- has a red pointing at another red
+- has an ungrounded medium yellow
+- has at least 2 yellows
+- has exactly one flat yellow
+- has exactly 2 reds
+- all upright pieces are grounded
+- has a yellow or a green
+- has equal numbers of reds and blues
+- has exactly one upright piece
+- has at least one color with at least 2 pieces
+- has no mediums
+- has no more than one of each color
+- has no upright pieces
+- all flat pieces point at upright pieces
+- all red pieces are upright
+- all non-reds are flat
+- all smalls are red, all mediums are green, and all larges are blue
+- all uprights are the same size
+- exactly half the pips are on larges
+- has a blue pointing at a flat
+- has a flat large and an upright small
+- has a grounded green or an ungrounded yellow
+- has an upright stack with a medium between 2 others
+- has a flat red
+- has a flat pointing at an upright
+- has a piece touching another of the same size
+- has a piece pointed at a smaller piece
+- has a piece pointing at a red, but not touching it
+
+“Medium”:
+- has a piece pointing at a piece of a different color
+- has a red pointing at a large
+- has an upright stack containing only a small yellow above a medium red
+- has a 3-piece tower containing a red
+- has an even number of colors
+- has an odd number of medium pieces
+- has an ungrounded flat
+- has an ungrounded large, and no other larges
+- has an upright green
+- has an upright touching a flat
+- has an upright stack where the top piece is the largest
+- has at least one piece of each size
+- has at least 2 colors with at least 2 pieces
+- has at least 2 pieces of the same color  (identical to “easy” “has
+at least one color with at least 2 pieces”?)
+- has exactly one piece of each size
+- has exactly one ungrounded large, and no other larges
+- has exactly 3 non-yellows
+- has exactly 3 pieces, and no blues
+- has exactly 3 stacks
+- has exactly 2 non-larges
+- has more blue pieces than any other single color
+- has more mediums than larges
+- has more smalls than larges
+- has no blues and no smalls
+- has no greens pointing at pieces
+- has no medium uprights
+- has no pieces pointing at pieces
+- has no pieces that both point at and touch another piece
+- has no flat reds
+- has two pieces of the same size, and two of the same color
+- none of the mediums are red
+- no larges point at reds
+- majority of pieces are green
+- equal number of yellows and greens
+- total pip count is a multiple of 3
+- all flats point at uprights
+- all flats are small
+- all greens are upright
+- has a red pointing at a large
+- has a piece pointing at two other pieces
+- has a red or a small or an upright
+- total red pip count is even
+- total pip count is no greater than 4
+- has a medium touching a flat
+
+“Medium Hard”:
+- every piece touches exactly one other piece, which is a different color
+- exactly half of the pieces are mediums
+— exactly half of the pieces are upright
+- exactly half the pip count is green
+- exactly 1/3 of the pieces are yellow
+- contains a blue pointing at something, and a red being pointed at
+- has a blue which points at, but does not touch, a small
+- has a flat, and no yellows
+- has either a green, or a red and a blue
+- has a large and an upright which are not the same piece
+- has a medium ungrounded or a blue
+- has a non-blue medium, or a blue
+- has a piece touching another of the same orientation (flat/upright)
+- has a piece which points at a piece of a different size
+- has a red or green pointing at something
+- has a small touching a medium
+- has a yellow touching a non-yellow
+- has two non-reds
+- has an equal number of red and green pips
+- has an ungrounded large touching a small
+- has an upright pointing at something
+- has an upright with its pip count number of pieces pointing at it
+- has at least one piece which does not point at anything
+- has at least two blues or at least two smalls
+- has exactly 8 pips
+- has a piece pointing at at least two different colors
+- has a pice which points at exactly two other pieces
+- red pip count is even
+- has a piece pointing at a tower which contains a piece of that size
+- red pip count is odd
+- every piece is pointing at an even number of pieces
+- has a flat pointing at two other pieces
+- has a large piece which touches, but does not point at, a medium
+- has a piece being pointed at, and a piece not being pointed at
+- total pip count is between 4 and 7, inclusive
+- yellow pip count equals green pip count
+- none of the mediums are yellow, and there are yellows
+- no two pieces have the same color
+- has 5 grounded pips
+- fewer reds than non-reds, but at least one red
+- has 6 large pips, or 6 medium pips, or 6 small pips
+- has no pieces pointing at anything
+
+“Hard”:
+- has a set of contiguously touching pieces, with a pip count of 5
+- has a yellow XOR has a green
+- has a yellow flat, or a small
+- has an ungrounded large, and no other pieces other than smalls
+- has at least once piece which is both pointing at another piece, and
+being pointed at
+- has at least 2 more yellow pips than blue pips
+- has exactly 1 more blue piece than yellow pieces
+- has exactly 1 piece touching nothing
+- has exactly 2 colors touching the table
+- has exactly 2 sizes and exactly 2 colors
+- has more blue pips than green pips
+- has more flats than yellows
+- has more flat pips than upright pips
+- has more yellows than flats
+- red+blue pips equals green+yellow pips
+- yellow+blue pip count is exactly 5
+- total pip count is even
+- total pip count is not a multiple of 3 (inverse of "medium" "total
+pip count is a multiple of 3")
+- total pip count is odd
+- total pip count of non-yellows is exactly 5
+- total red pip count is a multiple of 3
+- has a piece which touches at least two other pieces
+- exactly 1/3rd of the pips are red
+- cannot have two pieces of the same size, color, or orientation
+- it has a large XOR a small
+- has a medium which points at, but does not touch, a flat
+- has a medium which points at, but does not touch, a small
+- no pointing piece touches its target
+- has a small which touches, but does not point at, an upright
+- has a piece entirely nested within another piece
+- no piece touches a piece with the same size, color, or orientation
+- blue count + flat count == 3 (blue flats count twice)
+- medium count + red count == 3 (medium red counts twice)
+- number of pieces pointing at something equals the number of pieces
+not pointing at anything
+- yellow+blue pip count is 4
+- has a piece which is touching as many other pieces as it has pips
+- has exactly three non-medium uprights
+- has a piece with any part of itself inside another piece
+- has exactly one piece which is pointing at exactly one piece
+- number of flat pieces equals number of upright pips
+- has more smalls than flats, ignoring blues
+- has pieces of two different colors touching
+- has only once piece not touching anything
+- total pip count is <4 or >7
+- has exactly 4 or 7 pips
+- has more pieces being pointed at than pieces not being pointed at
+- has exactly 2 colors or 2 sizes
+
+“Crazy Hard”:
+- total pip count is prime
+- has 2 pieces of the same color XOR 2 pieces of the same size
+- pip count of pieces pointing at other pieces is 3
+- total non-blue pip count is prime

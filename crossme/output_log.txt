@@ -1,0 +1,295 @@
+          111 3 7 715 1 214 9 1 1 1 112
+              3 2     5 8     6 9 910  
+              1       7                
+        +-------------------------------+
+      3 | ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? |
+    4 2 | ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? |
+    6 6 | ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? |
+  6 2 1 | ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? |
+1 4 2 1 | ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? |
+  6 3 2 | ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? |
+    6 7 | ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? |
+    6 8 | ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? |
+   1 10 | ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? |
+   1 10 | ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? |
+   1 10 | ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? |
+1 1 4 4 | ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? |
+  3 4 4 | ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? |
+    4 4 | ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? |
+    4 4 | ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? |
+        +-------------------------------+
+remaining runs fit exactly:
+['?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?'] [6, 8]
+all runs accounted for:
+['?', '?', '?', '?', '?', '?', '?', 'y', '?', '?', '?', '?', '?', '?', '?'] [1]
+['n', 'n', 'n', 'n', 'n', 'n', 'n', 'y', 'n', 'n', 'n', 'n', 'n', 'n', 'n'] [1]
+only run is large enough to confirm middle:
+['?', '?', '?', '?', '?', '?', '?', 'y', '?', '?', '?', '?', '?', '?', '?'] [11]
+existing run can't reach end of window: ['?', '?', '?', '?', '?', '?', '?', 'y', '?', '?', '?', '?', '?', '?', '?'] [7]
+only run fills whole range:
+['?', '?', '?', '?', '?', '?', '?', 'y', '?', '?', '?', '?', '?', '?', '?'] [15]
+remaining runs fit exactly:
+['?', '?', '?', '?', '?', '?', '?', 'n', '?', '?', '?', '?', '?', '?', '?'] [1, 5, 7]
+only run is large enough to confirm middle:
+['?', '?', '?', '?', '?', '?', '?', 'y', '?', '?', '?', '?', '?', '?', '?'] [14]
+only run is large enough to confirm middle:
+['?', '?', '?', '?', '?', '?', '?', 'y', '?', '?', '?', '?', '?', '?', '?'] [9]
+only run is large enough to confirm middle:
+['?', '?', '?', '?', '?', '?', '?', 'y', '?', '?', '?', '?', '?', '?', '?'] [12]
+iterations: 0
+existing run can't reach end of window: ['?', '?', '?', '?', 'y', 'y', '?', '?', '?', '?', '?', '?', '?', '?'] [3]
+capping trailing run:
+['?', '?', '?', '?', 'y', 'y', '?', 'y', '?', '?', '?', '?', '?', 'y'] [6, 2, 1]
+capping leading run:
+['y', '?', '?', '?', 'y', 'y', '?', 'y', '?', '?', '?', '?', '?', 'y'] [1, 4, 2, 1]
+capping trailing run:
+['?', '?', 'y', 'y', '?', 'y', '?', '?', '?', '?', '?', 'y'] [4, 2, 1]
+extending leading run:
+['y', '?', '?', '?', 'y', 'y', '?', 'y', '?', '?', '?', '?', '?', 'y'] [6, 3, 2]
+capping leading run:
+['y', 'y', 'y', 'y', 'y', 'y', '?', 'y', '?', '?', '?', '?', '?', 'y'] [6, 3, 2]
+extending leading run:
+['y', '?', '?', '?', '?', '?', 'y'] [3, 2]
+capping leading run:
+['y', 'y', 'y', '?', '?', '?', 'y'] [3, 2]
+extending trailing run:
+['?', '?', 'y'] [2]
+capping trailing run:
+['?', 'y', 'y'] [2]
+remaining runs fit exactly:
+['y', '?', '?', '?', 'y', 'y', '?', 'y', 'y', '?', '?', '?', '?', 'y'] [6, 7]
+capping leading run:
+['y', '?', '?', '?', 'y', 'y', '?', 'y', 'y', '?', '?', '?', '?', 'y'] [1, 10]
+extending trailing run:
+['?', '?', 'y', 'y', '?', 'y', 'y', '?', '?', '?', '?', 'y'] [10]
+capping trailing run:
+['?', '?', 'y', 'y', 'y', 'y', 'y', 'y', 'y', 'y', 'y', 'y'] [10]
+['?', 'n'] []
+no runs remaining:
+['?', 'n'] []
+capping leading run:
+['y', '?', '?', '?', 'y', 'y', '?', 'y', '?', '?', '?', '?', '?', 'y'] [1, 10]
+extending trailing run:
+['?', '?', 'y', 'y', '?', 'y', '?', '?', '?', '?', '?', 'y'] [10]
+capping trailing run:
+['?', '?', 'y', 'y', 'y', 'y', 'y', 'y', 'y', 'y', 'y', 'y'] [10]
+['?', 'n'] []
+no runs remaining:
+['?', 'n'] []
+capping leading run:
+['y', '?', '?', '?', 'y', 'y', '?', 'y', '?', '?', '?', '?', '?', 'y'] [1, 10]
+extending trailing run:
+['?', '?', 'y', 'y', '?', 'y', '?', '?', '?', '?', '?', 'y'] [10]
+capping trailing run:
+['?', '?', 'y', 'y', 'y', 'y', 'y', 'y', 'y', 'y', 'y', 'y'] [10]
+['?', 'n'] []
+no runs remaining:
+['?', 'n'] []
+extending trailing run:
+['?', '?', '?', '?', 'y', 'y', '?', 'y', '?', '?', '?', '?', '?', 'y'] [1, 1, 4, 4]
+capping trailing run:
+['?', '?', '?', '?', 'y', 'y', '?', 'y', '?', '?', 'y', 'y', 'y', 'y'] [1, 1, 4, 4]
+leading maybes can't satisfy first run:
+['?', '?', '?', 'n', 'y', 'y', '?', '?', '?', '?', '?', '?', '?', '?'] [4, 4] 3
+['n', 'n', 'n', 'n', 'y', 'y', '?', '?', '?', '?', '?', '?', '?', '?'] [4, 4]
+only run is large enough to confirm middle:
+['?', '?', '?', '?', 'y', 'y', 'y', 'y', 'y', 'y', 'y', '?', '?', '?'] [11]
+leading maybes can't satisfy first two runs, and rest can't satisfy all:
+['?', '?', '?', '?', 'n', 'y', 'y', 'y', 'n', 'n', 'n', '?', '?', '?'] [3, 3, 1]
+left:
+['?', '?', '?', '?'] [3]
+right:
+['n', 'y', 'y', 'y', 'n', 'n', 'n', '?', '?', '?'] [3, 1]
+only run is large enough to confirm middle:
+['?', '?', '?', '?'] [3]
+leading maybes can't satisfy first two runs, and rest can't satisfy all:
+['?', '?', '?', '?', '?', 'y', 'y', 'y', 'n', 'n', 'n', '?', '?', '?'] [7, 2]
+left:
+['?', '?', '?', '?', '?', 'y', 'y', 'y'] [7]
+right:
+['n', 'n', 'n', '?', '?', '?'] [2]
+extending trailing run:
+['?', '?', '?', '?', '?', 'y', 'y', 'y'] [7]
+capping trailing run:
+['?', 'y', 'y', 'y', 'y', 'y', 'y', 'y'] [7]
+only run is large enough to confirm middle:
+['?', '?', '?'] [2]
+trailing maybes can't satisfy last two runs, and rest can't satisfy all:
+['n', 'y', 'y', 'y', 'y', 'y', 'y', 'y', 'n', 'n', 'n', '?', 'y', '?'] [7, 2]
+left:
+['n', 'y', 'y', 'y', 'y', 'y', 'y', 'y', 'n', 'n'] [7]
+right:
+['n', '?', 'y', '?'] [2]
+splitting around unique longest run:
+['n', 'y', 'y', 'y', 'y', 'y', 'y', 'y', 'n', 'n', 'n', '?', 'y', '?'] [7, 2]
+left:
+[] []
+right:
+['n', 'n', 'n', '?', 'y', '?'] [2]
+existing run can't reach end of window: ['?', '?', '?', '?', '?', 'y', 'y', 'y', 'n', 'n', 'n', '?', '?', '?'] [7]
+leading maybes can't satisfy first two runs, and rest can't satisfy all:
+['?', '?', '?', '?', '?', 'n', 'n', 'y', 'y', 'y', 'y', '?', '?', '?', '?'] [2, 8]
+left:
+['?', '?', '?', '?', '?'] [2]
+right:
+['n', 'n', 'y', 'y', 'y', 'y', '?', '?', '?', '?'] [8]
+only run fills whole range:
+['y', 'y', 'y', 'y', '?', '?', '?', '?'] [8]
+trailing maybes can't satisfy last two runs, and rest can't satisfy all:
+['?', '?', '?', '?', '?', 'n', 'n', 'y', 'y', 'y', 'y', 'y', 'y', 'y', 'y'] [2, 8]
+left:
+['?', '?', '?', '?', '?', 'n'] [2]
+right:
+['n', 'y', 'y', 'y', 'y', 'y', 'y', 'y', 'y'] [8]
+only run fills whole range:
+['y', 'y', 'y', 'y', 'y', 'y', 'y', 'y', 'y', 'y', 'y', 'y', 'y', '?'] [14]
+existing run can't reach end of window: ['?', '?', '?', '?', 'y', 'y', 'y', 'y', 'y', 'y', '?', '?', '?', '?'] [9]
+trailing maybes can't satisfy last run
+['?', '?', '?', '?', 'y', 'y', 'y', 'y', 'y', 'y', 'n', '?', '?', '?'] [1, 6] 3
+['?', '?', '?', '?', 'y', 'y', 'y', 'y', 'y', 'y', 'n', 'n', 'n', 'n'] [1, 6]
+leading maybes can't satisfy first two runs, and rest can't satisfy all:
+['?', '?', '?', '?', 'n', 'y', 'y', 'y', 'y', 'y', 'y', '?', '?', '?'] [1, 9]
+left:
+['?', '?', '?', '?'] [1]
+right:
+['n', 'y', 'y', 'y', 'y', 'y', 'y', '?', '?', '?'] [9]
+only run fills whole range:
+['y', 'y', 'y', 'y', 'y', 'y', '?', '?', '?'] [9]
+trailing maybes can't satisfy last two runs, and rest can't satisfy all:
+['?', '?', '?', '?', 'n', 'y', 'y', 'y', 'y', 'y', 'y', 'y', 'y', 'y'] [1, 9]
+left:
+['?', '?', '?', '?'] [1]
+right:
+['n', 'y', 'y', 'y', 'y', 'y', 'y', 'y', 'y', 'y'] [9]
+leading maybes can't satisfy first two runs, and rest can't satisfy all:
+['?', '?', '?', '?', 'n', 'y', 'y', 'y', 'y', 'y', 'y', '?', '?', '?'] [1, 9]
+left:
+['?', '?', '?', '?'] [1]
+right:
+['n', 'y', 'y', 'y', 'y', 'y', 'y', '?', '?', '?'] [9]
+only run fills whole range:
+['y', 'y', 'y', 'y', 'y', 'y', '?', '?', '?'] [9]
+trailing maybes can't satisfy last two runs, and rest can't satisfy all:
+['?', '?', '?', '?', 'n', 'y', 'y', 'y', 'y', 'y', 'y', 'y', 'y', 'y'] [1, 9]
+left:
+['?', '?', '?', '?'] [1]
+right:
+['n', 'y', 'y', 'y', 'y', 'y', 'y', 'y', 'y', 'y'] [9]
+leading maybes can't satisfy first two runs, and rest can't satisfy all:
+['?', '?', 'n', 'n', 'y', 'y', 'y', 'y', 'y', 'y', 'y', '?', '?', '?'] [1, 10]
+left:
+['?', '?'] [1]
+right:
+['n', 'n', 'y', 'y', 'y', 'y', 'y', 'y', 'y', '?', '?', '?'] [10]
+only run fills whole range:
+['y', 'y', 'y', 'y', 'y', 'y', 'y', '?', '?', '?'] [10]
+trailing maybes can't satisfy last two runs, and rest can't satisfy all:
+['?', '?', 'n', 'n', 'y', 'y', 'y', 'y', 'y', 'y', 'y', 'y', 'y', 'y'] [1, 10]
+left:
+['?', '?', 'n'] [1]
+right:
+['n', 'y', 'y', 'y', 'y', 'y', 'y', 'y', 'y', 'y', 'y'] [10]
+only run is large enough to confirm middle:
+['?', '?', 'y', 'y', 'y', 'y', 'y', 'y', 'y', 'y', 'y', '?', '?', '?'] [12]
+iterations: 1
+existing run can't reach start of window: ['?', '?', 'n', '?', 'y', 'y', '?'] [3]
+extending leading run:
+['y', '?', 'y', '?', 'y', 'y', '?', 'y', '?', '?', '?', '?', 'n', 'y'] [6, 2, 1]
+capping leading run:
+['y', 'y', 'y', 'y', 'y', 'y', '?', 'y', '?', '?', '?', '?', 'n', 'y'] [6, 2, 1]
+extending leading run:
+['y', '?', '?', '?', '?', 'n', 'y'] [2, 1]
+capping leading run:
+['y', 'y', '?', '?', '?', 'n', 'y'] [2, 1]
+['?', '?', 'n'] []
+no runs remaining:
+['?', '?', 'n'] []
+extending leading run:
+['y', '?', 'y', 'y', '?', 'y', '?', '?', '?', '?', 'n', 'y'] [4, 2, 1]
+capping leading run:
+['y', 'y', 'y', 'y', '?', 'y', '?', '?', '?', '?', 'n', 'y'] [4, 2, 1]
+extending leading run:
+['y', '?', '?', '?', '?', 'n', 'y'] [2, 1]
+capping leading run:
+['y', 'y', '?', '?', '?', 'n', 'y'] [2, 1]
+['?', '?', 'n'] []
+no runs remaining:
+['?', '?', 'n'] []
+capping end of longest run:
+['?', '?', '?', '?', 'y', 'y', 'y', 'y', '?'] [1, 1, 4]
+leading maybes can't satisfy first two runs, and rest can't satisfy all:
+['?', '?', 'y', 'n', 'y', 'y', 'y', 'y', '?'] [3, 4]
+left:
+['?', '?', 'y'] [3]
+right:
+['n', 'y', 'y', 'y', 'y', '?'] [4]
+only run fills whole range:
+['?', '?', 'y'] [3]
+capping leading run:
+['y', 'y', 'y', 'y', '?'] [4]
+splitting around unique longest run:
+['y', 'y', 'y', 'n', 'y', 'y', 'y', 'y', 'n'] [3, 4]
+left:
+['y', 'y', 'y'] [3]
+right:
+['n'] []
+leading maybes can't satisfy first run:
+['?', '?', '?', 'n', 'y', 'y', 'y', 'y', '?', 'n', 'y', 'y', 'y', '?'] [4, 4] 3
+['n', 'n', 'n', 'n', 'y', 'y', 'y', 'y', '?', 'n', 'y', 'y', 'y', '?'] [4, 4]
+only run fills whole range:
+['y', 'y', 'y', '?'] [4]
+extending trailing run:
+['?', '?', 'y', 'y', 'y', 'y', 'y', 'y', 'y', 'y', '?', 'y'] [11]
+capping trailing run:
+['?', 'y', 'y', 'y', 'y', 'y', 'y', 'y', 'y', 'y', 'y', 'y'] [11]
+capping trailing run:
+['?', 'y'] [1]
+only run fills whole range:
+['?', 'y'] [2]
+existing run can't reach end of window: ['?', '?', '?', 'y', 'y', 'y', 'y', 'y', 'n', 'n', 'n', '?'] [7]
+only run is large enough to confirm middle:
+['?', '?', '?'] [2]
+existing run can't reach end of window: ['?', '?', 'y', 'y', 'y', 'y', 'y', 'y', 'y', 'y', 'n', 'n', '?'] [9]
+extending trailing run:
+['?', '?', 'y', 'y', 'y', 'y', 'y', 'y', 'y', 'y', 'y', 'y', '?', 'y'] [12]
+capping trailing run:
+['?', '?', 'y', 'y', 'y', 'y', 'y', 'y', 'y', 'y', 'y', 'y', 'y', 'y'] [12]
+['?', 'n'] []
+no runs remaining:
+['?', 'n'] []
+iterations: 2
+extending leading run:
+['y', 'y', '?', 'y', 'n', 'y', 'y', '?', '?', '?', '?', '?'] [4, 2]
+capping leading run:
+['y', 'y', '?', '?', '?', '?', '?'] [2]
+['n', '?', '?', '?', '?'] []
+no runs remaining:
+['n', '?', '?', '?', '?'] []
+remaining runs fit exactly:
+['y', 'y', 'y', '?', 'y', 'y', '?', 'y', '?', '?', '?', '?', '?'] [6, 6]
+capping trailing run:
+['?', 'y', 'y', 'y', 'y', 'y', 'y', 'y'] [7]
+only run fills whole range:
+['?', 'y'] [2]
+iterations: 3
+best possible with heuristics:
+          111 3 7 715 1 214 9 1 1 1 112
+              3 2     5 8     6 9 910  
+              1       7                
+        +-------------------------------+
+      3 |           O O O               |
+    4 2 |     O O O O   O O             |
+    6 6 |   O O O O O O   O O O O O O   |
+  6 2 1 |   O O O O O O   O O         O |
+1 4 2 1 |   O   O O O O   O O         O |
+  6 3 2 |   O O O O O O   O O O     O O |
+    6 7 |   O O O O O O   O O O O O O O |
+    6 8 | O O O O O O   O O O O O O O O |
+   1 10 |   O       O O O O O O O O O O |
+   1 10 |   O       O O O O O O O O O O |
+   1 10 |   O       O O O O O O O O O O |
+1 1 4 4 |   O   O   O O O O     O O O O |
+  3 4 4 |   O O O   O O O O     O O O O |
+    4 4 |           O O O O     O O O O |
+    4 4 |           O O O O     O O O O |
+        +-------------------------------+
