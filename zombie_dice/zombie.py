@@ -216,9 +216,6 @@ def threshold(brains_needed, leaders=1):
 
 print "(g, y, r blams), (g, y, r brains), (g, y, r in hand), (g, y, r in cup), recommendation, score, importance"
 
-import sys
-sys.setrecursionlimit(10000)
-
-UTILITY, STOP_FUNCTION = threshold(0)
+UTILITY, STOP_FUNCTION = threshold(5)
 
 best_outcome()
