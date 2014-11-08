@@ -1,8 +1,15 @@
 '''
-Classic 2-egg puzzle.
+Generalization of the classic 2-egg puzzle.
 '''
 
-from utils import Memoize
+class Memoize:
+  def __init__(self, f):
+    self.f = f
+    self.memo = {}
+  def __call__(self, *args):
+    if not args in self.memo:
+      self.memo[args] = self.f(*args)
+    return self.memo[args]
 
 # Given a fixed number of eggs and drops, return the number of floors that can be covered.
 def eggdrop(eggs, drops):
