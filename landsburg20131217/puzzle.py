@@ -9,7 +9,15 @@ the next card I turn over is black. What's your strategy?
 '''
 
 from fractions import Fraction
-from utils import Memoize
+
+class Memoize:
+  def __init__(self, f):
+    self.f = f
+    self.memo = {}
+  def __call__(self, *args):
+    if not args in self.memo:
+      self.memo[args] = self.f(*args)
+    return self.memo[args]
 
 '''
 Given how many blacks and reds are known to remain in the deck, what's the best
@@ -50,6 +58,6 @@ def chance_of_failure(blacks, reds):
   if not blacks: return 1
   proportion_black = Fraction(blacks, blacks + reds)
   return (proportion_black * chance_of_failure(blacks-1, reds) +
-      (1-proportion_black) * chance_of_failure(blacks, reds-1))
-chance_of_failure = Memoize(chance_of_failure, display=True)
-print chance_of_failure(26, 26)
+          (1-proportion_black) * chance_of_failure(blacks, reds-1))
+chance_of_failure = Memoize(chance_of_failure)
+print 'chance of failure using naive strategy:', chance_of_failure(26, 26)
