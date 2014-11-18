@@ -19,16 +19,10 @@ public class Newton extends Canvas {
   double viewMinY = -2.0;
   double viewMaxY = 2.0;
 
-  public static Complex iterate(Complex guess, Function f, Function fPrime) {
-    return Complex.subtract(guess,
-                            Complex.divide(f.apply(guess),
-                                           fPrime.apply(guess)));
-  }
-
-  public static boolean closeEnough(Complex guess, Function f) {
-    return Complex.abs(f.apply(guess)) < MARGIN;
-  }
-
+  // Newton's method for finding zeros of a function.
+  // Given a guess, find the slope of the function at that point,
+  // and find where that line hits zero.
+  // That's the new guess; iterate until we're close enough.
   public static NewtonResult Newton(Complex guess, Function f, Function fPrime) {
     int i = 0;
     while(!closeEnough(guess, f) && i < MAX_STEPS) {
@@ -38,25 +32,44 @@ public class Newton extends Canvas {
     return new NewtonResult(guess, i);
   }
 
+  // Given a function, its derivative, and a guess, compute the next guess.
+  public static Complex iterate(Complex guess, Function f, Function fPrime) {
+    return Complex.subtract(guess,
+                            Complex.divide(f.apply(guess),
+                                           fPrime.apply(guess)));
+  }
+
+  // Is this guess close enough to a zero?
+  public static boolean closeEnough(Complex guess, Function f) {
+    return Complex.abs(f.apply(guess)) < MARGIN;
+  }
+
+
   public static void main(String[] args) {
+    // y = x^5 - 1
     Function x5m1 = new Sum(new Power(Identity.IDENTITY,
                                       new Complex(5.0, 0.0)),
                             new Constant(new Complex(-1.0, 0.0)));
+
+    // unused functions    
+    // y = x^7 - 1
     Function x7m1 = new Sum(new Power(Identity.IDENTITY,
                                       new Complex(7.0, 0.0)),
                             new Constant(new Complex(-1.0, 0.0)));
-
+    // y = 2^x - x^2
     Function foo = new Sum(new Exp(new Complex(2.0, 0.0),
                                    Identity.IDENTITY),
                            new Product(new Power(Identity.IDENTITY,
                                                  new Complex(2.0, 0.0)),
                                        new Constant(new Complex(-1.0, 0.0))));
-
+    // y = log(x)
     Function log = new Log(new Complex(Math.E, 0.0),
                            Identity.IDENTITY);
 
+    // Create a fractal renderer using a specific function:
     Newton n = new Newton(x5m1);
 
+    // Check for command-line args to change the render size.
     try {
       if (args.length >= 2) {
         int x = Integer.parseInt(args[0]);
@@ -67,6 +80,8 @@ public class Newton extends Canvas {
     } catch (NumberFormatException e) {
       // use defaults
     }
+
+    // Render!
     n.output();
   }
 
