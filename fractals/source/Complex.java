@@ -1,14 +1,15 @@
+// A complex number, a + b*i, for real values of a and b.
 public class Complex {
-
-  final double r, i;
 
   public static final Complex ZERO = new Complex(0.0, 0.0);
   public static final Complex ONE =  new Complex(1.0, 0.0);
   public static final Complex I =  new Complex(0.0, 1.0);
 
-  public Complex(double real, double imag) {
-    r = real;
-    i = imag;
+  private final double r, i;
+
+  public Complex(double r, double i) {
+    this.r = r;
+    this.i = i;
   }
 
   public String toString() {
