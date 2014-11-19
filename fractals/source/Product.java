@@ -9,12 +9,15 @@ public class Product implements Function {
   }
 
   public Complex apply(Complex input) {
+    // f(x) = f1(x) * f2(x)
     return Complex.multiply(f1.apply(input), f2.apply(input));
   }
 
   public Function differentiate() {
+    // f'(x) = (f1(x) * f2'(x) +
+    //          f1'(x) * f2(x))
     return new Sum(new Product(f1, f2.differentiate()),
-                   new Product(f2, f1.differentiate()));
+                   new Product(f1.differentiate(), f2));
   }
 
   public String toString() {

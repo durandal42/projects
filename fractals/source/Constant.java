@@ -11,12 +11,13 @@ public class Constant implements Function {
     this.c = c;
   }
 
-  public Complex apply(Complex input) {
+  public Complex apply(Complex unused) {
+    // f(x) = c
     return c;
   }
 
   public Function differentiate() {
-    // The derivative of any constant function is zero.
+    // f'(c) = 0
     return ZERO;
   }
 

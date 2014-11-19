@@ -10,11 +10,12 @@ public class Sum implements Function {
   }
 
   public Complex apply(Complex input) {
+    // f(x) = f1(x) + f2(x)
     return Complex.add(f1.apply(input), f2.apply(input));
   }
 
   public Function differentiate() {
-    // The derivative of a sum is the sum of the derivatives.
+    // f'(x) = f1'(x) + f2'(x)
     return new Sum(f1.differentiate(), f2.differentiate());
   }
 
