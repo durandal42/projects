@@ -23,7 +23,7 @@ public class Newton extends Canvas {
   // Given a guess, find the slope of the function at that point,
   // and find where that line hits zero.
   // That's the new guess; iterate until we're close enough.
-  public static NewtonResult Newton(Complex guess, Function f, Function fPrime) {
+  public static NewtonResult newton(Complex guess, Function f, Function fPrime) {
     int i = 0;
     while(!closeEnough(guess, f) && i < MAX_STEPS) {
       guess = iterate(guess, f, fPrime);
@@ -46,23 +46,23 @@ public class Newton extends Canvas {
 
 
   public static void main(String[] args) {
-    // y = x^5 - 1
+    // f(x) = x^5 - 1
     Function x5m1 = new Sum(new Power(Identity.IDENTITY,
                                       new Complex(5.0, 0.0)),
                             new Constant(new Complex(-1.0, 0.0)));
 
     // unused functions    
-    // y = x^7 - 1
+    // f(x) = x^7 - 1
     Function x7m1 = new Sum(new Power(Identity.IDENTITY,
                                       new Complex(7.0, 0.0)),
                             new Constant(new Complex(-1.0, 0.0)));
-    // y = 2^x - x^2
+    // f(x) = 2^x - x^2
     Function foo = new Sum(new Exp(new Complex(2.0, 0.0),
                                    Identity.IDENTITY),
                            new Product(new Power(Identity.IDENTITY,
                                                  new Complex(2.0, 0.0)),
                                        new Constant(new Complex(-1.0, 0.0))));
-    // y = log(x)
+    // f(x) = log(x)
     Function log = new Log(new Complex(Math.E, 0.0),
                            Identity.IDENTITY);
 
@@ -128,7 +128,7 @@ public class Newton extends Canvas {
         double i = scaleY * (double) y + viewMinY;
 
         Complex guess = new Complex(r, i);
-        NewtonResult nr = Newton(guess, function, derivative);
+        NewtonResult nr = newton(guess, function, derivative);
 
         double stepScale = 1.0 - Math.sqrt(nr.steps / (double) MAX_STEPS);
 
