@@ -7,10 +7,7 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
-public class Newton extends Canvas {
-
-  public static final double MARGIN = 0.0001;
-  public static final int MAX_STEPS = 60;
+public class NewtonRenderer extends Canvas {
 
   int imageX = 600;
   int imageY = 600;
@@ -18,32 +15,6 @@ public class Newton extends Canvas {
   double viewMaxX = 2.0;
   double viewMinY = -2.0;
   double viewMaxY = 2.0;
-
-  // Newton's method for finding zeros of a function.
-  // Given a guess, find the slope of the function at that point,
-  // and find where that line hits zero.
-  // That's the new guess; iterate until we're close enough.
-  public static NewtonResult newton(Complex guess, Function f, Function fPrime) {
-    int i = 0;
-    while(!closeEnough(guess, f) && i < MAX_STEPS) {
-      guess = iterate(guess, f, fPrime);
-      i++;
-    }
-    return new NewtonResult(guess, i);
-  }
-
-  // Given a function, its derivative, and a guess, compute the next guess.
-  public static Complex iterate(Complex guess, Function f, Function fPrime) {
-    return Complex.subtract(guess,
-                            Complex.divide(f.apply(guess),
-                                           fPrime.apply(guess)));
-  }
-
-  // Is this guess close enough to a zero?
-  public static boolean closeEnough(Complex guess, Function f) {
-    return Complex.abs(f.apply(guess)) < MARGIN;
-  }
-
 
   public static void main(String[] args) {
     // f(x) = x^5 - 1
@@ -67,7 +38,7 @@ public class Newton extends Canvas {
                            Identity.IDENTITY);
 
     // Create a fractal renderer using a specific function:
-    Newton n = new Newton(x5m1);
+    NewtonRenderer n = new NewtonRenderer(x5m1);
 
     // Check for command-line args to change the render size.
     try {
@@ -106,7 +77,7 @@ public class Newton extends Canvas {
 
   Function function;
   Function derivative;
-  public Newton(Function func) {
+  public NewtonRenderer(Function func) {
     function = func;
     derivative = func.differentiate();
   }
@@ -128,9 +99,9 @@ public class Newton extends Canvas {
         double i = scaleY * (double) y + viewMinY;
 
         Complex guess = new Complex(r, i);
-        NewtonResult nr = newton(guess, function, derivative);
+        Newton.Result nr = Newton.newton(guess, function, derivative);
 
-        double stepScale = 1.0 - Math.sqrt(nr.steps / (double) MAX_STEPS);
+        double stepScale = 1.0 - Math.sqrt(nr.steps / (double) Newton.MAX_STEPS);
 
         double angle = Complex.angle(nr.solution);
         double degrees = Math.round(Math.toDegrees(angle));
