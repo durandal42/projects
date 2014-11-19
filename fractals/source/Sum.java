@@ -1,11 +1,12 @@
+// The sum of two functions, y = f1(x) + f2(x).
 public class Sum implements Function {
 
-  Function f1;
-  Function f2;
+  private final Function f1;
+  private final Function f2;
 
-  public Sum(Function func1, Function func2) {
-    f1 = func1;
-    f2 = func2;;
+  public Sum(Function f1, Function f2) {
+    this.f1 = f1;
+    this.f2 = f2;;
   }
 
   public Complex apply(Complex input) {
@@ -17,7 +18,7 @@ public class Sum implements Function {
   }
 
   public String toString() {
-    return "(" + f1 + ")/(" + f2 + ")";
+    return "(" + f1 + ")+(" + f2 + ")";
   }
 
 }
