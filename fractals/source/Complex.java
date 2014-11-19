@@ -16,6 +16,7 @@ public class Complex {
     return "(" + r + " + " + i + "i)";
   }
 
+  // Static functions for doing math on complex numbers:
   public static Complex add(Complex c1, Complex c2) {
     return new Complex(c1.r + c2.r, c1.i + c2.i);
   }
