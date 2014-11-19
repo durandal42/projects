@@ -14,6 +14,7 @@ public class Sum implements Function {
   }
 
   public Function differentiate() {
+    // The derivative of a sum is the sum of the derivatives.
     return new Sum(f1.differentiate(), f2.differentiate());
   }
 
