@@ -5,7 +5,7 @@ public class Constant implements Function {
   public static final Constant ZERO = new Constant(Complex.ZERO);
   public static final Constant ONE = new Constant(Complex.ONE);
 
-  private Complex c;
+  private final Complex c;
 
   public Constant(Complex c) {
     this.c = c;
