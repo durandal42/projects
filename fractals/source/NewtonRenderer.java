@@ -1,20 +1,6 @@
-import java.awt.Canvas;
 import java.awt.Color;
-import java.awt.Frame;
-import java.awt.Graphics;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
 
-public class NewtonRenderer extends Canvas {
-
-  int imageX = 600;
-  int imageY = 600;
-  double viewMinX = -2.0;
-  double viewMaxX = 2.0;
-  double viewMinY = -2.0;
-  double viewMaxY = 2.0;
+public class NewtonRenderer extends Renderer {
 
   public static void main(String[] args) {
     // f(x) = x^5 - 1
@@ -56,25 +42,6 @@ public class NewtonRenderer extends Canvas {
     n.output();
   }
 
-  static void log(String msg) {
-    System.out.println(msg);
-  }
-
-  public void output() {
-    int gridThreshold = 2;
-    log("Creating image buffer...");
-    BufferedImage image = new BufferedImage(imageX, imageY,
-                                            BufferedImage.TYPE_INT_RGB);
-    log("Painting...");
-    paint(image.getGraphics());
-    log("Saving to disk...");
-    try {
-      ImageIO.write(image, "png", new File("output.png"));
-    } catch (IOException e) {
-      log("ERROR: failed to output to file.");
-    }
-  }
-
   Function function;
   Function derivative;
   public NewtonRenderer(Function func) {
@@ -82,37 +49,19 @@ public class NewtonRenderer extends Canvas {
     derivative = func.differentiate();
   }
 
-  public void paint(Graphics g) {
-    log("Painting " + imageX*imageY + " pixels from view:");
-    log("\tx: [" + viewMinX + " " + viewMaxX + "]");
-    log("\ty: [" + viewMinY + " " + viewMaxY + "]");
+  public Color pickColor(double r, double i) {
+    Complex guess = new Complex(r, i);
+    Newton.Result nr = Newton.newton(guess, function, derivative);
 
-    g.setColor(Color.green);
-    g.fillRect(0,0,imageX,imageY);
+    double stepScale = 1.0 - Math.sqrt(nr.steps / (double) Newton.MAX_STEPS);
 
-    double scaleX = (viewMaxX - viewMinX) / (double) imageX;
-    double scaleY = (viewMaxY - viewMinY) / (double) imageY;
+    double angle = Complex.angle(nr.solution);
+    double degrees = Math.round(Math.toDegrees(angle));
 
-    for (int x = 0; x < imageX ; x++) {
-      for (int y = 0; y < imageY ; y++) {
-        double r = scaleX * (double) x + viewMinX;
-        double i = scaleY * (double) y + viewMinY;
+    float h = (float) (degrees / 360.0);
+    float s = (float) 1.0;
+    float b = (float) stepScale;
 
-        Complex guess = new Complex(r, i);
-        Newton.Result nr = Newton.newton(guess, function, derivative);
-
-        double stepScale = 1.0 - Math.sqrt(nr.steps / (double) Newton.MAX_STEPS);
-
-        double angle = Complex.angle(nr.solution);
-        double degrees = Math.round(Math.toDegrees(angle));
-
-        float h = (float) (degrees / 360.0);
-        float s = (float) 1.0;
-        float b = (float) stepScale;
-
-        g.setColor(Color.getHSBColor(h, s, b));
-        g.drawLine(x, y, x, y);
-      }
-    }
+    return Color.getHSBColor(h, s, b);
   }
 }
