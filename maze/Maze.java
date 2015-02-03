@@ -154,7 +154,7 @@ public class Maze {
   }
 
   public void outputText(String fileName, int xDim, int yDim) throws IOException {
-    Timer t = new Timer("writing to text file");
+    Timer t = new Timer("writing to text file: " + fileName);
     BufferedWriter bw = new BufferedWriter(new FileWriter(fileName + ".txt"));
 
     StringBuffer result = new StringBuffer();
@@ -203,7 +203,7 @@ public class Maze {
     result.setCharAt(initOffset - 1, '2');
     result.setCharAt(initOffset + rowOffset*2*(yDim-1) + 2*(xDim-1) + 1, '3');
 
-    bw.write("" + (2*xDim+1) + " " + (2*yDim+1) + "\n");
+    bw.write("" + (2*yDim+1) + " " + (2*xDim+1) + "\n");
     bw.write(result.toString());
     bw.close();
     t.Stop();
