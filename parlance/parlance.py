@@ -22,11 +22,12 @@ while True:
   words = random.sample(word_ranks.keys(), BATCH_SIZE)
   print
   print
+  print 'Which of the following words is more commonly used?'
   print words
   sys.stdin.readline()
   max_freq = max(word_freqs[word] for word in words)
   for rank, freq, word in sorted([(word_ranks[word], word_freqs[word], word) for word in words]):
-    print '%s %s [%s] (%d)' % (
+    print '%s %s [%s] (#%d)' % (
       word,
       ' ' * (max_word_length - len(word)),
       '-' * int(20 * freq / max_freq),
