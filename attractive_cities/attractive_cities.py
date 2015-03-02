@@ -49,9 +49,13 @@ def get_components(graph):
     result.append(current_component)
   return result
 
-def remove_leaf(G, D):
+def leaf_heap(G, D):
   leaves = [(D[n], n) for n in G if len(G[node]) == 1]
   heapq.heapify(leaves)
+  return leaves
+
+def remove_leaf(G, D):
+  leaves = leaf_heap(G, D)
   minleaf = heapq.heappop(leaves)[1]
   remove_node(minleaf, G)
 
