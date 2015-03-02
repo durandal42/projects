@@ -21,11 +21,9 @@ def remove_node(node, graph):
   del graph[node]
 
 def prune_graph(graph, scores, threshold):
-  graph = copy.deepcopy(graph)
   to_remove = [n for n in graph if scores[n] < threshold]
   for n in to_remove:
     remove_node(n, graph)
-  return graph
   
 def component_nodes(node, graph):
   seen = set()
@@ -36,7 +34,7 @@ def component_nodes(node, graph):
     frontier += [neighbor for neighbor in graph[current] if neighbor not in seen]
   return seen
 
-def split_components(graph):
+def get_components(graph):
   graph = copy.deepcopy(graph)
   result = []
   while graph:
@@ -66,10 +64,10 @@ def solution(K, C, D):
   graph = make_graph(C)
   print 'graph:', graph
 
-  graph = prune_graph(graph, D, target_scores[-1])
+  prune_graph(graph, D, target_scores[-1])
   print 'pruned:', graph
 
-  components = split_components(graph)
+  components = get_components(graph)
   print 'components:', components
 
   best = 0
@@ -82,7 +80,8 @@ def solution(K, C, D):
     repruned = False
     for t,a in zip(target_scores, scores):
       if t > a:
-        components += split_components(prune_graph(graph, C, t))
+        prune_graph(graph, C, t)
+        components += get_components(graph)
         print 'repruned and added to components queue.'
         repruned = True
         break
