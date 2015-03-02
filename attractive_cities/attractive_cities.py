@@ -50,7 +50,7 @@ def get_components(graph):
   return result
 
 def leaf_heap(G, D):
-  leaves = [(D[n], n) for n in G if len(G[node]) == 1]
+  leaves = [(D[n], n) for n in G if len(G[n]) == 1]
   heapq.heapify(leaves)
   return leaves
 
@@ -89,10 +89,18 @@ def solution(K, C, D):
         break
     if repruned: continue
 
-    if len(scores) <= K and scores == target_scores[:K]:
-      print 'eligible component found with size:', len(scores)
-      best = max(best, len(scores))
-      continue
+    leaves = leaf_heap(graph, D)
+    while len(scores) > K or scores != target_scores[:len(scores)]:
+      worst_leaf_score, worst_leaf = heapq.heappop(leaves)
+      if worst_leaf_score == scores.pop():
+        remove_node(worst_leaf, component)
+        print 'discarding unattractive leaf:', worst_leaf
+        continue
+
+
+    print 'eligible component found with size %d: %s' % (len(scores), component)
+    best = max(best, len(scores))
+    continue
 
     print 'don\'t know what to do with component, scores:', component, scores
 
@@ -102,3 +110,4 @@ SAMPLE_C = [1, 3, 0, 3, 2, 4, 4]  # graph edges
 SAMPLE_D = [6, 2, 7, 5, 6, 5, 2]  # attractiveness scores
 
 print solution(2, SAMPLE_C, SAMPLE_D)
+print solution(4, SAMPLE_C, SAMPLE_D)
