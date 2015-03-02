@@ -1,5 +1,7 @@
 import collections
 import copy
+import heapq
+
 
 def make_graph(C):
   G = collections.defaultdict(list)
@@ -48,14 +50,10 @@ def get_components(graph):
   return result
 
 def remove_leaf(G, D):
-  leaves = []
-  for node in G:
-    if len(G[node]) == 1:
-      city = G[node][0]
-      heapq.heappush(leaves, (D[city], city))
+  leaves = [(D[n], n) for n in G if len(G[node]) == 1]
+  heapq.heapify(leaves)
   minleaf = heapq.heappop(leaves)[1]
   remove_node(minleaf, G)
-  return G
 
 def solution(K, C, D):
   target_scores = target_sorted_list(D, K)
