@@ -15,13 +15,16 @@ def target_sorted_list(D, K):
     if D_sorted[i] < D_sorted[K-1]:
       return D_sorted[:i]
     
+def remove_node(node, graph):
+  for neighbor in graph[node]:
+    graph[neighbor].remove(node)
+  del graph[node]
+
 def prune_graph(graph, scores, threshold):
   graph = copy.deepcopy(graph)
   to_remove = [n for n in graph if scores[n] < threshold]
   for n in to_remove:
-    for neighbor in graph[n]:
-      graph[neighbor].remove(n)
-    del graph[n]
+    remove_node(n, graph)
   return graph
   
 def component_nodes(node, graph):
@@ -45,6 +48,16 @@ def split_components(graph):
       del graph[node]
     result.append(current_component)
   return result
+
+def remove_leaf(G, D):
+  leaves = []
+  for node in G:
+    if len(G[node]) == 1:
+      city = G[node][0]
+      heapq.heappush(leaves, (D[city], city))
+  minleaf = heapq.heappop(leaves)[1]
+  remove_node(minleaf, G)
+  return G
 
 def solution(K, C, D):
   target_scores = target_sorted_list(D, K)
