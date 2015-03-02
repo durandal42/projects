@@ -82,9 +82,9 @@ def solution(K, C, D):
     repruned = False
     for t,a in zip(target_scores, scores):
       if t > a:
-        prune_graph(graph, C, t)
+        prune_graph(graph, D, t)
         components += get_components(graph)
-        print 'repruned and added to components queue.'
+        print 'target/actual score mismatch; repruned and added to components queue.'
         repruned = True
         break
     if repruned: continue
@@ -96,13 +96,17 @@ def solution(K, C, D):
         remove_node(worst_leaf, component)
         print 'discarding unattractive leaf:', worst_leaf
         continue
-
+      else:
+        prune_graph(graph, D, worst_leaf_score)
+        components += get_components(graph)
+        print 'worst leaf was not worst node; repruned and added to components queue.'
+        repruned = True
+        break
+    if repruned: continue
 
     print 'eligible component found with size %d: %s' % (len(scores), component)
     best = max(best, len(scores))
     continue
-
-    print 'don\'t know what to do with component, scores:', component, scores
 
   return best
 
@@ -110,4 +114,4 @@ SAMPLE_C = [1, 3, 0, 3, 2, 4, 4]  # graph edges
 SAMPLE_D = [6, 2, 7, 5, 6, 5, 2]  # attractiveness scores
 
 print solution(2, SAMPLE_C, SAMPLE_D)
-print solution(4, SAMPLE_C, SAMPLE_D)
+print solution(5, SAMPLE_C, SAMPLE_D)
