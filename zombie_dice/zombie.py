@@ -49,27 +49,36 @@ UTILITY = lambda score: score
 STOP_FUNCTION = lambda score: score >= MAX_BRAINS
 
 def start_state():
+  done = False
   accumulated_score = 0
   blams = (0,0,0)
   brains = (0,0,0)
   hand = (0,0,0)
   cup = (NUM_GREENS, NUM_YELLOWS, NUM_REDS)
-  return (accumulated_score, blams, brains, hand, cup)
+  return (done, accumulated_score, blams, brains, hand, cup)
 
 def verify_state(state):
-  accumulated_score, blams, brains, hand, cup = state
+  done, accumulated_score, blams, brains, hand, cup = state
   assert (sum(blams) + sum(brains) + sum(hand) + sum(cup)
-          == NUM_GREENS + NUM_YELLOWS + NUM_REDS)  
+          == NUM_GREENS + NUM_YELLOWS + NUM_REDS)
 
-def best_outcome(state=start_state()):
-  verify_state(state)
-  accumulated_score, blams, brains, hand, cup = state
+def mark_done(state):
+  return (True,) + state[1:]
 
-  if sum(blams) >= MAX_BLAMS: return UTILITY(0)  # Too many blams loses everything.
-  if STOP_FUNCTION(accumulated_score): return UTILITY(accumulated_score)  # Assumes you stand once reaching MAX_BRAINS.
+def single_outcome(state):
+  return {state:1}
+
+def choices(state):
+  if state[0]: return  # already done
+
+  yield ('STAND', single_outcome(mark_done(state)))
+  if STOP_FUNCTION(state[1]): return # Assumes you stand once reaching MAX_BRAINS.
+
+  done, accumulated_score, blams, brains, hand, cup = state
+
+  roll_outcomes = collections.Counter()
 
   dice_needed = HAND_SIZE - sum(hand)  # How many dice we'll need to draw from the cup.
-
   if dice_needed > sum(cup):
     # Refill cup with brains, but remember the score for them.
     cup = (cup[GREEN] + brains[GREEN],
@@ -82,7 +91,6 @@ def best_outcome(state=start_state()):
   draws = collections.Counter(possible_draws(dice_needed, cup))
   num_draws = sum(draws.values())
 
-  total_expected_utils = fractions.Fraction(0)  # Running total of the value of our current situation.
   for draw, draw_frequency in draws.iteritems():
     # Given a draw, compute all possible roll outcomes:
     outcomes = utils.cross_counted(
@@ -92,38 +100,52 @@ def best_outcome(state=start_state()):
       combine_roll)
 
     num_outcomes = sum(outcomes.values())
-    draw_expected_utils = fractions.Fraction(0)  # Running total of the value of this draw.
     for outcome, outcome_frequency in outcomes.iteritems():
       outcome_blams, outcome_brains, outcome_feet = outcome
-      if sum(outcome_feet) == HAND_SIZE and dice_needed == 0:
-        # Triple feet, and we were allowed to stand already.
+
+      new_state = (False, accumulated_score + sum(outcome_brains),
+                   (blams[GREEN] + outcome_blams[GREEN],
+                    blams[YELLOW] + outcome_blams[YELLOW],
+                    blams[RED] + outcome_blams[RED]),
+                   (brains[GREEN] + outcome_brains[GREEN],
+                    brains[YELLOW] + outcome_brains[YELLOW],
+                    brains[RED] + outcome_brains[RED]),
+                   outcome_feet,
+                   (cup[GREEN] - draw[GREEN],
+                    cup[YELLOW] - draw[YELLOW],
+                    cup[RED] - draw[RED]))
+
+      if sum(new_state[2]) >= MAX_BLAMS:
+        new_state = (True, 0) + new_state[2:]  # too many BLAMS; 0 points and done.
+
+      if new_state == state:
         # This would result in a recursive call to evaluate exactly the same 
         # position we were just in. Because math, dropping this outcome entirely works.
-        num_outcomes -= outcome_frequency
         continue
-      # Recursively score the resulting situation.
-      outcome_score = best_outcome((accumulated_score + sum(outcome_brains),
-                                    (blams[GREEN] + outcome_blams[GREEN],
-                                     blams[YELLOW] + outcome_blams[YELLOW],
-                                     blams[RED] + outcome_blams[RED]),
-                                    (brains[GREEN] + outcome_brains[GREEN],
-                                     brains[YELLOW] + outcome_brains[YELLOW],
-                                     brains[RED] + outcome_brains[RED]),
-                                    outcome_feet,
-                                    (cup[GREEN] - draw[GREEN],
-                                     cup[YELLOW] - draw[YELLOW],
-                                     cup[RED] - draw[RED])))
-      # Add the score for this outcome to the value of the draw.
-      # Don't normalize by outcome count yet, because outcomes we haven't considered yet
-      # may get dropped.
-      draw_expected_utils += outcome_frequency * outcome_score
 
-    # Add the value for this draw to the total value, normalized by draw and outcome counts.
-    total_expected_utils += draw_frequency * draw_expected_utils / num_outcomes / num_draws
+      roll_outcomes[new_state] += draw_frequency * outcome_frequency
 
-  best_utils, choice = max((total_expected_utils, 'ROLL'), (UTILITY(accumulated_score), 'STAND'))
-  emit(state, choice, best_utils)
-  return best_utils
+  yield ('ROLL', roll_outcomes)
+
+def score_outcomes(states):
+  num_states = sum(states.values())
+  assert num_states > 0
+  return fractions.Fraction(sum(score_state(state)*frequency
+                                for state,frequency in states.iteritems()),
+                            num_states)
+
+def score_state(state):
+  if not state[0]: return best_outcome(state)
+  else: return state[1]
+
+def best_outcome(state=start_state()):
+  verify_state(state)
+  if state[0]: return state[1]  # already done
+
+  best_score, best_choice = max((score_outcomes(outcomes), choice)
+                                for choice, outcomes in choices(state))
+  emit(state, best_choice, best_score)
+  return best_score
 
 # Avoid re-computing scenarios.
 best_outcome = utils.Memoize(best_outcome)
@@ -151,7 +173,7 @@ def possible_draws(needed, cup):
 # A local heuristic for estimating whether one should roll or stand.
 # To be graded against the actual optimal behavior in every situation.
 def heuristic(key):
-  score, blams_by_color, brains_by_color, hand, cup = key
+  done, score, blams_by_color, brains_by_color, hand, cup = key
   blams = sum(blams_by_color)
   brains = score
   if brains == 0: return 'ROLL' # gotta play to win
@@ -168,7 +190,7 @@ def heuristic(key):
 def emit(key, choice, result):
   error = 0
   if heuristic(key) != choice:
-    stand_score = key[0]
+    stand_score = key[1]
     if stand_score != result:
       error = math.fabs(result - stand_score) / stand_score
   print "%s\t%s\t%4f\t%4f" % (key, choice, result, error)
