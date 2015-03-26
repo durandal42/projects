@@ -1,4 +1,5 @@
 import utils
+import solver
 import math
 import collections
 import fractions
@@ -45,7 +46,6 @@ YELLOW = 1
 RED = 2
 
 # Scoring function
-UTILITY = lambda score: score
 STOP_FUNCTION = lambda score: score >= MAX_BRAINS
 
 def start_state():
@@ -57,24 +57,13 @@ def start_state():
   cup = (NUM_GREENS, NUM_YELLOWS, NUM_REDS)
   return (done, accumulated_score, blams, brains, hand, cup)
 
-def verify_state(state):
-  done, accumulated_score, blams, brains, hand, cup = state
-  assert (sum(blams) + sum(brains) + sum(hand) + sum(cup)
-          == NUM_GREENS + NUM_YELLOWS + NUM_REDS)
-
-def mark_done(state):
-  return (True,) + state[1:]
-
-def single_outcome(state):
-  return {state:1}
-
 def choices(state):
-  if state[0]: return  # already done
-
-  yield ('STAND', single_outcome(mark_done(state)))
+  yield ('STAND', solver.single_outcome(solver.mark_done(state)))
   if STOP_FUNCTION(state[1]): return # Assumes you stand once reaching MAX_BRAINS.
 
   done, accumulated_score, blams, brains, hand, cup = state
+  assert (sum(blams) + sum(brains) + sum(hand) + sum(cup)
+          == NUM_GREENS + NUM_YELLOWS + NUM_REDS)
 
   roll_outcomes = collections.Counter()
 
@@ -127,29 +116,6 @@ def choices(state):
 
   yield ('ROLL', roll_outcomes)
 
-def score_outcomes(states):
-  num_states = sum(states.values())
-  assert num_states > 0
-  return fractions.Fraction(sum(score_state(state)*frequency
-                                for state,frequency in states.iteritems()),
-                            num_states)
-
-def score_state(state):
-  if not state[0]: return best_outcome(state)
-  else: return state[1]
-
-def best_outcome(state=start_state()):
-  verify_state(state)
-  if state[0]: return state[1]  # already done
-
-  best_score, best_choice = max((score_outcomes(outcomes), choice)
-                                for choice, outcomes in choices(state))
-  emit(state, best_choice, best_score)
-  return best_score
-
-# Avoid re-computing scenarios.
-best_outcome = utils.Memoize(best_outcome)
-
 # Given a requested number of dice, and a cup population, yield all possible draws.
 def possible_draws(needed, cup):
   assert needed <= sum(cup)
@@ -170,6 +136,8 @@ def possible_draws(needed, cup):
     for i in range(cup[RED]):
       yield (draw[GREEN], draw[YELLOW], draw[RED]+1)
 
+
+# TODO(durandal): generalize output / heuristics?
 # A local heuristic for estimating whether one should roll or stand.
 # To be graded against the actual optimal behavior in every situation.
 def heuristic(key):
@@ -196,16 +164,6 @@ def emit(key, choice, result):
   print "%s\t%s\t%4f\t%4f" % (key, choice, result, error)
   #print "%s\t%s\t%s\t%s" % (key, choice, result, error)
 
-def threshold_utility(score, brains_needed, leaders=1):
-  if score < brains_needed: return fractions.Fraction(0)
-  if score > brains_needed: return fractions.Fraction(1)
-  return fractions.Fraction(1, leaders+1)
-
-def threshold(brains_needed, leaders=1):
-  return (lambda score: threshold_utility(score, brains_needed, leaders)), (lambda score: score > brains_needed)
-
+solver.CHOOSER = choices
 print "(g, y, r blams), (g, y, r brains), (g, y, r in hand), (g, y, r in cup), recommendation, score, importance"
-
-UTILITY, STOP_FUNCTION = threshold(5)
-
-best_outcome()
+solver.best_outcome(start_state())
