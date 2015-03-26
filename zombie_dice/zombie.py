@@ -1,46 +1,7 @@
-class Memoize:
-  def __init__(self, f, display=False):
-    self.f = f
-    self.memo = {}
-    self.display = display
-  def __call__(self, *args):
-    if not args in self.memo:
-      self.memo[args] = self.f(*args)
-      if self.display:
-        print 'memoized%s = %s' % (args, self.memo[args])
-    return self.memo[args]
-
+import utils
 import math
 import collections
 import fractions
-
-# Given a list of frequency dictionaries, compute their product.
-# Optionally, apply a supplied reduce function to the resulting events sequences.
-def cross_counted(args, f=lambda x: x):
-  product = reduce(lambda left, right: {l + (r,): lc * rc
-                                        for l, lc in left.iteritems()
-                                        for r, rc in right.iteritems()},
-                   args, {():1})
-  result = collections.Counter()
-  for event, count in product.iteritems():
-    result[f(event)] += count
-  return result
-
-assert (cross_counted([{'a':2, 'b':3},
-                       {'c':5, 'd':7, 'e':11}]) ==
-        {('a', 'c'): 10,
-         ('a', 'd'): 14,
-         ('a', 'e'): 22,
-         ('b', 'c'): 15,
-         ('b', 'd'): 21,
-         ('b', 'e'): 33,
-         })
-
-assert (cross_counted([{'a':2, 'b':3},
-                       {'c':5, 'd':7, 'e':11}],
-                      lambda x: x[0]) ==
-        {'a': 10 + 14 + 22,
-         'b': 15 + 21 + 33,})
 
 # Die outcome names.
 BRAIN_GREEN = 'bg'
@@ -87,26 +48,33 @@ RED = 2
 UTILITY = lambda score: score
 STOP_FUNCTION = lambda score: score >= MAX_BRAINS
 
-def best_outcome(score=0,
-                 blams=(0,0,0),
-                 brains=(0,0,0),
-                 hand=(0,0,0),
-                 cup=(NUM_GREENS, NUM_YELLOWS, NUM_REDS)):
-  key = (score, blams, brains, hand, cup)
-  # print key
+def start_state():
+  accumulated_score = 0
+  blams = (0,0,0)
+  brains = (0,0,0)
+  hand = (0,0,0)
+  cup = (NUM_GREENS, NUM_YELLOWS, NUM_REDS)
+  return (accumulated_score, blams, brains, hand, cup)
+
+def verify_state(state):
+  accumulated_score, blams, brains, hand, cup = state
   assert (sum(blams) + sum(brains) + sum(hand) + sum(cup)
-          == NUM_GREENS + NUM_YELLOWS + NUM_REDS)
+          == NUM_GREENS + NUM_YELLOWS + NUM_REDS)  
+
+def best_outcome(state=start_state()):
+  verify_state(state)
+  accumulated_score, blams, brains, hand, cup = state
 
   if sum(blams) >= MAX_BLAMS: return UTILITY(0)  # Too many blams loses everything.
-  if STOP_FUNCTION(score): return UTILITY(score)  # Assumes you stand once reaching MAX_BRAINS.
+  if STOP_FUNCTION(accumulated_score): return UTILITY(accumulated_score)  # Assumes you stand once reaching MAX_BRAINS.
 
   dice_needed = HAND_SIZE - sum(hand)  # How many dice we'll need to draw from the cup.
 
   if dice_needed > sum(cup):
     # Refill cup with brains, but remember the score for them.
     cup = (cup[GREEN] + brains[GREEN],
-              cup[YELLOW] + brains[YELLOW],
-              cup[RED] + brains[RED])
+           cup[YELLOW] + brains[YELLOW],
+           cup[RED] + brains[RED])
     brains = (0,0,0)
 
   # Possible outcomes for drawing from the cup.
@@ -117,7 +85,7 @@ def best_outcome(score=0,
   total_expected_utils = fractions.Fraction(0)  # Running total of the value of our current situation.
   for draw, draw_frequency in draws.iteritems():
     # Given a draw, compute all possible roll outcomes:
-    outcomes = cross_counted(
+    outcomes = utils.cross_counted(
       DIE_GREEN * (hand[GREEN] + draw[GREEN]) +
       DIE_YELLOW * (hand[YELLOW] + draw[YELLOW]) +
       DIE_RED * (hand[RED] + draw[RED]),
@@ -134,17 +102,17 @@ def best_outcome(score=0,
         num_outcomes -= outcome_frequency
         continue
       # Recursively score the resulting situation.
-      outcome_score = best_outcome(score + sum(outcome_brains),
-                                   (blams[GREEN] + outcome_blams[GREEN],
-                                    blams[YELLOW] + outcome_blams[YELLOW],
-                                    blams[RED] + outcome_blams[RED]),
-                                   (brains[GREEN] + outcome_brains[GREEN],
-                                    brains[YELLOW] + outcome_brains[YELLOW],
-                                    brains[RED] + outcome_brains[RED]),
-                                   outcome_feet,
-                                   (cup[GREEN] - draw[GREEN],
-                                    cup[YELLOW] - draw[YELLOW],
-                                    cup[RED] - draw[RED]))
+      outcome_score = best_outcome((accumulated_score + sum(outcome_brains),
+                                    (blams[GREEN] + outcome_blams[GREEN],
+                                     blams[YELLOW] + outcome_blams[YELLOW],
+                                     blams[RED] + outcome_blams[RED]),
+                                    (brains[GREEN] + outcome_brains[GREEN],
+                                     brains[YELLOW] + outcome_brains[YELLOW],
+                                     brains[RED] + outcome_brains[RED]),
+                                    outcome_feet,
+                                    (cup[GREEN] - draw[GREEN],
+                                     cup[YELLOW] - draw[YELLOW],
+                                     cup[RED] - draw[RED])))
       # Add the score for this outcome to the value of the draw.
       # Don't normalize by outcome count yet, because outcomes we haven't considered yet
       # may get dropped.
@@ -153,12 +121,12 @@ def best_outcome(score=0,
     # Add the value for this draw to the total value, normalized by draw and outcome counts.
     total_expected_utils += draw_frequency * draw_expected_utils / num_outcomes / num_draws
 
-  utils, choice = max((total_expected_utils, 'ROLL'), (UTILITY(score), 'STAND'))
-  emit(key, choice, utils)
-  return utils
+  best_utils, choice = max((total_expected_utils, 'ROLL'), (UTILITY(accumulated_score), 'STAND'))
+  emit(state, choice, best_utils)
+  return best_utils
 
 # Avoid re-computing scenarios.
-best_outcome = Memoize(best_outcome)
+best_outcome = utils.Memoize(best_outcome)
 
 # Given a requested number of dice, and a cup population, yield all possible draws.
 def possible_draws(needed, cup):
