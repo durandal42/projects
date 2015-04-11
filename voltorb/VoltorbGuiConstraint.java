@@ -61,60 +61,60 @@ class VoltorbGuiConstraint extends Container implements KeyListener {
   }
 
 
-    VoltorbGuiConstraint nextConstraint = null;
-    void setNextConstraint(VoltorbGuiConstraint c) {
-	nextConstraint = c;
+  VoltorbGuiConstraint nextConstraint = null;
+  void setNextConstraint(VoltorbGuiConstraint c) {
+      nextConstraint = c;
+  }
+  public void keyTyped(KeyEvent e) {
+    if (e.getSource() == orbField) {
+      switch(e.getKeyChar()) {
+      case '0':
+      case '1':
+      case '2':
+      case '3':
+      case '4':
+      case '5':
+        if (nextConstraint != null) {
+          nextConstraint.coinField.requestFocus();
+        } else {
+          owner.control.levelField.requestFocus();
+        }
+      }
     }
-    public void keyTyped(KeyEvent e) {
-	if (e.getSource() == orbField) {
-	    switch(e.getKeyChar()) {
-	    case '0':
-	    case '1':
-	    case '2':
-	    case '3':
-	    case '4':
-	    case '5':
-		if (nextConstraint != null) {
-		    nextConstraint.coinField.requestFocus();
-		} else {
-		    owner.control.levelField.requestFocus();
-		}
-	    }
-	}
-	if (e.getSource() == coinField) {
-	    switch (e.getKeyChar()) {
-	    case '1':
-	    case '2':
-	    case '3':
-		if (coinField.getText().length() == 2) {
-		    orbField.requestFocus();
-		    break;
-		}
-	    case '4':
-	    case '5':
-	    case '6':
-	    case '7':
-	    case '8':
-	    case '9':
-		if (coinField.getText().length() == 2) {
-		    orbField.setText(coinField.getText().substring(1,2));
-		    coinField.setText(coinField.getText().substring(0,1));
-		    if (nextConstraint != null) {
-			nextConstraint.coinField.requestFocus();
-		    } else {
-			owner.control.levelField.requestFocus();
-		    }
-		} else if (e.getKeyChar() != '1') {
-		    orbField.requestFocus();
-		}
-		break;
-	    case '0':
-		orbField.requestFocus();
-		break;
-	    }
-	}
+    if (e.getSource() == coinField) {
+      switch (e.getKeyChar()) {
+      case '1':
+      case '2':
+      case '3':
+        if (coinField.getText().length() == 2) {
+            orbField.requestFocus();
+            break;
+        }
+      case '4':
+      case '5':
+      case '6':
+      case '7':
+      case '8':
+      case '9':
+        if (coinField.getText().length() == 2) {
+          orbField.setText(coinField.getText().substring(1,2));
+          coinField.setText(coinField.getText().substring(0,1));
+          if (nextConstraint != null) {
+            nextConstraint.coinField.requestFocus();
+          } else {
+            owner.control.levelField.requestFocus();
+          }
+        } else if (e.getKeyChar() != '1') {
+          orbField.requestFocus();
+        }
+        break;
+      case '0':
+        orbField.requestFocus();
+        break;
+      }
     }
-    public void keyPressed(KeyEvent e) {}
-    public void keyReleased(KeyEvent e) {}
+  }
+  public void keyPressed(KeyEvent e) {}
+  public void keyReleased(KeyEvent e) {}
 
 }

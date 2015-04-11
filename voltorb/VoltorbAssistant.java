@@ -90,116 +90,116 @@ public class VoltorbAssistant {
     }
   }
 
-    static void filterByLevel(int level, List<VoltorbBoard> list) {
-        boolean removed = false;
-        Iterator<VoltorbBoard> itr = list.iterator();
-        while(itr.hasNext()) {
-            VoltorbBoard v = itr.next();
-            int score = 1;
-            for(Probe p : Probe.AllProbes()) {
-                int val = v.board[p.row][p.col];
-                if (val != 0) score *= val;
-            }
-            if (!possibleScoreAtLevel(score, level)) {
-                removed = true;
-                itr.remove();
-            }
-        }
-        if (removed) System.out.println("level filter still useful");
-    }
-    static boolean possibleScoreAtLevel(int score, int level) {
-        switch(level) {
-        case 1: return (20 <= score && score <= 50);
-        case 2: return (50 <= score && score <= 100);
-        case 3: return (100 <= score && score <= 200);
-        case 4: return (200 <= score && score <= 400);
-        case 5: return (384 <= score && score <= 600);
-        case 6: return (600 <= score && score <= 1000);
-        case 7: return (1000 <= score && score <= 2000);
-        case 8: return (2000 <= score && score <= 3000);
-        default: return true;
-        }
-    }
-    
-    static Map<Probe,Histogram> histo(List<VoltorbBoard> list) {
-        return histo(list, Probe.AllProbes());
-    }
+  static void filterByLevel(int level, List<VoltorbBoard> list) {
+      boolean removed = false;
+      Iterator<VoltorbBoard> itr = list.iterator();
+      while(itr.hasNext()) {
+          VoltorbBoard v = itr.next();
+          int score = 1;
+          for(Probe p : Probe.AllProbes()) {
+              int val = v.board[p.row][p.col];
+              if (val != 0) score *= val;
+          }
+          if (!possibleScoreAtLevel(score, level)) {
+              removed = true;
+              itr.remove();
+          }
+      }
+      if (removed) System.out.println("level filter still useful");
+  }
+  static boolean possibleScoreAtLevel(int score, int level) {
+      switch(level) {
+      case 1: return (20 <= score && score <= 50);
+      case 2: return (50 <= score && score <= 100);
+      case 3: return (100 <= score && score <= 200);
+      case 4: return (200 <= score && score <= 400);
+      case 5: return (384 <= score && score <= 600);
+      case 6: return (600 <= score && score <= 1000);
+      case 7: return (1000 <= score && score <= 2000);
+      case 8: return (2000 <= score && score <= 3000);
+      default: return true;
+      }
+  }
+  
+  static Map<Probe,Histogram> histo(List<VoltorbBoard> list) {
+      return histo(list, Probe.AllProbes());
+  }
 
-    static Map<Probe,Histogram> histo(List<VoltorbBoard> list, Collection<Probe> probes) {
-        Map<Probe,Histogram> result = new HashMap<Probe,Histogram>();
-        for (Probe p : probes) {
-            Histogram h = new Histogram();
-            for(VoltorbBoard v : list) {
-                h.inc(v.board[p.row][p.col]);
-            }
-            result.put(p, h);
-        }
-        return result;
-    }
+  static Map<Probe,Histogram> histo(List<VoltorbBoard> list, Collection<Probe> probes) {
+      Map<Probe,Histogram> result = new HashMap<Probe,Histogram>();
+      for (Probe p : probes) {
+          Histogram h = new Histogram();
+          for(VoltorbBoard v : list) {
+              h.inc(v.board[p.row][p.col]);
+          }
+          result.put(p, h);
+      }
+      return result;
+  }
 
-    static Evaluation bestProbe(List<VoltorbBoard> list, int level, Map<Probe,Integer> discoveries, double relevance) {
-        final boolean covered = level <= discoveries.size();
-        final Map<Probe,Histogram> histo = histo(list);
-        Evaluation result = new Evaluation();
-        TreeSet<Probe> sortedProbes = new TreeSet<Probe>(new Comparator<Probe>() {
-                public int compare(Probe p1, Probe p2) {
-                    double delta = histo.get(p1).eval(covered) - histo.get(p2).eval(covered);
-                    if (delta < 0) return 1;
-                    if (delta > 0) return -1;
-                    return p1.compareTo(p2);
-                }
-            });
-        sortedProbes.addAll(Probe.AllProbes());
-        int probesConsidered = 0;
-        for(Probe p : sortedProbes) {
-            double eval = histo.get(p).eval(covered);
-            if (eval <= 0.0 ||
-                discoveries.containsKey(p)) {
-                continue;
-            }
-            //            if (relevance == 1.0 && eval >= 1.0) {
-            //                result.addScore(p, eval);
-            //                return result;
-            //            }
+  static Evaluation bestProbe(List<VoltorbBoard> list, int level, Map<Probe,Integer> discoveries, double relevance) {
+      final boolean covered = level <= discoveries.size();
+      final Map<Probe,Histogram> histo = histo(list);
+      Evaluation result = new Evaluation();
+      TreeSet<Probe> sortedProbes = new TreeSet<Probe>(new Comparator<Probe>() {
+              public int compare(Probe p1, Probe p2) {
+                  double delta = histo.get(p1).eval(covered) - histo.get(p2).eval(covered);
+                  if (delta < 0) return 1;
+                  if (delta > 0) return -1;
+                  return p1.compareTo(p2);
+              }
+          });
+      sortedProbes.addAll(Probe.AllProbes());
+      int probesConsidered = 0;
+      for(Probe p : sortedProbes) {
+          double eval = histo.get(p).eval(covered);
+          if (eval <= 0.0 ||
+              discoveries.containsKey(p)) {
+              continue;
+          }
+          //            if (relevance == 1.0 && eval >= 1.0) {
+          //                result.addScore(p, eval);
+          //                return result;
+          //            }
 
-            probesConsidered++;
-            Histogram h = histo.get(p);
-            double score = 0.0;
-            double remainingProb = 1.0;
-            for(int i = 0; i < 4; i++) {
-                double prob = h.getProbability(i);
-                remainingProb -= prob;
-                if (prob == 0.0) continue;
-                if (i == 0) {
-                    int delevel = level - discoveries.size();
-                    if (delevel > 0) {
-                        score -= prob * delevel;
-                    }
-                    continue;
-                }
-                List<VoltorbBoard> hList = new LinkedList<VoltorbBoard>();
-                hList.addAll(list);
-                filterByDiscovery(new Discovery(p, i), hList);
-                Map<Probe,Integer> hDisc = new HashMap<Probe,Integer>();
-                hDisc.putAll(discoveries);
-                hDisc.put(p, i);
-                score += prob * bestProbe(hList, level, hDisc, relevance * prob).bestScore;
+          probesConsidered++;
+          Histogram h = histo.get(p);
+          double score = 0.0;
+          double remainingProb = 1.0;
+          for(int i = 0; i < 4; i++) {
+              double prob = h.getProbability(i);
+              remainingProb -= prob;
+              if (prob == 0.0) continue;
+              if (i == 0) {
+                  int delevel = level - discoveries.size();
+                  if (delevel > 0) {
+                      score -= prob * delevel;
+                  }
+                  continue;
+              }
+              List<VoltorbBoard> hList = new LinkedList<VoltorbBoard>();
+              hList.addAll(list);
+              filterByDiscovery(new Discovery(p, i), hList);
+              Map<Probe,Integer> hDisc = new HashMap<Probe,Integer>();
+              hDisc.putAll(discoveries);
+              hDisc.put(p, i);
+              score += prob * bestProbe(hList, level, hDisc, relevance * prob).bestScore;
 
-                //                if (result.bestScore - score > remainingProb) {
-                //                    break;
-                //                }
-            }
-            result.addScore(p, score);
-            int maxProbes = (int)(relevance * 4);
-            if (probesConsidered >= maxProbes) {
-                break;
-            }
-        }
-        if (result.bestProbe == null) {
-            result.bestScore = 1.0;
-        }
-        return result;
-    }
+              //                if (result.bestScore - score > remainingProb) {
+              //                    break;
+              //                }
+          }
+          result.addScore(p, score);
+          int maxProbes = (int)(relevance * 4);
+          if (probesConsidered >= maxProbes) {
+              break;
+          }
+      }
+      if (result.bestProbe == null) {
+          result.bestScore = 1.0;
+      }
+      return result;
+  }
 
   static void printKnowledge(List<VoltorbBoard> list) {
     StringBuffer buf = new StringBuffer();

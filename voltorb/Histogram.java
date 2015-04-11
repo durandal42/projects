@@ -28,15 +28,17 @@ public class Histogram {
 
     if (values[0] == 0 && values[1] < total) {
       // guaranteed non-orb
-      return getProbability(1) + 2 * getProbability(2) + 3 * getProbability(3);
+      return (1 * getProbability(1) +
+              2 * getProbability(2) +
+              3 * getProbability(3);
     }
 
     if (covered) {
       // chance of a mutliplier
-      return (double) (values[2] + values[3]) / (double) total;        
+      return getProbability(2) + getProbability(3);
     } else {
       // chance of a non-orb
-      return (double) (total - values[0]) / (double) total;
+      return 1.0 - getProbability(0);
     }
   }
 }
