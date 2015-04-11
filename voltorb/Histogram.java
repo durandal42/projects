@@ -32,11 +32,11 @@ public class Histogram {
     }
 
     if (covered) {
-	// chance of a mutliplier
-	return (double) (values[2] + values[3]) / (double) total;	
+      // chance of a mutliplier
+      return (double) (values[2] + values[3]) / (double) total;        
     } else {
-	// chance of a non-orb
-	return (double) (total - values[0]) / (double) total;
+      // chance of a non-orb
+      return (double) (total - values[0]) / (double) total;
     }
   }
 }

@@ -3,16 +3,16 @@ public class GroupConstraint {
     int orbs;
     int unknown;
     public GroupConstraint(int c, int o, int u) {
-	coins = c;
-	orbs = o;
-	unknown = u;
+        coins = c;
+        orbs = o;
+        unknown = u;
     }
     public GroupConstraint(int c, int o) {
-	coins = c;
-	orbs = o;
-	unknown = 0;
+        coins = c;
+        orbs = o;
+        unknown = 0;
     }
     public String toString() {
-	return "[" + coins + "," + orbs + " (" + unknown + ")]";
+        return "[" + coins + "," + orbs + " (" + unknown + ")]";
     }
 }

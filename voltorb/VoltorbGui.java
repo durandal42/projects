@@ -19,23 +19,23 @@ public class VoltorbGui extends Container implements ActionListener {
       int level = Integer.parseInt(control.levelField.getText());
 
     java.util.List<GroupConstraint> rowConstraints =
-	new ArrayList<GroupConstraint>(VoltorbBoard.SIZE);
+        new ArrayList<GroupConstraint>(VoltorbBoard.SIZE);
     for(int i = 0; i < VoltorbBoard.SIZE; i++) {
       rowConstraints.add(rows[i].getConstraint());
     }
     java.util.List<GroupConstraint> colConstraints =
-	new ArrayList<GroupConstraint>(VoltorbBoard.SIZE);
+        new ArrayList<GroupConstraint>(VoltorbBoard.SIZE);
     for(int i = 0; i < VoltorbBoard.SIZE; i++) {
       colConstraints.add(cols[i].getConstraint());
     }
 
     Map<Probe,Integer> discoveries = new HashMap<Probe,Integer>();
     for(int i = 0; i < VoltorbBoard.SIZE; i++) {
-	for(int j = 0; j < VoltorbBoard.SIZE; j++) {
-	    if (cells[i][j].hasValue()) {
-		discoveries.put(new Probe(i, j), cells[i][j].getValue());
-	    }
-	}
+        for(int j = 0; j < VoltorbBoard.SIZE; j++) {
+            if (cells[i][j].hasValue()) {
+                discoveries.put(new Probe(i, j), cells[i][j].getValue());
+            }
+        }
     }
 
     java.util.List<VoltorbBoard> possible =
@@ -45,11 +45,11 @@ public class VoltorbGui extends Container implements ActionListener {
     VoltorbAssistant.filterByLevel(level, possible);
 
     if (lastSize != -1) {
-	if (possible.size() * 10 <= lastSize) {
-	    System.out.println("Was that what you were expecting?!");
-	}
+        if (possible.size() * 10 <= lastSize) {
+            System.out.println("Was that what you were expecting?!");
+        }
     } else {
-	System.out.println("Calculating possibilities for a new set of constraints...");
+        System.out.println("Calculating possibilities for a new set of constraints...");
     }
     lastSize = possible.size();
 
@@ -68,14 +68,14 @@ public class VoltorbGui extends Container implements ActionListener {
     for(int i = 0; i < VoltorbBoard.SIZE; i++) {
       for(int j = 0; j < VoltorbBoard.SIZE; j++) {
         VoltorbGuiCell vc = cells[i][j];
-	Histogram h = histo.get(new Probe(i,j));
-	vc.displayHistogram(h);
-	vc.clearScore();
+        Histogram h = histo.get(new Probe(i,j));
+        vc.displayHistogram(h);
+        vc.clearScore();
       }
     }
 
     if (discoveries.size() == level) {
-	System.out.println("Current level is covered; now gunning for points...");
+        System.out.println("Current level is covered; now gunning for points...");
     }
 
     threadedStrategic(possible, level, discoveries);
@@ -84,34 +84,34 @@ public class VoltorbGui extends Container implements ActionListener {
     static ExecutorService threadPool = Executors.newCachedThreadPool();
     Future strategicFuture = null;
     void threadedStrategic(final java.util.List<VoltorbBoard> possible,
-			   final int level,
-			   final Map<Probe,Integer> discoveries) {
-	if (strategicFuture != null && strategicFuture.cancel(true)) {
-	    System.out.println("(cancelled previously running computation)");
-	}
-	//	System.out.println("Evaluating best strategic option; this may take a while...");
-	strategicFuture = threadPool.submit(new Runnable() {
-		public void run() {
-		    strategic(possible, level, discoveries);
-		}
-	    });
+                           final int level,
+                           final Map<Probe,Integer> discoveries) {
+        if (strategicFuture != null && strategicFuture.cancel(true)) {
+            System.out.println("(cancelled previously running computation)");
+        }
+        //        System.out.println("Evaluating best strategic option; this may take a while...");
+        strategicFuture = threadPool.submit(new Runnable() {
+                public void run() {
+                    strategic(possible, level, discoveries);
+                }
+            });
     }
 
   void strategic(java.util.List<VoltorbBoard> possible, int level, Map<Probe,Integer> discoveries) {
     Evaluation eval = VoltorbAssistant.bestProbe(possible, level, discoveries, 1.0);
     if (eval == null || eval.bestProbe == null) {
-	// We've won!
-	System.out.println("board is solved! all remaining multipliers are known.");
-	return;
+        // We've won!
+        System.out.println("board is solved! all remaining multipliers are known.");
+        return;
     }
 
     for(int i = 0; i < VoltorbBoard.SIZE; i++) {
       for(int j = 0; j < VoltorbBoard.SIZE; j++) {
         VoltorbGuiCell vc = cells[i][j];
-	Probe p = new Probe(i, j);
-	if (eval.scores.containsKey(p)) {
-	    vc.displayScore(eval.scores.get(p));
-	}
+        Probe p = new Probe(i, j);
+        if (eval.scores.containsKey(p)) {
+            vc.displayScore(eval.scores.get(p));
+        }
       }
     }
     VoltorbGuiCell bestCell = cells[eval.bestProbe.row][eval.bestProbe.col];
@@ -121,9 +121,9 @@ public class VoltorbGui extends Container implements ActionListener {
   }
 
   public void Init() {
-    VoltorbBoard vb = VoltorbBoard.random();
-    java.util.List<GroupConstraint> rowConstraints = vb.constraints(true);
-    java.util.List<GroupConstraint> colConstraints = vb.constraints(false);
+    // VoltorbBoard vb = VoltorbBoard.random();
+    // java.util.List<GroupConstraint> rowConstraints = vb.constraints(true);
+    // java.util.List<GroupConstraint> colConstraints = vb.constraints(false);
 
     setLayout(new GridLayout(VoltorbBoard.SIZE + 1, VoltorbBoard.SIZE + 1));
     VoltorbGuiConstraint prev = null;
@@ -133,14 +133,14 @@ public class VoltorbGui extends Container implements ActionListener {
         cells[i][j] = vc;
         add(vc);
       }
-      VoltorbGuiConstraint cc = new VoltorbGuiConstraint(rowConstraints.get(i), this);
+      VoltorbGuiConstraint cc = new VoltorbGuiConstraint(new GroupConstraint(0,0), this);
       if (prev != null) prev.setNextConstraint(cc);
       prev = cc;
       rows[i] = cc;
       add(cc);
     }
     for(int i = 0; i < VoltorbBoard.SIZE; i++) {
-      VoltorbGuiConstraint cc = new VoltorbGuiConstraint(colConstraints.get(i), this);
+      VoltorbGuiConstraint cc = new VoltorbGuiConstraint(new GroupConstraint(0,0), this);
       if (prev != null) prev.setNextConstraint(cc);
       prev = cc;
       cols[i] = cc;
@@ -164,15 +164,15 @@ public class VoltorbGui extends Container implements ActionListener {
         public void windowIconified(WindowEvent we) {}
         public void windowClosed(WindowEvent we) {}
         public void windowClosing(WindowEvent we) {
-	    frame.setVisible(false);
-	    VoltorbGui vg = new VoltorbGui();
-	    vg.Init();
-	    frame.removeAll();
-	    frame.add("Center", vg);
-	    frame.pack();
-	    frame.setSize(new Dimension(800, 600));
-	    frame.setVisible(true);
-	}
+            frame.setVisible(false);
+            VoltorbGui vg = new VoltorbGui();
+            vg.Init();
+            frame.removeAll();
+            frame.add("Center", vg);
+            frame.pack();
+            frame.setSize(new Dimension(800, 600));
+            frame.setVisible(true);
+        }
         public void windowOpened(WindowEvent we) {}
       });
     frame.setVisible(true);
