@@ -37,7 +37,7 @@ public class VoltorbAssistant {
       fromConstraints(rows, cols, result, incomplete, filled+1);
       return;
     }
-    for (int i = 0 ; i < 4; i++) {
+    for (int i = 0 ; i <= VoltorbBoard.MAX_MULTIPLIER; i++) {
       VoltorbBoard copy = (i < 3) ? incomplete.copy() : incomplete;
       copy.board[row][col] = i;
       fromConstraints(rows, cols, result, copy, filled+1);
@@ -166,7 +166,7 @@ public class VoltorbAssistant {
           Histogram h = histo.get(p);
           double score = 0.0;
           double remainingProb = 1.0;
-          for(int i = 0; i < 4; i++) {
+          for(int i = 0; i <= VoltorbBoard.MAX_MULTIPLIER; i++) {
               double prob = h.getProbability(i);
               remainingProb -= prob;
               if (prob == 0.0) continue;

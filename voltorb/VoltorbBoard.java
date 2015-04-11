@@ -2,7 +2,8 @@ import java.util.*;
 
 public class VoltorbBoard {
 
-    public static final int SIZE = 5;
+  public static final int SIZE = 5;
+  public static final int MAX_MULTIPLIER = 3;
 
   int[][] board = new int[SIZE][SIZE];
 
@@ -46,7 +47,7 @@ public class VoltorbBoard {
     VoltorbBoard v = new VoltorbBoard();
     for(int i = 0; i < SIZE; i++) {
       for(int j = 0; j < SIZE; j++) {
-        v.board[i][j] = r.nextInt(4);
+        v.board[i][j] = r.nextInt(MAX_MULTIPLIER + 1);
       }
     }
     return v;

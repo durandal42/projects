@@ -1,5 +1,5 @@
 public class Histogram {
-  private int[] values = new int[4];
+  private int[] values = new int[VoltorbBoard.MAX_MULTIPLIER + 1];
   private int total = 0;
 
   static java.text.DecimalFormat df = new java.text.DecimalFormat("0.00");

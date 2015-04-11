@@ -5,7 +5,6 @@ class VoltorbGuiCell extends Container implements KeyListener {
   Label suggest = new Label("----");
   TextField valueField = new TextField();
   VoltorbGuiScore scoreCanvas = new VoltorbGuiScore(this);
-  Label[] scores = new Label[4];
 
   VoltorbGuiCell[][] neighbors;
   VoltorbGui owner;

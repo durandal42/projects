@@ -26,18 +26,19 @@ class VoltorbGuiScore extends Canvas implements MouseListener {
     if (latestScore == null) {
       return;
     }
-    for(int i = 0; i < 4; i++) {
+    int barWidth = width / (VoltorbBoard.MAX_MULTIPLIER + 1);
+    for(int i = 0; i <= VoltorbBoard.MAX_MULTIPLIER; i++) {
       g.setColor(colors[i]);
       double fraction = latestScore.getProbability(i);
-      g.fillRect(i * width / 4, height - (int) (fraction * height),
-                 width / 4, (int) (fraction * height));
+      g.fillRect(i * barWidth, height - (int) (fraction * height),
+                 barWidth, (int) (fraction * height));
     }
   }
 
   public void mouseClicked(MouseEvent e) {
     int x = e.getX();
     int y = e.getY();
-    owner.valueField.setText("" + (4 * x / getWidth()));
+    owner.valueField.setText("" + ((VoltorbBoard.MAX_MULTIPLIER + 1) * x / getWidth()));
     owner.owner.recalculate();
   }
   public void mouseEntered(MouseEvent e) {}
