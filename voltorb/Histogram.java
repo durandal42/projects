@@ -30,7 +30,7 @@ public class Histogram {
       // guaranteed non-orb
       return (1 * getProbability(1) +
               2 * getProbability(2) +
-              3 * getProbability(3);
+              3 * getProbability(3));
     }
 
     if (covered) {
