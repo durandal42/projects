@@ -80,18 +80,29 @@ def greater_than(n):
 def less_than(n):
   return lambda x: x < n
 
+discarded_theories = 0
+discarded_mass = 0
 def apply_evidence(theory_stream, pieces, result):
   for mass, theory in theory_stream:
 #    print 'testing theory:', theory
     if result == eval(theory):
       yield mass, theory
+    else:
+      global discarded_theories
+      global discarded_mass
+      discarded_theories += 1
+      discarded_mass += mass
+#      print 'theory invalidated:', mass, theory
 
 def solve(evidence):
   theory_stream = all_theories()
   for pieces, result in evidence:
     theory_stream = apply_evidence(theory_stream, pieces, result)
-  for mass, theory in itertools.islice(theory_stream, 10):
+  for mass, theory in itertools.islice(theory_stream, 1):
     print mass, theory
+  print 'discarded theories:', discarded_theories
+  print 'discarded mass:', (0.0 + discarded_mass)
+
 
 '''
 print 'all pieces are the same color'
@@ -104,6 +115,7 @@ solve([
   ([Piece(SMALL, GREEN), Piece(MEDIUM, RED), Piece(LARGE, BLUE)], False),
   ])
 '''
+
 '''
 print 'all pieces are the same size'
 solve([
@@ -136,7 +148,7 @@ solve([
   ])
 '''
 '''
-print 'has a small medium yellow'
+print 'has a medium yellow'
 solve([
   ([Piece(SMALL, RED), Piece(MEDIUM, YELLOW)], True),
   ([Piece(LARGE, GREEN)], False),
@@ -173,7 +185,6 @@ solve([
   ])
 '''
 
-'''
 print 'has exactly one red and exactly one blue NOT ACTUALLY EASY'
 solve([
   ([Piece(SMALL, RED), Piece(MEDIUM, BLUE)], True),
@@ -183,13 +194,16 @@ solve([
   ([Piece(MEDIUM, RED), Piece(LARGE, BLUE)], True),
   ([Piece(MEDIUM, RED), Piece(LARGE, RED)], False),
   ([], False),
-  ([Piece(SMALL, BLUE), Piece(MEDIUM, BLUE)], False),
-  ([Piece(SMALL, RED), Piece(MEDIUM, BLUE), Piece(SMALL, YELLOW)], True),
-  ([Piece(MEDIUM, RED), Piece(SMALL, BLUE), Piece(MEDIUM, BLUE)], False),
+  ([Piece(SMALL, RED), Piece(MEDIUM, GREEN)], False),
+  ([Piece(SMALL, YELLOW), Piece(MEDIUM, BLUE)], False),
+  ([Piece(SMALL, RED), Piece(MEDIUM, BLUE), Piece(SMALL, RED), Piece(MEDIUM, BLUE)], False),
+  ([Piece(SMALL, RED), Piece(MEDIUM, BLUE), Piece(SMALL, RED), Piece(MEDIUM, BLUE)], False),
+  ([Piece(SMALL, RED), Piece(MEDIUM, RED), Piece(SMALL, RED), Piece(MEDIUM, BLUE)], False),
+  ([Piece(SMALL, RED), Piece(MEDIUM, BLUE), Piece(SMALL, BLUE), Piece(MEDIUM, BLUE)], False),
 # unsolved
   ])
-'''
 
+'''
 print 'either all warm (red and yellow) or all cool (blue and green)'
 solve([
   ([Piece(SMALL, RED)], True),
@@ -201,3 +215,4 @@ solve([
   ([Piece(LARGE, GREEN), Piece(LARGE, GREEN), Piece(MEDIUM, YELLOW)], False),
   ([Piece(LARGE, BLUE)], True),
   ])
+'''
