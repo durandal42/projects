@@ -56,10 +56,11 @@ def stream_strings(f, nines=3):
 
 import sys
 
-symbols, root = cfg.parse_grammar_file(sys.argv[1])
-for item in stream_strings(
-  lambda x: cfg.random_cfg_string(symbols, root, x),
-  #emit_simple,
-  int(sys.argv[2])):
-  print 'mass, outcome:', item
-  pass
+if __name__ == '__main__':
+  symbols, root = cfg.parse_grammar_file(sys.argv[1])
+  for item in stream_strings(
+    lambda x: cfg.random_cfg_string(symbols, root, x),
+    #emit_simple,
+    int(sys.argv[2])):
+    print 'mass, outcome:', item
+    pass
