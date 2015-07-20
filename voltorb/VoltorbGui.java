@@ -16,7 +16,7 @@ public class VoltorbGui extends Container implements ActionListener {
 
     int lastSize = -1;
   void recalculate() {
-      int level = Integer.parseInt(control.levelField.getText());
+    int level = Integer.parseInt(control.levelField.getText());
 
     java.util.List<GroupConstraint> rowConstraints =
         new ArrayList<GroupConstraint>(VoltorbBoard.SIZE);
@@ -121,9 +121,9 @@ public class VoltorbGui extends Container implements ActionListener {
   }
 
   public void Init() {
-    // VoltorbBoard vb = VoltorbBoard.random();
-    // java.util.List<GroupConstraint> rowConstraints = vb.constraints(true);
-    // java.util.List<GroupConstraint> colConstraints = vb.constraints(false);
+    //VoltorbBoard vb = VoltorbBoard.random();
+    //java.util.List<GroupConstraint> rowConstraints = vb.constraints(true);
+    //java.util.List<GroupConstraint> colConstraints = vb.constraints(false);
 
     setLayout(new GridLayout(VoltorbBoard.SIZE + 1, VoltorbBoard.SIZE + 1));
     VoltorbGuiConstraint prev = null;
@@ -134,6 +134,7 @@ public class VoltorbGui extends Container implements ActionListener {
         add(vc);
       }
       VoltorbGuiConstraint cc = new VoltorbGuiConstraint(new GroupConstraint(0,0), this);
+      //VoltorbGuiConstraint cc = new VoltorbGuiConstraint(rowConstraints.get(i), this);
       if (prev != null) prev.setNextConstraint(cc);
       prev = cc;
       rows[i] = cc;
@@ -141,6 +142,7 @@ public class VoltorbGui extends Container implements ActionListener {
     }
     for(int i = 0; i < VoltorbBoard.SIZE; i++) {
       VoltorbGuiConstraint cc = new VoltorbGuiConstraint(new GroupConstraint(0,0), this);
+      //VoltorbGuiConstraint cc = new VoltorbGuiConstraint(colConstraints.get(i), this);
       if (prev != null) prev.setNextConstraint(cc);
       prev = cc;
       cols[i] = cc;
