@@ -30,10 +30,11 @@ def random_cfg_string(symbols, root, rng=random.randrange):
             random_cfg_string(symbols, choice, rng) +
             root[m.end():])
 
-import sys
-symbols, root = parse_grammar_file(sys.argv[1])
+if __name__ == '__main__':
+  import sys
+  symbols, root = parse_grammar_file(sys.argv[1])
 
-NUM_SAMPLES = 0
-if NUM_SAMPLES: print '%d sample CFG outputs:' % NUM_SAMPLES
-for i in xrange(NUM_SAMPLES):
-  print random_cfg_string(symbols, root)
+  NUM_SAMPLES = 0
+  if NUM_SAMPLES: print '%d sample CFG outputs:' % NUM_SAMPLES
+  for i in xrange(NUM_SAMPLES):
+    print random_cfg_string(symbols, root)
