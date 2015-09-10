@@ -20,17 +20,17 @@ def busiest_interval(intervals):
   start_q = deque(sorted(i[0] for i in intervals))
   end_q = deque(sorted(i[1] for i in intervals))
 
-  best = (0, None)
-  current_time, current_business = None, 0
+  current_business, current_time = 0, None
+  best = (current_business, current_time)
   while start_q and end_q:
     # Closed intervals: if a start and an end happen at the same time, handle the starts first.
     if start_q[0] <= end_q[0]:
       current_time = start_q.popleft()
       current_business += 1
+      best = max(best, (current_business, current_time))
     else:
       current_time = end_q.popleft()
       current_business -= 1
-    best = max(best, (current_business, current_time))
   return best[1]
 
 def assertEquals(expected, actual):
