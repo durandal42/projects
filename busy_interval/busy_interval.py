@@ -37,7 +37,15 @@ def assertEquals(expected, actual):
   if expected != actual:
     raise AssertionError("expected: %s;\tactual: %s" % (expected, actual))
 
+def assertInRange(expected, actual):
+  if actual < expected[0] or actual > expected[1]:
+    raise AssertionError("expected in range: %s;\tactual: %s" % (expected, actual))
+
 assertEquals(None, busiest_interval([]))
-assertEquals(0, busiest_interval([(0,1)]))
-assertEquals(1, busiest_interval([(0,1), (1,2)]))
-assertEquals(2, busiest_interval([(0,1), (1,2), (2,3), (1,3)]))
+assertInRange((0,1), busiest_interval([(0,1)]))
+assertInRange((1,1), busiest_interval([(0,1), (1,2)]))
+assertInRange((2,2), busiest_interval([(0,1), (1,2), (2,3), (1,3)]))
+assertInRange((3,3), busiest_interval([(0,1), (0,1), (3,3), (3,3), (3,3)]))
+
+# h/t https://stackoverflow.com/questions/5768642/algorithm-for-finding-the-busiest-period
+assertInRange((8,9), busiest_interval([(2,10), (3,15), (4,9), (8,14), (7,13), (5,10), (11,15)]))
