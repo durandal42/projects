@@ -12,12 +12,9 @@ assert derive_from_pair('', 'b') == None
 assert derive_from_pair('b', 'b') == None
 
 def derive_from_list(words):
-  previous = None
-  for word in words:
-    if previous:
-      r = derive_from_pair(previous, word)
-      if r: yield r
-    previous = word
+  for left, right in zip(words[:-1], words[1:]):
+    r = derive_from_pair(left, right)
+    if r: yield r
 
 assert set(derive_from_list(['', 'a', 'abcd', 'abce', 'b'])) == set([('d','e'), ('a', 'b')])
 
