@@ -27,7 +27,7 @@ def build_graph(edges):
 
 assert build_graph([(0,1), (1,2), (2,3), (3,1), (3,4)]) == {0:set([1]), 1:set([2]), 2:set([3]), 3:set([1,4]), 4:set([])}
 
-# destructively topological-sort an adjacency-list graph
+# topological-sort an adjacency-list graph
 def topo_sort(graph):
   # count number of incoming edges for each node:
   incoming_count = collections.defaultdict(int)
@@ -48,8 +48,6 @@ def topo_sort(graph):
     for dest in graph[root]:
       incoming_count[dest] -= 1
       if incoming_count[dest] == 0: no_incoming.append(dest)
-    # remove root from the graph
-    del graph[root]
     yield root
 
 assert list(topo_sort({0:set([1]), 1:set([2]), 2:set([3]), 3:set([1,4]), 4:set([])})) == [0]
