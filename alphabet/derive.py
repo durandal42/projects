@@ -54,7 +54,9 @@ assert list(topo_sort({0:set([1]), 1:set([2]), 2:set([3]), 3:set([1,4]), 4:set([
 assert list(topo_sort({0:set([1]), 1:set([2]), 2:set([3]), 3:set([4]), 4:set([])})) == [0, 1, 2, 3, 4]
 assert list(topo_sort({0:set([1,2,3,4]), 1:set([2,3,4]), 2:set([3,4]), 3:set([4]), 4:set([])})) == [0, 1, 2, 3, 4]
 
-import sys
-words = [word.strip().lower() for word in sys.stdin.readlines()]
-for letter in topo_sort(build_graph(derive_from_list(words))):
-  print letter
+# Example use: python derive.py < wordlist.txt
+if __name__ == "__main__":
+  import sys
+  words = [word.strip().lower() for word in sys.stdin.readlines()]
+  for letter in topo_sort(build_graph(derive_from_list(words))):
+    print letter
