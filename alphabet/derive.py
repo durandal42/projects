@@ -27,21 +27,28 @@ def build_graph(edges):
 
 assert build_graph([(0,1), (1,2), (2,3), (3,1), (3,4)]) == {0:set([1]), 1:set([2]), 2:set([3]), 3:set([1,4]), 4:set([])}
 
+# destructively topological-sort an adjacency-list graph
 def topo_sort(graph):
+  # count number of incoming edges for each node:
   incoming_count = collections.defaultdict(int)
   for source, outgoing in graph.iteritems():
     for dest in outgoing:
       incoming_count[dest] += 1
+  # identify nodes with no incoming edges:
   no_incoming = [n for n in graph.keys() if incoming_count[n] == 0]
   while graph:
     if not no_incoming:
-      print 'cycle!', graph
-      return
-    if len(no_incoming) > 1: print 'ambiguous!', no_incoming
+      # every remaining node has at least one incoming edge; there's a cycle
+      return  # can't proceed; caller will have seen everything we produced so far
+    if len(no_incoming) > 1:
+      # multiple remaining nodes have no incoming edges; there is not a unique total order
+      pass  # can proceed, but answer won't be unique
     root = no_incoming.pop()
+    # decrement incoming counts for all nodes pointed to by root
     for dest in graph[root]:
       incoming_count[dest] -= 1
       if incoming_count[dest] == 0: no_incoming.append(dest)
+    # remove root from the graph
     del graph[root]
     yield root
 
