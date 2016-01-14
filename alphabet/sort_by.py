@@ -1,8 +1,5 @@
-import itertools
-import collections
-
 def build_index_map(alpha):
-  return collections.defaultdict(int, [(c,i) for i,c in enumerate(alpha)])
+  return dict((c,i) for i,c in enumerate(alpha))
 
 def sort_by_alpha(list, alpha):
   imap = build_index_map(alpha.lower())
