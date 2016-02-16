@@ -31,6 +31,7 @@ def preorder_directory(node, states=[]):
 
 def print_directory_tree(node):
   for name, states in preorder_directory(node):
+    if not states and not name: continue
     line = ''
     for op in states:
       if op in [1, 3]:
@@ -44,6 +45,46 @@ def print_directory_tree(node):
     if name: line += name
     print line
 
+def tree_depth(node):
+  if not node: return 0
+  return 1 + max(tree_depth(node.left), tree_depth(node.right))
+
+def bfs(node):
+  depth = 0
+  frontier = [node]
+  while any(n is not None for n in frontier):
+    new_frontier = []
+    for n in frontier:
+      if n is not None:
+        yield n.name, depth
+        new_frontier.append(n.left)
+        new_frontier.append(n.right)
+      else:
+        yield None, depth
+        new_frontier.append(None)
+        new_frontier.append(None)
+    depth += 1
+    frontier = new_frontier
+
+def print_christmas_tree(node):
+  max_depth = tree_depth(node)
+  previous_depth = 0
+  line = ''
+  for name,depth in bfs(node):
+    if depth > previous_depth:
+      previous_depth = depth
+      print line
+      line = ''
+    depth_to_go = max_depth - depth
+    space_needed = pow(2, depth_to_go)
+    line += " " * ((space_needed - 1) / 2)
+    if name:
+      line += name
+    else:
+      line += '_'
+    line += " " * (space_needed / 2)
+  print line
+
 ROOT = Node('A',
             Node('B',
                  Node('D'),
@@ -55,3 +96,5 @@ ROOT = Node('A',
                  Node('G')))
 
 print_directory_tree(ROOT)
+print
+print_christmas_tree(ROOT)
