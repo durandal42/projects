@@ -46,15 +46,18 @@ def update(steps):
   return new_steps
 
 def solve(steps):
+  iterations = 0
   while True:
     print steps
     new_steps = update(steps)
+    iterations += 1
     if new_steps == steps:
       break
     steps = new_steps
   print steps
   for i, s in enumerate(steps):
     print "%d\t%s" % (i, s)
+  print "(took %d iterations to stabilize)" % iterations
 
 INITIAL = [101-x for x in range(102)]
 
