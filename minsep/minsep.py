@@ -94,6 +94,9 @@ def separate_linear(input, d):
 def separate_functional(input, d):
   return separate_functional_helper(collections.Counter(input), d, [])
 def separate_functional_helper(remaining_counts, d, output_so_far):
+  # "base case"
+  if remaining_counts == {}: return output_so_far
+  
   # All currently-eligible elements, and their remaining counts, sorted by remaining count (descending):
   eligible = sorted([(count,item) for item,count in remaining_counts.iteritems()], reverse=True)
   # Just the top d elemnts, still sorted by remaining count (descending):
@@ -101,7 +104,7 @@ def separate_functional_helper(remaining_counts, d, output_so_far):
 
   new_counts = remaining_counts - collections.Counter(chosen)
 
-  if len(chosen) < d and remaining_counts != {}:
+  if len(chosen) < d and new_counts != {}:
     return None  # Partial batch, and elements still remain; we're stuck.
 
   # Recursive call! Too bad Python's not tail-recursive...
@@ -132,7 +135,7 @@ def test(f, input, d, solveable=True):
   else:
     assert output is None
 
-for f in [separate, separate_linear]:
+for f in [separate, separate_linear, separate_functional]:
   # Starter examples:
   test(f, [1,2,2], 1)
   test(f, [1,2,2], 2)
