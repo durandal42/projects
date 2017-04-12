@@ -96,11 +96,11 @@ def separate_functional(input, d):
 def separate_functional_helper(remaining_counts, d, output_so_far):
   # "base case"
   if remaining_counts == {}: return output_so_far
-  
-  # All currently-eligible elements, and their remaining counts, sorted by remaining count (descending):
-  eligible = sorted([(count,item) for item,count in remaining_counts.iteritems()], reverse=True)
-  # Just the top d elemnts, still sorted by remaining count (descending):
-  chosen = [item for count,item in eligible[:d]]
+
+  # Top d elements, sorted by remaining count (descending):
+  chosen_counted = remaining_counts.most_common(d)
+  # Just the elements:
+  chosen = [item for item,count in chosen_counted]
 
   new_counts = remaining_counts - collections.Counter(chosen)
 
