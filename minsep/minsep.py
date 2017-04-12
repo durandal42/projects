@@ -1,6 +1,7 @@
 import collections
 import Queue
 
+# Canonical Map+Heap+Queue implementation.
 def separate(input, d):
   # Count input elements:
   counts = collections.Counter(input)
@@ -32,6 +33,24 @@ def separate(input, d):
 
   return output
 
+# "Functional" implementation which never mutates anything.
+# Instead, copy our entire state into the recursive call, and then blow our recursion limit. Wheee!
+def separate_functional(input, d):
+  return separate_functional_helper(collections.Counter(input), d, [])
+def separate_functional_helper(remaining_counts, d, output_so_far):
+  # All currently-eligible elements, and their remaining counts, sorted by remaining count (descending):
+  eligible = sorted([(count,item) for item,count in remaining_counts.iteritems()], reverse=True)
+  # Just the top d elemnts, still sorted by remaining count (descending):
+  chosen = [item for count,item in eligible[:d]]
+
+  new_counts = remaining_counts - collections.Counter(chosen)
+
+  if len(chosen) < d and remaining_counts != {}:
+    return None  # Partial batch, and elements still remain; we're stuck.
+
+  # Recursive call! Too bad Python's not tail-recursive...
+  return separate_functional_helper(new_counts, d, output_so_far + chosen) 
+
 def verify(input, output, d):
   if collections.Counter(input) != collections.Counter(output):
     return False  # Output not a permutation of input.
@@ -48,20 +67,24 @@ assert not verify([1,1,1], [1,2,3], 1)
 assert not verify([1,2,2], [1,2,2], 2)
 assert verify([1,2,2], [2,1,2], 2)
 
-def test(input, d, solveable=True):
+def test(f, input, d, solveable=True):
   print input,d,'->',
-  output = separate(input,d)
+  output = f(input,d)
   print output
   if solveable:
     assert verify(input, output, d)
   else:
     assert output is None
 
-# Starter examples:
-test([1,2,2], 1)
-test([1,2,2], 2)
-test([1,2,2], 3, False)
+for f in [separate, separate_functional]:
+  # Starter examples:
+  test(f, [1,2,2], 1)
+  test(f, [1,2,2], 2)
+  test(f, [1,2,2], 3, solveable=False)
 
-# Hint examples:
-test([1,2,2,3,3,3,3], 2)
-test([1,1,2,2,3,3], 2)
+  # Hint examples:
+  test(f, [1,2,2,3,3,3,3], 2)
+  test(f, [1,1,2,2,3,3], 2)
+
+  # Tail-recursion test:
+  test(f, [1,2]*1000, 2)
