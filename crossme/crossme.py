@@ -1,7 +1,17 @@
-YES = 'y'
-NO = 'n'
+YES = 'O'
+NO = ' '
 MAYBE = '?'
 
+# Attempt to refine knowledge about a list of entries.
+# This might be called with a subset of a full puzzle's row or column, so don't
+# make assumptions about there definitely being at least one run, etc.
+#
+# Args:
+#   info: a list of YES|NO|MAYBE, representing either a row or a column
+#   runs: a list of ints, each specifying the length of a consecutive run of YES's
+#   allow_brute_force: if all heuristics fail, brute force up to this many unknowns
+# Returns:
+#   a new list of YES|NO|MAYBE, hopefully with fewer MAYBE's
 def update(info, runs, allow_brute_force=0):
   #print 'update(%s, %s)' % (info, runs)
 
@@ -11,21 +21,20 @@ def update(info, runs, allow_brute_force=0):
     assert validate(info, runs)
     return info
 
+  # if there are no runs remaining, everything must be NO
   if len(runs) == 0:
     print info, runs
     assert YES not in info
-    if MAYBE in info:
-      print 'no runs remaining:\n', info, runs
-      info = [NO] * len(info)
-    return info
+    print 'no runs remaining:\n', info, runs
+    return [NO] * len(info)
 
+  # if one run covers the entire range, everything must be YES
   if len(runs) == 1 and runs[0] == len(info):
     assert NO not in info
-    if MAYBE in info:
-      print 'only run fills whole range:\n', info, runs
-      info = [YES] * len(info)
-    return info
+    print 'only run fills whole range:\n', info, runs
+    return [YES] * len(info)
 
+  # if there's exactly enough room for all runs, fill them in.
   if sum(runs) + len(runs)-1 == len(info):
     print 'remaining runs fit exactly:\n', info, runs
     i = 0
@@ -39,14 +48,13 @@ def update(info, runs, allow_brute_force=0):
         i += 1
     return info
 
+  # TODO(durandal): this is pretty gross if there are a lot of leading/trailing NOs.
   # trim leading NOs
   if info[0] == NO:
-    #print 'recursing without leading no...'
     info[1:] = update(info[1:], runs, allow_brute_force)
     return info
   # trim trailing NOs
   if info[-1] == NO:
-    #print 'recursing without trailing no...'
     info[:-1] = update(info[:-1], runs, allow_brute_force)
     return info
 
@@ -79,6 +87,7 @@ def update(info, runs, allow_brute_force=0):
     info[:-last] = update(info[:-last], runs[:-1], allow_brute_force)
     return info
 
+  # Long run (> half info length) forces some middle squares to be YES.
   if len(runs) == 1 and runs[0]*2 > len(info):
     gap = len(info) - runs[0]
     assert NO not in info[gap:-gap]
@@ -87,9 +96,13 @@ def update(info, runs, allow_brute_force=0):
       info[gap:-gap] = [YES] * (len(info) - gap*2)
       return info
 
-  yes_locations = [i for i in range(len(info)) if info[i] == YES]
+  # Where are the YES's?
+  yes_locations = [i for i,c in enumerate(info) if c == YES]
+  # How many YES's are there?
   yes_count = len(yes_locations)
   assert sum(runs) >= yes_count
+
+  # If we have enough YES's, all remaining MAYBE's are NO's.
   if sum(runs) == yes_count:
     if MAYBE in info:
       print 'all runs accounted for:\n', info, runs
@@ -97,20 +110,25 @@ def update(info, runs, allow_brute_force=0):
       print info, runs
     return info
 
+  # Exactly one run and the presence of a YES gives us some options:
   if len(runs) == 1 and YES in info:
     first = yes_locations[0]
     last = yes_locations[-1]
+    # MAYBE's between first and last YES must also be YES
     if MAYBE in info[first:last+1]:
       print 'hole found:', info, runs
       assert NO not in info[first:last+1]
       info[first:last+1] = [YES] * (last - first + 1)
       return info
+    # If every square from the first YES onward were all YES, could we reach the end of the window?
+    # If not, squares beyond our reach must be no.
     if first + runs[0] < len(info):
       assert YES not in info[first+runs[0]:]
       if MAYBE in info[first+runs[0]:]:
         print "existing run can't reach end of window:", info, runs
         info[first+runs[0]:] = [NO] * len(info[first+runs[0]:])
         return info
+    # Same deal reaching backward:
     if last - runs[0] + 1 > 0:
       assert YES not in info[:last-runs[0]+1]
       if MAYBE in info[:last-runs[0]+1]:
@@ -118,6 +136,7 @@ def update(info, runs, allow_brute_force=0):
         info[:last-runs[0]+1] = [NO] * len(info[:last-runs[0]+1])
         return info
 
+  # If there's no room for the first run before the first NO, all MAYBE's before that are NO's
   if info[0] == MAYBE and NO in info:
     leading = 0
     while info[leading] != NO: leading += 1
@@ -127,6 +146,7 @@ def update(info, runs, allow_brute_force=0):
       info[:leading] = [NO] * leading
       print info, runs
       return info
+  # Same deal from the end:
   if info[-1] == MAYBE and NO in info:
     trailing = 0
     while info[-trailing-1] != NO: trailing += 1
@@ -137,6 +157,8 @@ def update(info, runs, allow_brute_force=0):
       print info, runs
       return info
 
+  # Heuristics "learned" from brute force progress:
+
   #brute force made progress:
   #['?', '?', 'y', '?', '?', '?', '?', '?', 'n', '?', '?', '?', '?', '?'] [5, 5] -->
   #['?', '?', 'y', 'y', 'y', '?', '?', 'n', 'n', 'y', 'y', 'y', 'y', 'y'] [5, 5]
@@ -144,7 +166,7 @@ def update(info, runs, allow_brute_force=0):
     leading = 0
     while info[leading] in [YES, MAYBE]:
       leading += 1
-    if (leading < runs[0] + runs[1] and 
+    if (leading < runs[0] + runs[1] and
       info[leading:].count(YES) + info[leading:].count(MAYBE) < sum(runs)):
       print "leading maybes can't satisfy first two runs, and rest can't satisfy all:\n", info, runs
       print "left:\n", info[:leading], runs[:1]
@@ -181,7 +203,7 @@ def update(info, runs, allow_brute_force=0):
         start = end+1
       if end == len(info): break
       end += 1
-    
+
   if YES in info and max(runs) == max(count_runs(info)):
     longest = max(runs)
     # largest run should be capped
@@ -220,13 +242,20 @@ def update(info, runs, allow_brute_force=0):
 
   return info
 
+# given a length, generate every possible set of YES/NO sequences of that length
+# TODO(durandal): by the time we call this, we know how many YES's need to appear;
+#   instead generate all permutations of that many YES's and the complementary number of NO's
+import perm_unique
+def all_bits(num_yes, num_no):
+  for p in perm_unique.perm_unique([YES] * num_yes + [NO] * num_no):
+    yield p
+#  length = num_yes + num_no
+#  for i in xrange(2**length):
+#    bits = bin(i)[2:]  # binary digits representing i
+#    bits = '0' * (length - len(bits)) + bits  # pad with leading 0's
+#    yield [b == '1' and YES or NO for b in bits]
 
-def all_bits(length):
-  for i in xrange(2**length):
-    bits = bin(i)[2:]
-    bits = '0' * (length - len(bits)) + bits
-    yield [b == '1' and YES or NO for b in bits]
-
+# Given a row/column, return a list of runs:
 def count_runs(info, to_count=[YES]):
   runs = [0]
   for cell in info:
@@ -237,47 +266,66 @@ def count_runs(info, to_count=[YES]):
   if runs[-1] == 0: runs = runs[:-1]
   return runs
 
+# Given a row/column and the constraints it was supposed to satisfy, see if it does.
 def validate(info, expected_runs):
   #print 'validate(%s, %s)' % (info, expected_runs)
   assert MAYBE not in info
   return count_runs(info) == expected_runs
 
 def brute_force(info, runs, allow_brute_force):
-  unknowns = info.count(MAYBE)
-  if unknowns > allow_brute_force or unknowns == 0: return info
+  num_unknowns = info.count(MAYBE)
+  if num_unknowns == 0:
+    # no unknowns at all; already done!
+    return info
+  if num_unknowns > allow_brute_force:
+    # Too many num_unknowns for this brute force level; abort.
+    return info
 
-  print info, runs
+  print 'attempting brute force (level %d) on:' % allow_brute_force, info, runs
 
-  possible = all_bits(unknowns)
-  always_yes = [True] * unknowns
-  always_no = [True] * unknowns
+  num_yes = info.count(YES)
+  num_no = info.count(NO)
+  # these have not yet been checked for consistency, or even appropriate count of YES/NO's
+  possible = all_bits(sum(runs) - num_yes, len(info) - sum(runs) - num_no)
+
+  # across all consistent possibilities, are any squares *always* YES/NO?
+  always_yes = [True] * num_unknowns
+  always_no = [True] * num_unknowns
+
   possibilities = 0
+  consistent_possibilities = 0
   for p in possible:
     maybe_info = list(info)  # copy
     used = 0
-    for i in range(len(maybe_info)):
+    for i,_ in enumerate(maybe_info):
       if maybe_info[i] == MAYBE:
         maybe_info[i] = p[used]
         used += 1
-    assert MAYBE not in maybe_info
-    assert used == len(p)
-    if not validate(maybe_info, runs):
-      continue
+    assert MAYBE not in maybe_info  # we filled in all the MAYBE's
+    assert used == len(p)  # we used all our bits
 
     possibilities += 1
-    for i in range(unknowns):
+    if not validate(maybe_info, runs):  # check for consistency
+      continue
+    consistent_possibilities += 1
+
+    # update always_yes,always_no with our findings
+    for i in range(num_unknowns):
       if p[i] == YES:
         always_no[i] = False
       if p[i] == NO:
         always_yes[i] = False
 
-  assert possibilities > 0
+  print 'considered %d possibilities and found %d consistent ones.' % (possibilities, consistent_possibilities)
+  # There'd better be at least one consistent possibility...
+  assert consistent_possibilities > 0
 
   if True in always_yes or True in always_no:
+    # At least one square was consistently YES or consistently NO; fill it in.
     print 'brute force made progress:'
     print info, runs, '-->'
     used = 0
-    for i in range(len(info)):
+    for i,_ in enumerate(info):
       if info[i] == MAYBE:
         assert not (always_yes[used] and always_no[used])
         if always_yes[used]: info[i] = YES
@@ -287,76 +335,89 @@ def brute_force(info, runs, allow_brute_force):
 
   return info
 
+# Unpack a row from a grid, apply heuristics, and repack results back into the grid.
+# return whether anything changed.
 def update_row(grid, r, runs, allow_brute_force=0):
-  #print 'update_row(%s, %s, %s)' % (grid, r, runs)
   row = grid[r][:]
   row = update(row, runs, allow_brute_force)
-  #print 'row updated to %s' % row
   changed = False
   for i in range(len(row)):
-    if (grid[r][i] != row[i]):
+    if grid[r][i] != row[i]:
       changed = True
-      #print 'updated %s -> %s' % (grid[r][i], row[i])
-    grid[r][i] = row[i]
+      grid[r][i] = row[i]
   return changed
 
+# Unpack a col from a grid, apply heuristics, and repack results back into the grid.
+# return whether anything changed.
 def update_col(grid, c, runs, allow_brute_force=0):
-  #print 'update_col(%s, %s, %s)' % (grid, c, runs)
   col = [row[c] for row in grid]
   col = update(col, runs, allow_brute_force)
-  #print 'col updated to %s' % col
   changed = False
   for i in range(len(col)):
-    if (grid[i][c] != col[i]):
+    if grid[i][c] != col[i]:
       changed = True
-      #print 'updated %s -> %s' % (grid[i][c], col[i])
-    grid[i][c] = col[i]
+      grid[i][c] = col[i]
   return changed
 
+# Given a grid and constraints, do one progress pass and return whether progress was made.
 def update_all(grid, row_runs, col_runs, allow_brute_force=0):
   changed = False
   for r in range(len(grid)):
-    #display(grid, row_runs, col_runs)
-    if update_row(grid, r, row_runs[r], allow_brute_force): changed = True
+    if update_row(grid, r, row_runs[r], allow_brute_force):
+      changed = True
   for l in range(len(grid[0])):
-    #display(grid, row_runs, col_runs)
-    if update_col(grid, l, col_runs[l], allow_brute_force): changed = True
+    if update_col(grid, l, col_runs[l], allow_brute_force):
+      changed = True
   return changed
 
+# Is this grid solved?
 def solved(grid):
   for row in grid:
     if MAYBE in row: return False
   return True
 
+# Given a grid and constraints, solve it as best as possible.
 def solve(grid, row_runs, col_runs):
   iterations = 0
-  while update_all(grid, row_runs, col_runs):
-    print 'iterations:', iterations
-    iterations += 1
-  print 'best possible with heuristics:'
-  display(grid, row_runs, col_runs)
-  if solved(grid): return
-  brute = 0
-  while not solved(grid) and (brute < len(grid) or brute < len(grid[0])):
-    brute += 1
-    print 'allowing brute force with up to %d unknowns...' % brute
+  for brute in range(max(len(grid), len(grid[0]))):
+    if brute > 0:
+      print 'allowing brute force with up to %d unknowns...' % brute
+    else:
+      print 'applying heuristics...'
+    # Apply heuristics until they stop making progress:
     while update_all(grid, row_runs, col_runs, allow_brute_force=brute):
       print 'iterations:', iterations
       iterations += 1
-  print 'best possible with brute force:'
+    if solved(grid): break
+    print 'progress so far:\n', display(grid, row_runs, col_runs)
+  if not solved(grid):
+    print 'couldn\'t solve even with brute force! (this should never happen)'
+  elif brute > 0:
+    print 'solved using brute force level %d.', brute
+  else:
+    print 'solved using heuristics alone.'
   display(grid, row_runs, col_runs)
 
+# Pretty-print a grid and row/column constraints
 def display(grid, all_row_runs, all_col_runs):
   result = ''
 
+  # the longest row prefix we'll need to print:
   max_row_runs_length = max([len(' '.join([str(run) for run in row_runs])) for row_runs in all_row_runs])
 
+  # the tallest column header we'll need to print:
   max_col_runs = max(len(col_run) for col_run in all_col_runs)
+
+  # print column headers:
   for i in range(max_col_runs):
+    # empty upper-left corner:
     result += '  ' + ' ' * max_row_runs_length
+
     for col_runs in all_col_runs:
+      # if this column has enough runs to need an entry on this line:
       if i < len(col_runs):
         col_run = str(col_runs[i])
+        # TODO(durandal): use string format
         if len(col_run) < 2:
           result += ' '
         result += col_run
@@ -364,23 +425,27 @@ def display(grid, all_row_runs, all_col_runs):
         result += '  '
     result += '\n'
 
+  # print upper grid border:
   result += ' '*max_row_runs_length + ' +' + '--'*len(grid[0]) + '-+\n'
+
+  # print rows:
   for row,row_runs in zip(grid, all_row_runs):
-    row_runs = ' '.join([str(run) for run in row_runs])
+    row_runs = ' '.join(str(run) for run in row_runs)
+    # padding for short row run label:
     result += ' ' * (max_row_runs_length - len(row_runs)) + row_runs
+    # left grid border:
     result += ' |'
-    for cell in row:
-      result += ' '
-      if cell == YES:
-        result += 'O'
-      if cell == NO:
-        result += ' '
-      if cell == MAYBE:
-        result += '?'
+    # grid contents:
+    result += ' '.join(row)
+    # right grid border:
     result += ' |\n'
+
+  # print lower grid border (same as upper):
   result += ' '*max_row_runs_length + ' +' + '--'*len(grid[0]) + '-+\n'
+
   print result,
 
+# Initialize a blank grid of the appropriate size, full of MAYBE's
 def init_grid(num_rows, num_columns):
   return [[MAYBE for c in range(num_columns)] for r in range(num_rows)]
 
@@ -393,6 +458,7 @@ display(grid, row_runs, col_runs)
 solve(grid, row_runs, col_runs)
 '''
 
+# Given lines of text specifying a problem, parse the row and column runs:
 def parse_runs(lines):
   row_runs = []
   col_runs = []
@@ -410,10 +476,12 @@ def parse_runs(lines):
       row_runs.append(runs)
     if mode == 'cols':
       col_runs.append(runs)
-  return init_grid(len(row_runs), len(col_runs)), row_runs, col_runs
+  return row_runs, col_runs
 
+# "main" function:
+# TODO(durandal): use actual python main
 import sys
-
-grid, row_runs, col_runs = parse_runs(sys.stdin.readlines())
+row_runs, col_runs = parse_runs(sys.stdin.readlines())  # TODO(durandal) support input by named file
+grid = init_grid(len(row_runs), len(col_runs))
 display(grid, row_runs, col_runs)
 solve(grid, row_runs, col_runs)
