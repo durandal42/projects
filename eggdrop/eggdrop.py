@@ -18,5 +18,8 @@ def eggdrop(eggs, drops):
 eggdrop = Memoize(eggdrop)
 
 MAX_EGGS = 50
-for e in range(MAX_EGGS):
-  print 'eggdrop(%d, 100): %d' % (e, eggdrop(e, MAX_EGGS * 2))
+DROPS = MAX_EGGS
+for e in range(MAX_EGGS+1):
+  print 'eggdrop(%d, %d): %d' % (e, DROPS, eggdrop(e, DROPS))
+
+print '2**%d = %d' % (MAX_EGGS, 2**MAX_EGGS)
