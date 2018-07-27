@@ -1,0 +1,303 @@
+loading words... loaded 178691 words.
+... which reduce into 124968 distinct consonant bones.
+durandal -> drndl
+skeletons by number of flesh options:
+	drndl : 1
+	d.rndl : 75
+	drnd.l : 165
+	dr.ndl : 198
+	drn.dl : 234
+	drn.d.l : 7425
+	d.r.ndl : 8100
+	d.rnd.l : 12375
+	dr.nd.l : 14520
+	dr.n.dl : 14872
+	d.rn.dl : 14950
+	dr.n.d.l : 471900
+	d.rn.d.l : 474375
+	d.r.nd.l : 594000
+	d.r.n.dl : 608400
+	d.r.n.d.l : 19305000
+total phrases: 21526590
+bones by number of flesh options:
+	drndl : 1
+	rndl : 3
+	drnd : 5
+	drn : 9
+	ndl : 9
+	rnd : 15
+	nd : 20
+	dr : 22
+	rn : 23
+	d : 25
+	dl : 26
+	n : 26
+	l : 33
+	r : 36
+flesh options (25) for bone: d
+	ad
+	adieu
+	ado
+	aid
+	aide
+	audio
+	de
+	dee
+	die
+	do
+	doe
+	due
+	dui
+	duo
+	ed
+	eide
+	id
+	idea
+	od
+	oda
+	ode
+	odea
+	oidia
+	oud
+	udo
+flesh options (26) for bone: dl
+	aedile
+	audial
+	audile
+	dal
+	dale
+	deal
+	deil
+	del
+	dele
+	deli
+	dial
+	diel
+	diol
+	dol
+	dole
+	doolee
+	doolie
+	doula
+	dual
+	duel
+	dulia
+	edile
+	eidola
+	ideal
+	idle
+	idol
+flesh options (22) for bone: dr
+	adore
+	aider
+	dare
+	deair
+	dear
+	dearie
+	deer
+	dere
+	dire
+	doer
+	door
+	dor
+	dore
+	dour
+	doura
+	dree
+	dura
+	dure
+	duro
+	eider
+	odor
+	odour
+flesh options (9) for bone: drn
+	adorn
+	darn
+	diuron
+	dourine
+	drain
+	drone
+	durian
+	durion
+	durn
+flesh options (5) for bone: drnd
+	adorned
+	darned
+	drained
+	droned
+	durned
+flesh options (1) for bone: drndl
+	dirndl
+flesh options (33) for bone: l
+	aal
+	aalii
+	ail
+	aioli
+	al
+	ala
+	alae
+	ale
+	alee
+	aloe
+	eel
+	el
+	ilea
+	ilia
+	la
+	lea
+	lee
+	lei
+	leu
+	li
+	lie
+	lieu
+	lo
+	loo
+	looie
+	louie
+	luau
+	oil
+	ole
+	olea
+	oleo
+	olio
+	ulu
+flesh options (26) for bone: n
+	aeon
+	ain
+	an
+	ana
+	ane
+	ani
+	anoa
+	en
+	eon
+	in
+	inia
+	ion
+	na
+	nae
+	naoi
+	ne
+	nee
+	no
+	noo
+	nu
+	on
+	one
+	ono
+	un
+	unai
+	unau
+flesh options (20) for bone: nd
+	and
+	anode
+	end
+	endue
+	indie
+	indue
+	nada
+	naiad
+	need
+	nide
+	nidi
+	nod
+	node
+	nodi
+	nude
+	nudie
+	unde
+	undee
+	undo
+	undue
+flesh options (9) for bone: ndl
+	anodal
+	indol
+	indole
+	needle
+	nidal
+	nodal
+	nodule
+	noodle
+	unideal
+flesh options (36) for bone: r
+	aerie
+	aero
+	air
+	ar
+	are
+	area
+	areae
+	aria
+	aura
+	aurae
+	aurei
+	ear
+	eerie
+	er
+	era
+	ere
+	euro
+	ire
+	oar
+	oorie
+	or
+	ora
+	ore
+	our
+	ourie
+	rai
+	raia
+	re
+	ree
+	rei
+	ria
+	roe
+	roue
+	rue
+	uraei
+	urea
+flesh options (23) for bone: rn
+	airn
+	arena
+	arene
+	earn
+	ern
+	erne
+	iron
+	irone
+	rain
+	ran
+	ranee
+	rani
+	rein
+	rin
+	roan
+	rouen
+	ruana
+	ruin
+	run
+	rune
+	urania
+	urine
+	urn
+flesh options (15) for bone: rnd
+	araneid
+	around
+	earned
+	ironed
+	rained
+	rand
+	ranid
+	reined
+	rend
+	rind
+	rondeau
+	rondo
+	round
+	ruined
+	uranide
+flesh options (3) for bone: rndl
+	rondel
+	roundel
+	rundle
