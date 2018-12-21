@@ -66,32 +66,41 @@ def score(partition, word_ranks, reduced_words):
 
   return score
 
-# reduced_words = reduce_words(load_words('/usr/share/dict/words'))
-reduced_words = reduce_words(load_words('../alphabears/TWL06.txt'))
-# word_ranks = load_word_ranks()
-# reduced_words = reduce_words(word_ranks.keys())
+def analyze(target, reduced_words):
+  reduced_target = reduce_word(target)
+  print target, '->', reduced_target
 
-target = 'durandal'
-reduced_target = reduce_word(target)
-print target, '->', reduced_target
+  skeletons = {}
+  bones = {}
+  for i, skeleton in enumerate(alternate_reduction_skeleton(reduced_target, reduced_words)):
+    for bone in skeleton:
+      bones[bone] = len(reduced_words[bone])
+    phrases_from_skeleton = reduce(operator.mul, (len(reduced_words[bone]) for bone in skeleton), 1)
+    # print i, skeleton, phrases_from_skeleton
+    skeletons['.'.join(skeleton)] = phrases_from_skeleton
+  print 'skeletons by number of flesh options:'
+  for skeleton, num_flesh_options in sorted(skeletons.iteritems(), key=operator.itemgetter(1)):
+    print '\t%s : %d' % (skeleton, num_flesh_options)
 
-skeletons = {}
-bones = {}
-for i, skeleton in enumerate(alternate_reduction_skeleton(reduced_target, reduced_words)):
-  for bone in skeleton:
-    bones[bone] = len(reduced_words[bone])
-  phrases_from_skeleton = reduce(operator.mul, (len(reduced_words[bone]) for bone in skeleton), 1)
-  # print i, skeleton, phrases_from_skeleton
-  skeletons['.'.join(skeleton)] = phrases_from_skeleton
-print 'skeletons by number of flesh options:'
-for skeleton, num_flesh_options in sorted(skeletons.iteritems(), key=operator.itemgetter(1)):
-  print '\t%s : %d' % (skeleton, num_flesh_options)
+  print 'total phrases:', sum(fanout for skeleton,fanout in skeletons.iteritems())
+  print 'bones by number of flesh options:'
+  for bone, num_flesh_options in sorted(bones.iteritems(), key=operator.itemgetter(1)):
+    print '\t%s : %d' % (bone, num_flesh_options)
+  for bone, num_flesh_options in sorted(bones.iteritems()):
+    print 'flesh options (%d) for bone: %s' % (num_flesh_options, bone)
+    for word in sorted(reduced_words[bone]):
+      print '\t', word
 
-print 'total phrases:', sum(fanout for skeleton,fanout in skeletons.iteritems())
-print 'bones by number of flesh options:'
-for bone, num_flesh_options in sorted(bones.iteritems(), key=operator.itemgetter(1)):
-  print '\t%s : %d' % (bone, num_flesh_options)
-for bone, num_flesh_options in sorted(bones.iteritems()):
-  print 'flesh options (%d) for bone: %s' % (num_flesh_options, bone)
-  for word in sorted(reduced_words[bone]):
-    print '\t', word
+
+#analyze('durandal')
+
+import sys
+if len(sys.argv) < 2:
+  print 'usage: python direnoodle.py <target>'
+else:
+  # reduced_words = reduce_words(load_words('/usr/share/dict/words'))
+  reduced_words = reduce_words(load_words('../alphabears/TWL06.txt'))
+  # word_ranks = load_word_ranks()
+  # reduced_words = reduce_words(word_ranks.keys())
+
+  analyze(sys.argv[1], reduced_words)
