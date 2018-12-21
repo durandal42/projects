@@ -149,14 +149,14 @@ MISS = 0
 HIT = 1
 CRIT = 2
 def attack(roll, modifier, ac):
-  # return ifthenelse(roll+modifier >= ac, HIT, MISS)
-  return switch(roll, [(lambda r: r==20, CRIT), (lambda r: r + modifier >= ac, HIT)])
-  # if roll == 20: return HIT # can't crit, for now
+  return switch(roll,
+                [(lambda r: r==20, CRIT),
+                 (lambda r: r + modifier >= ac, HIT)])
 
 def damage(result, hit_dmg, crit_dmg):
-  # if result == CRIT: return hit_dmg(r) + crit_dmg(r)
-  # return ifthen(result==HIT, hit_dmg)
-  return switch(result, [(lambda r: r==CRIT, hit_dmg+crit_dmg), (lambda r: r==HIT, hit_dmg)])
+  return switch(result,
+                [(lambda r: r==CRIT, hit_dmg+crit_dmg),
+                 (lambda r: r==HIT, hit_dmg)])
 
 NORMAL = 0
 ADVANTAGE = 1
@@ -183,6 +183,10 @@ def lightpaw(raging=False, reckless=False, gwm=False):
                 dice(2,6) + 3 + (2 if raging else 0) + (10 if gwm else 0),
                 dice(2,6))
 
+def lintilla():
+  return damage(attack(roll(ADVANTAGE), 7, AC),
+                die(8)
+
 def summarize(d):
   print d, float(d.ev())
 
@@ -190,6 +194,7 @@ def summarize(d):
 # summarize(bear(ADVANTAGE))
 # summarize(tiger(NORMAL))
 
+'''
 for raging in [False, True]:
   for reckless in [False, True]:
     print "raging, reckless:", raging, reckless
@@ -200,3 +205,22 @@ for raging in [False, True]:
 #      for gwm in [False, True]:
 #        print "raging, reckless, gwm: %s, %s, %s" % (raging, reckless, gwm)
 #        summarize(lightpaw(raging, reckless, gwm))
+'''
+
+'''
+def dtuple(d1, d2):
+  if not isinstance(d1, Distribution): d1 = Distribution({d1:1})
+  if not isinstance(d2, Distribution): d2 = Distribution({d2:1})
+  print d1, d2
+  return d1.combine(d2, lambda x,y: (x,y))
+
+def deinonychus():
+  total, adv = 0, NORMAL
+#  total, adv = 
+  print ifthenelse(roll(adv) > AC,
+                          dtuple(total + die(10), ifthenelse(die(2) == 1, ADVANTAGE, adv)),
+                          dtuple(total, adv))
+  return total
+
+summarize(deinonychus())
+'''

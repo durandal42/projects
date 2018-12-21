@@ -1,9 +1,12 @@
+import fractions
 import random
 class RNG:
   def die(self, size):
     return random.randint(1,size)
   def dice(self, num, size):
     return sum(self.die(size) for _ in range(num))
+  def coin(self, weight=fractions.Fraction(1,2)):
+    return self.die(weight.denominator) <= weight.numerator
   def choose(self, list):
     return list[self.die(len(list)) - 1]
   def improbability(self):
@@ -52,6 +55,17 @@ class ExploringRNG(RNG):
 
     return result + 1
 
+  def coin(self, weight=fractions.Fraction(1,2)):
+    result = (self.die(2) == 1)
+    if weight < fractions.Fraction(1,2): result = not result
+    # adjust improbability
+    self._improbability /= 2
+    if result:
+      self._improbability /= weight
+    else:
+      self._improbability /= 1 - weight
+    return result
+
   def improbability(self):
     return self._improbability
 
@@ -78,7 +92,6 @@ def is_power2(num):
   return num != 0 and ((num & (num - 1)) == 0)
 
 import collections
-import fractions
 import itertools
 def histogram(f, r=None):
   if r is None: r = ExploringRNG()
@@ -101,10 +114,13 @@ def summarize(f, r=None):
   print 'summary:'
   for outcome, probability in sorted(h.iteritems()):
     print '%s\t%5.2f%%\t%s' % (outcome, round(100*probability, 2), probability)
-  ev = sum(outcome*probability for outcome,probability in h.iteritems())
-  print 'expected value:\t%0.2f' % ev
-  print '-'*20
-  return ev
+  try: 
+    ev = sum(outcome*probability for outcome,probability in h.iteritems())
+    print 'expected value:\t%0.4f' % ev
+    print '-'*20
+    return ev
+  except TypeError:
+    return None
 
 def vanilla_2d6(r):
   return r.dice(2,6)
@@ -191,6 +207,46 @@ output [tiger at NORMAL] named "tiger (pounce)"
 output [tiger at ADVANTAGE] named "tiger (pounce, advantage)"
 '''
 
+def cardchoose(rng, n, k):
+  t = n - k + 1
+  d = [None] * k
+  for i in range(k):
+    r = rng.die(t + i) - 1
+    if r < t:
+      d[i] = r
+    else:
+      d[i] = d[r - t]
+  d.sort()
+  for i in range(k):
+    d[i] += i
+  return tuple(d)
+
+def krs_choose(rng, n, k):
+  d = []
+  needed = k
+  left = n
+  for i in range(n):
+    r = rng.die(left)-1
+    if r < needed:
+      d.append(i)
+      needed -= 1
+    left -= 1
+    if left < 1: break
+  return tuple(d)
+
+def okimhere(rng, payoff=36, house_edge=fractions.Fraction(2,38)):
+  funds, target = 1, 2
+  while funds > 0 and funds < target:
+    bet = min(funds, fractions.Fraction(target-funds, payoff-1))
+    funds -= bet
+    if rng.coin((1-house_edge) * fractions.Fraction(1,payoff)):
+      funds += bet * payoff
+  return funds
+
+def black(rng):
+  if rng.coin(fractions.Fraction(18,38)): return 2
+  else: return 0
+
 functions = [
 #  vanilla_2d6,
 #  sicherman_2d6,
@@ -198,10 +254,21 @@ functions = [
 #  disadvantage,
 #  d20,
 #  advantage,
-  lambda r: bear(r, NORMAL),
-  lambda r: bear(r, ADVANTAGE),
+#  lambda r: bear(r, NORMAL),
+#  lambda r: bear(r, ADVANTAGE),
+#  lambda r: cardchoose(r, 8, 3),
+#  lambda r: krs_choose(r, 8, 3),
+#  black,
+  lambda r: okimhere(r, 2),
+  lambda r: okimhere(r, 4),
+  lambda r: okimhere(r, 8),
+  lambda r: okimhere(r, 16),
+  lambda r: okimhere(r, 32),
 ]
 
 for f in functions:
   print f
-  summarize(f) #, r=SamplingRNG(10000))
+  summarize(f,
+            r=SamplingRNG(10 ** 6)
+#            r=ExploringRNG()
+            )
