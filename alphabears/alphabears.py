@@ -5,6 +5,7 @@ from collections import defaultdict
 from itertools import islice
 
 def parse_available(string):
+  '''A1 B2 C2 D3 -> '1a2bc3d' '''
   result = defaultdict(list)
   duration = -1
   for c in string:
@@ -21,7 +22,7 @@ def legal_plays(available, words):
   available_tiles = Counter(dict((letter, len(durations))
                                  for letter, durations in available.iteritems()))
   num_available = sum(available_tiles.values()) 
-  print available_tiles
+  #print available_tiles
   for word in words:
     if len(word) > num_available: continue
     if available_tiles | Counter(word) == available_tiles:
@@ -43,6 +44,7 @@ def best_plays(available, words, letter_frequencies):
 def main(words):
   letter_frequencies = Counter(c for word in words for c in word)
   print 'letter_frequencies:', letter_frequencies
+  print 'available letters format: 1abc2def3ghi'
   while True:
     print '$ ',
     input = sys.stdin.readline()
@@ -50,8 +52,9 @@ def main(words):
       return
     available_string = input.strip().lower()
     available = parse_available(available_string)
-    for result in best_plays(available, words, letter_frequencies):
-      print result
+    print 'penalty\tword'
+    for score,word in best_plays(available, words, letter_frequencies):
+      print '%0.2f\t%s' % (-score, word)
 
 if __name__ == '__main__':
   words = set(line.lower().strip() for line in open('TWL06.txt'))
