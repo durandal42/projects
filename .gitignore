@@ -2,3 +2,6 @@
 *.class
 #*#
 *.pyc
+
+maze/images/*
+maze/movies/*
