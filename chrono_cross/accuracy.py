@@ -1,6 +1,3 @@
-import math
-
-
 def tuple_add(t1, t2):
   """Utility function for pairwise tuple addition."""
   assert isinstance(t1, tuple)
