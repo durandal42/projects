@@ -368,11 +368,11 @@ print "\nserge optimizing for damage > elemental charge, leaving 1 stamina free 
 display_tree(create_state(serge_base_hits, remaining_stamina=6),
              compose(utility_damage,
                      utility_elemental_power(cap=5)))
-print "TL;DR: spam 2"
+print "TL;DR: spam 2 unconditionally"
 
 print "\nserge optimizing for damage"
 display_tree(create_state(serge_base_hits), utility_damage)
-print "TL;DR: 2 2 3, unless *both* 2's miss, then: 1 2"
+print "TL;DR: 2 2...; if either hits, ...3; else, ...1 2"
 
 print "\nkid optimizing for pilfer charge > steal chance > remaining_stamina > damage, leaving 1 stamina free to cast"
 display_tree(create_state(kid_base_hits, remaining_stamina=6),
@@ -380,31 +380,31 @@ display_tree(create_state(kid_base_hits, remaining_stamina=6),
                      utility_steal_chance,
                      utility_remaining_stamina,
                      utility_damage))
-print "TL;DR: spam 1 until pilfer is charged up"
+print "TL;DR: poke 1 until pilfer is charged up"
 
 print "\nkid (already charged) optimizing for steal chance > remaining_stamina > damage, leaving 1 stamina free to cast"
 display_tree(create_state(kid_base_hits, remaining_stamina=6),
              compose(utility_steal_chance,
                      utility_remaining_stamina,
                      utility_damage))
-print "TL;DR: poke 1 until landing a single hit for steal success chance"
+print "TL;DR: poke 1 until landing a single hit lands"
 
 print "\nkid optimizing for damage > elemental charge, leaving 1 stamina free to cast"
 display_tree(create_state(kid_base_hits, remaining_stamina=6),
              compose(utility_damage,
                      utility_elemental_power(cap=5)))
-print "TL;DR: spam 2?"
+print "TL;DR: spam 2 unconditionally"
 
 print "\nkid optimizing for damage"
 display_tree(create_state(kid_base_hits), utility_damage)
-print "TL;DR: 2 2 3, unless initial 2 misses, then: 1 2 2"
+print "TL;DR: 2...; if it hits, ...2 3; else, ...1 2 2"
 
 print "\nglenn optimizing for damage > elemental charge, leaving 1 stamina free to cast"
 display_tree(create_state(glenn_base_hits, remaining_stamina=6),
              compose(utility_damage,
                      utility_elemental_power(cap=5)))
-print "TL;DR: spam 2"
+print "TL;DR: spam 2 unconditionally"
 
 print "\nglenn optimizing for damage"
 display_tree(create_state(glenn_base_hits), utility_damage)
-print "TL;DR: 2 2 3, unless *both* 2's miss, then: 1 2"
+print "TL;DR: 2 2...; if either hits, ...3; else, ...1 2"
