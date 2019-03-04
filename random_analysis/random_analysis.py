@@ -266,9 +266,11 @@ functions = [
   lambda r: okimhere(r, 32),
 ]
 
-for f in functions:
-  print f
-  summarize(f,
-            r=SamplingRNG(10 ** 6)
-#            r=ExploringRNG()
-            )
+if __name__ == "__main__":
+  # execute only if run as a script
+  for f in functions:
+    print f
+    summarize(f,
+              r=SamplingRNG(10 ** 6)
+  #            r=ExploringRNG()
+          )
