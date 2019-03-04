@@ -2,17 +2,21 @@ import math
 
 
 def tuple_add(t1, t2):
+  """Utility function for pairwise tuple addition."""
   assert isinstance(t1, tuple)
   assert isinstance(t2, tuple)
+  assert len(t1) == len(t2)
   return tuple(i + j for i, j in zip(t1, t2))
 
 
 def tuple_scale(s, t):
+  """Utility function for tuple scalar multiplication."""
   assert isinstance(t, tuple)
   return tuple(s * v for v in t)
 
 
 class Memoize:
+  """Utility class for annotating functions to be memoized."""
 
   def __init__(self, fn):
     self.fn = fn
@@ -24,26 +28,45 @@ class Memoize:
     return self.memo[args]
 
 
-ATTACKS = [1, 2, 3]
+# Attacks come in three strengths.
+MAX_STRENGTH = 3
+ATTACKS = range(1, 1 + MAX_STRENGTH)
+
+# Stronger attacks cost more stamina.
 STAMINA_COST = {1: 1, 2: 2, 3: 3}
-ACCURACY_GAIN = {1: 1, 2: 3, 3: 7}
+# ... but do more damage.
 DAMAGE = {1: 1.0, 2: 2.5, 3: 4.0}
+# ... and increase the accuracy of all additional attacks in the same chain.
+ACCURACY_GAIN = {1: 1, 2: 3, 3: 7}
 
-# print "strength:\tdamage efficiency (ignoring chance to hit)"
-# for a in ATTACKS:
-#   print "%d: %s" % (a, DAMAGE[a] / float(STAMINA_COST[a]))
+print "\nstrength:\tdamage efficiency (ignoring chance to hit)"
+for a in ATTACKS:
+  print "%d: %s" % (a, DAMAGE[a] / float(STAMINA_COST[a]))
 
-# print "strength:\taccuracy gain efficiency (ignoring chance to hit)"
-# for a in ATTACKS:
-#   print "%d: %s" % (a, ACCURACY_GAIN[a] / float(STAMINA_COST[a]))
+print "\nstrength:\taccuracy gain efficiency (ignoring chance to hit)"
+for a in ATTACKS:
+  print "%d: %s" % (a, ACCURACY_GAIN[a] / float(STAMINA_COST[a]))
 
 
+# Some equipped items increase chance to hit.
 ACCURACY_ITEMS = {
     "sight scope": 3 + 2,  # fudge: glenn putting on sight scope
-    "silver loupe": 2,
-    "dragoon's honor": 2 + 1,  # fudge: serge putting on dg while wearing silver loupe
+    "silver loupe": 2 + 4,  # fudge: kid putting on a silver loupe
+    "dragoon's honor": 2 - 2,  # fudge: serge putting on dg while wearing silver loupe
 }
 
+# Weapons are made of different materials. Better materials do more
+# damage, and are more likely to hit.
+MATERIAL_MODIFIER = {
+    "bone": (0, 0),
+    "copper": (2, 1),
+    "iron": (5, 2 + 3),  # fudge: glenn with no hit items and steel sword
+    "mythril": (8, 2),
+    "denadorite": (12, 3),
+    "rainbow": (17, 4),
+}
+
+# Weapon names have several variants which refer back to the same base material.
 CANONICAL_MATERIAL = {
     "bone": "bone",
     "sea": "bone",
@@ -69,20 +92,22 @@ CANONICAL_MATERIAL = {
     "spectral": "rainbow",
     "prism": "rainbow",
 }
-MATERIAL_MODIFIER = {
-    "bone": (0, 0),
-    "copper": (2, 1),
-    "iron": (5, 2 + 3),  # fudge: glenn with no hit items and steel sword
-    "mythril": (8, 2),
-    "denadorite": (12, 3),
-    "rainbow": (17, 4),
-}
 
 
 def tare_material(stats, baseline_material):
+  """
+  Derive a fake "bone" version of a weapon class.
+
+  Some weapons aren't available in low-quality materials, but the data on
+  weapon stats all treats the weakest existing member of a weapon class as
+  the baseline item. For such weapon classes, derive a fake "bone" version
+  of that weapon.
+  """
   return tuple(stat - mod for stat, mod in
                zip(stats, MATERIAL_MODIFIER[CANONICAL_MATERIAL[baseline_material]]))
 
+# Weapons come in classes; these are the stats of the "bone" version of
+# that class.
 WEAPON_CLASS = {
     "swallow": (60, 85 + 4),  # fudge: serge with no hit items and sea swallow
     "glove": (47, 85),
@@ -100,6 +125,7 @@ WEAPON_CLASS = {
     "boomerang": tare_material((50, 84), "iron"),
 }
 
+# Some weapons have names that aren't trivially parseable as MATERIAL CLASS.
 SPECIAL_WEAPONS = {
     # "name": ["base name", (delta from a weapon of that base name)]
     "mastermune": ["sea swallow", (15, 4)],
@@ -132,6 +158,7 @@ SPECIAL_WEAPONS = {
 
 
 def weapon_stats(name):
+  """Look up a weapon's stats, from its name."""
   if name in SPECIAL_WEAPONS:
     base, delta = SPECIAL_WEAPONS[name]
     return tuple_add(weapon_stats(base), delta)
@@ -143,15 +170,20 @@ def weapon_stats(name):
 for name in ["sea swallow", "steel swallow", "ivory dagger", "bronze sword", "steel sword"]:
   print "%s:\t%s" % (name, weapon_stats(name))
 
+# Constants used by some accuracy calculations.
 NORMAL_HIT_MOD = 50
 STRONG_HIT_MOD = 20
 
 
 def base_hits(acc=85, equip_acc=0, evade=0):
-  # # https://www.chronocompendium.com/Term/Hit.html
+  """Compute the base hit rates for the three attack strengths."""
+
+  # The internet claims the basic ACC values of 80,85,90 are wrong.
+  # https://www.chronocompendium.com/Term/Hit.html
   # if acc == 80: acc += 2
   # if acc == 90: acc -= 1
 
+  # Black magic!
   acc_mod = equip_acc * 2 / 3
   return (acc_mod + acc / 3 - evade,
           acc_mod + NORMAL_HIT_MOD / 3 - evade,
@@ -159,19 +191,21 @@ def base_hits(acc=85, equip_acc=0, evade=0):
 
 
 def steal(hits, attacked=False):
+  """Compute the chance of stealing an item."""
+  # More black magic!
   if attacked:
     chance = hits[2]
   else:
     chance = STRONG_HIT_MOD
   return chance * 2
 
-# print steal(base_hits())
-# print steal(base_hits(), True)
-
 
 def gear(weapon, items):
+  """Compute equip_acc from a weapon and any equipped items."""
   return weapon_stats(weapon)[1] + sum(ACCURACY_ITEMS[item] for item in items)
 
+# Trying to sanity check all of the above.
+# It's not quite right; see "fudge" comments.
 print "\nbase combat hit chance (full gear):"
 print "serge (observed):", (94, 82, 72)
 serge_base_hits = base_hits(acc=85, equip_acc=gear(
@@ -186,105 +220,122 @@ glenn_base_hits = base_hits(acc=85, equip_acc=gear(
     "steel sword", ["sight scope"]))
 print "glenn (computed):", glenn_base_hits
 
-# print "\nbase combat hit chance (no +hit items):"
-# print "serge (observed):", (90, 78, 68)
-# print "serge (computed):", base_hits(acc=85, equip_acc=gear("steel swallow", []))
-# print "kid (observed):", (89, 75, 65)
-# print "kid (computed):", base_hits(acc=90, equip_acc=gear("ivory dagger", []))
-# print "glenn (observed):", (90, 78, 68)
-# print "glenn (computed):", base_hits(acc=85, equip_acc=gear("steel
-# sword", []))
+print "\nbase combat hit chance (no +hit items):"
+print "serge (observed):", (90, 78, 68)
+print "serge (computed):", base_hits(acc=85, equip_acc=gear("steel swallow", []))
+print "kid (observed):", (89, 75, 65)
+print "kid (computed):", base_hits(acc=90, equip_acc=gear("ivory dagger", []))
+print "glenn (observed):", (90, 78, 68)
+print "glenn (computed):", base_hits(acc=85, equip_acc=gear("steel sword", []))
 
-# print "\nbase combat hit chance (no +hit items, low-tier weapons):"
-# print "serge (observed):", (87, 75, 65)
-# print "serge (computed):", base_hits(acc=85, equip_acc=gear("sea swallow", []))
-# print "glenn (observed):", (88, 76, 66)
-# print "glenn (computed):", base_hits(acc=85, equip_acc=gear("bronze
-# sword", []))
+print "\nbase combat hit chance (no +hit items, low-tier weapons):"
+print "serge (observed):", (87, 75, 65)
+print "serge (computed):", base_hits(acc=85, equip_acc=gear("sea swallow", []))
+print "glenn (observed):", (88, 76, 66)
+print "glenn (computed):", base_hits(acc=85, equip_acc=gear("bronze sword", []))
 
 
 def update_hits(hits, num_updates=1):
+  """Increase accuracy after landing a hit."""
+  # stronger attacks apply this update multiple times.
   for i in range(num_updates):
     weak, medium, heavy = hits
+    # Black magic!
     weak += (102 - weak) * 30 / 100
     medium += (102 - medium) * 25 / 100
     heavy += (103 - heavy) * 20 / 100
     hits = weak, medium, heavy
   return hits
 
-# def demo_hit_update(hits, steps, increment=1):
-#   result = [hits]
-#   for i in range(steps):
-#     hits = update_hits(hits, increment)
-#     result.append(hits)
-#   return result
 
-# print "\nimproved combat hit chance 1(+1):"
-# print "serge (observed):", [(90, 78, 68), (93, 84, 75), (95, 88, 80), (97, 91, 84), (98, 93, 87), (99, 95, 90), (99, 96, 92)]
-# print "serge (computed):", demo_hit_update((90, 78, 68), 6, ACCURACY_GAIN[1])
-# print "kid (observed):", [(89, 75, 65), (92, 81, 72), (95, 86, 78), (97, 90, 83), (98, 93, 87), (99, 95, 90), (99, 96, 92)]
-# print "kid (computed):", demo_hit_update((89, 75, 65), 6, ACCURACY_GAIN[1])
-# print "glenn (observed):", [(90, 78, 68), (93, 84, 75), (95, 88, 80), (97, 91, 84), (98, 93, 87), (99, 95, 90), (99, 96, 92)]
-# print "glenn (computed):", demo_hit_update((90, 78, 68), 6, ACCURACY_GAIN[1])
+def demo_hit_update(hits, steps, increment=1):
+  result = [hits]
+  for i in range(steps):
+    hits = update_hits(hits, increment)
+    result.append(hits)
+  return result
 
-# print "\nimproved combat hit chance 2(+3):"
-# print "serge (observed):", [(90, 78, 68), (97, 91, 84), (99, 96, 92), (99, 99, 96)]
-# print "serge (computed):", demo_hit_update((90, 78, 68), 3, ACCURACY_GAIN[2])
-# print "kid (observed):", [(89, 75, 65), (97, 90, 83), (99, 96, 92), (99, 99, 96)]
-# print "kid (computed):", demo_hit_update((89, 75, 65), 3, ACCURACY_GAIN[2])
-# print "glenn (observed):", [(90, 78, 68), (97, 91, 84), (99, 96, 92), (99, 99, 96)]
-# print "glenn (computed):", demo_hit_update((90, 78, 68), 3, ACCURACY_GAIN[2])
+# Sanity check hit updating; this seems to be exactly correct!
+print "\nimproved combat hit chance 1(+1):"
+print "serge (observed):", [(90, 78, 68), (93, 84, 75), (95, 88, 80), (97, 91, 84), (98, 93, 87), (99, 95, 90), (99, 96, 92)]
+print "serge (computed):", demo_hit_update((90, 78, 68), 6, ACCURACY_GAIN[1])
+print "kid (observed):", [(89, 75, 65), (92, 81, 72), (95, 86, 78), (97, 90, 83), (98, 93, 87), (99, 95, 90), (99, 96, 92)]
+print "kid (computed):", demo_hit_update((89, 75, 65), 6, ACCURACY_GAIN[1])
+print "glenn (observed):", [(90, 78, 68), (93, 84, 75), (95, 88, 80), (97, 91, 84), (98, 93, 87), (99, 95, 90), (99, 96, 92)]
+print "glenn (computed):", demo_hit_update((90, 78, 68), 6, ACCURACY_GAIN[1])
 
-# print "\nimproved combat hit chance 3(+7):"
-# print "serge (observed):", [(90, 78, 68), (99, 97, 94), (99, 99, 99)]
-# print "serge (computed):", demo_hit_update((90, 78, 68), 2, ACCURACY_GAIN[3])
-# print "kid (observed):", [(89, 75, 65), (99, 97, 94), (99, 99, 99)]
-# print "kid (computed):", demo_hit_update((89, 75, 65), 2, ACCURACY_GAIN[3])
-# print "glenn (observed):", [(90, 78, 68), (99, 97, 94), (99, 99, 99)]
-# print "glenn (computed):", demo_hit_update((90, 78, 68), 2, ACCURACY_GAIN[3])
+print "\nimproved combat hit chance 2(+3):"
+print "serge (observed):", [(90, 78, 68), (97, 91, 84), (99, 96, 92), (99, 99, 96)]
+print "serge (computed):", demo_hit_update((90, 78, 68), 3, ACCURACY_GAIN[2])
+print "kid (observed):", [(89, 75, 65), (97, 90, 83), (99, 96, 92), (99, 99, 96)]
+print "kid (computed):", demo_hit_update((89, 75, 65), 3, ACCURACY_GAIN[2])
+print "glenn (observed):", [(90, 78, 68), (97, 91, 84), (99, 96, 92), (99, 99, 96)]
+print "glenn (computed):", demo_hit_update((90, 78, 68), 3, ACCURACY_GAIN[2])
+
+print "\nimproved combat hit chance 3(+7):"
+print "serge (observed):", [(90, 78, 68), (99, 97, 94), (99, 99, 99)]
+print "serge (computed):", demo_hit_update((90, 78, 68), 2, ACCURACY_GAIN[3])
+print "kid (observed):", [(89, 75, 65), (99, 97, 94), (99, 99, 99)]
+print "kid (computed):", demo_hit_update((89, 75, 65), 2, ACCURACY_GAIN[3])
+print "glenn (observed):", [(90, 78, 68), (99, 97, 94), (99, 99, 99)]
+print "glenn (computed):", demo_hit_update((90, 78, 68), 2, ACCURACY_GAIN[3])
 
 
 def create_state(hits, remaining_stamina=7, elemental_power=0, damage_dealt=0):
+  """A combat state is just a tuple, for now."""
   return (hits, remaining_stamina, elemental_power, damage_dealt)
 
 
-def descendent_states(state, s):
+def descendent_states(state, strength):
+  """Compute possible next states, and the probability of landing in them."""
   hits, remaining_stamina, elemental_power, damage_dealt = state
-  hit_chance = hits[s - 1]
-  hit_state = create_state(update_hits(hits, ACCURACY_GAIN[s]),
-                           remaining_stamina - s,
-                           elemental_power + s,
-                           damage_dealt + DAMAGE[s])
+  hit_chance = hits[strength - 1]
+  hit_state = create_state(update_hits(hits, ACCURACY_GAIN[strength]),
+                           remaining_stamina - strength,
+                           elemental_power + strength,
+                           damage_dealt + DAMAGE[strength])
   miss_chance = 100 - hit_chance
   miss_state = create_state(
-      hits, remaining_stamina - s, elemental_power, damage_dealt)
+      hits, remaining_stamina - strength, elemental_power, damage_dealt)
   return [(hit_chance, hit_state), (miss_chance, miss_state)]
+
+# Functions to evaluate how good a state is:
 
 
 def utility_damage(state):
+  """All we care about is damage done."""
   return state[3]
 
 
 def utility_remaining_stamina(state):
+  """All we care about is remaining stamina."""
   return state[1]
 
 
 def utility_elemental_power(cap=5):
+  """All we care about is charging up elemental power."""
   return lambda s: min(cap, s[2])
 
 
 def utility_steal_chance(state):
+  """All we care about is maxing our chance of stealing an item."""
   hits = state[0]
   damage_dealt = state[3]
   return min(100, steal(hits, damage_dealt > 0))
 
 
 def compose(*args):
+  """Compose several utility functions, in priority order."""
   return lambda s: tuple(f(s) for f in args)
+
+# TODO(durandal): consider a weighted combination of utility functions?
 
 
 @Memoize
 def evaluate(state, f):
+  """Find the attack strength which, in expectation, leads to the best outcome.
+
+  Along the way, we'll end up computing every reachable state."""
   hits, remaining_stamina, elemental_power, damage_dealt = state
   results = [(f(state), None)]
   for s in range(1, 1 + min(3, remaining_stamina)):
@@ -301,13 +352,12 @@ def evaluate(state, f):
                for descendent_chance, evaluation in evaluations) / 100.0
     results.append((ev, s))
   best = max(results)
-  # if best[1]:
-  #   print state, "->", best
   return best
 
 
-@Memoize
+# @Memoize
 def display_tree(state, f, depth=0):
+  """Display only the branches of the state tree that we'll actually pick."""
   score, strength = evaluate(state, f)
   print "%s%s -> %s (%s)" % ('\t' * depth, state, strength, score)
   if strength is not None:
@@ -315,47 +365,49 @@ def display_tree(state, f, depth=0):
       display_tree(descendent[1], f, depth + 1)
 
 
+# Finally, tactical recommendations!
+
 print "\nserge optimizing for damage > elemental charge, leaving 1 stamina free to cast"
-# display_tree(create_state(serge_base_hits, remaining_stamina=6),
-#              compose(utility_damage,
-#                      utility_elemental_power(cap=5)))
+display_tree(create_state(serge_base_hits, remaining_stamina=6),
+             compose(utility_damage,
+                     utility_elemental_power(cap=5)))
 print "TL;DR: spam 2"
 
 print "\nserge optimizing for damage"
-# display_tree(create_state(serge_base_hits), utility_damage)
+display_tree(create_state(serge_base_hits), utility_damage)
 print "TL;DR: 2 2 3, unless *both* 2's miss, then: 1 2"
 
 print "\nkid optimizing for pilfer charge > steal chance > remaining_stamina > damage, leaving 1 stamina free to cast"
-# display_tree(create_state(kid_base_hits, remaining_stamina=6),
-#              compose(utility_elemental_power(cap=3),
-#                      utility_steal_chance,
-#                      utility_remaining_stamina,
-#                      utility_damage))
+display_tree(create_state(kid_base_hits, remaining_stamina=6),
+             compose(utility_elemental_power(cap=3),
+                     utility_steal_chance,
+                     utility_remaining_stamina,
+                     utility_damage))
 print "TL;DR: spam 1 until pilfer is charged up"
 
 print "\nkid (already charged) optimizing for steal chance > remaining_stamina > damage, leaving 1 stamina free to cast"
-# display_tree(create_state(kid_base_hits, remaining_stamina=6),
-#              compose(utility_steal_chance,
-#                      utility_remaining_stamina,
-#                      utility_damage))
+display_tree(create_state(kid_base_hits, remaining_stamina=6),
+             compose(utility_steal_chance,
+                     utility_remaining_stamina,
+                     utility_damage))
 print "TL;DR: poke 1 until landing a single hit for steal success chance"
 
 print "\nkid optimizing for damage > elemental charge, leaving 1 stamina free to cast"
-# display_tree(create_state(kid_base_hits, remaining_stamina=6),
-#              compose(utility_damage,
-#                      utility_elemental_power(cap=5)))
+display_tree(create_state(kid_base_hits, remaining_stamina=6),
+             compose(utility_damage,
+                     utility_elemental_power(cap=5)))
 print "TL;DR: spam 2?"
 
 print "\nkid optimizing for damage"
-# display_tree(create_state(kid_base_hits), utility_damage)
+display_tree(create_state(kid_base_hits), utility_damage)
 print "TL;DR: 2 2 3, unless initial 2 misses, then: 1 2 2"
 
 print "\nglenn optimizing for damage > elemental charge, leaving 1 stamina free to cast"
-# display_tree(create_state(glenn_base_hits, remaining_stamina=6),
-#              compose(utility_damage,
-#                      utility_elemental_power(cap=5)))
+display_tree(create_state(glenn_base_hits, remaining_stamina=6),
+             compose(utility_damage,
+                     utility_elemental_power(cap=5)))
 print "TL;DR: spam 2"
 
 print "\nglenn optimizing for damage"
-# display_tree(create_state(glenn_base_hits), utility_damage)
+display_tree(create_state(glenn_base_hits), utility_damage)
 print "TL;DR: 2 2 3, unless *both* 2's miss, then: 1 2"
