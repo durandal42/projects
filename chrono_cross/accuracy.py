@@ -58,7 +58,7 @@ MATERIAL_MODIFIER = {
     "bone": (0, 0),
     "copper": (2, 1),
     "iron": (5, 2 + 3),  # fudge: glenn with no hit items and steel sword
-    "mythril": (8, 2),
+    "mythril": (8, 2 + 3),  # fudge: lynx with silver swallow
     "denadorite": (12, 3),
     "rainbow": (17, 4),
 }
@@ -181,15 +181,18 @@ def base_hits(acc=85, equip_acc=0, evade=0):
   # if acc == 90: acc -= 1
 
   # Black magic!
+  # https://www.chronocompendium.com/Term/Game_Mechanics.html
+  # https://gamefaqs.gamespot.com/boards/196917-chrono-cross/55191996
   acc_mod = equip_acc * 2 / 3
-  return (acc_mod + acc / 3 - evade,
-          acc_mod + NORMAL_HIT_MOD / 3 - evade,
-          acc_mod + STRONG_HIT_MOD / 3 - evade)
+  return (min(100, acc_mod + acc / 3 - evade),
+          min(100, acc_mod + NORMAL_HIT_MOD / 3 - evade),
+          min(100, acc_mod + STRONG_HIT_MOD / 3 - evade))
 
 
 def steal(hits, attacked=False):
   """Compute the chance of stealing an item."""
   # More black magic!
+  # https://gamefaqs.gamespot.com/boards/196917-chrono-cross/61544012?page=2
   if attacked:
     chance = hits[2]
   else:
@@ -206,11 +209,11 @@ def gear(weapon, items):
 print "\nbase combat hit chance (full gear):"
 print "serge (observed):", (94, 82, 72)
 serge_base_hits = base_hits(acc=85, equip_acc=gear(
-    "steel swallow", ["silver loupe", "dragoon's honor"]))
+    "silver swallow", ["silver loupe", "dragoon's honor"]))
 print "serge (computed):", serge_base_hits
-print "kid (observed):", (93, 79, 69)
+print "kid (observed):", (96, 82, 72)
 kid_base_hits = base_hits(acc=90, equip_acc=gear(
-    "ivory dagger", ["silver loupe"]))
+    "iron dagger", ["silver loupe"]))
 print "kid (computed):", kid_base_hits
 print "glenn (observed):", (94, 82, 72)
 glenn_base_hits = base_hits(acc=85, equip_acc=gear(
@@ -220,20 +223,24 @@ print "glenn (computed):", glenn_base_hits
 print "\nbase combat hit chance (no +hit items):"
 print "serge (observed):", (90, 78, 68)
 print "serge (computed):", base_hits(acc=85, equip_acc=gear("steel swallow", []))
-print "kid (observed):", (89, 75, 65)
-print "kid (computed):", base_hits(acc=90, equip_acc=gear("ivory dagger", []))
+print "kid (observed):",   (92, 78, 68)
+print "kid (computed):", base_hits(acc=90, equip_acc=gear("iron dagger", []))
 print "glenn (observed):", (90, 78, 68)
 print "glenn (computed):", base_hits(acc=85, equip_acc=gear("steel sword", []))
 
 print "\nbase combat hit chance (no +hit items, low-tier weapons):"
 print "serge (observed):", (87, 75, 65)
 print "serge (computed):", base_hits(acc=85, equip_acc=gear("sea swallow", []))
+print "kid (observed):", (89, 75, 65)
+print "kid (computed):", base_hits(acc=90, equip_acc=gear("ivory dagger", []))
 print "glenn (observed):", (88, 76, 66)
 print "glenn (computed):", base_hits(acc=85, equip_acc=gear("bronze sword", []))
 
 
 def update_hits(hits, num_updates=1):
   """Increase accuracy after landing a hit."""
+  # https://www.chronocompendium.com/Term/Game_Mechanics.html
+  # https://gamefaqs.gamespot.com/boards/196917-chrono-cross/55191996
   # stronger attacks apply this update multiple times.
   for i in range(num_updates):
     weak, medium, heavy = hits
@@ -278,22 +285,23 @@ print "glenn (observed):", [(90, 78, 68), (99, 97, 94), (99, 99, 99)]
 print "glenn (computed):", demo_hit_update((90, 78, 68), 2, ACCURACY_GAIN[3])
 
 
-def create_state(hits, remaining_stamina=7, elemental_power=0, damage_dealt=0):
+def create_state(hits, remaining_stamina=7, elemental_power=0, damage_dealt=0, stamina_spent=0):
   """A combat state is just a tuple, for now."""
-  return (hits, remaining_stamina, elemental_power, damage_dealt)
+  return (hits, remaining_stamina, elemental_power, damage_dealt, stamina_spent)
 
 
 def descendent_states(state, strength):
   """Compute possible next states, and the probability of landing in them."""
-  hits, remaining_stamina, elemental_power, damage_dealt = state
+  hits, remaining_stamina, elemental_power, damage_dealt, stamina_spent = state
   hit_chance = hits[strength - 1]
   hit_state = create_state(update_hits(hits, ACCURACY_GAIN[strength]),
                            remaining_stamina - strength,
                            elemental_power + strength,
-                           damage_dealt + DAMAGE[strength])
+                           damage_dealt + DAMAGE[strength],
+                           stamina_spent + strength)
   miss_chance = 100 - hit_chance
   miss_state = create_state(
-      hits, remaining_stamina - strength, elemental_power, damage_dealt)
+      hits, remaining_stamina - strength, elemental_power, damage_dealt, stamina_spent + strength)
   return [(hit_chance, hit_state), (miss_chance, miss_state)]
 
 # Functions to evaluate how good a state is:
@@ -303,6 +311,19 @@ def utility_damage(state):
   """All we care about is damage done."""
   return state[3]
 
+
+def utility_damage_efficiency():
+  """All we care about is damage done per stamina spent."""
+  # This is misguided; a character that swings once and hits will decline
+  # to spend further stamina, because it can only hurt their efficiency score.
+  # Use utility_sustained_damage instead.
+  return lambda s: s[3] / float(max(1, s[4]))
+
+def utility_sustained_damage(guess=0.0):
+  # You'll need to iterate, feeding dps back in as the next iteration's guess,
+  # until it converges. See sustained_dps().
+  HORIZON = 21  # 21 stamina, 3 full combos
+  return lambda s: (s[3] + (HORIZON - max(1, s[4])) * guess) / float(HORIZON)
 
 def utility_remaining_stamina(state):
   """All we care about is remaining stamina."""
@@ -333,7 +354,7 @@ def evaluate(state, f):
   """Find the attack strength which, in expectation, leads to the best outcome.
 
   Along the way, we'll end up computing every reachable state."""
-  hits, remaining_stamina, elemental_power, damage_dealt = state
+  hits, remaining_stamina, elemental_power, damage_dealt, stamina_spent = state
   results = [(f(state), None)]
   for s in range(1, 1 + min(3, remaining_stamina)):
     descendents = descendent_states(state, s)
@@ -349,18 +370,33 @@ def evaluate(state, f):
                for descendent_chance, evaluation in evaluations) / 100.0
     results.append((ev, s))
   best = max(results)
+  # print state, best
   return best
 
 
 # @Memoize
-def display_tree(state, f, depth=0):
+def display_tree(state, f, depth=0, quiet=False):
   """Display only the branches of the state tree that we'll actually pick."""
   score, strength = evaluate(state, f)
-  print "%s%s -> %s (%s)" % ('\t' * depth, state, strength, score)
+  if not quiet:
+    print "%s%s -> %s (%s)" % ('\t' * depth, state, strength, score)
   if strength is not None:
     for descendent in descendent_states(state, strength):
-      display_tree(descendent[1], f, depth + 1)
+      display_tree(descendent[1], f, depth + 1, quiet)
+  return (score, strength)
 
+
+def isclose(a, b, rel_tol=1e-09, abs_tol=0.0):
+    return abs(a-b) <= max(rel_tol * max(abs(a), abs(b)), abs_tol)
+
+def sustained_dps(hits, quiet=False):
+  eff = 1.0
+  state = create_state(hits)
+  while True:
+    new_eff = evaluate(state, utility_sustained_damage(eff))[0]
+    if isclose(eff, new_eff): break
+    eff = new_eff
+  return display_tree(state, utility_sustained_damage(eff), quiet=quiet)
 
 # Finally, tactical recommendations!
 
@@ -370,9 +406,9 @@ display_tree(create_state(serge_base_hits, remaining_stamina=6),
                      utility_elemental_power(cap=5)))
 print "TL;DR: spam 2 unconditionally"
 
-print "\nserge optimizing for damage"
-display_tree(create_state(serge_base_hits), utility_damage)
-print "TL;DR: 2 2...; if either hits, ...3; else, ...1 2"
+print "\nserge optimizing for dps"
+sustained_dps(serge_base_hits)
+print "TL;DR: 223, but abort if the first 2 misses."
 
 print "\nkid optimizing for pilfer charge > steal chance > remaining_stamina > damage, leaving 1 stamina free to cast"
 display_tree(create_state(kid_base_hits, remaining_stamina=6),
@@ -395,9 +431,9 @@ display_tree(create_state(kid_base_hits, remaining_stamina=6),
                      utility_elemental_power(cap=5)))
 print "TL;DR: spam 2 unconditionally"
 
-print "\nkid optimizing for damage"
-display_tree(create_state(kid_base_hits), utility_damage)
-print "TL;DR: 2...; if it hits, ...2 3; else, ...1 2 2"
+print "\nkid optimizing for dps"
+sustained_dps(kid_base_hits)
+print "TL;DR: 223, but abort if the first 2 misses"
 
 print "\nglenn optimizing for damage > elemental charge, leaving 1 stamina free to cast"
 display_tree(create_state(glenn_base_hits, remaining_stamina=6),
@@ -405,6 +441,33 @@ display_tree(create_state(glenn_base_hits, remaining_stamina=6),
                      utility_elemental_power(cap=5)))
 print "TL;DR: spam 2 unconditionally"
 
-print "\nglenn optimizing for damage"
-display_tree(create_state(glenn_base_hits), utility_damage)
-print "TL;DR: 2 2...; if either hits, ...3; else, ...1 2"
+print "\nglenn optimizing for dps"
+sustained_dps(glenn_base_hits)
+print "TL;DR: 223, but abort if the first 2 misses"
+
+
+# print "\nlynx optimizing for damage vs a target with some evasion"
+# display_tree(create_state(base_hits(
+#     acc=85,
+#     equip_acc=gear("silver swallow", ["silver loupe", "dragoon's honor"]),
+#     evade=8)), utility_damage)
+# print "TL;DR: 2...; if it hits, ...2 3; else, ...1 2 2"
+
+print "\nradius optimizing for dps"
+sustained_dps(base_hits(acc=90, equip_acc=gear("silver staff", ["silver loupe"])))
+print "TL;DR: 2 (abort if miss) 2...; if both hit, 3; else, 2"
+
+print "\nsearching for 2(hit)2(miss)X breakpoint"
+sustained_dps((94, 81, 71))
+print "TL;DR: X=2 until (_,82,72) initial, or (_,93,87) at decision time."
+
+print "\nmax hit rate, optimizing for dps"
+sustained_dps((99, 99, 99))
+print "TL;DR: 33"
+
+print "\nsearching for 223->33 dps breakpoint"
+for hit in range(0,100):
+  hits = base_hits(equip_acc=gear("silver staff", ["silver loupe"])+hit)
+  score, opener = sustained_dps(hits, quiet=True)
+  print '%s -> %s (%s)' % (hits, opener, score)
+  if opener > 2: break

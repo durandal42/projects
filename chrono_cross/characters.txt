@@ -1,0 +1,1032 @@
+Serge
+Element Grid: [Star Level Required to Receive Slot]
+
+[  22  ][  31  ][  39  ][      ][      ][      ][      ][      ]
+[  19  ][  20  ][  24  ][  30  ][      ][      ][      ][      ]
+[  12  ][  14  ][  16  ][  23  ][  36  ][      ][      ][      ]
+[  07  ][  08  ][  09  ][  13  ][  21  ][  34  ][  46  ][  48  ]
+[  00  ][  00  ][  00  ][  05  ][  11  ][  18  ][  26  ][  37  ]
+[  01  ][  02  ][  03  ][  10  ][  15  ][  29  ][  35  ][  41  ]
+[  04  ][  06  ][  25  ][  28  ][  33  ][  40  ][  43  ][  44  ]
+[  17  ][  27  ][  32  ][  47  ][      ][      ][      ][      ]
+INNATE COLOR: White
+
+MAX HP:         850 (4.5% above average)
+MAX STR:         88 (5.5% above average)
+MAX RES:         78 (3.2% above average)
+MAX MAG:         52 (8.6% above average)
+MAX M.RES:       43 (6.4% above average)
+Dash&Slash: Physical Tech - One Enemy - Typical
+Luminaire: Magical Tech - All Enemies - Typical
+FlyingArrow: Magical Tech - One Enemy - Typical
+Overall Analysis: Naturally, by the math, and element grid, there can be nothing but positive remarks for our silent protagonist. His secondary stats are average, including his 10 Stamina Recovery. Since the numbers don't necessarily do it justice, I will talk more about this grid. This is the second best overall grid in my book. Excellent throughout the game and comes up just short against the one Harle and Riddel possess. In fact, after this section, I will give advanced rankings of the characters based on the 5 main stats and the grid. It isn't binders full of women, but I have spreadsheets full of statistics on this game. Serge ranks highly in almost every metric I have used, including his personal best of 2nd in that specific one. When he becomes Lynx, everything is the same, but Lynx's final technique is a magical technique on all. For my money, that is slightly better. That being said, white is probably the best overall innate, so I would still say Serge has a bigger advantage. He is basically a must on an all white team. Look, all this praise without even mentioning the Mastermune. What a joke that makes the game.
+
+Kid
+Element Grid: [Star Level Required to Receive Slot]
+
+[  22  ][  31  ][  39  ][      ][      ][      ][      ][      ]
+[  19  ][  20  ][  24  ][  30  ][      ][      ][      ][      ]
+[  12  ][  14  ][  16  ][  23  ][  36  ][  60  ][      ][      ]
+[  07  ][  08  ][  09  ][  13  ][  21  ][  34  ][  46  ][      ]
+[  00  ][  00  ][  00  ][  05  ][  11  ][  18  ][  26  ][  37  ]
+[  01  ][  02  ][  03  ][  10  ][  15  ][  29  ][  35  ][  41  ]
+[  04  ][  06  ][  25  ][  28  ][  33  ][  40  ][  43  ][      ]
+[  17  ][  27  ][  32  ][      ][      ][      ][      ][      ]
+INNATE COLOR: Red
+
+MAX HP:         780 (4.1% below average)
+MAX STR:         82 (1.7% below average)
+MAX RES:         74 (2.1% below average)
+MAX MAG:         50 (4.5% above average)
+MAX M.RES:       40 (1.1% below average)
+Pilfer: Physical Tech - One Enemy - Attempts to steal. Stealing accuracy greatly increases after successful hits.
+RedPin: Magical Tech - All Enemies - Typical
+HotShot: Magical Tech - One Enemy - Typical
+Overall Analysis: I won't speak ill of Kid, despite the fact that she drives me absolutely crazy in the game. She has a pretty lovely grid, which is similar to Serge's, but she gains one level 6 tech in exchange for losing 2 level 8 techs and a level 4 tech. This ranks as my 4th favorite grid, after the two mentioned above in Serge's and another one shared by 5 other characters(check Nikki a few down from here) in terms of blocks. Otherwise, there isn't much to say about her. She is a hothead talking in an Australian accent that is likely to annoy you. As a red innate, she isn't as good at being balanced as Macha, as physical as Greco or Draggy, or as magically inclined as Miki. That being said, she has 12 Stamina Recovery, which is really good for casting spells more often. Otherwise, she has mediocre stats. She has average techniques outside of stealing. And, quite frankly, if it came down to a battle between rivals, we ALL know who would get her derriere kicked, non?
+
+Guile
+Element Grid: [Star Level Required to Receive Slot]
+
+[      ][      ][      ][      ][      ][      ][      ][  78  ]
+[      ][      ][      ][      ][      ][      ][  69  ][  72  ]
+[      ][      ][      ][      ][      ][  60  ][  63  ][  66  ]
+[      ][      ][      ][      ][  21  ][  34  ][  46  ][  48  ]
+[  00  ][  00  ][  00  ][  05  ][  11  ][  18  ][  26  ][  37  ]
+[      ][      ][  03  ][  10  ][  15  ][  29  ][  35  ][  41  ]
+[      ][      ][      ][  28  ][  33  ][  40  ][  43  ][  44  ]
+[      ][      ][      ][      ][      ][      ][      ][  75  ]
+INNATE COLOR: Black
+
+MAX HP:         880 (8.2% above average)
+MAX STR:         74 (11.3% below average)
+MAX RES:         75 (0.8% below average)
+MAX MAG:         58 (21.2% above average)
+MAX M.RES:       48 (18.7% above average)
+WandaIn: Magical Tech - One Enemy - Typical
+WandaSwords: Magical Tech - One Enemy - Typical
+LightninRod: Magical Tech - One Enemy - Typical
+Overall Analysis: Statistically, Guile is one of the best casters in the game. By far, he is one of the most durable. He boasts excellent HP, average defense, and the best magic defense in the game. He has tied for the second highest magic in the game. Overall, he is very solid. His techniques fit a magic user very well. Unfortunately, he only has 8 Stamina Recovery, which ultimately inhibits the number of techs you can use per attack. One thing you will notice is people seem to love his element grid. Personally, I do not love it. When the game is hard early, he has very little to provide the team with. Sure, near the end of your second playthrough, he has a full section of level 8 techniques, but in what world would someone on that star level require him to attack and cast that many techniques? The answer is none. The grid isn't bad, but I think it is vastly overrated. Still, he is the earliest available character whose level 3 technique is magical, which is a huge benefit. I don't think he is the best ever, but he is definitely better than most. He fits in on an all black team as the pure caster, and one of only four(counting Lynx) black innates that I can recommend using based on stats.
+
+Norris
+Element Grid: [Star Level Required to Receive Slot]
+
+[  22  ][      ][      ][      ][      ][      ][      ][      ]
+[  19  ][  20  ][      ][      ][      ][      ][      ][      ]
+[  12  ][  14  ][  16  ][      ][      ][      ][      ][      ]
+[  07  ][  08  ][  09  ][  13  ][  21  ][      ][      ][      ]
+[  00  ][  00  ][  00  ][  05  ][  11  ][  18  ][      ][      ]
+[  01  ][  02  ][  03  ][  10  ][  15  ][  29  ][  35  ][  41  ]
+[  04  ][  06  ][  25  ][  28  ][  33  ][  40  ][  43  ][  44  ]
+[  17  ][  27  ][  32  ][      ][      ][      ][      ][      ]
+INNATE COLOR: Yellow
+
+MAX HP:         800 (1.6% below average)
+MAX STR:         85 (1.9% above average)
+MAX RES:         75 (0.8% below average)
+MAX MAG:         46 (3.9% below average)
+MAX M.RES:       42 (3.9% above average)
+SpiralRay: Magical Tech - One Enemy- Typical
+SunShower: Magical Tech - All Enemies - Not typical. In fact, this has the power of a single target Level 5(25% more power).
+TopShot: Physical Tech - One Enemy - Typical
+Overall Analysis: Norris is pretty average, just like Kid. For a yellow innate, that is arguably a ringing endorsement. His grid is an even further watered down version of Serge's element grid than Kid's was. Regardless, at least SunShower is a pretty special tech compared to others. He is pretty forgettable, but, let's be honest, so are about 20 of the characters in this game. The one good thing going for him is he is a yellow innate character and has 11 Stamina Recovery. Therefore, he is competing with some hilariously bad players if you are running an all yellow team. Either way, I always hold a grudge against him for not letting Kid die. Still, he is no Korcha.
+
+Nikki
+Element Grid: [Star Level Required to Receive Slot]
+
+[  35  ][      ][      ][      ][      ][      ][      ][      ]
+[  26  ][  31  ][      ][      ][      ][      ][      ][      ]
+[  14  ][  18  ][  21  ][  28  ][  39  ][  44  ][  48  ][      ]
+[  04  ][  05  ][  06  ][  13  ][  15  ][  27  ][  32  ][  49  ]
+[  00  ][  00  ][  00  ][  07  ][  11  ][  16  ][  25  ][  37  ]
+[  01  ][  02  ][  03  ][  10  ][  19  ][  22  ][  40  ][  45  ]
+[  09  ][  20  ][  24  ][  29  ][  33  ][  38  ][  42  ][  47  ]
+[      ][      ][      ][      ][      ][      ][      ][      ]
+INNATE COLOR: Blue
+
+MAX HP:         750 (7.8% below average)
+MAX STR:         83 (0.5% below average)
+MAX RES:         70 (7.4% below average)
+MAX MAG:         54 (12.8% above average)
+MAX M.RES:       40 (1.1% below average)
+GrandFinale: Physical Tech - One Enemy - Typical
+ChillOut: Magical Tech - One Enemy - Typical
+LimeLight: Magical Tech - All Enemies - Typical
+Overall Analysis: Well, Nikki is that rocker guy who really likes to cake on the makeup. As an innate blue, he has some good spells in his arsenal, but, unfortunately for him, blue has a wealth of good casters and basically all of them are better than he is. Even though he is only slightly behind in raw stats, he has a Stamina Recovery value of 9, which is something that tends to decide between even characters otherwise. He has an excellent grid, but Irenes has the same grid and is as good or better due to stamina. Leena tops him on stats, has amazing techniques, and has a worse grid, but one of her techniques recharges her elements, so who cares? Overall, he is another ultimately average character stuck in an innate that has too many characters who are above average for him compete. This is the first person whose grid is based on Harle/Riddel. Serge and Harle/Riddel have the two 48 element grid alignments. This one starts with fewer on early levels and decreases very little along the way while Serge's starts higher and decreases more. You can tell which one a characters grid is based on by locating the [ 04 ] block. If it is above the first 00, it is based on Harle. If below the 01, based on Serge.
+
+Viper
+Element Grid: [Star Level Required to Receive Slot]
+
+[      ][      ][      ][      ][      ][      ][      ][      ]
+[      ][      ][      ][      ][      ][      ][      ][      ]
+[      ][      ][      ][      ][      ][      ][      ][      ]
+[  04  ][  05  ][  06  ][  13  ][  15  ][  27  ][      ][      ]
+[  00  ][  00  ][  00  ][  07  ][  11  ][  16  ][  25  ][  37  ]
+[  01  ][  02  ][  03  ][  10  ][  19  ][  22  ][  40  ][  45  ]
+[  09  ][  20  ][  24  ][  29  ][  33  ][  38  ][  42  ][  47  ]
+[      ][      ][      ][      ][      ][      ][      ][      ]
+INNATE COLOR: Yellow
+
+MAX HP:         860 (5.8% above average)
+MAX STR:         88 (5.5% above average)
+MAX RES:         75 (0.8% below average)
+MAX MAG:         43 (10.2% below average)
+MAX M.RES:       38 (6.0% below average)
+G-Force: Physical Tech - One Enemy - Typical
+AirForce: Physical Tech - All Enemies - Typical
+FlagBearer: Magical Tech - Self - Greatly Raises Defense. Less than stellar.
+Overall Analysis: Viper has typical yellow innate stats. Only, his aren't generally good enough. Leah and Zoah generally thump him from a physical standpoint and he isn't balanced enough to fill another role. I mean, overall, he is only a bit below average statistically. His element grid is meh, his abilities are pretty meh, and he has only 9 Stamina Recovery as well. On the bright side, he isn't unbearably annoying. And like Norris, he is competing with yellow innates who generally suck at life. He still isn't good enough, though.
+
+Riddel
+Element Grid: [Star Level Required to Receive Slot]
+
+[  35  ][  43  ][      ][      ][      ][      ][      ][      ]
+[  26  ][  31  ][  34  ][  41  ][  46  ][  50  ][      ][      ]
+[  14  ][  18  ][  21  ][  28  ][  39  ][  44  ][  48  ][  51  ]
+[  04  ][  05  ][  06  ][  13  ][  15  ][  27  ][  32  ][  49  ]
+[  00  ][  00  ][  00  ][  07  ][  11  ][  16  ][  25  ][  37  ]
+[  01  ][  02  ][  03  ][  10  ][  19  ][  22  ][  40  ][  45  ]
+[  09  ][  20  ][  24  ][  29  ][  33  ][  38  ][  42  ][  47  ]
+[      ][      ][      ][      ][      ][      ][      ][      ]
+INNATE COLOR: White
+
+MAX HP:         730 (10.2% below average)
+MAX STR:         73 (12.5% below average)
+MAX RES:         70 (7.4% below average)
+MAX MAG:         60 (25.4% above average)
+MAX M.RES:       45 (11.3% above average)
+SnakeEyes: Magical Tech - All Allies - Heals all moderately.
+SnakeSkin: Magical Tech - One Ally - Raises Defense. At least it can be used on anyone.
+SnakeFangs: Magical Tech - Self - Recharges used elements. Totally fair for someone who already had tied for the best grid.
+Overall Analysis: Here is the first look at the grid which is the prototype for the other half of grids as opposed to ones based on Serge. First off, when you see her first three numbers, you wonder if this chick is going to be the worst ever...surprise, she isn't. In fact, she has the highest magic in the game. Couple that with her incredible grid and fabulous personal techs and you have what many consider to be the best caster in the game. Add in that she has above average Stamina Recovery at 11 and you see she has no magical weaknesses. And of course, she is a princess. She is simply excellent at the things you want her to do. I consider her the second cornerstone to the all white team. Serge and Riddel are absolutely required in my book.
+
+Karsh
+Element Grid: [Star Level Required to Receive Slot]
+
+[      ][      ][      ][      ][      ][      ][      ][      ]
+[      ][      ][      ][      ][      ][      ][      ][      ]
+[  14  ][  18  ][  21  ][  28  ][      ][      ][      ][      ]
+[  04  ][  05  ][  06  ][  13  ][  15  ][  27  ][  32  ][  49  ]
+[  00  ][  00  ][  00  ][  07  ][  11  ][  16  ][  25  ][  37  ]
+[  01  ][  02  ][  03  ][  10  ][  19  ][  22  ][  40  ][  45  ]
+[  09  ][  20  ][  24  ][  29  ][  33  ][  38  ][  42  ][  47  ]
+[      ][      ][      ][      ][      ][      ][      ][      ]
+INNATE COLOR: Green
+
+MAX HP:         910 (11.9% above average)
+MAX STR:         90 (7.9% above average)
+MAX RES:         80 (5.8% above average)
+MAX MAG:         51 (6.6% above average)
+MAX M.RES:       42 (3.9% above average)
+DragonRider: Physical Tech - One Enemy - Typical
+AxialAxe: Physical Tech - All Enemies - Typical
+Axiomatic: Physical Tech - One Enemy - Typical
+Overall Analysis: It is like we struck it rich. Two in a row! It is clear that Karsh is a statistically excellent character. He also has a decent grid and is balanced all around. Some would consider his 9 Stamina Recovery a problem, but since he excels most on the physical side, I don't. Ironically, he is the second boss in the game. Bottom line seems to be if you fight them as a boss early, they end up being pretty good if they are playable characters. There is nothing really to say. He scores very highly on any metric, as high as the third based character purely based on the 5 stats you see above. As a character, I don't feel strongly about his personality in one way or another. Sometimes that is a good thing.
+
+Zoah
+Element Grid: [Star Level Required to Receive Slot]
+
+[  22  ][      ][      ][      ][      ][      ][      ][      ]
+[  19  ][  20  ][      ][      ][      ][      ][      ][      ]
+[  12  ][  14  ][  16  ][  23  ][      ][      ][      ][      ]
+[  07  ][  08  ][  09  ][  13  ][  21  ][  34  ][      ][      ]
+[  00  ][  00  ][  00  ][  05  ][  11  ][  18  ][  26  ][  37  ]
+[  01  ][  02  ][  03  ][  10  ][  15  ][  29  ][  35  ][  41  ]
+[  04  ][  06  ][  25  ][  28  ][      ][      ][      ][      ]
+[  17  ][  27  ][  32  ][      ][      ][      ][      ][      ]
+INNATE COLOR: Yellow
+
+MAX HP:         950 (16.8% above average)
+MAX STR:         90 (7.9% above average)
+MAX RES:         85 (12.4% above average)
+MAX MAG:         43 (10.2% below average)
+MAX M.RES:       38 (6.0% below average)
+DragonRider: Physical Tech - One Enemy - Typical
+Gyronimo: Physical Tech - One Enemy - Typical
+Toss&Spike: Physical Tech - One Enemy - Typical
+Overall Analysis: As you would expect after the plot of seeing him and Karsh, he is a beefier, less balanced version. He is one of two yellow innates that I consider to be better than average. Sadly, he has 8 Stamina Recovery, which, again, doesn't matter much for a physical character. Despite how good he is physically, he isn't even the most physically oriented yellow innate in the game. His grid leaves something to be desired, like Norris...but, again, if you are using a yellow on your team, it isn't because they are magically inclined. He is a beefy brawler, simple as that.
+
+Marcy
+Element Grid: [Star Level Required to Receive Slot]
+
+[  35  ][      ][      ][      ][      ][      ][      ][      ]
+[  26  ][  31  ][      ][      ][      ][      ][      ][      ]
+[  14  ][  18  ][  21  ][  28  ][  39  ][  44  ][  48  ][      ]
+[  04  ][  05  ][  06  ][  13  ][  15  ][  27  ][  32  ][  49  ]
+[  00  ][  00  ][  00  ][  07  ][  11  ][  16  ][  25  ][  37  ]
+[  01  ][  02  ][  03  ][  10  ][  19  ][  22  ][  40  ][  45  ]
+[  09  ][  20  ][  24  ][  29  ][  33  ][  38  ][  42  ][  47  ]
+[      ][      ][      ][      ][      ][      ][      ][      ]
+INNATE COLOR: Blue
+
+MAX HP:         750 (7.8% below average)
+MAX STR:         86 (3.1% above average)
+MAX RES:         75 (0.8% below average)
+MAX MAG:         53 (10.7% above average)
+MAX M.RES:       42 (3.9% above average)
+Cat'sCradle: Physical Tech - One Enemy - Typical
+StringPhone: Magical Tech - All Enemies - Typical
+WebSurfer: Magical Tech - All Enemies - Typical
+Overall Analysis: Marcy is the best overall blue character. While her stats are great, but perhaps not excellent, her grid is the same as Nikki's, which is quite amazing. Outside of her weak HP, she is quite the powerhouse. She has 90 base accuracy, which is a boon for a first playthrough, I assure you. Her agility is tied for the third highest, which helps avert her physical frailty, and her Stamina Recovery is 11. So, while these 5 stats set Marcy apart as a good character, the rest, which are less important, and her grid elevate her to a great one. She stands out above the other above average blues for me and the numbers back that up. Now, shall we discuss the creepy factor of this pretty, female version of Chucky? Let's ignore the fact that she is 9 years old(elementary school), but already 4'9". Her weapon is a string. She wants to murder everything. She, like, talks like a valley girl. Were the creators sending a message on how they feel about California Girls? Who knows, but she has some of the greatest quotes in the game. This ball of ferocity is one of my personal favorites.
+
+Korcha
+Element Grid: [Star Level Required to Receive Slot]
+
+[  22  ][      ][      ][      ][      ][      ][      ][      ]
+[  19  ][  20  ][      ][      ][      ][      ][      ][      ]
+[  12  ][  14  ][  16  ][  23  ][      ][      ][      ][      ]
+[  07  ][  08  ][  09  ][  13  ][  21  ][  34  ][      ][      ]
+[  00  ][  00  ][  00  ][  05  ][  11  ][  18  ][  26  ][  37  ]
+[  01  ][  02  ][  03  ][  10  ][  15  ][  29  ][  35  ][  41  ]
+[  04  ][  06  ][  25  ][  28  ][      ][      ][      ][      ]
+[  17  ][  27  ][  32  ][      ][      ][      ][      ][      ]
+INNATE COLOR: Blue
+
+MAX HP:         800 (1.6% below average)
+MAX STR:         85 (1.9% above average)
+MAX RES:         75 (0.8% below average)
+MAX MAG:         45 (6.0% below average)
+MAX M.RES:       38 (6.0% below average)
+HeadButt: Physical Tech - One Enemy - Typical
+Hook&Sinker: Physical Tech - One Enemy - Typical
+BigCatch: Physical Tech - One Enemy - Not so typical. This does random damage by fishing up a random Sprigg creature. It can be better or worse depending...
+Overall Analysis: Ahh...how quickly the joys of Marcy can dissipate. The numbers are bad, but not the worst you will ever see. The grid is bad...but still not the worst you will ever see. BigCatch is like Cait Sith's dice...it could be good or bad. Another thing this character has that reminds me of Cait Cith is the stench of completely annoying. Korcha is the biggest raging sack of douche this game throws at you. I love Razzly to death, but Korcha makes me hate Razzly for even considering taking on him, and to a lesser extent Mel, just to get her as well. I do love how Harle and Macha verbally dismiss his teenage hormones. That is right, my annoyance for him is so great that it inspires adoration for anyone who abuses him. Back to the stats, he is physically oriented, but sucks at that. Hell, even Marcy who is "balanced" beats him in Strength. In fact, he is a horrible version of Fargo that can't steal, or wear pants, or generally do anything useful. And he has a much smaller...boat. Okay, okay...stepping off the soap box.
+
+Luccia
+Element Grid: [Star Level Required to Receive Slot]
+
+[  35  ][      ][      ][      ][      ][      ][      ][      ]
+[  26  ][  31  ][      ][      ][      ][      ][      ][      ]
+[  14  ][  18  ][  21  ][  28  ][  39  ][  44  ][  48  ][      ]
+[  04  ][  05  ][  06  ][  13  ][  15  ][  27  ][  32  ][  49  ]
+[  00  ][  00  ][  00  ][  07  ][  11  ][  16  ][  25  ][  37  ]
+[  01  ][  02  ][  03  ][  10  ][  19  ][  22  ][  40  ][  45  ]
+[  09  ][  20  ][  24  ][  29  ][  33  ][  38  ][  42  ][  47  ]
+[      ][      ][      ][      ][      ][      ][      ][      ]
+INNATE COLOR: Black
+
+MAX HP:         720 (11.5% below average)
+MAX STR:         80 (4.1% below average)
+MAX RES:         70 (7.4% below average)
+MAX MAG:         44 (8.1% below average)
+MAX M.RES:       40 (1.1% below average)
+Pin-UpGirl: Magical Tech - One Enemy - Typical
+Mix&Match: Magical Tech - One Enemy - Inflicts random statuses. I prefer to control my abuse.
+TestAmeba: Magical Tech - One Enemy - Typical
+Overall Analysis: That beautiful, beautiful grid. Third time we've seen it. Wasted on one of the worst statistical characters in the game. I mean, there is no way around it. I want to like her...I just can't. How can you like those numbers? Just awful. The fourth worst character statistically and that doesn't really do justice to just how bad she is. Pierre has redeeming qualities in gear and Pip would be good if he wasn't broken. Oh well...send her back to the laboratory.
+
+Poshul
+Element Grid: [Star Level Required to Receive Slot]
+
+[      ][      ][      ][      ][      ][      ][      ][      ]
+[  19  ][  20  ][      ][      ][      ][      ][      ][      ]
+[  12  ][  14  ][  16  ][  23  ][      ][      ][      ][      ]
+[  07  ][  08  ][  09  ][  13  ][  21  ][      ][      ][      ]
+[  00  ][  00  ][  00  ][  05  ][  11  ][  18  ][  26  ][      ]
+[  01  ][  02  ][  03  ][  10  ][  15  ][  29  ][  35  ][  41  ]
+[  04  ][  06  ][  25  ][      ][      ][      ][      ][      ]
+[  17  ][      ][      ][      ][      ][      ][      ][      ]
+INNATE COLOR: Yellow
+
+MAX HP:         900 (10.7% above average)
+MAX STR:         86 (3.1% above average)
+MAX RES:         70 (7.4% below average)
+MAX MAG:         40 (16.4% below average)
+MAX M.RES:       35 (13.4% below average)
+K-9Ball: Physical Tech - One Enemy - Typical
+DoggyDunnit: Physical Tech - All Enemies - Typical
+Unleashed: Physical Tech - One Enemy - Typical
+Overall Analysis: Poshul. I just can't even with this annoying dog. Okay physical stats, but absolutely terrible magical ones. Terrible grid. Just another yellow innate which doesn't compare with the better physical choices yellow has. I mean, she is pretty terrible overall. And annoying. Pass on this one the moment you have a fourth party member.
+
+Razzly
+Element Grid: [Star Level Required to Receive Slot]
+
+[  22  ][  31  ][      ][      ][      ][      ][      ][      ]
+[  19  ][  20  ][  24  ][      ][      ][      ][      ][      ]
+[  12  ][  14  ][  16  ][  23  ][  36  ][      ][      ][      ]
+[  07  ][  08  ][  09  ][  13  ][  21  ][  34  ][      ][      ]
+[  00  ][  00  ][  00  ][  05  ][  11  ][  18  ][  26  ][      ]
+[  01  ][  02  ][  03  ][  10  ][  15  ][  29  ][  35  ][  41  ]
+[  04  ][  06  ][  25  ][  28  ][  33  ][  40  ][  43  ][  44  ]
+[  17  ][  27  ][  32  ][      ][      ][      ][      ][      ]
+INNATE COLOR: Green
+
+MAX HP:         740 (9.0% below average)
+MAX STR:         72 (13.7% below average)
+MAX RES:         70 (7.4% below average)
+MAX MAG:         55 (14.9% above average)
+MAX M.RES:       46 (13.8% above average)
+Raz-Star: Magical Tech - One Enemy - Typical
+Raz-Heart: Magical Tech - One Ally - Moderate heal and increases Magic Defense. Decent!
+Raz-Flower: Magical Tech - All Allies - Raises Defense for all. Nice!
+Overall Analysis: Razzly has the statistics of a typical caster. Below average physical stats, with particularly bad attack. I believe it is the worst in the game. However, Razzly enjoys excellent magic stats, the second highest agility in the game to combat her physical weakness, an excellent Stamina Recovery at 12, and a wonderful array of personal techniques. She is the most natural green innate caster by a large margin. Not to mention, she is adorable and her Japanese name is Lazuli after the gem. Overall, a character worthy of a slot, despite what appears to be relatively average stats when looking at them as a whole instead of parts.
+
+Zappa
+Element Grid: [Star Level Required to Receive Slot]
+
+[      ][      ][      ][      ][      ][      ][      ][      ]
+[      ][      ][      ][      ][      ][      ][      ][      ]
+[      ][      ][      ][      ][      ][      ][      ][      ]
+[  04  ][  05  ][  06  ][  13  ][  15  ][  27  ][      ][      ]
+[  00  ][  00  ][  00  ][  07  ][  11  ][  16  ][  25  ][  37  ]
+[  01  ][  02  ][  03  ][  10  ][  19  ][  22  ][  40  ][  45  ]
+[  09  ][  20  ][  24  ][  29  ][  33  ][  38  ][  42  ][  47  ]
+[      ][      ][      ][      ][      ][      ][      ][      ]
+INNATE COLOR: Red
+
+MAX HP:         820 (0.8% above average)
+MAX STR:         89 (6.7% above average)
+MAX RES:         75 (0.8% below average)
+MAX MAG:         40 (16.4% below average)
+MAX M.RES:       37 (8.5% below average)
+HammerBlow: Physical Tech - One Enemy - Typical
+HammerThrow: Physical Tech - All Enemies - Typical
+BallsOfIron: Physical Tech - One Enemy - Typical
+Overall Analysis: The smith that joins you for no reason...except to forge you important weapons, that is. Statistically, he is not good, which can be seen above. His magical stats are particularly sad. He is significantly worse than Greco in every single way, including the fact that he has 8 Stamina Recovery. There is no good reason to use this character. Oh...and his grid sucks. I mean, it isn't the worst ever, but it isn't good.
+
+Orcha
+Element Grid: [Star Level Required to Receive Slot]
+
+[  22  ][  31  ][      ][      ][      ][      ][      ][      ]
+[  19  ][  20  ][  24  ][  30  ][      ][      ][      ][      ]
+[  12  ][  14  ][  16  ][  23  ][  36  ][      ][      ][      ]
+[  07  ][  08  ][  09  ][  13  ][  21  ][  34  ][      ][      ]
+[  00  ][  00  ][  00  ][  05  ][  11  ][  18  ][  26  ][      ]
+[  01  ][  02  ][  03  ][  10  ][  15  ][  29  ][  35  ][  41  ]
+[  04  ][  06  ][  25  ][      ][      ][      ][      ][      ]
+[  17  ][      ][      ][      ][      ][      ][      ][      ]
+INNATE COLOR: Red
+
+MAX HP:         850 (4.5% above average)
+MAX STR:         85 (1.9% above average)
+MAX RES:         75 (0.8% below average)
+MAX MAG:         50 (4.5% above average)
+MAX M.RES:       35 (13.4% below average)
+SpiceOfLife: Magical Tech - All Allies - A red heal that isn't consumed and on all? That is actually nice.
+MysteryMenu: Magical Tech - One Enemy - Probably 90% of the normal power of one of these, but he absorbs 25% of the damage he deals in life. Decent tradeoff.
+DinnerGuest: Magical Tech - One Enemy - Typical
+Overall Analysis: Actually, his grid is pretty bad, and his stats are decent outside of his magical resilience. His techniques are actually pretty decent and certainly unique. He isn't good enough physically to compete with Greco on the 9 Stamina Recovery line, or good enough from a balanced standpoint to compete with Macha at that same value. Another meh character all around, but certainly not the worst CHA I have ever seen.
+
+Radius
+Element Grid: [Star Level Required to Receive Slot]
+
+[  22  ][  31  ][  39  ][      ][      ][      ][      ][      ]
+[  19  ][  20  ][  24  ][  30  ][      ][      ][      ][      ]
+[  12  ][  14  ][  16  ][  23  ][  36  ][      ][      ][      ]
+[  07  ][  08  ][  09  ][  13  ][  21  ][  34  ][  46  ][      ]
+[  00  ][  00  ][  00  ][  05  ][  11  ][  18  ][  26  ][  37  ]
+[  01  ][  02  ][  03  ][  10  ][  15  ][  29  ][  35  ][  41  ]
+[  04  ][  06  ][  25  ][  28  ][  33  ][  40  ][  43  ][  44  ]
+[  17  ][  27  ][      ][      ][      ][      ][      ][      ]
+INNATE COLOR: Green
+
+MAX HP:         735 (9.6% below average)
+MAX STR:         83 (0.5% below average)
+MAX RES:         75 (0.8% below average)
+MAX MAG:         49 (2.4% above average)
+MAX M.RES:       41 (1.4% above average)
+LongShot: Physical Tech - One Enemy - Typical
+QuickDraw: Physical Tech - One Enemy - Typical
+VitalEnergy: Physical Tech - One Enemy - Typical
+Overall Analysis: Hilariously balanced stats outside of bad HP. His grid is actually quite good, it is a similar version to Kid's grid with a few changes. Never a character I used for long, if at all. You get him at a time where you may find him useful if you don't want to deal with making Sprigg viable. Furthermore, his Stamina Recovery is only 9. Overall, though, he is very average in every way with below average HP and an above average Grid. Compared to other green innates, he is definitely in the middle. He isn't useless, but not someone I would put in a green innate team, either.
+
+Fargo
+Element Grid: [Star Level Required to Receive Slot]
+
+[      ][      ][      ][      ][      ][      ][      ][      ]
+[  19  ][  20  ][      ][      ][      ][      ][      ][      ]
+[  12  ][  14  ][  16  ][  23  ][      ][      ][      ][      ]
+[  07  ][  08  ][  09  ][  13  ][  21  ][      ][      ][      ]
+[  00  ][  00  ][  00  ][  05  ][  11  ][  18  ][  26  ][      ]
+[  01  ][  02  ][  03  ][  10  ][  15  ][  29  ][  35  ][  41  ]
+[  04  ][  06  ][  25  ][      ][      ][      ][      ][      ]
+[  17  ][      ][      ][      ][      ][      ][      ][      ]
+INNATE COLOR: Blue
+
+MAX HP:         880 (8.2% above average)
+MAX STR:         88 (5.5% above average)
+MAX RES:         85 (12.4% above average)
+MAX MAG:         44 (8.1% below average)
+MAX M.RES:       40 (1.1% below average)
+Pillage: Physical Tech - One Enemy - Steal. Like Kid, executing physical attacks greatly increases your chance to steal, so always attack a few times first.
+CannonBalls: Magical Tech - All Enemies - Typical
+Invincible: Physical Tech - One Enemy - Typical
+Overall Analysis: Yes, his grid sucks. As far as his stats go, he is definitely a good character. He has 10 Stamina Recovery to go along with it. Fargo has typical physical character stats without the significant drawbacks that most also possess on the magical side. His only really poor stat is his magic. He is also a blue innate, which allows him to use Vigora. This is even greater for him because attacking so often consecutively almost guarantees that your steal technique will land. If you are using a physical blue innate, he is basically one of two options, unless you consider Marcy a physical. I consider Marcy the balanced cornerstone, so if I am using one physical, one magical, and Marcy, he and Orlha are really the only two I consider. Both are quite good, but have this horrible grid. Usually, I give him the edge because stealing is valuable.
+
+Macha
+Element Grid: [Star Level Required to Receive Slot]
+
+[  22  ][  31  ][      ][      ][      ][      ][      ][      ]
+[  19  ][  20  ][  24  ][      ][      ][      ][      ][      ]
+[  12  ][  14  ][  16  ][  23  ][  36  ][      ][      ][      ]
+[  07  ][  08  ][  09  ][  13  ][  21  ][  34  ][      ][      ]
+[  00  ][  00  ][  00  ][  05  ][  11  ][  18  ][  26  ][      ]
+[  01  ][  02  ][  03  ][  10  ][  15  ][  29  ][  35  ][  41  ]
+[  04  ][  06  ][  25  ][  28  ][  33  ][  40  ][  43  ][  44  ]
+[  17  ][  27  ][  32  ][      ][      ][      ][      ][      ]
+INNATE COLOR: Red
+
+MAX HP:         780 (4.1% below average)
+MAX STR:         85 (1.9% above average)
+MAX RES:         90 (19.0% above average)
+MAX MAG:         53 (10.7% above average)
+MAX M.RES:       43 (6.4% above average)
+BottomsUp: Physical Tech - One Enemy - Typical
+Folding: Physical Tech - One Enemy - Typical
+DirtyDishes: Physical Tech - One Enemy - Typical
+Overall Analysis: Just another pointless, unassuming housewife that wants to look after Serge...wait, what? Gutsy mother of two turned world beater? Middle aged mothers, rejoice! Macha is a statistical powerhouse with slightly below average HP, but the rest of the stats tower over the competition. Her grid is the same as Razzly's, which I consider a slightly above average grid. Additional stats give her good Agility, but a Stamina Recovery of 9 is the only slight knock against her. She ranks in the top 5 of every character evaluating metric that I have, ranking as high as 2nd in one. How could this "Wonder Woman" possibly have produced Korcha? Either way, she total abuses him when he throws a hissy fit over Kid. Many people choose not to save Kid because they fawn over Glenn, but they should be fawning over Macha. Probably the most surprising package in the game. I consider her the best red innate, but red actually has quite a few impressive characters. Still, none are as balanced as Macha.
+
+Glenn
+Element Grid: [Star Level Required to Receive Slot]
+
+[      ][      ][      ][      ][      ][      ][      ][      ]
+[      ][      ][      ][      ][      ][      ][      ][      ]
+[  14  ][  18  ][  21  ][  28  ][      ][      ][      ][      ]
+[  04  ][  05  ][  06  ][  13  ][  15  ][  27  ][  32  ][  49  ]
+[  00  ][  00  ][  00  ][  07  ][  11  ][  16  ][  25  ][  37  ]
+[  01  ][  02  ][  03  ][  10  ][  19  ][  22  ][  40  ][  45  ]
+[  09  ][  20  ][  24  ][  29  ][  33  ][  38  ][  42  ][  47  ]
+[      ][      ][      ][      ][      ][      ][      ][      ]
+INNATE COLOR: Green
+
+MAX HP:         890 (9.5% above average)
+MAX STR:         90 (7.9% above average)
+MAX RES:         80 (5.8% above average)
+MAX MAG:         46 (3.9% below average)
+MAX M.RES:       42 (3.9% above average)
+Dash&Gash: Physical Tech - One Enemy - Typical
+SonicSword: Physical Tech - One Enemy - Typical
+Dive&Drive: Physical Tech - One Enemy - Typical
+Overall Analysis: Okay, so maybe he is worthy of fawning over. Basically, he has the exact same grid and stats as Karsh, but 20 less HP and 5 less magic. What he does have is 11 Stamina Recovery instead of 9, which helps his cause relative to Karsh. So, the question is why do people gush over Glenn? Well, he comes from a family of expert swordsmen. As a result, through sidequests late in the game, he is able to dual wield a weapon with amazing power and incredible crit chance. It is pretty hard to argue with the fact that it is amazing. Even without that, though, he is an excellent physical green character. To top it off, he is a pretty righteous guy in the game. Definitely one of the best green innates. In fact, if you don't take Kid initially and don't save Kid, you end up with Serge, Leena, Macha, and Glenn by star level 8. A spoil of riches. More on Leena in a tiny scroll down to the next character.
+
+Leena
+Element Grid: [Star Level Required to Receive Slot]
+
+[  22  ][  31  ][      ][      ][      ][      ][      ][      ]
+[  19  ][  20  ][  24  ][      ][      ][      ][      ][      ]
+[  12  ][  14  ][  16  ][  23  ][  36  ][      ][      ][      ]
+[  07  ][  08  ][  09  ][  13  ][  21  ][  34  ][      ][      ]
+[  00  ][  00  ][  00  ][  05  ][  11  ][  18  ][  26  ][      ]
+[  01  ][  02  ][  03  ][  10  ][  15  ][  29  ][  35  ][  41  ]
+[  04  ][  06  ][  25  ][  28  ][  33  ][  40  ][  43  ][  44  ]
+[  17  ][  27  ][  32  ][      ][      ][      ][      ][      ]
+INNATE COLOR: Blue
+
+MAX HP:         750 (7.8% below average)
+MAX STR:         81 (2.9% below average)
+MAX RES:         70 (7.4% below average)
+MAX MAG:         54 (12.8% above average)
+MAX M.RES:       45 (11.3% above average)
+MaidenHand: Physical Tech - One Enemy - Typical
+MaidenHeart: Magical Tech - Self - Recharges used elements. Leena, you rock my world.
+MaidenFaith: Magical Tech - Self - Increases attack, accuracy, and causes her to be automatically revived if she dies. Stupidly good.
+Overall Analysis: Statistically, she is a less extreme version of Razzly. Her defense and HP aren't great, but her attack is barely worse than average. Her magical stats are excellent and her grid is above average. She also starts with 90 base accuracy, has above average agility, and 11 Stamina Recovery. All of these things make her good, but her techniques bring the house down. I think she has the best overall individual techniques in the game. In fact, MaidenHeart even has a chance of recharging itself. MaidenFaith might be the most overkill ability I have ever seen. Regardless, she is one of the two pure blue casters I ever consider using. Usually, it comes down to her techniques as a reason she stays over Irenes, despite the grid advantages for the latter. MaidenHeart pretty much nullifies that. As an added bonus, you get Leena after star level two, which means she gets many of the mid-level bonuses that Serge gets all of. Personality wise, I find her pretty endearing. She doesn't want to live in the past, it is all about today...what is important today? Her Komodo Scale Necklace! YES!!! She is a shrewish housewife to be who has Serge talking about marriage by age 16. Well played, Lenna...well played.
+
+Miki
+Element Grid: [Star Level Required to Receive Slot]
+
+[  22  ][      ][      ][      ][      ][      ][      ][      ]
+[  19  ][  20  ][      ][      ][      ][      ][      ][      ]
+[  12  ][  14  ][  16  ][  23  ][      ][      ][      ][      ]
+[  07  ][  08  ][  09  ][  13  ][  21  ][  34  ][      ][      ]
+[  00  ][  00  ][  00  ][  05  ][  11  ][  18  ][  26  ][  37  ]
+[  01  ][  02  ][  03  ][  10  ][  15  ][  29  ][  35  ][  41  ]
+[  04  ][  06  ][  25  ][  28  ][      ][      ][      ][      ]
+[  17  ][  27  ][  32  ][      ][      ][      ][      ][      ]
+INNATE COLOR: Red
+
+MAX HP:         770 (5.3% below average)
+MAX STR:         80 (4.1% below average)
+MAX RES:         75 (0.8% below average)
+MAX MAG:         56 (17.0% aboveaverage)
+MAX M.RES:       41 (1.4% above average)
+HeadBopper: Physical Tech - One Enemy - Typical
+SexyWink: Magical Tech - One Enemy - This seems to have 80% of normal power, my guess is it also confuses, but I never actually got it to do so...
+DanceOnAir: Magical Tech - All Enemies - Typical
+Overall Analysis: Dynamite Dancer Miki actually has great stats, relatively average coupled with the highest magic for red innates. Additionally, she has great agility and 11 Stamina Recovery. Her grid does leave something to be desired, though. Still, with 11 SR and great magic, she makes for the most natural red innate caster. While I believe red innate lends itself to a more physically focused team, you can't argue that she is at least above average. She doesn't have much character development in the game besides hiding a crush on her troupe mate Nikki and distracting guards using her assets. Still, a character worth considering.
+
+Harle
+Element Grid: [Star Level Required to Receive Slot]
+
+[  35  ][  43  ][      ][      ][      ][      ][      ][      ]
+[  26  ][  31  ][  34  ][  41  ][  46  ][  50  ][      ][      ]
+[  14  ][  18  ][  21  ][  28  ][  39  ][  44  ][  48  ][  51  ]
+[  04  ][  05  ][  06  ][  13  ][  15  ][  27  ][  40  ][  49  ]
+[  00  ][  00  ][  00  ][  07  ][  11  ][  16  ][  32  ][  37  ]
+[  01  ][  02  ][  03  ][  10  ][  19  ][  22  ][  25  ][  45  ]
+[  09  ][  20  ][  24  ][  29  ][  33  ][  38  ][  42  ][  47  ]
+[      ][      ][      ][      ][      ][      ][      ][      ]
+INNATE COLOR: Black
+
+MAX HP:         850 (4.5% above average)
+MAX STR:         87 (4.3% above average)
+MAX RES:         80 (5.8% above average)
+MAX MAG:         58 (21.2% above average)
+MAX M.RES:       45 (11.3% above average)
+MoonBeams: Magical Tech - All Enemies - Typical
+MoonShine: Magical Tech - All Allies - Instead of something vague like Raises Magic Defense, this actually cuts all magic damage taken in half. Sweet.
+Lunairetic: Magical Tech - All Enemies - Typical...except you get it at 25 stars.
+Overall Analysis: Wow. There is nothing more to say. The best grid in the game and great techniques, especially since each one hits everything. And then, of course, you come to the stuff that actually matters...the stats. Add what is about average agility and 11 Stamina Recovery and you have the greatest character in the game. Quite frankly, it isn't even close. In most metrics, she is as much better than 2nd place, as 2nd place is better than 10th and sometimes even further down. If you know anything about statistics, she is over 2 standard deviations above average by every metric, and in most, clears that bar and nears the 3 standard deviations one. There is nothing bad about Harle. There is nothing even average about Harle. She is, quite literally, a God in a Harlequin's makeup. For some, her personalty grates. Still, she totally rips Korcha a new one a disses Kid at every opportunity. For me, that elevates her to legendary status.
+
+Janice
+Element Grid: [Star Level Required to Receive Slot]
+
+[  35  ][      ][      ][      ][      ][      ][      ][      ]
+[  26  ][  31  ][      ][      ][      ][      ][      ][      ]
+[  14  ][  18  ][  21  ][  28  ][  39  ][  44  ][  48  ][      ]
+[  04  ][  05  ][  06  ][  13  ][  15  ][  27  ][  32  ][  49  ]
+[  00  ][  00  ][  00  ][  07  ][  11  ][  16  ][  25  ][  37  ]
+[  01  ][  02  ][  03  ][  10  ][  19  ][  22  ][  40  ][  45  ]
+[  09  ][  20  ][  24  ][  29  ][  33  ][  38  ][  42  ][  47  ]
+[      ][      ][      ][      ][      ][      ][      ][      ]
+INNATE COLOR: Red
+
+MAX HP:         777 (4.4% below average)
+MAX STR:         85 (1.9% above average)
+MAX RES:         77 (1.8% above average)
+MAX MAG:         44 (8.1% below average)
+MAX M.RES:       44 (8.8% above average)
+BeatIt: Physical Tech - One Enemy - Typical
+24Carrots: Physical Tech - One Enemy - Typical
+What'sUpDoc: Magical Tech - One Enemy - Typical
+Overall Analysis: Well, here is the fourth time we see that slightly worse version of Harle's grid, which is still amazingly good. Janice has pretty average stats, which is much better than I always believe she has. Coupled with her grid, that makes her an above average character. Still, her magic is low, which is a knock against someone with this grid, much like it is for Luccia. Still, she is not Luccia, as that would be disrespectful to her other stats, which are actually decent. She has average agility and 10 Stamina Recovery. Use her if you like her, she isn't detrimental to the team. She is a strange looking creature, though. She has giant ears, mammoth hands, and a cotton tail. She also wields a carrot, which is a bit odd. Still, the numbers and grid indicate she is definitely usable.
+
+Draggy
+Element Grid: [Star Level Required to Receive Slot]
+
+[      ][      ][      ][      ][      ][      ][      ][      ]
+[      ][      ][      ][      ][      ][      ][      ][      ]
+[      ][      ][      ][      ][      ][      ][      ][      ]
+[  04  ][  05  ][  06  ][  13  ][  15  ][  27  ][      ][      ]
+[  00  ][  00  ][  00  ][  07  ][  11  ][  16  ][  25  ][  37  ]
+[  01  ][  02  ][  03  ][  10  ][  19  ][  22  ][  40  ][  45  ]
+[  09  ][  20  ][  24  ][  29  ][  33  ][  38  ][  42  ][  47  ]
+[      ][      ][      ][      ][      ][      ][      ][      ]
+INNATE COLOR: Red
+
+MAX HP:         900 (10.7% above average)
+MAX STR:         85 (1.9% above average)
+MAX RES:         85 (12.4% above average)
+MAX MAG:         46 (3.9% below average)
+MAX M.RES:       42 (3.9% above average)
+CoughDrop: Magical Tech - One Enemy - Typical
+CoughMix: Magical Tech - One Enemy - Typical
+BigBreath: Magical Tech - One Enemy - Typical...but this is one of the earliest final techniques you can get.
+Overall Analysis: What an adorable little baby dragon...who packs quite a good set of stats. His grid leaves something to be desired, but his Magic doesn't exactly scream caster number one. Draggy has bad agility, but is the only character to hit the phenomenal 13 Stamina Recovery. This makes him a perfect teammate on red innate teams because he can balance out against the statistical powerhouses Macha and Greco who sit below average at 9 Stamina Recovery while also being great statistically. With his HP, and defenses, he is a defensive monster and stamina generator. A very, very good character.
+
+Starky
+Element Grid: [Star Level Required to Receive Slot]
+
+[      ][      ][      ][      ][      ][      ][      ][      ]
+[      ][      ][      ][      ][      ][      ][      ][      ]
+[  14  ][  18  ][  21  ][  28  ][      ][      ][      ][      ]
+[  04  ][  05  ][  06  ][  13  ][  15  ][  27  ][  32  ][  49  ]
+[  00  ][  00  ][  00  ][  07  ][  11  ][  16  ][  25  ][  37  ]
+[  01  ][  02  ][  03  ][  10  ][  19  ][  22  ][  40  ][  45  ]
+[  09  ][  20  ][  24  ][  29  ][  33  ][  38  ][  42  ][  47  ]
+[      ][      ][      ][      ][      ][      ][      ][      ]
+INNATE COLOR: White
+
+MAX HP:         765 (5.9% below average)
+MAX STR:         80 (4.1% below average)
+MAX RES:         70 (7.4% below average)
+MAX MAG:         50 (4.5% above average)
+MAX M.RES:       45 (11.3% above average)
+StarLight: Magical Tech - One Enemy - Typical
+StarBurst: Magical Tech - All Enemies - Typical
+StarStruck: Magical Tech - One Enemy - Typical
+Overall Analysis: I mean, Starky isn't bad, this is pretty much explained by his stats. His stats are pretty average, his grid is decent, his techniques are pretty normal. Nothing really stands out. For a white innate, this is pretty much a deadly analysis. There really aren't any hilariously bad white innates, unless you count Pip. I tend to view Pip as a multicolored thingy. Still, Starky is pretty cute. That is about it, though.
+
+Sprigg
+Element Grid: [Star Level Required to Receive Slot]
+
+[      ][      ][      ][      ][      ][      ][      ][      ]
+[      ][      ][      ][      ][      ][      ][      ][      ]
+[      ][      ][      ][      ][      ][      ][      ][      ]
+[      ][      ][      ][      ][      ][      ][      ][      ]
+[      ][      ][      ][      ][  11  ][  18  ][      ][      ]
+[      ][      ][      ][      ][  15  ][  29  ][      ][      ]
+[      ][      ][      ][      ][      ][      ][      ][      ]
+[      ][      ][      ][      ][      ][      ][      ][      ]
+INNATE COLOR: Green
+
+MAX HP:         660 (18.2% below average)
+MAX STR:         79 (5.3% below average)
+MAX RES:         70 (7.4% below average)
+MAX MAG:         53 (10.7% above average)
+MAX M.RES:       40 (1.1% below average)
+Doppelgang: Sprigg only has 4 grid slots, all with the ability Doppelgang. This ability allows her to transform into any enemy she has killed. This can make her very useful. To get the most out of it, though, it requires some time investment on your part.
+Overall Analysis: It is hard to judge Sprigg by the same standards you would judge anyone else. She is a very different character with a very specific and unique way to play. She is essentially a shapeshifter that becomes an enemy she has killed. I guess the forget-me-not pot means another person can kill them as well. Her base stats are bad, but the doppelgang stats are set. This can make her incredibly useful early when some enemies have incredible stats and ability sets. Unfortunately, this is a bit of a letdown late game most of the time. Still, when she transforms, elements she uses aren't consumed, so she can go wild. She can get you through some tough bosses with the proper setup. I am sure there are more informing articles on Sprigg out there.
+
+Mojo
+Element Grid: [Star Level Required to Receive Slot]
+
+[      ][      ][      ][      ][      ][      ][      ][      ]
+[      ][      ][      ][      ][      ][      ][      ][      ]
+[  14  ][  18  ][  21  ][  28  ][      ][      ][      ][      ]
+[  04  ][  05  ][  06  ][  13  ][  15  ][  27  ][  32  ][  49  ]
+[  00  ][  00  ][  00  ][  07  ][  11  ][  16  ][  25  ][  37  ]
+[  01  ][  02  ][  03  ][  10  ][  19  ][  22  ][  40  ][  45  ]
+[  09  ][  20  ][  24  ][  29  ][  33  ][  38  ][  42  ][  47  ]
+[      ][      ][      ][      ][      ][      ][      ][      ]
+INNATE COLOR: Black
+
+MAX HP:         888 (9.2% above average)
+MAX STR:         77 (7.7% below average)
+MAX RES:         70 (7.4% below average)
+MAX MAG:         42 (12.3% below average)
+MAX M.RES:       37 (8.5% below average)
+VoodooDance: Magical Tech - One Enemy - Typical
+CartWheel: Physical Tech - All Enemies - Typical
+HoodooGuroo: Physical Tech - One Enemy - Typical
+Overall Analysis: Uh...this insane voodoo doll is annoying and terrible. He has nice HP...but the rest is just awful. Heck, outside of the HP, he is as bad or worse than Luccia at everything. Terrible, terrible, not-so lucky Dan. I will say for him, he ends up with 80 agility, which is almost double 2nd place. He also has 11 Stamina Recovery. Neither of these things are enough to elevate him above trash pile.
+
+Turnip
+Element Grid: [Star Level Required to Receive Slot]
+
+[      ][      ][      ][      ][      ][      ][      ][      ]
+[      ][      ][      ][      ][      ][      ][      ][      ]
+[      ][      ][      ][      ][      ][      ][      ][      ]
+[  04  ][  05  ][  06  ][  13  ][  15  ][  27  ][      ][      ]
+[  00  ][  00  ][  00  ][  07  ][  11  ][  16  ][  25  ][  37  ]
+[  01  ][  02  ][  03  ][  10  ][  19  ][  22  ][  40  ][  45  ]
+[  09  ][  20  ][  24  ][  29  ][  33  ][  38  ][  42  ][  47  ]
+[      ][      ][      ][      ][      ][      ][      ][      ]
+INNATE COLOR: Green
+
+MAX HP:         789 (3.0% below average)
+MAX STR:         86 (3.1% above average)
+MAX RES:         70 (7.4% below average)
+MAX MAG:         45 (6.0% below average)
+MAX M.RES:       36 (11.0% below average)
+VegeChopper: Physical Tech - One Enemy - Typical
+VegeMight: Physical Tech - One Enemy - Typical
+VegOut: Physical Tech - One Enemy - Typical
+Overall Analysis: The red-headed stepchild of the veggie world turned absolutely terrible character in Chrono Cross. Grid leaves something to be desired, stats leave even more to be desired, and the bad agility and 9 Stamina Recovery are the icing on the cake. Green has some quality individuals, but Turnip is not one of them. It is probably better to not even get him at all. Save yourself the annoyance.
+
+NeoFio
+Element Grid: [Star Level Required to Receive Slot]
+
+[  22  ][  31  ][      ][      ][      ][      ][      ][      ]
+[  19  ][  20  ][  24  ][      ][      ][      ][      ][      ]
+[  12  ][  14  ][  16  ][  23  ][  36  ][      ][      ][      ]
+[  07  ][  08  ][  09  ][  13  ][  21  ][  34  ][      ][      ]
+[  00  ][  00  ][  00  ][  05  ][  11  ][  18  ][  26  ][      ]
+[  01  ][  02  ][  03  ][  10  ][  15  ][  29  ][  35  ][  41  ]
+[  04  ][  06  ][  25  ][  28  ][  33  ][  40  ][  43  ][  44  ]
+[  17  ][  27  ][  32  ][      ][      ][      ][      ][      ]
+INNATE COLOR: Green
+
+MAX HP:         720 (11.5% below average)
+MAX STR:         84 (0.7% above average)
+MAX RES:         70 (7.4% below average)
+MAX MAG:         48 (0.3% above average)
+MAX M.RES:       38 (6.0% below average)
+PopPopPop: Physical Tech - All Enemies - Has the same power as all the single target level 3 physical techniques, which makes it roughly a level 5 all technique.
+SlurpSlurp: Magical Tech - One Enemy - Seems to have normal power, but also absorbs all the damage done  back to NeoFio as HP.
+BamBamBam: Physical Tech - One Enemy - Typical
+Overall Analysis: Well, her grid is good, her offensive stats are decent, but her defensive ones leave a bit to be desired. Her techniques are actually quite good damage and function wise. Her agility is great and Stamina Recovery sits at 11. Coupled with the grid and techniques, for me, this elevates NeoFio to a mediocre character. Probably not one worth using, but better than her creator, Luccia. Also, once and for all, it proves that flowers are better than vegetables.
+
+Greco
+Element Grid: [Star Level Required to Receive Slot]
+
+[      ][      ][      ][      ][      ][      ][      ][      ]
+[      ][      ][      ][      ][      ][      ][      ][      ]
+[      ][      ][      ][      ][      ][      ][      ][      ]
+[  04  ][  05  ][  06  ][  13  ][  15  ][  27  ][      ][      ]
+[  00  ][  00  ][  00  ][  07  ][  11  ][  16  ][  25  ][  37  ]
+[  01  ][  02  ][  03  ][  10  ][  19  ][  22  ][  40  ][  45  ]
+[  09  ][  20  ][  24  ][  29  ][  33  ][  38  ][  42  ][  47  ]
+[      ][      ][      ][      ][      ][      ][      ][      ]
+INNATE COLOR: Red
+
+MAX HP:         920 (13.1% above average)
+MAX STR:         91 (9.1% above average)
+MAX RES:         90 (19.0% above average)
+MAX MAG:         41 (14.3% below average)
+MAX M.RES:       45 (11.3% above average)
+Clothesline: Physical Tech - One Enemy - Typical
+Flip-flop: Physical Tech - One Enemy - Typical
+GraveDigger: Physical Tech - One Enemy - Typical
+Overall Analysis: Ah...Greco. The Psychic Luchador. Of course, it makes about as much sense as some of the others, so I cannot complain. You know what else I cannot complain about? The numbers. His magic is woeful, but the rest is really, really excellent. Not the typical above average kind of excellent, but the really impressive kind. His agility is bad, his Stamina Recovery is only 9, and his grid leaves you wanting more, but you get it...through amazing stats. Being a red innate, though, his accompanying the team is less than obvious. Macha is a more balanced player at the 9 Stamina Recovery level and Draggy is slightly worse in everything, but has 13 Stamina Recovery, meaning he could be a more valuable asset. Still, if you are building a physically oriented red team, you shouldn't leave home without Greco.
+
+Skelly
+Element Grid: [Star Level Required to Receive Slot]
+
+[  22  ][      ][      ][      ][      ][      ][      ][      ]
+[  19  ][  20  ][      ][      ][      ][      ][      ][      ]
+[  12  ][  14  ][  16  ][  23  ][      ][      ][      ][      ]
+[  07  ][  08  ][  09  ][  13  ][  21  ][  34  ][      ][      ]
+[  00  ][  00  ][  00  ][  05  ][  11  ][  18  ][  26  ][  37  ]
+[  01  ][  02  ][  03  ][  10  ][  15  ][  29  ][  35  ][  41  ]
+[  04  ][  06  ][  25  ][  28  ][      ][      ][      ][      ]
+[  17  ][  27  ][  32  ][      ][      ][      ][      ][      ]
+INNATE COLOR: Black
+
+MAX HP:         778 (4.3% below average)
+MAX STR:         82 (1.7% below average)
+MAX RES:         70 (7.4% below average)
+MAX MAG:         48 (0.3% above average)
+MAX M.RES:       42 (3.9% above average)
+JugglerVein: Magical Tech - All Enemies - Typical
+BalloonLoon: Magical Tech - Self - Raises Strength...yay?
+OnARoll: Physical Tech - One Enemy - Typical
+Overall Analysis: Skelly isn't all that bad. His stats are a bit worse than average overall, his grid is a bit worse than average overall, and his techs are...a bit worse than average overall. His agility is average, his Stamina Recovery at 10 is average, and, of course, these do nothing to help his cause. Overall, he is a slightly below average character. It certainly doesn't help that he is competing as a black innate. With characters like Lynx, Harle, Guile, and Grobyc around, he is simply stuck on the bench. And after all that not-so hard work to recruit him, too...
+
+Funguy
+Element Grid: [Star Level Required to Receive Slot]
+
+[      ][      ][      ][      ][      ][      ][      ][      ]
+[  19  ][  20  ][      ][      ][      ][      ][      ][      ]
+[  12  ][  14  ][  16  ][  23  ][      ][      ][      ][      ]
+[  07  ][  08  ][  09  ][  13  ][  21  ][      ][      ][      ]
+[  00  ][  00  ][  00  ][  05  ][  11  ][  18  ][  26  ][      ]
+[  01  ][  02  ][  03  ][  10  ][  15  ][  29  ][  35  ][  41  ]
+[  04  ][  06  ][  25  ][      ][      ][      ][      ][      ]
+[  17  ][      ][      ][      ][      ][      ][      ][      ]
+INNATE COLOR: Yellow
+
+MAX HP:         890 (9.5% above average)
+MAX STR:         85 (1.9% above average)
+MAX RES:         75 (0.8% below average)
+MAX MAG:         45 (6.0% below average)
+MAX M.RES:       38 (6.0% below average)
+Lumberjack: Physical Tech - One Enemy - Typical
+SporeCloud: Magical Tech - One Enemy - Seems underpowered...perhaps supposed to cause statuses. Perhaps the developers just didn't care enough to notice.
+Myconoids: Magical Tech - One Enemy - Has the power of an all attack. Seriously, this guy is getting no help at all.
+Overall Analysis: Another useless yellow innate. Actually, he isn't all that bad. His stats are more or less average. His grid sucks and his techniques are horrible. There are only about 6-7 total techs that are either too powerful or not powerful enough for what they do in the game...and he got two of the ones that don't do enough. His agility isn't good, but his Stamina Recovery is 11. This means he is actually alright. I realize this basically contradicts my opening statement here. Unfortunately, as a physical favoring yellow innate, he is competing with beasts like Leah and Zoah. Those two simply do things better than he does.
+
+Irenes
+Element Grid: [Star Level Required to Receive Slot]
+
+[  35  ][      ][      ][      ][      ][      ][      ][      ]
+[  26  ][  31  ][      ][      ][      ][      ][      ][      ]
+[  14  ][  18  ][  21  ][  28  ][  39  ][  44  ][  48  ][      ]
+[  04  ][  05  ][  06  ][  13  ][  15  ][  27  ][  32  ][  49  ]
+[  00  ][  00  ][  00  ][  07  ][  11  ][  16  ][  25  ][  37  ]
+[  01  ][  02  ][  03  ][  10  ][  19  ][  22  ][  40  ][  45  ]
+[  09  ][  20  ][  24  ][  29  ][  33  ][  38  ][  42  ][  47  ]
+[      ][      ][      ][      ][      ][      ][      ][      ]
+INNATE COLOR: Blue
+
+MAX HP:         760 (6.5% below average)
+MAX STR:         79 (5.3% below average)
+MAX RES:         70 (7.4% below average)
+MAX MAG:         53 (10.7% above average)
+MAX M.RES:       42 (3.9% above average)
+WaterBreath: Magical Tech - One Enemy - Typical
+MerMelody: Magical Tech - One Ally - Heals largely
+SirenSong: Magical Tech - All Enemies - Typical
+Overall Analysis: Irenes on paper looks pretty average. Her techniques are alright, her stats are alright, but she has an excellent grid. Furthermore, she has great agility and 11 Stamina Recovery. This elevates her to an above average overall character. You need to recruit her either way. She is the key to prism weaponry. Anyway, as a blue innate, she faces some steep competition as a caster. She has the same magical stats as Marcy, who is significantly better physically. She has worse stats than Leena, who also has special techniques. Still, Irenes is a character that is usable, but she is probably not going to be the best at the things she does.
+
+Mel
+Element Grid: [Star Level Required to Receive Slot]
+
+[      ][      ][      ][      ][      ][      ][      ][      ]
+[      ][      ][      ][      ][      ][      ][      ][      ]
+[  14  ][  18  ][  21  ][  28  ][      ][      ][      ][      ]
+[  04  ][  05  ][  06  ][  13  ][  15  ][  27  ][  32  ][  49  ]
+[  00  ][  00  ][  00  ][  07  ][  11  ][  16  ][  25  ][  37  ]
+[  01  ][  02  ][  03  ][  10  ][  19  ][  22  ][  40  ][  45  ]
+[  09  ][  20  ][  24  ][  29  ][  33  ][  38  ][  42  ][  47  ]
+[      ][      ][      ][      ][      ][      ][      ][      ]
+INNATE COLOR: Yellow
+
+MAX HP:         770 (5.3% below average)
+MAX STR:         73 (12.5% below average)
+MAX RES:         75 (0.8% below average)
+MAX MAG:         50 (4.5% above average)
+MAX M.RES:       38 (6.0% below average)
+Snatch: Physical Tech - One Enemy - Steals. Like the previous two, works best after attacking since the accuracy is increased.
+Doodle: Magical Tech - One Enemy - Typical
+Tantrum: Magical Tech - All Enemies - Typical
+Overall Analysis: Well...as the numbers show you, she isn't very good. In a more pathetic display, she has the highest magic of the yellow innates. So...I guess if that is what you are looking for, she could be alright? She has average agility and 11 Stamina Recovery. Another factor in her favor is wielding a boomerang. Sadly, when you are looking for straws to make a yellow caster viable, it underscores just how terrible yellow innates are. Garbage, garbage, garbage. Not to mention she is a huge brat with no redeeming personality characteristics.
+
+Leah
+Element Grid: [Star Level Required to Receive Slot]
+
+[  22  ][  31  ][      ][      ][      ][      ][      ][      ]
+[  19  ][  20  ][  24  ][      ][      ][      ][      ][      ]
+[  12  ][  14  ][  16  ][  23  ][  36  ][      ][      ][      ]
+[  07  ][  08  ][  09  ][  13  ][  21  ][  34  ][      ][      ]
+[  00  ][  00  ][  00  ][  05  ][  11  ][  18  ][  26  ][      ]
+[  01  ][  02  ][  03  ][  10  ][  15  ][  29  ][  35  ][  41  ]
+[  04  ][  06  ][  25  ][  28  ][  33  ][  40  ][  43  ][  44  ]
+[  17  ][  27  ][  32  ][      ][      ][      ][      ][      ]
+INNATE COLOR: Yellow
+
+MAX HP:         999 (22.9% above average)
+MAX STR:         93 (11.5% above average)
+MAX RES:         88 (16.4% above average)
+MAX MAG:         40 (16.4% below average)
+MAX M.RES:       35 (13.4% below average)
+RockThrow: Physical Tech - One Enemy - Typical
+TailSpin: Physical Tech - One Enemy - Typical
+TripleKick: Physical Tech - One Enemy - Typical
+Overall Analysis: Ahh...a good yellow innate. This is almost a miracle. She is as typical a yellow innate as any. She has mediocre agility and only 9 Stamina Recovery, but she is still fine at what she needs to do...hit hard and hit harder. She has amazing physical stats and pathetic magical stats. I find she is a slightly better version of Zoah with a better grid. She also bears a striking resemblance to a miniature Ayla. She even has Ayla's techniques. Either way, this is one of the few yellow innates worth using, and likely the best of those.
+
+Van
+Element Grid: [Star Level Required to Receive Slot]
+
+[  22  ][  31  ][      ][      ][      ][      ][      ][      ]
+[  19  ][  20  ][  24  ][      ][      ][      ][      ][      ]
+[  12  ][  14  ][  16  ][  23  ][  36  ][      ][      ][      ]
+[  07  ][  08  ][  09  ][  13  ][  21  ][  34  ][      ][      ]
+[  00  ][  00  ][  00  ][  05  ][  11  ][  18  ][  26  ][      ]
+[  01  ][  02  ][  03  ][  10  ][  15  ][  29  ][  35  ][  41  ]
+[  04  ][  06  ][  25  ][  28  ][  33  ][  40  ][  43  ][  44  ]
+[  17  ][  27  ][  32  ][      ][      ][      ][      ][      ]
+INNATE COLOR: Green
+
+MAX HP:         770 (5.3% below average)
+MAX STR:         75 (10.1% below average)
+MAX RES:         70 (7.4% below average)
+MAX MAG:         48 (0.3% above average)
+MAX M.RES:       39 (3.5% below average)
+JumpThrow: Physical Tech - One Enemy - Typical
+WetPaint: Magical Tech - Field - Paints field a random color...marginally useful at best.
+Piggyboink: Magical Tech - One Enemy - Damage increases based on money invested in Van's piggy bank. Increased damage increases chances of breaking and the bank investment will reset.
+Overall Analysis: Whiny little character who is quite bad statistically. He possesses one above average stat, which is really just average. As a green innate, he simply cannot compete. His Stamina Recovery is 10. Like Mel, he uses a boomerang, so his strongest attack hits all enemies. However, unlike Mel, his innate has another, much better character who can do that in Razzly. He just isn't good enough for a green innate...or any other.
+
+Sneff
+Element Grid: [Star Level Required to Receive Slot]
+
+[      ][      ][      ][      ][      ][      ][      ][      ]
+[  19  ][  20  ][      ][      ][      ][      ][      ][      ]
+[  12  ][  14  ][  16  ][  23  ][      ][      ][      ][      ]
+[  07  ][  08  ][  09  ][  13  ][  21  ][      ][      ][      ]
+[  00  ][  00  ][  00  ][  05  ][  11  ][  18  ][  26  ][      ]
+[  01  ][  02  ][  03  ][  10  ][  15  ][  29  ][  35  ][  41  ]
+[  04  ][  06  ][  25  ][      ][      ][      ][      ][      ]
+[  17  ][      ][      ][      ][      ][      ][      ][      ]
+INNATE COLOR: Yellow
+
+MAX HP:         777 (4.4% below average)
+MAX STR:         77 (7.7% below average)
+MAX RES:         70 (7.4% below average)
+MAX MAG:         44 (8.1% below average)
+MAX M.RES:       37 (8.5% below average)
+BigDeal: Magical Tech - One Enemy - Typical
+HPShuffle: Magical Tech - Self - Shuffles the digits of his current HP. Why not just a heal?
+SwordTrick: Magical Tech - One Enemy - Typical
+Overall Analysis: For me, Sneff is the worst character in the game. He rivals the unevolved Pip and improperly geared Pierre. Of course, in addition to his horrendous stats, he has a below average 9 Stamina Recovery. Naturally, if I told you a character was this bad, you could guess he was a yellow innate. Ugly as sin, terrible on the battlefield, and definitely one of the characters that could've been pruned from the overwhelming roster.
+
+Steena
+Element Grid: [Star Level Required to Receive Slot]
+
+[  35  ][      ][      ][      ][      ][      ][      ][      ]
+[  26  ][  31  ][      ][      ][      ][      ][      ][      ]
+[  14  ][  18  ][  21  ][  28  ][  39  ][  44  ][  48  ][      ]
+[  04  ][  05  ][  06  ][  13  ][  15  ][  27  ][  32  ][  49  ]
+[  00  ][  00  ][  00  ][  07  ][  11  ][  16  ][  25  ][  37  ]
+[  01  ][  02  ][  03  ][  10  ][  19  ][  22  ][  40  ][  45  ]
+[  09  ][  20  ][  24  ][  29  ][  33  ][  38  ][  42  ][  47  ]
+[      ][      ][      ][      ][      ][      ][      ][      ]
+INNATE COLOR: White
+
+MAX HP:         750 (7.8% below average)
+MAX STR:         84 (0.7% above average)
+MAX RES:         75 (0.8% below average)
+MAX MAG:         52 (8.6% above average)
+MAX M.RES:       42 (3.9% above average)
+DireaShadow: Magical Tech - One Enemy - Typical
+HydraShadow: Magical Tech - All Enemies - Typical
+GaraiShadow: Magical Tech - One Enemy - Typical
+Overall Analysis: Statistically, Steena is above average with an excellent grid, average agility, and 11 Stamina Recovery. She is magically equivalent to Serge while still being physically viable, though inferior to him. As a white innate, I believe that she is slightly superior to Doc and Starky based on her stats and grid. She doesn't stand up to Riddel or Serge in usefulness, but that is why you use three characters. Most people will point out that she loses a lot of usefulness because you get her so late in the game. This is true, but when you think about it, you only get Starky a bit earlier. Similarly, Doc is available for fewer than 10 stars before the swap. As a result, she would still be my third, but easily falls to an unbugged Pip in any remake.
+
+Doc
+Element Grid: [Star Level Required to Receive Slot]
+
+[      ][      ][      ][      ][      ][      ][      ][      ]
+[      ][      ][      ][      ][      ][      ][      ][      ]
+[      ][      ][      ][      ][      ][      ][      ][      ]
+[  04  ][  05  ][  06  ][  13  ][  15  ][  27  ][      ][      ]
+[  00  ][  00  ][  00  ][  07  ][  11  ][  16  ][  25  ][  37  ]
+[  01  ][  02  ][  03  ][  10  ][  19  ][  22  ][  40  ][  45  ]
+[  09  ][  20  ][  24  ][  29  ][  33  ][  38  ][  42  ][  47  ]
+[      ][      ][      ][      ][      ][      ][      ][      ]
+INNATE COLOR: White
+
+MAX HP:         800 (1.6% below average)
+MAX STR:         85 (1.9% above average)
+MAX RES:         75 (0.8% below average)
+MAX MAG:         48 (0.3% above average)
+MAX M.RES:       43 (6.4% above average)
+HighFive: Physical Tech - One Enemy - Typical
+Gnarly: Magical Tech - One Enemy - Typical
+HangTen: Magical Tech - All Allies - Full heal to all...not technically, but the power is so great it does all of your HP and then some.
+Overall Analysis: Statistically, Doc is above average. Not much, but he is. His agility isn't horrible and his Stamina Recovery is average at 10. His grid is quite bad. As a result, this creates a chasm between him and Steena in terms of value to the team. They are basically identical with Steena possessing better magic and Doc possessing better HP, so the benefits to Steena in agility, Stamina Recovery, and grid doom Doc to the sideline. Still, he isn't all that bad and is available pretty early.
+
+Grobyc
+Element Grid: [Star Level Required to Receive Slot]
+
+[      ][      ][      ][      ][      ][      ][      ][      ]
+[      ][      ][      ][      ][      ][      ][      ][      ]
+[  14  ][  18  ][  21  ][  28  ][      ][      ][      ][      ]
+[  04  ][  05  ][  06  ][  13  ][  15  ][  27  ][  32  ][  49  ]
+[  00  ][  00  ][  00  ][  07  ][  11  ][  16  ][  25  ][  37  ]
+[  01  ][  02  ][  03  ][  10  ][  19  ][  22  ][  40  ][  45  ]
+[  09  ][  20  ][  24  ][  29  ][  33  ][  38  ][  42  ][  47  ]
+[      ][      ][      ][      ][      ][      ][      ][      ]
+INNATE COLOR: Black
+
+MAX HP:         980 (20.5% above average)
+MAX STR:         90 (7.9% above average)
+MAX RES:         90 (19.0% above average)
+MAX MAG:         40 (16.4% below average)
+MAX M.RES:       38 (6.0% below average)
+RocketFist: Physical Tech - One Enemy - Typical
+HairCutter: Physical Tech - All Enemies - Typical
+StrongArm: Physical Tech - One Enemy - Typical
+Overall Analysis: Grobyc is one devastating Cyborg. The physical powerhouse of the black innates, he boasts some pretty extraordinary physical stats, horrible magic, and a bit below average magic defense. Even so, with his HP total, he is still very durable on that side. To top it off, he has great agility and 10 Stamina Recovery. His grid is solid, but not outstanding. As a result, he is an excellent teammate. He is a perfect fit for black innates since Harle, Guile and Lynx all lean a bit more toward the magical side of things. He is an excellent addition to any team.
+
+Pierre
+Element Grid: [Star Level Required to Receive Slot]
+
+[      ][      ][      ][      ][      ][      ][      ][      ]
+[      ][      ][      ][      ][      ][      ][      ][      ]
+[  36  ][  38  ][  41  ][  45  ][  46  ][      ][      ][      ]
+[  27  ][  29  ][  30  ][  32  ][  33  ][  34  ][  35  ][      ]
+[  00  ][  00  ][  00  ][  05  ][  11  ][  18  ][  26  ][  37  ]
+[  01  ][  02  ][  03  ][  08  ][  15  ][  21  ][  24  ][  41  ]
+[  28  ][  31  ][  33  ][  40  ][  42  ][  43  ][  47  ][      ]
+[      ][      ][      ][      ][      ][      ][      ][      ]
+INNATE COLOR: Blue
+
+MAX HP:         800 (1.6% below average)
+MAX STR:         79 (5.3% below average)
+MAX RES:         70 (7.4% below average)
+MAX MAG:         42 (12.3% below average)
+MAX M.RES:       36 (11.0% below average)
+Medalsome: Magical Tech - Self - A terrible heal...unless you have the hero equipment.
+FoiledAgain: Physical Tech - One Enemy - Typical
+SlapOfCyrus: Physical Tech - One Enemy - Does nothing without the hero equipment.
+Overall Analysis: First, let me say, Pierre is terrible and no amount of equipment can change that. His stats are terrible, his grid is mediocre, but he does boast an impressive 12 Stamina Recovery. That being said, the equipment stops him from being a horrible character, but it does require you to get to star level 39. While his grid is okay on the whole, look at the levels when he learns things. He doesn't get many of the additional techniques until later on. With the three pieces of equipment, his level 3 tech heals for a decent amount and raises stats. His level 7 technique hits harder than average. If you want to waste lots of time with Vigora abuse and Medalsome, be my guest, but Serge will have the boss dead already anyway. Furthermore, no one talks about the opportunity cost of equipping his extra gear to make him good, which costs you, at least, a little bit. Rambling aside...as mentioned at the beginning, he is still not getting near my party.
+
+Orlha
+Element Grid: [Star Level Required to Receive Slot]
+
+[      ][      ][      ][      ][      ][      ][      ][      ]
+[  19  ][  20  ][      ][      ][      ][      ][      ][      ]
+[  12  ][  14  ][  16  ][  23  ][      ][      ][      ][      ]
+[  07  ][  08  ][  09  ][  13  ][  21  ][      ][      ][      ]
+[  00  ][  00  ][  00  ][  05  ][  11  ][  18  ][  26  ][      ]
+[  01  ][  02  ][  03  ][  10  ][  15  ][  29  ][  35  ][  41  ]
+[  04  ][  06  ][  25  ][      ][      ][      ][      ][      ]
+[  17  ][      ][      ][      ][      ][      ][      ][      ]
+INNATE COLOR: Blue
+
+MAX HP:         790 (2.8% below average)
+MAX STR:         92 (10.3% above average)
+MAX RES:         80 (5.8% above average)
+MAX MAG:         43 (10.2% below average)
+MAX M.RES:       41 (1.4% above average)
+MultiPunch: Physical Tech - One Enemy - Typical
+PunchDrunk: Physical Tech - One Enemy - Typical
+SisterHood: Physical Tech - One Enemy - Typical
+Overall Analysis: Like Fargo, Orlha is a physical blue innate with above average stats. While her 5 main stats are slightly worse than his, she boasts better agility and 11 Stamina Recovery. Unfortunately, she cannot steal. Still, because they are pretty interchangeable, you can consider Orlha a solid member of your team. She still has a terrible grid, just like Fargo.
+
+Pip
+Element Grid: [Star Level Required to Receive Slot]
+
+[      ][      ][      ][      ][      ][      ][      ][      ]
+[  23  ][  24  ][  27  ][      ][      ][      ][      ][      ]
+[  16  ][  18  ][  20  ][  29  ][      ][      ][      ][      ]
+[  11  ][  03  ][  14  ][  17  ][  19  ][      ][      ][      ]
+[  00  ][  00  ][  00  ][  10  ][  12  ][  21  ][      ][      ]
+[  06  ][  07  ][  08  ][  09  ][  15  ][  25  ][      ][      ]
+[      ][      ][      ][      ][      ][      ][      ][      ]
+[      ][      ][      ][      ][      ][      ][      ][      ]
+INNATE COLOR: Varies
+
+MAX HP:         750 (7.8% below average)
+MAX STR:         80 (4.1% below average)
+MAX RES:         70 (7.4% below average)
+MAX MAG:         40 (16.4% below average)
+MAX M.RES:       35 (13.4% below average)
+Pounce: Physical Tech - One Enemy - Typical
+Soothe: Magical Tech - All Allies - Restores HP and Stamina. How nice!
+Varies: Depending on his form, you will get a different attack, this reverts to Pounce+4 in his base form
+Overall Analysis: Because Pip is broken, his stats can never achieve evolved forms. This takes what could be an incredibly useful character belonging to any innate you want into a terrible character who you wouldn't want to use anyway. His grids looks horrible, but this is just the base form. So disappointing. Note that his grid can grow to different levels depending on when you evolve, but it isn't worth it because a terrible character with a good grid is still terrible. And he is even worse than Luccia. If you are arguing which innate is shafted the most by the lack of Pip, it is clear that a yellow innate caster is the one thing this game doesn't have anyone passable for. I think yellow innate teams would be pretty desperate for Archangel Pip.
+
+Lynx
+Element Grid: [Star Level Required to Receive Slot]
+
+[  22  ][  31  ][  39  ][      ][      ][      ][      ][      ]
+[  19  ][  20  ][  24  ][  30  ][      ][      ][      ][      ]
+[  12  ][  14  ][  16  ][  23  ][  36  ][      ][      ][      ]
+[  07  ][  08  ][  09  ][  13  ][  21  ][  34  ][  46  ][  48  ]
+[  00  ][  00  ][  00  ][  05  ][  11  ][  18  ][  26  ][  37  ]
+[  01  ][  02  ][  03  ][  10  ][  15  ][  29  ][  35  ][  41  ]
+[  04  ][  06  ][  25  ][  28  ][  33  ][  40  ][  43  ][  44  ]
+[  17  ][  27  ][  32  ][  47  ][      ][      ][      ][      ]
+INNATE COLOR: Black
+
+MAX HP:         850 (4.5% above average)
+MAX STR:         88 (5.5% above average)
+MAX RES:         78 (3.2% above average)
+MAX MAG:         52 (8.6% above average)
+MAX M.RES:       43 (6.4% above average)
+GlideHook: Physical Tech - One Enemy - Typical
+FeralCats: Magical Tech - All Enemies - Typical
+ForeverZero: Magical Tech - All Enemies - Typical
+Overall Analysis: Anything that applies to Serge applies to Lynx. An excellent character.
