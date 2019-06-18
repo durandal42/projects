@@ -63,7 +63,29 @@ class Distribution:
     return self.__class__(result)
 
   def ev(self):
-    return sum(x * px for x, px in self._dist.iteritems())
+    try:
+      return sum(x * px for x, px in self._dist.iteritems())
+    except TypeError:
+      return reduce(lambda t1, t2: tuple(map(sum, zip(t1, t2))), (tuple(x * px for x in t) for t, px in self._dist.iteritems()))
+
+  def cum(self):
+    cp = 0
+    result = {}
+    for x, px in sorted(self._dist.iteritems()):
+      cp += px
+      result[x] = cp
+    return self.__class__(result)
+
+  def filter(self, predicate):
+    cp = 0
+    result = {}
+    for x, px in self._dist.iteritems():
+      if predicate(x):
+        cp += px
+        result[x] = px
+    for x, px in result.iteritems():
+      result[x] = px / cp
+    return self.__class__(result)
 
   def __add__(self, other):
     return self.combine(other, operator.__add__)
@@ -98,14 +120,15 @@ class Distribution:
   def __ge__(self, other):
     return self.combine(other, operator.__ge__)
 
-  # def mktuple(self, other):
-  #   return self.combine(other, lambda x,y: (x,y))
-
   def __nonzero__(self):
     for x, px in self._dist.iteritems():
       if not x:
         return False
     return True
+
+
+def mktuple(dists):
+  return sum((d.map(lambda x: (x,)) for d in dists), ())
 
 
 def die(size):
@@ -186,9 +209,12 @@ MISS = 0
 HIT = 1
 CRIT = 2
 
+
 def monsterAC(cr):
-  chart = [(4, 13),  (5, 14),  (8, 15),  (10, 16),  (13, 17),  (17, 18), (99, 19)]
+  chart = [(4, 13),  (5, 14),  (8, 15),  (10, 16),
+           (13, 17),  (17, 18), (99, 19)]
   return next(x for x in chart if cr < x[1])[1]
+
 
 def attack(roll, modifier, ac):
   return switch(roll,
@@ -237,6 +263,9 @@ def lightpaw(raging=False, reckless=False, gwm=False):
 #   return damage(attack(roll(ADVANTAGE), 7, AC),
 #                 die(8)
 
+
+def summarize(d):
+  print d, float(d.ev())
 
 # summarize(bear(NORMAL))
 # summarize(bear(ADVANTAGE))

@@ -14,10 +14,6 @@ def nyctala(sneak=2, dex=3, prof=2,
                 die(8) + dex + (10 if sharpshooter else 0) + dice(sneak, 6),
                 die(8) + dice(sneak, 6))
 
-
-def summarize(d):
-  print d, float(d.ev())
-
 summarize(nyctala())
 
 
