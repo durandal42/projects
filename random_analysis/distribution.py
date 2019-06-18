@@ -1,6 +1,7 @@
 import fractions
 import collections
 import operator
+import math
 
 
 class Distribution:
@@ -67,6 +68,10 @@ class Distribution:
       return sum(x * px for x, px in self._dist.iteritems())
     except TypeError:
       return reduce(lambda t1, t2: tuple(map(sum, zip(t1, t2))), (tuple(x * px for x in t) for t, px in self._dist.iteritems()))
+
+  def stddev(self):
+    mean = self.ev()
+    return math.sqrt(sum(px * (x - mean)**2 for x, px in self._dist.iteritems()))
 
   def cum(self):
     cp = 0
@@ -265,7 +270,7 @@ def lightpaw(raging=False, reckless=False, gwm=False):
 
 
 def summarize(d):
-  print d, float(d.ev())
+  print d, "mean:", float(d.ev()), "stddev:", d.stddev()
 
 # summarize(bear(NORMAL))
 # summarize(bear(ADVANTAGE))

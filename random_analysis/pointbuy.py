@@ -26,7 +26,7 @@ def array_pointbuy_cost(a):
 def array_utility(a):
   return sum(v * (s / 2 - 5) for v, s in zip(range(len(a)), a))
 
-print "Value of the standard array:\t", STANDARD_ARRAY, array_utility(STANDARD_ARRAY)
+print "Utility score of the standard array:\t", STANDARD_ARRAY, array_utility(STANDARD_ARRAY)
 print "\nstat array pointbuy cost (4d6 drop lowest):"
 standard_allocation = stat_array_4d6_drop_lowest()
 for allocation in [
@@ -37,9 +37,14 @@ for allocation in [
 ]:
   print "pointbuy cost:"
   pointbuy_cost = allocation.map(array_pointbuy_cost)
-  print pointbuy_cost
-#  print pointbuy_cost.cum()
-  print "utility:"
-  utility = allocation.map(array_utility)
-  print utility
-#  print utility.cum()
+  summarize(pointbuy_cost)
+  # print pointbuy_cost.cum()
+  print "nth best stat:"
+  for n in range(1, 1 + len(STANDARD_ARRAY)):
+    print "%d: " % n
+    nth_best = allocation.map(lambda a: a[-n])
+    summarize(nth_best)
+  # print "utility:"
+  # utility = allocation.map(array_utility)
+  # print utility
+  # print utility.cum()
