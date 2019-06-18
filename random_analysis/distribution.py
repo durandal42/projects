@@ -186,6 +186,9 @@ MISS = 0
 HIT = 1
 CRIT = 2
 
+def monsterAC(cr):
+  chart = [(4, 13),  (5, 14),  (8, 15),  (10, 16),  (13, 17),  (17, 18), (99, 19)]
+  return next(x for x in chart if cr < x[1])[1]
 
 def attack(roll, modifier, ac):
   return switch(roll,
@@ -234,48 +237,6 @@ def lightpaw(raging=False, reckless=False, gwm=False):
 #   return damage(attack(roll(ADVANTAGE), 7, AC),
 #                 die(8)
 
-def nyctala(sneak=2, dex=3, prof=2,
-            advantage=True,
-            elven_accuracy=False, archery=False, sharpshooter=False):
-  attack_die = roll(advantage)
-  if advantage and elven_accuracy:
-    attack_die = highest([d20(), d20(), d20()])
-  return damage(attack(attack_die, dex + prof
-                       + (2 if archery else 0)
-                       + (-5 if sharpshooter else 0),
-                       AC),
-                die(8) + dex + (10 if sharpshooter else 0) + dice(sneak, 6),
-                die(8) + dice(sneak, 6))
-
-
-def summarize(d):
-  print d, float(d.ev())
-
-summarize(nyctala())
-
-for sneak in range(1, 10):
-  for AC in range(10, 30):
-    ea_adv = (nyctala(sneak=sneak, dex=3, elven_accuracy=True).ev() -
-              nyctala(sneak=sneak, dex=4, elven_accuracy=False).ev())
-    ea_noadv = (nyctala(sneak=sneak, dex=3, advantage=False).ev() -
-                nyctala(sneak=sneak, dex=4, advantage=False).ev())
-    p = ea_noadv / (ea_noadv - ea_adv)
-    if float(p) >= 1:
-      conclusion = "EA always worse"
-      print "[" + " " * 100 + "]"
-    else:
-      conclusion = "EA better when at advantage >= %.0f%%" % float(100 * p)
-      print "[" + " " * int(100 * p) + "*" * (100 - int(100 * p)) + "]"
-    print "%dd6 SA vs %02d AC: %s" % (sneak, AC, conclusion)
-  print
-  # for elven_accuracy in [False, True]:
-  #   for archery in [False]:
-  #     print "sneak, elven_accuracy, archery: ", sneak, elven_accuracy, archery
-  #       ss = nyctala(sneak=sneak, elven_accuracy=elven_accuracy,
-  #                    archery=archery, sharpshooter=True).ev()
-  #       noss = nyctala(sneak=sneak, elven_accuracy=elven_accuracy,
-  #                      archery=archery, sharpshooter=False).ev()
-  #       print sneak, AC, ("ss" if ss > noss else "noss"), float(ss - noss)
 
 # summarize(bear(NORMAL))
 # summarize(bear(ADVANTAGE))
