@@ -1,6 +1,6 @@
 import java.awt.Color;
 
-public class TerrainSquare implements Comparable {
+public class TerrainSquare implements Comparable<TerrainSquare> {
 
   TerrainType type = TerrainType.EMPTY;
   int x, y;
@@ -18,32 +18,20 @@ public class TerrainSquare implements Comparable {
   public Color getColor() { return type.getColor(); }
 
   public String toString() {
-    StringBuffer buf = new StringBuffer();
-    buf.append("(");
-    buf.append(x);
-    buf.append(",");
-    buf.append(y);
-    buf.append(")");
-    return buf.toString();
+    return String.format("(%s,%s)", x, y);
   }
 
-  public int compareTo(Object other) {
-    if (other instanceof TerrainSquare) {
-      TerrainSquare ts = (TerrainSquare) other;
-      if (ts.x != x) return ts.x - x;
-      return ts.y - y;
-    } else {
-      return -1;
-    }
+  public int compareTo(TerrainSquare ts) {
+    if (ts.x != x) return ts.x - x;
+    return ts.y - y;
   }
 
   public boolean equals(Object other) {
-    if (other instanceof TerrainSquare) {
-      TerrainSquare ts = (TerrainSquare) other;
-      return (ts.x == x && ts.y == y);
-    } else {
+    if (!(other instanceof TerrainSquare)) {
       return false;
     }
+    TerrainSquare ts = (TerrainSquare) other;
+    return (ts.x == x && ts.y == y);
   }
 
   public int hashCode() {
