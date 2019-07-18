@@ -28,11 +28,11 @@ public class Map {
 
     log("Initializing squares...");
     grid = new TerrainSquare[width][height];
-    for (int x = 0 ; x < width ; x++) {
-      for (int y = 0 ; y < height ; y++) {
+    IntStream.range(0, width).parallel().forEach(x -> {
+      IntStream.range(0, height).forEach(y -> {
         grid[x][y] = new TerrainSquare(x, y);
-      }
-    }
+      });
+    });
   }
 
   Random r() {
@@ -465,12 +465,13 @@ public class Map {
                         potentialForts.size() - fortsConsidered));
     }
 
-    log(String.format("\tSanity checking placement of %d forts...", forts.size()));
-    // Collections.sort(forts);  // Make nearby forts marginally closer to each other in the list.
-    forts.parallelStream().forEach(fort1 -> {
-      if (!forts.stream().anyMatch(fort2 -> Distance(fort1, fort2) <= 50))
-        log("\tWARNING: fort too far away from nearest neighbor; could be bad luck: " + fort1);
-    });
+    // TODO(durandal): do better than this O(N^2) algorithm for finding lonely forts.
+    // Meanwhile, since we don't *do* anything with this information, skip it.
+    // log(String.format("\tSanity checking placement of %d forts...", forts.size()));
+    // forts.parallelStream().forEach(fort1 -> {
+    //   if (!forts.stream().anyMatch(fort2 -> Distance(fort1, fort2) <= 50))
+    //     log("\tWARNING: fort too far away from nearest neighbor; could be bad luck: " + fort1);
+    // });
   }
 
   /*
