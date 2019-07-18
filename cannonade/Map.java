@@ -1,5 +1,6 @@
 import java.util.*;
 import java.util.stream.*;
+import java.util.concurrent.ThreadLocalRandom;
 import java.awt.Graphics;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
@@ -91,27 +92,24 @@ public class Map {
    */
   void ExpandFromForests() {
     log("Expanding from forests...");
-    Queue<TerrainSquare> forests = new ArrayDeque<>();
-    WithType(TerrainType.FOREST, squares.stream()).forEach(forests::offer);
-
-    while (forests.size() > 0) {
-      TerrainSquare forest = forests.poll();
-      EmptyNeighbors(forest).forEach(neighbor -> {
-        switch (r.nextInt(10)) {
-        case 0:
-          neighbor.type = TerrainType.FOREST;
-          // Since this cell is now a forest, we need to expand from it as well.
-          forests.offer(neighbor);
-          break;
-        case 1:
-        case 2:
-          neighbor.type = TerrainType.MARSH;
-          break;
-        default:
-          neighbor.type = TerrainType.FLATLAND;
-        }
-      });
-    }
+    WithType(TerrainType.FOREST, squares.parallelStream()).forEach(f -> ExpandFromForest(f));
+  }
+  void ExpandFromForest(TerrainSquare f) {
+    EmptyNeighbors(f).forEach(ts -> {
+      switch (r.nextInt(10)) {
+      case 0:
+        ts.type = TerrainType.FOREST;
+        // Since this cell is now a forest, we need to expand from it as well.
+        ExpandFromForest(f);
+        break;
+      case 1:
+      case 2:
+        ts.type = TerrainType.MARSH;
+        break;
+      default:
+        ts.type = TerrainType.FLATLAND;
+      }
+    });
   }
 
   /*
@@ -120,26 +118,23 @@ public class Map {
    */
   void ExpandFromFlatlands() {
     log("Expanding from flatlands...");
-    Queue<TerrainSquare> flatlands = new ArrayDeque<>();
-    WithType(TerrainType.FLATLAND, squares.stream()).forEach(flatlands::offer);
-
-    while (flatlands.size() > 0) {
-      TerrainSquare flatland = flatlands.poll();
-      EmptyNeighbors(flatland).forEach(neighbor -> {
-        switch (r.nextInt(10)) {
-        case 0:
-        case 1:
-          neighbor.type = TerrainType.FLATLAND;
-          flatlands.offer(neighbor);
-          break;
-        case 2:
-          neighbor.type = TerrainType.MARSH;
-          break;
-        default:
-          neighbor.type = TerrainType.BEACH;
-        }
-      });
-    }
+    WithType(TerrainType.FLATLAND, squares.parallelStream()).forEach(f -> ExpandFromFlatland(f));
+  }
+  void ExpandFromFlatland(TerrainSquare f) {
+    EmptyNeighbors(f).forEach(ts -> {
+      switch (r.nextInt(10)) {
+      case 0:
+      case 1:
+        ts.type = TerrainType.FLATLAND;
+        ExpandFromFlatland(ts);
+        break;
+      case 2:
+        ts.type = TerrainType.MARSH;
+        break;
+      default:
+        ts.type = TerrainType.BEACH;
+      }
+    });
   }
 
   /*
@@ -149,17 +144,14 @@ public class Map {
    */
   void ConnectMarshes() {
     log("Connecting marshes...");
-    Set<TerrainSquare> visitedMarshes = new HashSet<>();
     long tinyMarshes = WithType(TerrainType.MARSH, squares.stream())
-                       .filter(ts -> !TryConnectMarsh(ts, visitedMarshes)).count();
+                       .filter(ts -> !TryConnectMarsh(ts)).count();
     if (tinyMarshes > 0) {
       log(String.format("\tWARNING: Had to abandon %d tiny marsh(es).", tinyMarshes));
     }
   }
-  // Returns true if this marsh is now connected (or part of a marsh region which we've already failed to connect)
-  boolean TryConnectMarsh(TerrainSquare marshCenter, Set<TerrainSquare> visitedMarshes) {
-    if (visitedMarshes.contains(marshCenter)) return true;
-
+  // Returns true if this marsh is now connected (or part of a marsh region which we've already considered)
+  boolean TryConnectMarsh(TerrainSquare marshCenter) {
     // Find contiguious region of marsh, and any beaches which border it.
     Set<TerrainSquare> marshRegion = new HashSet<>();
     Set<TerrainSquare> beachBorder = new HashSet<>();
@@ -167,9 +159,8 @@ public class Map {
     frontier.offer(marshCenter);
     while (!frontier.isEmpty()) {
       TerrainSquare marsh = frontier.poll();
-      if (visitedMarshes.contains(marsh)) continue;
+      if (marshRegion.contains(marsh)) continue;
       marshRegion.add(marsh);
-      visitedMarshes.add(marsh);
       // Bailing out early doesn't help, since we'll still have to check those marshes later.
       Neighbors(marsh).forEach(neighbor -> {
         if (neighbor.type == TerrainType.MARSH) frontier.offer(neighbor);
@@ -219,8 +210,8 @@ public class Map {
    */
   void FlattenLandlockedBorders() {
     log("Flattening landlocked beaches/marshes...");
-    squares.stream().filter(ts -> ts.isBorder())
-    .filter(ts -> Neighbors(ts).allMatch(n -> n.isLand()) && r.nextInt(10) != 0)
+    squares.parallelStream().filter(ts -> ts.isBorder())
+    .filter(ts -> Neighbors(ts).allMatch(n -> n.isLand()) && ThreadLocalRandom.current().nextInt(10) != 0)
     .forEach(ts -> ts.type = TerrainType.FLATLAND);
   }
 
@@ -230,8 +221,8 @@ public class Map {
    */
   void ExpandFromBorderlands() {
     log("Expanding from borderlands...");
-    squares.stream().filter(ts -> ts.isBorder()).flatMap(ts -> EmptyNeighbors(ts)).forEach(n -> {
-      if (r.nextInt(10) == 0)
+    squares.parallelStream().filter(ts -> ts.isBorder()).flatMap(ts -> EmptyNeighbors(ts)).forEach(n -> {
+      if (ThreadLocalRandom.current().nextInt(10) == 0)
         n.type = TerrainType.OPEN_WATER;
       else
         n.type = TerrainType.SHOAL;
@@ -293,7 +284,7 @@ public class Map {
     long tinyShoals = WithType(TerrainType.SHOAL, squares.stream()).filter(ts -> !TryExpandShoal(ts)).count();
     if (tinyShoals > 0) log(String.format("\tWARNING: Had to abandon %d tiny shoal(s).", tinyShoals));
 
-    Queue<TerrainSquare> shoals = new ArrayDeque<>();
+    Queue<TerrainSquare> shoals = new ArrayDeque<>();  // TODO(durandal): don't copy the entire world here
     WithType(TerrainType.SHOAL, squares.stream()).forEach(shoals::offer);
     while (shoals.size() > 0) {
       TerrainSquare center = shoals.poll();
@@ -398,7 +389,7 @@ public class Map {
     squares.stream().filter(ts -> ts.isBorder())
     .filter(ts -> WithType(TerrainType.SHOAL, Neighbors(ts)).count() > 0)
     .filter(ts -> r.nextInt(100) == 0)
-    .forEach(ts -> candidateCoves.add(ts));
+    .forEach(candidateCoves::add);
 
     // Evaluate candidate coves.
     candidateCoves.stream()
@@ -458,7 +449,7 @@ public class Map {
       Neighbors(potentialFort, 3).forEach(forbiddenForts::add);
     }
     if (numFortsDesired > 0) {
-      log("WARNING: ran out of suitable fort locations with " + numFortsDesired + " unplaced forts.");
+      log("\tWARNING: ran out of suitable fort locations with " + numFortsDesired + " unplaced forts.");
     }
 
     log(String.format("Sanity checking placement of %d forts...", forts.size()));
@@ -468,11 +459,11 @@ public class Map {
         if (fort1 == fort2) continue;
         int dist = Distance(fort1, fort2);
         if (dist <= 3)
-          log("WARNING: forts too close together; this should never happen: " + fort1 + fort2);
+          log("\tWARNING: forts too close together; this should never happen: " + fort1 + fort2);
         if (dist < minDist) minDist = dist;
       }
       if (minDist > 50)
-        log("WARNING: fort too far away from nearest neighbor; could be bad luck: " + fort1);
+        log("\tWARNING: fort too far away from nearest neighbor; could be bad luck: " + fort1);
     }
   }
 
