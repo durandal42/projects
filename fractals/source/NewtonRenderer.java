@@ -39,7 +39,7 @@ public class NewtonRenderer extends Renderer {
     }
 
     // Render!
-    n.output();
+    n.output("newton_x5m1");
   }
 
   Function function;
