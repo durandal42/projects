@@ -1,5 +1,5 @@
 // A complex number, a + b*i, for real values of a and b.
-public class Complex {
+public class Complex implements Comparable<Complex> {
 
   public static final Complex ZERO = new Complex(0.0, 0.0);
   public static final Complex ONE =  new Complex(1.0, 0.0);
@@ -10,6 +10,22 @@ public class Complex {
   public Complex(double r, double i) {
     this.r = r;
     this.i = i;
+  }
+
+  public boolean equals(Object o) {
+    if (!(o instanceof Complex)) return false;
+    Complex c = (Complex) o;
+    return this.r == c.r && this.i == c.i;
+  }
+
+  public int compareTo(Complex c) {
+    int result = Double.compare(this.r, c.r);
+    if (result == 0) result = Double.compare(this.i, c.i);
+    return result;
+  }
+
+  public int hashCode() {
+    return new Double(r).hashCode() + new Double(i).hashCode() * 17;
   }
 
   public String toString() {
