@@ -100,6 +100,7 @@ if len(sys.argv) < 2:
 else:
   # reduced_words = reduce_words(load_words('/usr/share/dict/words'))
   reduced_words = reduce_words(load_words('../alphabears/TWL06.txt'))
+  # print [words for reduced,words in reduced_words.iteritems() if len(words)==1  and len(reduced)<=2]
   # word_ranks = load_word_ranks()
   # reduced_words = reduce_words(word_ranks.keys())
 
