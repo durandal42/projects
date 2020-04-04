@@ -232,6 +232,7 @@ solve([
     ])
 '''
 
+'''
 print 'the colors present mix to a secondary color'
 solve([
     ([Piece(SMALL, BLUE), Piece(SMALL, RED)], False),
@@ -247,4 +248,18 @@ solve([
     ([Piece(LARGE, YELLOW)], True),
     ([Piece(MEDIUM, YELLOW), Piece(SMALL, BLUE), Piece(SMALL, RED)], True),
     ([], True),
+])
+'''
+
+print 'unknown bradford puzzle'
+solve([
+  ([Piece(SMALL, GREEN), Piece(SMALL, YELLOW)], False),
+  ([Piece(LARGE, YELLOW), Piece(MEDIUM, BLUE)], True),
+  ([Piece(MEDIUM, YELLOW), Piece(MEDIUM, BLUE)], False),
+  ([Piece(LARGE, YELLOW), Piece(LARGE, BLUE)], False),
+  ([Piece(SMALL, GREEN)], False),
+  ([Piece(LARGE, GREEN), Piece(SMALL, BLUE), Piece(LARGE, YELLOW), Piece(SMALL, RED)], False),
+  ([Piece(MEDIUM, BLUE), Piece(MEDIUM, BLUE), Piece(LARGE, YELLOW)], True),
+  ([Piece(MEDIUM, RED), Piece(MEDIUM, GREEN), Piece(SMALL, GREEN)], True),
+  ([Piece(SMALL, YELLOW), Piece(LARGE, BLUE)], True),
 ])
