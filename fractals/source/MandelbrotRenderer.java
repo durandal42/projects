@@ -21,11 +21,45 @@ public class MandelbrotRenderer extends Renderer {
     n.viewMinY = -1.5;
     n.viewMaxY = 1.5;
 
+    n.compute();
     // Render!
     n.output("mandelbrot");
   }
 
   public MandelbrotRenderer() {
+  }
+
+  Map<Complex, Double> computed = new HashMap<>();
+  Histogram<Double> normalizer = new Histogram<>();
+  public void compute() {
+      Timer t = new Timer("Computing " + imageX * imageY + " pixels from view:" +
+			  "\tx: [" + viewMinX + " " + viewMaxX + "]" +
+			  "\ty: [" + viewMinY + " " + viewMaxY + "]");
+    normalizer.clear();
+
+    double scaleX = (viewMaxX - viewMinX) / (double) imageX;
+    double scaleY = (viewMaxY - viewMinY) / (double) imageY;
+
+    
+    for (int x = 0; x < imageX ; x++) {
+      for (int y = 0; y < imageY ; y++) {
+        double r = scaleX * (double) x + viewMinX;
+        double i = scaleY * (double) y + viewMinY;
+        Complex c = new Complex(r, i);
+        // log("prepainted: " + c);
+        double smooth = Mandelbrot.smoothMandel(new Complex(r, i));
+        computed.put(c, smooth);
+        if (smooth < 1.0) {
+          normalizer.add(smooth);
+        }
+      }
+    }
+    log("computed " + computed.size() + " pixels.");
+    t.Stop();
+
+    t = new Timer("normalizing...");
+    normalizer.done();
+    t.Stop();
   }
 
   static Color[] wikipedia = new Color[] {
