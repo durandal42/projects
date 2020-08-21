@@ -6,6 +6,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import java.util.concurrent.*;
+import java.util.*;
 
 public abstract class Renderer extends Canvas {
 
@@ -20,41 +22,89 @@ public abstract class Renderer extends Canvas {
     System.out.println(msg);
   }
 
-  public void output() {
-    int gridThreshold = 2;
-    log("Creating image buffer...");
+  void recenter(double x, double y) {
+    double dx = (viewMaxX - viewMinX) * 0.5;
+    double dy = (viewMaxY - viewMinY) * 0.5;
+    viewMinX = x - dx;
+    viewMaxX = x + dx;
+    viewMinY = y - dy;
+    viewMaxY = y + dy;
+  }
+
+  void zoom(double scale) {
+    double cx = (viewMaxX + viewMinX) * 0.5;
+    double cy = (viewMaxY + viewMinY) * 0.5;
+    viewMinX = cx - (cx - viewMinX) * scale;
+    viewMaxX = cx - (cx - viewMaxX) * scale;
+    viewMinY = cy - (cy - viewMinY) * scale;
+    viewMaxY = cy - (cy - viewMaxY) * scale;
+  }
+
+  public void output(String label) {
+    Timer t = new Timer("Creating image buffer...");
     BufferedImage image = new BufferedImage(imageX, imageY,
                                             BufferedImage.TYPE_INT_RGB);
-    log("Painting...");
+    t.Stop();
+
     paint(image.getGraphics());
-    log("Saving to disk...");
+
+    String format = "png";
+    String fileName = "../images/" + label + "_" + imageX + "x" + imageY + "." + format;;
+    t = new Timer("Saving to disk as " + fileName + " ...");
     try {
-      ImageIO.write(image, "png", new File("output.png"));
+      ImageIO.write(image, format, new File(fileName));
     } catch (IOException e) {
       log("ERROR: failed to output to file.");
     }
+    t.Stop();
   }
 
+  public void compute() { }
+
   public void paint(Graphics g) {
-    log("Painting " + imageX*imageY + " pixels from view:");
+    Timer t = new Timer("Painting " + imageX * imageY + " pixels from view:");
     log("\tx: [" + viewMinX + " " + viewMaxX + "]");
     log("\ty: [" + viewMinY + " " + viewMaxY + "]");
 
     g.setColor(Color.green);
-    g.fillRect(0,0,imageX,imageY);
+    g.fillRect(0, 0, imageX, imageY);
 
     double scaleX = (viewMaxX - viewMinX) / (double) imageX;
     double scaleY = (viewMaxY - viewMinY) / (double) imageY;
 
+    List<Callable<Void>> renderThreads = new LinkedList<>();
     for (int x = 0; x < imageX ; x++) {
-      for (int y = 0; y < imageY ; y++) {
-        double r = scaleX * (double) x + viewMinX;
-        double i = scaleY * (double) y + viewMinY;
+      final int thread = x;
+      renderThreads.add(new Callable<Void>() {
+        public Void call() throws IOException {
+          final int x = thread;
 
-        g.setColor(pickColor(r, i));
-        g.drawLine(x, y, x, y);
-      }
+          Color[] colors = new Color[imageY];
+          for (int y = 0; y < imageY ; y++) {
+            double r = scaleX * (double) x + viewMinX;
+            double i = scaleY * (double) y + viewMinY;
+            colors[y] = pickColor(r, i);
+          }
+          synchronized (g) {
+            for (int y = 0; y < imageY ; y++) {
+              g.setColor(colors[y]);
+              g.drawLine(x, y, x, y);
+            }
+          }
+
+          return null;
+        }
+      });
     }
+    ExecutorService pool = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+    try {
+      for (Future<Void> f : pool.invokeAll(renderThreads)) f.get();
+    } catch (InterruptedException | ExecutionException e) {
+      e.printStackTrace();
+      System.exit(-1);
+    }
+    pool.shutdown();
+    t.Stop();
   }
 
   public abstract Color pickColor(double r, double i);

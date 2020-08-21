@@ -43,7 +43,7 @@ public class Maze {
     public boolean equals(Object other) {
       Wall w = (Wall) other;
       return (c1.equals(w.c1) && c2.equals(w.c2)) ||
-          (c1.equals(w.c2) && c2.equals(w.c1));
+             (c1.equals(w.c2) && c2.equals(w.c1));
     }
   }
 
@@ -57,9 +57,9 @@ public class Maze {
     Timer t = new Timer("initializing and linking cells");
     Cell[] temp1 = new Cell[0];  // the current row, being initialized
     Cell[] temp2 = new Cell[0];  // the previous row, for linking vertical walls
-    for(int i = 0; i < x; i++) {
+    for (int i = 0; i < x; i++) {
       temp1 = new Cell[y];
-      for(int j = 0; j < y; j++) {
+      for (int j = 0; j < y; j++) {
         temp1[j] = new Cell(i, j);
         cells.add(temp1[j]);
 
@@ -68,8 +68,8 @@ public class Maze {
           walls.add(new Wall(temp1[j], temp2[j]));
         }
         if (j > 0) {
-          temp1[j].addNeighbor(temp1[j-1]);
-          walls.add(new Wall(temp1[j], temp1[j-1]));
+          temp1[j].addNeighbor(temp1[j - 1]);
+          walls.add(new Wall(temp1[j], temp1[j - 1]));
         }
       }
       temp2 = temp1;
@@ -187,8 +187,8 @@ public class Maze {
   }
 
   public DoorPainter paintDoor(Graphics g) {
-    return (c1, c2) -> g.drawLine(2*(c1.x) + 1, 2*(c1.y) + 1,
-                                  2*(c2.x) + 1, 2*(c2.y) + 1);
+    return (c1, c2) -> g.drawLine(2 * (c1.x) + 1, 2 * (c1.y) + 1,
+                                  2 * (c2.x) + 1, 2 * (c2.y) + 1);
   }
 
   public DoorPainter paintDoorNoWalls(Graphics g) {
@@ -199,8 +199,8 @@ public class Maze {
   public void paintDoorsWhite(Graphics g, DoorPainter dp) {
     g.setColor(Color.white);
     // Carve out open doors.
-    for(Cell c1 : cells) {
-      for(Cell c2 : c1.doors) {
+    for (Cell c1 : cells) {
+      for (Cell c2 : c1.doors) {
         dp.paintDoor(c1, c2);
       }
     }
@@ -211,17 +211,17 @@ public class Maze {
     for (Cell c : cells) {
       for (Cell n : c.doors) {
         if (c.depth > n.depth) continue;
-          float progress = colorSpinOffset + c.depth / stepsPerColorSpin;
-          g.setColor(cw.colorAt(progress));
+        float progress = colorSpinOffset + c.depth / stepsPerColorSpin;
+        g.setColor(cw.colorAt(progress));
         dp.paintDoor(c, n);
       }
     }
   }
 
   public void saveRectToPng(String fileLabel,
-          int xRes, int yRes,
-          boolean hideWalls,
-          int frames, ColorWheel cw) throws IOException {
+                            int xRes, int yRes,
+                            boolean hideWalls,
+                            int frames, ColorWheel cw) throws IOException {
     if (frames > 1) {
       new File("images/" + fileLabel).mkdirs();
       System.out.println(fileLabel);
@@ -229,45 +229,45 @@ public class Maze {
 
     // Solve the maze and find the depth of the exit.
     solve(cells.get(0));
-    int solutionLength = cells.get(cells.size()-1).depth - cells.get(0).depth;
+    int solutionLength = cells.get(cells.size() - 1).depth - cells.get(0).depth;
     int stepsPerColorSpin = solutionLength * 1;  // TODO: tune for aesthetics, or add a flag
 
     List<Callable<Void>> renderThreads = new LinkedList<>();
     for (int f = 0; f < frames; f++) {
       final int frame = f;
       renderThreads.add(new Callable<Void>() {
-    public Void call() throws IOException {
-      float colorSpinOffset = 1.0f - (float) frame / (float) frames;
-      //      Timer t = new Timer("creating image buffer");
-      BufferedImage image = new BufferedImage(xRes, yRes, BufferedImage.TYPE_INT_RGB);
-      //      t.Stop();
+        public Void call() throws IOException {
+          float colorSpinOffset = 1.0f - (float) frame / (float) frames;
+          //      Timer t = new Timer("creating image buffer");
+          BufferedImage image = new BufferedImage(xRes, yRes, BufferedImage.TYPE_INT_RGB);
+          //      t.Stop();
 
-      //      t = new Timer("painting");
-      Graphics g = image.getGraphics();
+          //      t = new Timer("painting");
+          Graphics g = image.getGraphics();
 
-      // Black background.
-      g.setColor(Color.black);
-      g.fillRect(0, 0, xRes, yRes);
+          // Black background.
+          g.setColor(Color.black);
+          g.fillRect(0, 0, xRes, yRes);
 
-      DoorPainter dp = hideWalls ? paintDoorNoWalls(g) : paintDoor(g);
+          DoorPainter dp = hideWalls ? paintDoorNoWalls(g) : paintDoor(g);
 
-      paintDoorsRainbow(g, dp, cw, (float) stepsPerColorSpin, colorSpinOffset);
-      //      t.Stop();
+          paintDoorsRainbow(g, dp, cw, (float) stepsPerColorSpin, colorSpinOffset);
+          //      t.Stop();
 
-      String fileName = fileLabel;
-      if (frames > 1) {
-        fileName += "/" + frame;
-      }
-      fileName += ".png";
+          String fileName = fileLabel;
+          if (frames > 1) {
+            fileName += "/" + frame;
+          }
+          fileName += ".png";
 
-      // Save as PNG
-      //      Timer t = new Timer("saving to PNG: " + fileName);
-      File file = new File("images/" + fileName);
-      ImageIO.write(image, "png", file);
-      //      t.Stop();
+          // Save as PNG
+          //      Timer t = new Timer("saving to PNG: " + fileName);
+          File file = new File("images/" + fileName);
+          ImageIO.write(image, "png", file);
+          //      t.Stop();
 
-      return null;
-    }
+          return null;
+        }
       });
     }
     ExecutorService pool = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() * 2);
@@ -296,46 +296,46 @@ public class Maze {
     int frames = 1;
     String colorWheelName = "rainbow";
 
-    for(int i = 0 ; i < args.length ; i++) {
+    for (int i = 0 ; i < args.length ; i++) {
       if (args[i].charAt(0) == '-') {
-        switch(args[i].charAt(1)) {
-    case 'c':
-    case 'C':
-      colorWheelName = args[++i];
-      break;
-          case 'r':
-          case 'R':
-            try {
-              xRes = Integer.parseInt(args[++i]);
-              yRes = Integer.parseInt(args[++i]);
-            } catch (Exception e) {
-              usage();
-            }
-            break;
-          case 'f':
-          case 'F':
-            try {
-              frames = Integer.parseInt(args[++i]);
-            } catch (Exception e) {
-              usage();
-            }
-            break;
-          case 'a':
-          case 'A':
-            algorithm = args[++i];
-            break;
-          case 'w':
-          case 'W':
-            hideWalls = true;
-            break;
-          default:
+        switch (args[i].charAt(1)) {
+        case 'c':
+        case 'C':
+          colorWheelName = args[++i];
+          break;
+        case 'r':
+        case 'R':
+          try {
+            xRes = Integer.parseInt(args[++i]);
+            yRes = Integer.parseInt(args[++i]);
+          } catch (Exception e) {
             usage();
+          }
+          break;
+        case 'f':
+        case 'F':
+          try {
+            frames = Integer.parseInt(args[++i]);
+          } catch (Exception e) {
+            usage();
+          }
+          break;
+        case 'a':
+        case 'A':
+          algorithm = args[++i];
+          break;
+        case 'w':
+        case 'W':
+          hideWalls = true;
+          break;
+        default:
+          usage();
         }
       }
     }
 
-    int xSize = hideWalls ? xRes : xRes/2;
-    int ySize = hideWalls ? yRes : yRes/2;
+    int xSize = hideWalls ? xRes : xRes / 2;
+    int ySize = hideWalls ? yRes : yRes / 2;
     Maze m = new Maze();
     m.initRect(xSize, ySize);
     m.create(algorithm);

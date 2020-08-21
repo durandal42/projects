@@ -69,7 +69,10 @@ public interface ColorWheel {
     if (name.equals("camo_woodland")) return gradient(new Color[] { TAN, FOREST_GREEN, BROWN, Color.black });
     if (name.equals("camo_desert")) return gradient(new Color[] { TAN, DARK_TAN, KHAKI, BROWN});
     if (name.equals("kayli")) return gradient(new Color[] { TEAL, DARK_FOREST_GREEN, PURPLE});
-
+    if (name.equals("becky")) return gradient(new Color[] { new Color(177, 140, 193),  // lavender
+							    new Color(111, 210, 135),  // mint green
+							    new Color( 36, 160, 209),  // muted blue
+	});
 
     return white();
   }

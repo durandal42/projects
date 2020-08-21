@@ -98,7 +98,7 @@ def solve(evidence):
   theory_stream = all_theories()
   for pieces, result in evidence:
     theory_stream = apply_evidence(theory_stream, pieces, result)
-  for mass, theory in itertools.islice(theory_stream, 1):
+  for mass, theory in itertools.islice(theory_stream, 10):
     print mass, theory
   print 'discarded theories:', discarded_theories
   print 'discarded mass:', (0.0 + discarded_mass)
@@ -185,6 +185,7 @@ solve([
   ])
 '''
 
+'''
 print 'has exactly one red and exactly one blue NOT ACTUALLY EASY'
 solve([
   ([Piece(SMALL, RED), Piece(MEDIUM, BLUE)], True),
@@ -202,6 +203,7 @@ solve([
   ([Piece(SMALL, RED), Piece(MEDIUM, BLUE), Piece(SMALL, BLUE), Piece(MEDIUM, BLUE)], False),
 # unsolved
   ])
+'''
 
 '''
 print 'either all warm (red and yellow) or all cool (blue and green)'
@@ -216,3 +218,48 @@ solve([
   ([Piece(LARGE, BLUE)], True),
   ])
 '''
+
+'''
+solve([
+    ([Piece(SMALL, BLUE), Piece(SMALL, BLUE), Piece(LARGE, YELLOW)], False),
+    ([Piece(LARGE, YELLOW), Piece(MEDIUM, BLUE), Piece(SMALL, RED)], True),
+    ([Piece(LARGE, RED), Piece(MEDIUM, RED), Piece(SMALL, YELLOW)], True),
+    ([Piece(LARGE, YELLOW)], False),
+    ([Piece(SMALL, BLUE), Piece(SMALL, BLUE)], False),
+    ([Piece(MEDIUM, YELLOW), Piece(SMALL, YELLOW), Piece(MEDIUM, RED)], True),
+    ([Piece(LARGE, RED), Piece(MEDIUM, RED), Piece(SMALL, YELLOW)], True),
+    ([Piece(LARGE, BLUE),  Piece(SMALL, YELLOW)], False),
+    ])
+'''
+
+'''
+print 'the colors present mix to a secondary color'
+solve([
+    ([Piece(SMALL, BLUE), Piece(SMALL, RED)], False),
+    ([Piece(MEDIUM, BLUE), Piece(MEDIUM, GREEN)], True),
+    ([Piece(SMALL, BLUE), Piece(SMALL, RED)], False),
+    ([Piece(LARGE, YELLOW), Piece(SMALL, RED)], False),
+    ([Piece(SMALL, GREEN), Piece(SMALL, GREEN), Piece(SMALL, GREEN)], True),
+    ([Piece(LARGE, BLUE), Piece(SMALL, BLUE), Piece(SMALL, BLUE)], True),
+    ([Piece(MEDIUM, BLUE), Piece(MEDIUM, YELLOW)], False),
+    ([Piece(MEDIUM, RED)], True),
+    ([Piece(MEDIUM, YELLOW), Piece(SMALL, YELLOW), Piece(SMALL, BLUE)], False),
+    ([Piece(MEDIUM, GREEN), Piece(MEDIUM, BLUE)], True),
+    ([Piece(LARGE, YELLOW)], True),
+    ([Piece(MEDIUM, YELLOW), Piece(SMALL, BLUE), Piece(SMALL, RED)], True),
+    ([], True),
+])
+'''
+
+print 'unknown bradford puzzle'
+solve([
+  ([Piece(SMALL, GREEN), Piece(SMALL, YELLOW)], False),
+  ([Piece(LARGE, YELLOW), Piece(MEDIUM, BLUE)], True),
+  ([Piece(MEDIUM, YELLOW), Piece(MEDIUM, BLUE)], False),
+  ([Piece(LARGE, YELLOW), Piece(LARGE, BLUE)], False),
+  ([Piece(SMALL, GREEN)], False),
+  ([Piece(LARGE, GREEN), Piece(SMALL, BLUE), Piece(LARGE, YELLOW), Piece(SMALL, RED)], False),
+  ([Piece(MEDIUM, BLUE), Piece(MEDIUM, BLUE), Piece(LARGE, YELLOW)], True),
+  ([Piece(MEDIUM, RED), Piece(MEDIUM, GREEN), Piece(SMALL, GREEN)], True),
+  ([Piece(SMALL, YELLOW), Piece(LARGE, BLUE)], True),
+])
