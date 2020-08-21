@@ -1,4 +1,5 @@
 from distribution import *
+from dnd import *
 
 
 def nyctala(sneak=2, dex=3, prof=2,
