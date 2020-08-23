@@ -23,8 +23,10 @@ class Distribution:
     if not self._dist:
       return "Distribution()"
     max_p = max(self._dist.values())
-    return "Distribution(\n\t%s\n)" % ("\n\t".join("%s:\t%0.4f - [%s]" % (x, px, "*" * int(Distribution.HISTOGRAM_WIDTH * px / max_p))
-                                                   for x, px in sorted(self._dist.iteritems())))
+    return "Distribution(\n\t%s\n)" % ("\n\t".join(
+        "%s:\t%0.4f - [%s]" % (x, px, "*" *
+                               int(Distribution.HISTOGRAM_WIDTH * px / max_p))
+        for x, px in sorted(self._dist.iteritems())))
 
   def equivalent(left, right):
     if isinstance(left, Distribution):
@@ -130,6 +132,13 @@ class Distribution:
       if not x:
         return False
     return True
+
+  def iteritems(self):
+    return self._dist.iteritems()
+
+  def max(self):
+    p, x = max((p, x) for x, p in self.iteritems())
+    return (x, p)
 
 
 def constant(x):
