@@ -5,13 +5,26 @@ STANDARD_ARRAY = tuple(sorted([15, 14, 13, 12, 10, 8], reverse=True))
 # Methods for generating a single independent ability score:
 
 
+def stat_1d20():
+  return die(20)
+
+
+def stat_3d6():
+  return dice(3, 6)
+
+
 def stat_4d6_drop_lowest():
   return mktuple((die(6) for _ in range(4))).map(lambda t: sum(sorted(t)[1:]))
 
-print "\nSingle ability score (4d6, drop lowest)", stat_4d6_drop_lowest()
+print "Single ability score (4d6, drop lowest)"
+summarize(stat_4d6_drop_lowest())
+print
 
 
 # Methods for generating arrays of ability scores:
+
+def stat_array_standard():
+  return constant(STANDARD_ARRAY)
 
 
 def stat_array(stat_generate_f):
@@ -19,11 +32,39 @@ def stat_array(stat_generate_f):
   return reduce(lambda x, y: x.combine(y, lambda a, b: tuple(sorted(a + b, reverse=True))), stats)
 
 
-def array_4d6_drop_lowest():
-  return stat_array(stat_4d6_drop_lowest)
+def stat_array_3up3down():
+  return mktuple([die(6), die(8), die(10)]).map(lambda d: tuple(sorted([
+      10 + d[0], 15 - d[0], 10 + d[1], 15 - d[1], 8 + d[2], 17 - d[2]])))
 
+
+def stat_array_pool(d6s):
+  assert len(d6s) == 18
+  result = tuple([sum(d6s[0:3]),
+                  sum(d6s[3:6]),
+                  sum(d6s[6:9]),
+                  sum(d6s[9:12]),
+                  sum(d6s[12:15]),
+                  sum(d6s[15:18])])
+  assert sum(result) == sum(d6s)
+  return result
+
+
+def stat_array_24d6_drop_lowest6_pool():
+  result = constant(())
+  for _ in range(24 - 6):
+    result = (result + mktuple([die(6)])).map(lambda a: tuple(sorted(a)))
+    print "working on expensive distribution 24d6 drop lowest 6:", _, len(result._dist), result.max()
+    # print result
+  for _ in range(6):
+    result = (result + mktuple([die(6)])
+              ).map(lambda a: tuple(sorted(a)[6 - 24:]))
+    print "working on expensive distribution 24d6 drop lowest 6:", _ + 24 - 6, len(result._dist), result.max()
+    # print result
+  return result.map(stat_array_pool)
 
 # Methods for evaluating how good a stat (or stat array) is:
+
+
 def stat_pointbuy_cost(s):
   # How many pointbuy points would it cost to buy this ability score?
   # Standard pointbuy:
@@ -31,11 +72,11 @@ def stat_pointbuy_cost(s):
   # - charges 1 point for every increment up to 13
   # - charges 2 points for every increment up to 15
   # - cannot buy past 15
-  # Generalized pointbuy lets you:
-  # - recover 1 point by decrementing a score below 8
-  # - continue spending 2 for increments past 15
-  #   (an argument could be made that this should cost even more, being impossible by default)
-  return s - 8 + max(0, s - 13)
+  # Generalized pointbuy:
+  # - recovers 1 point for every decrement below 8
+  # - charges 3 points for every increment up to 17
+  # - charges 4 points for every increment up to 19
+  return s - 8 + max(0, s - 13) + max(0, s - 15) + max(0, s - 17)
 
 
 def array_score(a, stat_score_f):
@@ -47,11 +88,22 @@ def array_pointbuy_cost(a):
 
 
 def array_utility(a):
-  # For each stat, computes its bonus, and then values bonuses higher for
-  # your more important stats.
-  return sum((len(a) - v) * (s / 2 - 5) for v, s in enumerate(a))
+  # More important stats are more valuable.
+  return sum((len(a) - v) * (s - 10) for v, s in enumerate(a))
 
-print "Utility score of the standard array:\t", STANDARD_ARRAY, array_utility(STANDARD_ARRAY)
+print "Utility score of the standard array %s: %d" % (STANDARD_ARRAY, array_utility(STANDARD_ARRAY))
+print
+
+print "pointbuy-legal arrays:"
+pointbuy_legal = (stat_array(lambda: die(8) + 7)
+                  .filter(lambda a: array_pointbuy_cost(a) == 27))
+print pointbuy_legal
+print "utility distribution of pointbuy-legal arrays:"
+summarize(pointbuy_legal.map(lambda a: array_utility(a)))
+print
+
+print "highest-utility pointbuy-legal array:"
+print max((array_utility(x), x) for x, p in pointbuy_legal.iteritems())
 
 
 def summarize_nth_best(allocation):
@@ -65,21 +117,35 @@ def summarize_nth_best(allocation):
   # print utility
   # print utility.cum()
 
-
-a_4d6_drop_lowest = array_4d6_drop_lowest()
-for description, allocation in [
-    ("4d6 drop lowest", a_4d6_drop_lowest),
-    # ("4d6 drop lowest, reroll if total < 70",
-    #  a_4d6_drop_lowest.filter(lambda t: sum(t) >= 70)),
-    # ("4d6 drop lowest, reroll if total < 70, reroll unless two 15+'s",
-    #  a_4d6_drop_lowest.filter(lambda t: sum(
-    #     t) >= 70).filter(lambda t: t[1] >= 15)),
-    ("4d6 drop lowest, fall back to standard array",
-     a_4d6_drop_lowest.map(lambda a: a if array_utility(a) >= array_utility(STANDARD_ARRAY) else STANDARD_ARRAY))
-]:
-  print
-  print description
-  print "pointbuy cost:"
-  pointbuy_cost = allocation.map(array_pointbuy_cost)
-  summarize(pointbuy_cost)
-  # summarize_nth_best(allocation)
+if __name__ == "__main__":
+    # execute only if run as a script
+  a_4d6_drop_lowest = stat_array(stat_4d6_drop_lowest)
+  for description, allocation in [
+      ("standard array", stat_array_standard()),
+      # ("1d20", stat_array(stat_1d20)),
+      # ("3d6", stat_array(stat_3d6)),
+      ("4d6 drop lowest", a_4d6_drop_lowest),
+      # ("4d6 drop lowest, reroll if total < 70",
+      #  a_4d6_drop_lowest.filter(lambda t: sum(t) >= 70)),
+      # ("4d6 drop lowest, reroll if total < 70, reroll unless two 15+'s",
+      #  a_4d6_drop_lowest.filter(lambda t: sum(
+      #     t) >= 70).filter(lambda t: t[1] >= 15)),
+      # ("4d6 drop lowest, fall back to standard array",
+      # a_4d6_drop_lowest.map(lambda a: a if array_utility(a) >=
+      # array_utility(STANDARD_ARRAY) else STANDARD_ARRAY))
+      # ("4d6 drop lowest, raise best stat to 16, raise all stats to 10, +2 free points", a_4d6_drop_lowest.map(
+      # lambda a: tuple([max(16, a[0]) + 2, max(10, a[1]), max(10, a[2]),
+      # max(10, a[3]), max(10, a[4]), max(10, a[5])])))
+      # ("3 up 3 down: 10 + d6, 15 - same d6, 10 + d8, 15 - same d8, 8 + d10, 17 - same d10",
+      #  stat_array_3up3down()),
+      ("24d6 drop lowest 6, allocate in groups of 3",
+       stat_array_24d6_drop_lowest6_pool())
+  ]:
+    print
+    print description
+    print "pointbuy cost:"
+    pointbuy_cost = allocation.map(array_pointbuy_cost)
+    summarize(pointbuy_cost)
+    print "pointbuy cost (cumulative):"
+    print pointbuy_cost.cum()
+    # summarize_nth_best(allocation)
