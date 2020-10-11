@@ -72,7 +72,8 @@ public interface ColorWheel {
     if (name.equals("becky")) return gradient(new Color[] { new Color(177, 140, 193),  // lavender
 							    new Color(111, 210, 135),  // mint green
 							    new Color( 36, 160, 209),  // muted blue
-	});
+    });
+    if (name.equals("lightning")) return gradient(new Color[] { Color.black, Color.cyan, Color.black, Color.blue});
 
     return white();
   }
