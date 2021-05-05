@@ -55,7 +55,8 @@ def enumerate_frogs(frogs_desc):
   frogs = []
   for frog_desc in frogs_desc.split(","):
     count = 1
-    m = re.match("(?:(\\d+)[Xx] )?(\\w*) (\\w*) (\\w*)$", frog_desc)
+    m = re.match(
+        "(?:(\\d+)[Xx] ?)?([a-zA-Z]+) ([a-zA-Z]+) ([a-zA-Z]+)$", frog_desc)
     if not m:
       print("bad frog description:", frog_desc)
       return None
@@ -148,6 +149,19 @@ assertEquals(
     ],
     enumerate_frogs("Golden Picea Tribus (Wolverine); Blue Albeo Stellata (Captain America); Green Viola Clunicula (The Incredible Hulk); Maroon Aurum Obaro (Iron Man); Red Caelus Mixtus (Spiderman); Black Aurum Viduo (Batman); Blue Tingo Clunicula (Superman); Olive Albeo Nimbilis (Green Lantern)")
 )
+
+assertEquals(
+    [
+        ("Orange", "Floris", "Persona", 2),
+        ("Purple", "Callaina", "Pluma", 2),
+        ("Red", "Aurum", "Igneous", 2),
+        ("Violet", "Muscus", "Pictoris", 2),
+    ],
+    enumerate_frogs(
+        "2x(Orange Floris Persona, Purple Callaina Pluma, Red Aurum Igneous, Violet Muscus Pictoris)")
+)
+
+
 # Read real input, produce real output.
 
 reader = csv.reader(open('raw sets.csv'))
