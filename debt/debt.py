@@ -129,3 +129,10 @@ sample_surplus = 800
 
 compare_strategies(sample_data, sample_surplus)
 compare_cusps(sample_data)
+
+# https://www.investopedia.com/articles/personal-finance/080716/debt-avalanche-vs-debt-snowball-which-best-you.asp
+sample_data = [(15000, 18.99, 0), (9000, 3.00, 0), (10000, 4.50, 0)]
+sample_surplus = 1000
+
+compare_strategies(sample_data, sample_surplus)
+compare_cusps(sample_data)
