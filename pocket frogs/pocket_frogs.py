@@ -11,8 +11,8 @@ import re
 def enumerate_frogs(frogs_desc):
   # print("\ninput:", frogs_desc)
 
-  # Remove various "and"spellings, standardize on comma separation.
-  for a in [", and", " and ", "& ", "; ", ", "]:
+  # Remove various "and" spellings, standardize on comma separation.
+  for a in [", and", " and ", " & ", "; ", ", "]:
     frogs_desc = frogs_desc.replace(a, ",")
 
   # Look for clauses containing a parenthesized expression with no further
@@ -52,10 +52,8 @@ def enumerate_frogs(frogs_desc):
                         expanded_clause, frogs_desc, count=1)
     # print("updated frogs_desc:", frogs_desc)
 
-  frog_descs = frogs_desc.split(",")
-
   frogs = []
-  for frog_desc in frog_descs:
+  for frog_desc in frogs_desc.split(","):
     count = 1
     m = re.match("(?:(\\d+)[Xx] )?(\\w*) (\\w*) (\\w*)$", frog_desc)
     if not m:
@@ -69,6 +67,8 @@ def enumerate_frogs(frogs_desc):
   # print("counted:", frogs)
 
   return frogs
+
+# Unit tests:
 
 
 def assertEquals(expected, actual):
@@ -135,6 +135,21 @@ assertEquals(
     ],
     enumerate_frogs("Glass Chroma (4x Gyrus, 2x Puncti, 2x Bulla)"))
 
+assertEquals(
+    [
+        ("Golden", "Picea", "Tribus", 1),
+        ("Blue", "Albeo", "Stellata", 1),
+        ("Green", "Viola", "Clunicula", 1),
+        ("Maroon", "Aurum", "Obaro", 1),
+        ("Red", "Caelus", "Mixtus", 1),
+        ("Black", "Aurum", "Viduo", 1),
+        ("Blue", "Tingo", "Clunicula", 1),
+        ("Olive", "Albeo", "Nimbilis", 1),
+    ],
+    enumerate_frogs("Golden Picea Tribus (Wolverine); Blue Albeo Stellata (Captain America); Green Viola Clunicula (The Incredible Hulk); Maroon Aurum Obaro (Iron Man); Red Caelus Mixtus (Spiderman); Black Aurum Viduo (Batman); Blue Tingo Clunicula (Superman); Olive Albeo Nimbilis (Green Lantern)")
+)
+# Read real input, produce real output.
+
 reader = csv.reader(open('raw sets.csv'))
 writer = csv.writer(open('massaged sets.csv', 'w'))
 
@@ -145,6 +160,6 @@ writer.writerow(["Name", "Year", "Week", "Primary",
 for input_row in reader:
   frogs = enumerate_frogs(input_row[-1])
   for frog in frogs:
-    output_row = input_row[:-1] + list(frog)
+    output_row = input_row[: -1] + list(frog)
     print(output_row)
     writer.writerow(output_row)
