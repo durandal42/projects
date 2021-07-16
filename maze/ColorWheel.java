@@ -2,7 +2,7 @@ import java.awt.Color;
 
 public interface ColorWheel {
   Color colorAt(float f);
-    
+
   public static ColorWheel white() {
     return (f) -> Color.white;
   }
@@ -13,7 +13,7 @@ public interface ColorWheel {
 
   public static ColorWheel tertiary() {
     float numColors = 12.0f;
-    return (f) -> Color.getHSBColor((float) Math.floor(f*numColors)/numColors, 1.0f, 1.0f);
+    return (f) -> Color.getHSBColor((float) Math.floor(f * numColors) / numColors, 1.0f, 1.0f);
   }
 
   public static ColorWheel gradient(final Color[] colors) {
@@ -31,7 +31,7 @@ public interface ColorWheel {
     float r = c1rgb[0] * (1.0f - gradient) + c2rgb[0] * gradient;
     float g = c1rgb[1] * (1.0f - gradient) + c2rgb[1] * gradient;
     float b = c1rgb[2] * (1.0f - gradient) + c2rgb[2] * gradient;
-    if (r<0 || r > 1 || g < 0 || g > 1 || b < 0 || b > 1) {
+    if (r < 0 || r > 1 || g < 0 || g > 1 || b < 0 || b > 1) {
       System.err.println(r + ", " + g + ", " + b);
     }
     return new Color(r, g, b);
@@ -49,7 +49,7 @@ public interface ColorWheel {
   public static Color KHAKI = new Color(0xC3B091);
   public static Color TEAL = new Color(0x008080);
   public static Color PURPLE = new Color(0x800080);
-  
+
 
   public static ColorWheel fromName(String name) {
     if (name == null) return white();
@@ -57,23 +57,30 @@ public interface ColorWheel {
     if (name.equals("nafi")) return nafi();
     if (name.equals("tertiary")) return tertiary();
     if (name.equals("annie")) return gradient(new Color[] { new Color(0xb04127),
-                                                            new Color(0xd09921),
-                                                            new Color(0x76a52c),
-                                                            new Color(0x10827b),
-                                                            new Color(0x574090),
-                                                            new Color(0x6c2e65)
-                                                          });
+      new Color(0xd09921),
+      new Color(0x76a52c),
+      new Color(0x10827b),
+      new Color(0x574090),
+      new Color(0x6c2e65)
+    });
     if (name.equals("yael")) return gradient(new Color[] { Color.yellow, Color.orange, Color.pink });
     if (name.equals("elwyn")) return gradient(new Color[] { Color.white, Color.yellow, Color.pink });
     if (name.equals("rgb")) return gradient(new Color[] { Color.red, Color.green, Color.blue });
     if (name.equals("camo_woodland")) return gradient(new Color[] { TAN, FOREST_GREEN, BROWN, Color.black });
     if (name.equals("camo_desert")) return gradient(new Color[] { TAN, DARK_TAN, KHAKI, BROWN});
     if (name.equals("kayli")) return gradient(new Color[] { TEAL, DARK_FOREST_GREEN, PURPLE});
-    if (name.equals("becky")) return gradient(new Color[] { new Color(177, 140, 193),  // lavender
-							    new Color(111, 210, 135),  // mint green
-							    new Color( 36, 160, 209),  // muted blue
-    });
+    if (name.equals("becky")) return gradient(new Color[] {
+                                         new Color(177, 140, 193),  // lavender
+                                         new Color(111, 210, 135),  // mint green
+                                         new Color( 36, 160, 209),  // muted blue
+                                       });
     if (name.equals("lightning")) return gradient(new Color[] { Color.black, Color.cyan, Color.black, Color.blue});
+    if (name.equals("ren")) return gradient(new Color[] {
+                                                new Color(50, 205, 50),  // lime green
+                                                Color.blue,
+                                                PURPLE,
+                                                new Color(255, 0, 255),  // magenta
+                                              });
 
     return white();
   }
