@@ -86,6 +86,9 @@ def user_choice(prev_guesses=None, prev_scores=None):
       pretty_score = pretty_print(score)
       print(f'{guess}: {pretty_score}')
     wordle_keyboard(prev_guesses, prev_scores)
+  remaining_targets = restrict_many(LEGAL_TARGETS, prev_guesses, prev_scores)
+  print("Remaining targets:", len(remaining_targets))
+  if len(remaining_targets) < 20: print(remaining_targets)
   response = input('next guess: ').strip().upper()
   if response == '?':
     return conservative_restricted_choice(prev_guesses, prev_scores)
@@ -505,7 +508,7 @@ import sys
 def main():
   load_words()
 
-  reverse_engineer_starting_guess()
+  # reverse_engineer_starting_guess()
 
   if len(sys.argv) < 2:
     print("Usage: python3 wordle.py [-h] [-c | -m TARGET | -a TARGET | -e]")
