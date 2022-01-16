@@ -1,5 +1,6 @@
 import random
 import collections
+import functools
 
 WORD_LENGTH = 5
 HARD_MODE = False
@@ -25,6 +26,7 @@ WRONG_SPOT = 1
 RIGHT_SPOT = 2
 
 
+@functools.cache
 def auto_scorer(guess, target):
   score = [NO_MATCH] * WORD_LENGTH
   target_counts = collections.Counter(target)
@@ -385,7 +387,20 @@ def no_target():
   return None
 
 
-def play(targeter=random_target, guesser=user_choice, scorer=auto_scorer):
+def absurdle_score(guesses, scores):
+  assert len(guesses) == len(scores) + 1
+  targets = restrict_many(LEGAL_TARGETS, guesses[:-1], scores)
+  buckets = collections.Counter()
+  g = guesses[-1]
+  for t in targets:
+    score = auto_scorer(g, t)
+    buckets[score] += 1
+    if score == (RIGHT_SPOT,)*WORD_LENGTH:
+      buckets[score] -= 1
+  worst_bucket, score = max((v,k) for k,v in buckets.items())
+  return score
+
+def play(targeter=random_target, guesser=user_choice, scorer=auto_scorer, absurdle=False):
   target = targeter()
 
   guesses = []
@@ -393,11 +408,14 @@ def play(targeter=random_target, guesser=user_choice, scorer=auto_scorer):
   legal_guesses = LEGAL_GUESSES
   while not guesses or scores[-1] != (RIGHT_SPOT,) * WORD_LENGTH:
     guess = guesser(guesses, scores)
-    if guess not in legal_guesses:
+    if guess not in legal_guesses and not absurdle:
       print("Illegal guess. Try again.")
       continue
     guesses.append(guess)
-    score = scorer(guess, target)
+    if absurdle:
+      score = absurdle_score(guesses, scores)
+    else:
+      score = scorer(guess, target)
     scores.append(score)
     pretty_score = pretty_print(score)
     print(f'{guess}: {pretty_score}')
@@ -407,9 +425,14 @@ def play(targeter=random_target, guesser=user_choice, scorer=auto_scorer):
   print('\n')
   if target is None:
     target = guesses[-1]
-  print(wordle_snippet(scores, LEGAL_TARGETS.index(target)))
+  if absurdle:
+    print(absurdle_snippet(scores))
+  else:
+    print(wordle_snippet(scores, LEGAL_TARGETS.index(target)))
+  print()
+  print('\t'.join(['guesses:'] + guesses))
   print('\n')
-
+ 
   return len(scores)
 
 
@@ -417,6 +440,10 @@ def wordle_snippet(scores, i='?'):
   num_guesses = len(scores)
   hard_mode_star = HARD_MODE and '*' or ''
   return f'Wordle {i} {num_guesses}/6{hard_mode_star}\n\n' + '\n'.join(pretty_print(s) for s in scores)
+
+def absurdle_snippet(scores, i='?'):
+  num_guesses = len(scores)
+  return f'Absurdle {num_guesses}/∞\n\n' + '\n'.join(pretty_print(s) for s in scores)
 
 
 def wordle_keyboard(guesses, scores):
@@ -471,13 +498,22 @@ def history_mode(i): play(targeter=lambda: wordle_target(i),
 
 
 def solve_everything():
+  solve_times = {}
   meta_score = collections.defaultdict(int)
   for word in LEGAL_TARGETS:  # [:10]:
     #        print(f'Solving: {word}...')
     guesses_needed = play(targeter=lambda: word,
                           guesser=conservative_restricted_choice)
+    solve_times[word] = guesses_needed
     meta_score[guesses_needed] += 1
+
+  #  print('Guesses needed, by word:')
+  #  for word,guesses_needed in solve_times.items():
+  #    print(f'\t{word}\t{guesses_needed}')
   print("Distribution of guesses_needed:", sorted(meta_score.items()))
+  # dump_cache()
+
+def dump_cache():
   print("High-value cache items:")
   if HARD_MODE:
     cache = HARD_MODE_CACHE
@@ -501,13 +537,62 @@ def reverse_engineer_starting_guess():
     else:
       print(guess)
 
+def find_max_branching_factor():
+  scores = {}
+  max_score_count_per_target = 0
+  for t in LEGAL_TARGETS:
+    scores_per_target = set()
+    for g in LEGAL_GUESSES:
+      s = auto_scorer(g,t)
+      scores[s] = (g,t)
+      scores_per_target.add(s)
+    max_score_count_per_target = max(max_score_count_per_target, len(scores_per_target))
+  for score, words in scores.items():
+    print(f'{score}:\t{words}')
+  print('max_score_count_per_target:', max_score_count_per_target)
+  # This is the largest number of buckets any single guess can split the solution space into. (192)
 
+def deep_search():
+  approximate_best_starting_guesses = [l.strip() for l in open('best-starting-guesses.txt')]
+  print('deep_searching...')
+  n = len(LEGAL_GUESSES)
+  max_bucket_size_by_first_guess = {}
+  for i,g1 in enumerate(approximate_best_starting_guesses):
+    print(f'trying {g1} ({i}/{n})')
+    buckets1 = collections.defaultdict(list)
+    for t in LEGAL_TARGETS:
+      buckets1[auto_scorer(g1, t)].append(t)
+    max_bucket_size, worst_score = max((len(v), k) for k,v in buckets1.items())
+    print(f'{g1} -> {worst_score} leaves {max_bucket_size} possible targets in a single bucket.')
+'''
+    for s, ts in sorted(buckets1.items()):
+      best_worst_case = (n, None)
+      for i2,g2 in enumerate(approximate_best_starting_guesses):
+        #        print(f'\ttrying {g2} ({i}/{n})')
+        buckets2 = collections.defaultdict(list)
+        for t in ts:
+          buckets2[auto_scorer(g2, t)].append(t)
+
+        worst_case = max((len(v), k) for k,v in buckets2.items())
+        max_bucket_size, worst_score = worst_case
+        # print(f'\t{g1} -> {s} -> {g2} never leaves more than {max_bucket_size} targets in a single bucket.')
+        best_worst_case = min(best_worst_case, (max_bucket_size, g2))
+      smallest_largest_bucket_size, guess = best_worst_case
+      print(f'{g1} -> {s} -> {guess} never leaves more than {smallest_largest_bucket_size} targets in a single bucket.')
+'''
+#    max_bucket_size_by_first_guess[g1] = max(len(v) for k,v in buckets1.items())
+#  best_first_guesses_by_max_bucket_size = sorted(max_bucket_size_by_first_guess.items(), key=lambda x: x[1])
+#  print(best_first_guesses_by_max_bucket_size[:10])
+      
+  
 import sys
 
 
 def main():
   load_words()
 
+  # deep_search()
+  # find_all_scores()
   # reverse_engineer_starting_guess()
 
   if len(sys.argv) < 2:
@@ -521,8 +606,10 @@ def main():
     print("\t\ta 5-letter word from the list of valid targets")
     print("\t\ta (0-based) index into the list of valid targets")
     print("\t\t'-r', in which case a random target will be selected")
+    print("\t\t'-s', in which case 'absurdle' logic will put off picking a specific target for as long as possible.")
 
   guesser, scorer = None, None
+  absurdle = False
   for arg in sys.argv[1:]:
     if arg == '-h':  # enable hard mode
       global HARD_MODE
@@ -553,6 +640,9 @@ def main():
       targeter = lambda: arg.upper()
     elif arg == '-r':
       targeter = random_target
+    elif arg == '-s':  # absurdle
+      targeter = lambda: None
+      absurdle = True
     else:
       print(f'Don\'t know what to do with arg: {arg}')
       continue
@@ -560,7 +650,7 @@ def main():
     if guesser is None or scorer is None:
       print('You must specify one of [-m|-a] before selecting a target.')
       continue
-    play(targeter=targeter, guesser=guesser, scorer=scorer)
+    play(targeter=targeter, guesser=guesser, scorer=scorer, absurdle=absurdle)
 
   # test_mode()
   # ai_guesser()
