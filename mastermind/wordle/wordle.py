@@ -330,11 +330,11 @@ def conservative_restricted_choice(prev_guesses, prev_scores):
       cache_key = None
       break
   if cache_key is not None and cache_key in cache:
-    # print('(precomputed) worst case for guess %s: %d remaining possibilities' % cache[cache_key])
+    print('(precomputed) worst case for guess %s: %s (remaining targets, tiebreaker)' % cache[cache_key])
     return cache[cache_key][0]
 
   if len(remaining_targets) <= 2:
-    # print('remaining targets down to %s; guessing %s' % (remaining_targets, remaining_targets[0]))
+    print('remaining targets down to %s; guessing %s' % (remaining_targets, remaining_targets[0]))
     return remaining_targets[0]
 
   worst_case_by_guess = {}
@@ -359,8 +359,7 @@ def conservative_restricted_choice(prev_guesses, prev_scores):
       worst_case_by_guess.items(), key=lambda x: x[1])
   n = 100
   print(f'Top {n} guesses:', sorted([(v, k) for k, v in worst_case_by_guess.items()])[:n])
-  # print(f'worst case for guess {best_guess}: {best_worst_case} remaining
-  # possibilities')
+  print(f'worst case for guess {best_guess}: {best_worst_case} remaining possibilities')
 
   if cache_key not in cache:
     # print('updating cache: %s:%s' % (cache_key, (best_guess, best_worst_case)))
@@ -525,17 +524,24 @@ def dump_cache():
 
 
 def reverse_engineer_starting_guess():
-  recent_targets = [
-      'ABBEY',
-      #'FAVOR',
-      #'DRINK',
+  target = 'SOLAR'
+  scores = [
+#    (NO_MATCH, NO_MATCH, NO_MATCH, WRONG_SPOT, NO_MATCH),
+#    (RIGHT_SPOT, RIGHT_SPOT, NO_MATCH, RIGHT_SPOT, NO_MATCH),
+    (RIGHT_SPOT, WRONG_SPOT, NO_MATCH, NO_MATCH, NO_MATCH),
   ]
-  for guess in LEGAL_GUESSES:
-    for target in recent_targets:
-      if auto_scorer(guess, target) != auto_scorer('RAISE', target):
-        break
-    else:
-      print(guess)
+  approximate_best_starting_guesses = [l.strip() for l in open('best-starting-guesses.txt')]
+  print('guess', 'max bucket size', 'rank', sep='\t')
+  for s in scores:
+    print(pretty_print(s))
+    for guess in LEGAL_GUESSES:
+      if auto_scorer(guess, target) != s:
+        continue
+      print(guess,
+#            [t for t in LEGAL_TARGETS if auto_scorer(guess, t) == s],
+            sum(1 for t in LEGAL_TARGETS if auto_scorer(guess, t) == s),
+            approximate_best_starting_guesses.index(guess),
+            sep='\t')
 
 def find_max_branching_factor():
   scores = {}
