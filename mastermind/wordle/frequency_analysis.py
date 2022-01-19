@@ -12,16 +12,24 @@ for line in open('en_full.txt'):
 
 print('loaded %d 5-letter words' % len(ranks))
 
+legal_guesses = []
+
 for word in open('legal-targets.txt'):
   word = word.strip().upper()
+  legal_guesses.append(word)
   f = ranks[word]
-  print(f'{word}\t{f}\tTARGET')
+  #  print(f'{word}\t{f}\tTARGET')
 
 for word in open('legal-guesses.txt'):
   word = word.strip().upper()
+  legal_guesses.append(word)
   if word in ranks:
     f = ranks[word]
   else:
-    # print(f'Word not found in frequency data: {word}')
-    f = float('inf')
-  print(f'{word}\t{f}\tGUESS')
+    #    print(f'Word not found in frequency data: {word}')
+    f = rank + 1
+    ranks[word] = f
+    #  print(f'{word}\t{f}\tGUESS')
+
+for word in sorted(legal_guesses, key=lambda w: ranks[w]):
+  print(word, ranks[word])

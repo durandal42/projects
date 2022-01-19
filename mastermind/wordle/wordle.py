@@ -1,6 +1,12 @@
 import random
 import collections
 import functools
+import itertools
+import re
+import sys
+import dataclasses
+
+import guess_cache
 
 WORD_LENGTH = 5
 HARD_MODE = False
@@ -21,6 +27,7 @@ def load_words():
   LEGAL_GUESSES = sorted(LEGAL_TARGETS + legal_guesses)
 
 
+# scoring constants:
 NO_MATCH = 0
 WRONG_SPOT = 1
 RIGHT_SPOT = 2
@@ -49,17 +56,57 @@ def user_scorer(word, target):
   print("\033[A                             \033[A")
   return score
 
+PRETTY_PRINT = {
+    NO_MATCH: '⬛',
+    WRONG_SPOT: '🟨',
+    RIGHT_SPOT: '🟩',
+}
+
+PRETTY_PRINT_DARK_MODE = {
+    NO_MATCH: '⬜',
+    WRONG_SPOT: '🟨',
+    RIGHT_SPOT: '🟩',
+}
+
+UGLY_PRINT = {
+    NO_MATCH: 'B',
+    WRONG_SPOT: 'Y',
+    RIGHT_SPOT: 'G',
+}
+
+UGLY_PRINT_LOWER = {k: v.lower() for k, v in UGLY_PRINT.items()}
+
+INTERNAL_PRINT = {
+    NO_MATCH: NO_MATCH,
+    WRONG_SPOT: WRONG_SPOT,
+    RIGHT_SPOT: RIGHT_SPOT,
+}
+
+PRINT_METHODS = [
+    PRETTY_PRINT,
+    PRETTY_PRINT_DARK_MODE,
+    UGLY_PRINT,
+    UGLY_PRINT_LOWER,
+    INTERNAL_PRINT,
+]
+
+PARSE_MAP = {}
+for s, c in itertools.chain.from_iterable(p.items() for p in PRINT_METHODS):
+  PARSE_MAP[c] = s
+
+
+SLACK_EMOJIS = {
+    ':black_large_square:': NO_MATCH,
+    ':white_large_square:': NO_MATCH,
+    ':large_yellow_square:': WRONG_SPOT,
+    ':large_green_square:': RIGHT_SPOT,
+}
+
 
 def parse_score_string(score_string):
-  score = []
-  for s in score_string.upper():
-    if s in [NO_MATCH, 'B']:
-      score.append(NO_MATCH)
-    if s in [WRONG_SPOT, 'Y']:
-      score.append(WRONG_SPOT)
-    if s in [RIGHT_SPOT, 'G']:
-      score.append(RIGHT_SPOT)
-  return tuple(score)
+  for k, v in SLACK_EMOJIS.items():
+    score_string = score_string.replace(k, UGLY_PRINT[v])
+  return tuple(PARSE_MAP[c] for c in score_string)
 
 assert(auto_scorer('SANDS', 'BRASS') == parse_score_string('yybbg'))
 assert(auto_scorer('TURNS', 'BRASS') == parse_score_string('bbybg'))
@@ -67,18 +114,12 @@ assert(auto_scorer('SUPER', 'BRASS') == parse_score_string('ybbby'))
 assert(auto_scorer('CARBS', 'BRASS') == parse_score_string('byyyg'))
 assert(auto_scorer('BARBS', 'BRASS') == parse_score_string('gyybg'))
 
-PRETTY_PRINT = {
-    NO_MATCH: '⬛',
-    WRONG_SPOT: '🟨',
-    RIGHT_SPOT: '🟩',
-    'ALTERNATE_NO_MATCH': '⬜️⬜️',
-}
-
 
 def pretty_print(score):
   return ''.join(PRETTY_PRINT[s] for s in score)
 
 assert(pretty_print(parse_score_string('byg')) == '⬛🟨🟩')
+assert(pretty_print(parse_score_string('⬛🟨🟩')) == '⬛🟨🟩')
 
 
 def user_choice(prev_guesses=None, prev_scores=None):
@@ -90,7 +131,8 @@ def user_choice(prev_guesses=None, prev_scores=None):
     wordle_keyboard(prev_guesses, prev_scores)
   remaining_targets = restrict_many(LEGAL_TARGETS, prev_guesses, prev_scores)
   print("Remaining targets:", len(remaining_targets))
-  if len(remaining_targets) < 20: print(remaining_targets)
+  if len(remaining_targets) < 20:
+    print(remaining_targets)
   response = input('next guess: ').strip().upper()
   if response == '?':
     return conservative_restricted_choice(prev_guesses, prev_scores)
@@ -119,207 +161,15 @@ def random_restricted_choice(prev_guesses, prev_scores):
   remaining_targets = restrict_many(LEGAL_TARGETS, prev_guesses, prev_scores)
   return random_choice(None, None, remaining_targets)
 
-EASY_MODE_CACHE = {
-    (): ('RAISE', (168, 0)),
-    ((0, 0, 0, 0, 0),): ('BLUDY', (13, 1)),
-    ((0, 0, 0, 0, 1),): ('DENET', (9, 1)),
-    ((0, 0, 0, 0, 2),): ('CLOUD', (5, 1)),
-    ((0, 0, 0, 1, 0),): ('MUTON', (7, 1)),
-    ((0, 0, 0, 1, 1),): ('SPELT', (4, 0)),
-    ((0, 0, 0, 1, 2),): ('CLONK', (3, 1)),
-    ((0, 0, 0, 2, 0),): ('FLOSS', (2, 0)),
-    ((0, 0, 0, 2, 1),): ('CLOGS', (1, 1)),
-    ((0, 0, 0, 2, 2),): ('CLOTH', (3, 1)),
-    ((0, 0, 1, 0, 0),): ('UNTIL', (11, 0)),
-    ((0, 0, 1, 0, 1),): ('FINED', (3, 1)),
-    ((0, 0, 1, 0, 2),): ('BUNDT', (4, 1)),
-    ((0, 0, 1, 1, 0),): ('CLOUT', (2, 1)),
-    ((0, 0, 1, 1, 1),): ('ISLET', (1, 0)),
-    ((0, 0, 1, 1, 2),): ('SIEGE', (1, 0)),
-    ((0, 0, 1, 2, 0),): ('COMPT', (1, 1)),
-    ((0, 0, 2, 0, 0),): ('CLOOT', (5, 1)),
-    ((0, 0, 2, 0, 1),): ('CHYND', (2, 1)),
-    ((0, 0, 2, 0, 2),): ('CLINT', (3, 1)),
-    ((0, 0, 2, 1, 0),): ('BLUNT', (4, 1)),
-    ((0, 0, 2, 1, 1),): ('SHIED', (1, 0)),
-    ((0, 0, 2, 1, 2),): ('ALANT', (3, 1)),
-    ((0, 0, 2, 2, 0),): ('FOEHN', (2, 1)),
-    ((0, 0, 2, 2, 2),): ('NOISE', (1, 0)),
-    ((0, 1, 0, 0, 0),): ('CLOAK', (7, 0)),
-    ((0, 1, 0, 0, 1),): ('METAL', (5, 0)),
-    ((0, 1, 0, 0, 2),): ('ALBUM', (7, 1)),
-    ((0, 1, 0, 1, 0),): ('CLAPT', (4, 1)),
-    ((0, 1, 0, 1, 1),): ('DWELT', (2, 1)),
-    ((0, 1, 0, 1, 2),): ('THILK', (4, 1)),
-    ((0, 1, 0, 2, 0),): ('SLASH', (3, 0)),
-    ((0, 1, 0, 2, 1),): ('BUFTY', (1, 1)),
-    ((0, 1, 0, 2, 2),): ('BUTCH', (1, 1)),
-    ((0, 1, 1, 0, 0),): ('PLANT', (3, 1)),
-    ((0, 1, 1, 0, 1),): ('EMAIL', (1, 0)),
-    ((0, 1, 1, 1, 0),): ('SLAIN', (1, 0)),
-    ((0, 1, 2, 0, 0),): ('ALIGN', (2, 0)),
-    ((0, 1, 2, 0, 2),): ('ALKYD', (1, 1)),
-    ((0, 2, 0, 0, 0),): ('BUNTY', (11, 1)),
-    ((0, 2, 0, 0, 1),): ('LIGHT', (3, 1)),
-    ((0, 2, 0, 0, 2),): ('MULCT', (3, 1)),
-    ((0, 2, 0, 1, 0),): ('POULT', (3, 1)),
-    ((0, 2, 0, 1, 2),): ('BUTCH', (3, 1)),
-    ((0, 2, 0, 2, 0),): ('PLONG', (1, 1)),
-    ((0, 2, 0, 2, 2),): ('AMPLE', (1, 1)),
-    ((0, 2, 1, 0, 0),): ('CELOM', (2, 1)),
-    ((0, 2, 1, 1, 0),): ('BANCS', (1, 1)),
-    ((0, 2, 2, 0, 0),): ('FAINT', (2, 0)),
-    ((0, 2, 2, 0, 2),): ('NAIVE', (1, 0)),
-    ((1, 0, 0, 0, 0),): ('COLON', (10, 1)),
-    ((1, 0, 0, 0, 1),): ('OUTER', (16, 0)),
-    ((1, 0, 0, 0, 2),): ('COMPT', (6, 1)),
-    ((1, 0, 0, 1, 0),): ('BURNT', (3, 1)),
-    ((1, 0, 0, 1, 1),): ('SEWER', (3, 0)),
-    ((1, 0, 0, 1, 2),): ('POTCH', (2, 1)),
-    ((1, 0, 0, 2, 0),): ('CRUST', (2, 0)),
-    ((1, 0, 0, 2, 1),): ('CHOPS', (1, 1)),
-    ((1, 0, 0, 2, 2),): ('AEONS', (2, 1)),
-    ((1, 0, 1, 0, 0),): ('CHOIR', (3, 0)),
-    ((1, 0, 1, 0, 1),): ('DELFT', (6, 1)),
-    ((1, 0, 1, 0, 2),): ('DIRGE', (1, 0)),
-    ((1, 0, 1, 1, 0),): ('SPRIG', (1, 0)),
-    ((1, 0, 1, 1, 1),): ('MISER', (1, 0)),
-    ((1, 0, 2, 0, 0),): ('CLONK', (5, 1)),
-    ((1, 0, 2, 0, 1),): ('DECAF', (2, 1)),
-    ((1, 0, 2, 0, 2),): ('BUMPH', (4, 1)),
-    ((1, 0, 2, 1, 0),): ('SHIRK', (1, 0)),
-    ((1, 0, 2, 2, 0),): ('ABACK', (2, 1)),
-    ((1, 1, 0, 0, 0),): ('TRONC', (9, 1)),
-    ((1, 1, 0, 0, 1),): ('BRACT', (5, 1)),
-    ((1, 1, 0, 0, 2),): ('GRACE', (6, 0)),
-    ((1, 1, 0, 1, 0),): ('CHANT', (3, 1)),
-    ((1, 1, 0, 1, 1),): ('BUMPH', (1, 1)),
-    ((1, 1, 0, 1, 2),): ('CHANT', (1, 1)),
-    ((1, 1, 0, 2, 0),): ('ABACS', (2, 1)),
-    ((1, 1, 1, 0, 0),): ('ALAND', (3, 1)),
-    ((1, 1, 2, 0, 0),): ('ABLED', (1, 1)),
-    ((1, 2, 0, 0, 0),): ('CLOMP', (4, 1)),
-    ((1, 2, 0, 0, 1),): ('EMPTY', (7, 1)),
-    ((1, 2, 0, 0, 2),): ('ABACA', (1, 1)),
-    ((1, 2, 2, 0, 0),): ('ACHED', (1, 1)),
-    ((2, 0, 0, 0, 0),): ('BOODY', (1, 1)),
-    ((2, 0, 0, 0, 1),): ('COLED', (3, 1)),
-    ((2, 0, 0, 0, 2),): ('ROGUE', (1, 0)),
-    ((2, 0, 1, 0, 0),): ('ROBIN', (1, 0)),
-    ((2, 0, 1, 0, 1),): ('ALDER', (2, 1)),
-    ((2, 0, 1, 1, 1),): ('RESIN', (1, 0)),
-    ((2, 1, 0, 0, 0),): ('ROYAL', (1, 0)),
-    ((2, 1, 0, 0, 1),): ('CABAL', (2, 1)),
-    ((2, 2, 0, 0, 0),): ('LOHAN', (1, 1)),
-    ((2, 2, 0, 0, 1),): ('AMNIC', (1, 1)),
-    ((2, 2, 1, 0, 0),): ('ABORD', (1, 1)),
-}
-HARD_MODE_CACHE = {
-    (): ('RAISE', (168, 0)),
-    ((0, 0, 0, 0, 0),): ('BLUDY', (13, 1)),
-    ((0, 0, 0, 0, 1),): ('DENET', (9, 1)),
-    ((0, 0, 0, 0, 2),): ('ELUDE', (7, 0)),
-    ((0, 0, 0, 1, 0),): ('STOOL', (8, 0)),
-    ((0, 0, 0, 1, 1),): ('SPELT', (4, 0)),
-    ((0, 0, 0, 1, 2),): ('STOPE', (4, 1)),
-    ((0, 0, 0, 2, 0),): ('FLOSS', (2, 0)),
-    ((0, 0, 0, 2, 1),): ('GHEST', (2, 1)),
-    ((0, 0, 0, 2, 2),): ('CHOSE', (5, 0)),
-    ((0, 0, 1, 0, 0),): ('UNTIL', (11, 0)),
-    ((0, 0, 1, 0, 1),): ('FINED', (3, 1)),
-    ((0, 0, 1, 0, 2),): ('LIGNE', (6, 1)),
-    ((0, 0, 1, 1, 0),): ('STOIC', (3, 0)),
-    ((0, 0, 1, 1, 1),): ('ISLET', (1, 0)),
-    ((0, 0, 1, 1, 2),): ('SIEGE', (1, 0)),
-    ((0, 0, 1, 2, 0),): ('GIPSY', (2, 0)),
-    ((0, 0, 2, 0, 0),): ('CLINT', (6, 1)),
-    ((0, 0, 2, 0, 1),): ('TEIND', (2, 1)),
-    ((0, 0, 2, 0, 2),): ('CLINE', (4, 1)),
-    ((0, 0, 2, 1, 0),): ('STINK', (5, 0)),
-    ((0, 0, 2, 1, 1),): ('SHIED', (1, 0)),
-    ((0, 0, 2, 1, 2),): ('SLIPE', (6, 1)),
-    ((0, 0, 2, 2, 0),): ('FOIST', (3, 0)),
-    ((0, 0, 2, 2, 2),): ('NOISE', (1, 0)),
-    ((0, 1, 0, 0, 0),): ('CLOAK', (7, 0)),
-    ((0, 1, 0, 0, 1),): ('METAL', (5, 0)),
-    ((0, 1, 0, 0, 2),): ('AMBLE', (8, 0)),
-    ((0, 1, 0, 1, 0),): ('STALK', (5, 0)),
-    ((0, 1, 0, 1, 1),): ('STEAD', (3, 0)),
-    ((0, 1, 0, 1, 2),): ('SHALE', (9, 0)),
-    ((0, 1, 0, 2, 0),): ('SLASH', (3, 0)),
-    ((0, 1, 0, 2, 1),): ('BEAST', (3, 0)),
-    ((0, 1, 0, 2, 2),): ('CEASE', (2, 0)),
-    ((0, 1, 1, 0, 0),): ('TIDAL', (4, 0)),
-    ((0, 1, 1, 0, 1),): ('EMAIL', (1, 0)),
-    ((0, 1, 1, 1, 0),): ('SLAIN', (1, 0)),
-    ((0, 1, 2, 0, 0),): ('ALIGN', (2, 0)),
-    ((0, 1, 2, 0, 2),): ('AGILE', (2, 0)),
-    ((0, 2, 0, 0, 0),): ('BANTY', (12, 1)),
-    ((0, 2, 0, 0, 1),): ('LATEN', (4, 1)),
-    ((0, 2, 0, 0, 2),): ('GABLE', (6, 1)),
-    ((0, 2, 0, 1, 0),): ('NASAL', (4, 0)),
-    ((0, 2, 0, 1, 2),): ('BASTE', (5, 0)),
-    ((0, 2, 0, 2, 0),): ('LASSO', (2, 0)),
-    ((0, 2, 0, 2, 2),): ('LAPSE', (2, 0)),
-    ((0, 2, 1, 0, 0),): ('CAMPI', (3, 1)),
-    ((0, 2, 1, 1, 0),): ('LABIS', (2, 1)),
-    ((0, 2, 2, 0, 0),): ('FAINT', (2, 0)),
-    ((0, 2, 2, 0, 2),): ('NAIVE', (1, 0)),
-    ((1, 0, 0, 0, 0),): ('WROOT', (11, 1)),
-    ((1, 0, 0, 0, 1),): ('OUTER', (16, 0)),
-    ((1, 0, 0, 0, 2),): ('PRONE', (7, 0)),
-    ((1, 0, 0, 1, 0),): ('SHORT', (4, 0)),
-    ((1, 0, 0, 1, 1),): ('SEWER', (3, 0)),
-    ((1, 0, 0, 1, 2),): ('SCORE', (5, 0)),
-    ((1, 0, 0, 2, 0),): ('CRUST', (2, 0)),
-    ((1, 0, 0, 2, 1),): ('CRESS', (2, 0)),
-    ((1, 0, 0, 2, 2),): ('EROSE', (3, 1)),
-    ((1, 0, 1, 0, 0),): ('CHOIR', (3, 0)),
-    ((1, 0, 1, 0, 1),): ('VINER', (8, 1)),
-    ((1, 0, 1, 0, 2),): ('DIRGE', (1, 0)),
-    ((1, 0, 1, 1, 0),): ('SPRIG', (1, 0)),
-    ((1, 0, 1, 1, 1),): ('MISER', (1, 0)),
-    ((1, 0, 2, 0, 0),): ('PRINK', (6, 1)),
-    ((1, 0, 2, 0, 1),): ('CRIED', (4, 0)),
-    ((1, 0, 2, 0, 2),): ('TRIPE', (7, 0)),
-    ((1, 0, 2, 1, 0),): ('SHIRK', (1, 0)),
-    ((1, 0, 2, 2, 0),): ('BRISK', (3, 0)),
-    ((1, 1, 0, 0, 0),): ('BRANT', (10, 1)),
-    ((1, 1, 0, 0, 1),): ('DERAT', (6, 1)),
-    ((1, 1, 0, 0, 2),): ('GRACE', (6, 0)),
-    ((1, 1, 0, 1, 0),): ('STARK', (6, 0)),
-    ((1, 1, 0, 1, 1),): ('SHEAR', (3, 0)),
-    ((1, 1, 0, 1, 2),): ('SCARE', (4, 0)),
-    ((1, 1, 0, 2, 0),): ('BRASH', (3, 0)),
-    ((1, 1, 1, 0, 0),): ('BRAIN', (4, 0)),
-    ((1, 1, 2, 0, 0),): ('BRIAR', (2, 0)),
-    ((1, 2, 0, 0, 0),): ('CARRY', (6, 0)),
-    ((1, 2, 0, 0, 1),): ('GATER', (11, 1)),
-    ((1, 2, 0, 0, 2),): ('CABRE', (1, 1)),
-    ((1, 2, 2, 0, 0),): ('DAIRY', (2, 0)),
-    ((2, 0, 0, 0, 0),): ('ROOMY', (2, 0)),
-    ((2, 0, 0, 0, 1),): ('RUDER', (4, 0)),
-    ((2, 0, 0, 0, 2),): ('ROGUE', (1, 0)),
-    ((2, 0, 1, 0, 0),): ('ROBIN', (1, 0)),
-    ((2, 0, 1, 0, 1),): ('RIDER', (3, 0)),
-    ((2, 0, 1, 1, 1),): ('RESIN', (1, 0)),
-    ((2, 1, 0, 0, 0),): ('ROYAL', (1, 0)),
-    ((2, 1, 0, 0, 1),): ('RELAY', (3, 0)),
-    ((2, 2, 0, 0, 0),): ('RANDY', (3, 0)),
-    ((2, 2, 0, 0, 1),): ('RACER', (2, 0)),
-    ((2, 2, 1, 0, 0),): ('RABID', (2, 0)),
-}
-
 
 def conservative_restricted_choice(prev_guesses, prev_scores):
   remaining_targets = restrict_many(LEGAL_TARGETS, prev_guesses, prev_scores)
   remaining_targets_set = set(remaining_targets)
+  cache = guess_cache.cache(HARD_MODE)
   if HARD_MODE:
     legal_guesses = restrict_many(LEGAL_GUESSES, prev_guesses, prev_scores)
-    cache = HARD_MODE_CACHE
   else:
     legal_guesses = LEGAL_GUESSES
-    cache = EASY_MODE_CACHE
 
   # print('%d possible targets remain' % len(remaining_targets))
   cache_key = ()
@@ -330,11 +180,13 @@ def conservative_restricted_choice(prev_guesses, prev_scores):
       cache_key = None
       break
   if cache_key is not None and cache_key in cache:
-    print('(precomputed) worst case for guess %s: %s (remaining targets, tiebreaker)' % cache[cache_key])
+    print('(precomputed) worst case for guess %s: %s (remaining targets, tiebreaker)' %
+          cache[cache_key])
     return cache[cache_key][0]
 
   if len(remaining_targets) <= 2:
-    print('remaining targets down to %s; guessing %s' % (remaining_targets, remaining_targets[0]))
+    print('remaining targets down to %s; guessing %s' %
+          (remaining_targets, remaining_targets[0]))
     return remaining_targets[0]
 
   worst_case_by_guess = {}
@@ -394,10 +246,11 @@ def absurdle_score(guesses, scores):
   for t in targets:
     score = auto_scorer(g, t)
     buckets[score] += 1
-    if score == (RIGHT_SPOT,)*WORD_LENGTH:
+    if score == (RIGHT_SPOT,) * WORD_LENGTH:
       buckets[score] -= 1
-  worst_bucket, score = max((v,k) for k,v in buckets.items())
+  worst_bucket, score = max((v, k) for k, v in buckets.items())
   return score
+
 
 def play(targeter=random_target, guesser=user_choice, scorer=auto_scorer, absurdle=False):
   target = targeter()
@@ -431,7 +284,7 @@ def play(targeter=random_target, guesser=user_choice, scorer=auto_scorer, absurd
   print()
   print('\t'.join(['guesses:'] + guesses))
   print('\n')
- 
+
   return len(scores)
 
 
@@ -440,9 +293,40 @@ def wordle_snippet(scores, i='?'):
   hard_mode_star = HARD_MODE and '*' or ''
   return f'Wordle {i} {num_guesses}/6{hard_mode_star}\n\n' + '\n'.join(pretty_print(s) for s in scores)
 
+
 def absurdle_snippet(scores, i='?'):
   num_guesses = len(scores)
   return f'Absurdle {num_guesses}/∞\n\n' + '\n'.join(pretty_print(s) for s in scores)
+
+
+@dataclasses.dataclass
+class GameSummary:
+  """Class for summarizing a single game of Wordle."""
+  game_type: str = "Wordle"
+  day: int = None
+  guess_count: int = None
+  scores: list[tuple] = dataclasses.field(default_factory=list)
+
+
+def parse_snippet(snippet):
+  header_regex = '(Wordle|Absurdle) (\\d+ )?(\\d+|X)/(6|∞)(\\*?)'
+  result = GameSummary()
+  for line in snippet.splitlines():
+    if not line: continue
+    m = re.match(header_regex, line)
+    if m:
+      result.game_type = m.group(1)
+      result.day = int(m.group(2))
+      if m.group(3) == 'X':
+        result.guess_count = 'X'
+      else:
+        result.guess_count = int(m.group(3))
+    else:
+      result.scores.append(parse_score_string(line))
+  return result
+
+assert parse_snippet(wordle_snippet([(0, 1, 2), (2, 1, 0)], 5)).scores == [
+    (0, 1, 2), (2, 1, 0)]
 
 
 def wordle_keyboard(guesses, scores):
@@ -465,7 +349,7 @@ def wordle_keyboard(guesses, scores):
   qwerty = ['QWERTYUIOP', 'ASDFGHJKL', 'ZXCVBNM']
   pretty_print = {
       UNKNOWN: '0;30;47',
-      ABSENT:  '1;37;40',
+      ABSENT: '1;37;40',
       PRESENT: '1;37;43',
       LOCATED: '1;37;42',
   }
@@ -512,36 +396,55 @@ def solve_everything():
   print("Distribution of guesses_needed:", sorted(meta_score.items()))
   # dump_cache()
 
+
 def dump_cache():
   print("High-value cache items:")
-  if HARD_MODE:
-    cache = HARD_MODE_CACHE
-  else:
-    cache = EASY_MODE_CACHE
-  for k, v in sorted(cache.items()):
+  for k, v in sorted(guess_cache.cache(HARD_MODE).items()):
     if len(k) < 2:
       print(f'  {k}: {v},')
 
 
-def reverse_engineer_starting_guess():
-  target = 'SOLAR'
-  scores = [
-#    (NO_MATCH, NO_MATCH, NO_MATCH, WRONG_SPOT, NO_MATCH),
-#    (RIGHT_SPOT, RIGHT_SPOT, NO_MATCH, RIGHT_SPOT, NO_MATCH),
-    (RIGHT_SPOT, WRONG_SPOT, NO_MATCH, NO_MATCH, NO_MATCH),
-  ]
-  approximate_best_starting_guesses = [l.strip() for l in open('best-starting-guesses.txt')]
-  print('guess', 'max bucket size', 'rank', sep='\t')
+def reverse_engineer_starting_guess(game_summary):
+  target = LEGAL_TARGETS[game_summary.day]
+  scores = game_summary.scores
+  approximate_best_starting_guesses = [
+      l.strip() for l in open('best-starting-guesses.txt')]
+  frequency_ranks = [line.strip().split(' ')
+                     for line in open('common-words.txt')]
+  frequency_ranks = {t[0]: int(t[1]) for t in frequency_ranks}
+  remaining_targets = LEGAL_TARGETS
+  print('guess', 'guess strength', 'guess frequency', 'strength * frequency',
+        'num_remaining_targets', 'remaining_targets', sep='\t')
   for s in scores:
     print(pretty_print(s))
+    guess_candidates = []
     for guess in LEGAL_GUESSES:
       if auto_scorer(guess, target) != s:
         continue
-      print(guess,
-#            [t for t in LEGAL_TARGETS if auto_scorer(guess, t) == s],
-            sum(1 for t in LEGAL_TARGETS if auto_scorer(guess, t) == s),
-            approximate_best_starting_guesses.index(guess),
-            sep='\t')
+      buckets = collections.defaultdict(list)
+      for t in remaining_targets:
+        buckets[auto_scorer(guess, t)].append(t)
+      targets = buckets[s]
+      # approximate_best_starting_guesses.index(guess),
+      guess_strength = max(len(ts) for s, ts in buckets.items())
+      guess_frequency = frequency_ranks[guess]
+      guess_candidates.append((
+          guess,
+          guess_strength,
+          guess_frequency,
+          guess_strength * guess_frequency,
+          len(targets),
+          len(targets) < 10 and targets or (
+              "too many remaining targets (%d) to display" % len(targets)),
+      ))
+    for gc in sorted(guess_candidates, key=lambda gc: gc[1], reverse=True):
+      print('\t'.join(str(x) for x in gc))
+    g = None
+    while g not in LEGAL_GUESSES:
+      g = input('Use human intuition to select the guesser\'s last guess from the %d above options: ' % len(
+          guess_candidates)).upper()
+    remaining_targets = restrict_one(remaining_targets, g, s)
+
 
 def find_max_branching_factor():
   scores = {}
@@ -549,26 +452,30 @@ def find_max_branching_factor():
   for t in LEGAL_TARGETS:
     scores_per_target = set()
     for g in LEGAL_GUESSES:
-      s = auto_scorer(g,t)
-      scores[s] = (g,t)
+      s = auto_scorer(g, t)
+      scores[s] = (g, t)
       scores_per_target.add(s)
-    max_score_count_per_target = max(max_score_count_per_target, len(scores_per_target))
+    max_score_count_per_target = max(
+        max_score_count_per_target, len(scores_per_target))
   for score, words in scores.items():
     print(f'{score}:\t{words}')
   print('max_score_count_per_target:', max_score_count_per_target)
-  # This is the largest number of buckets any single guess can split the solution space into. (192)
+  # This is the largest number of buckets any single guess can split the
+  # solution space into. (192)
+
 
 def deep_search():
-  approximate_best_starting_guesses = [l.strip() for l in open('best-starting-guesses.txt')]
+  approximate_best_starting_guesses = [
+      l.strip() for l in open('best-starting-guesses.txt')]
   print('deep_searching...')
   n = len(LEGAL_GUESSES)
   max_bucket_size_by_first_guess = {}
-  for i,g1 in enumerate(approximate_best_starting_guesses):
+  for i, g1 in enumerate(approximate_best_starting_guesses):
     print(f'trying {g1} ({i}/{n})')
     buckets1 = collections.defaultdict(list)
     for t in LEGAL_TARGETS:
       buckets1[auto_scorer(g1, t)].append(t)
-    max_bucket_size, worst_score = max((len(v), k) for k,v in buckets1.items())
+    max_bucket_size, worst_score = max((len(v), k) for k, v in buckets1.items())
     print(f'{g1} -> {worst_score} leaves {max_bucket_size} possible targets in a single bucket.')
 '''
     for s, ts in sorted(buckets1.items()):
@@ -589,9 +496,6 @@ def deep_search():
 #    max_bucket_size_by_first_guess[g1] = max(len(v) for k,v in buckets1.items())
 #  best_first_guesses_by_max_bucket_size = sorted(max_bucket_size_by_first_guess.items(), key=lambda x: x[1])
 #  print(best_first_guesses_by_max_bucket_size[:10])
-      
-  
-import sys
 
 
 def main():
@@ -599,7 +503,6 @@ def main():
 
   # deep_search()
   # find_all_scores()
-  # reverse_engineer_starting_guess()
 
   if len(sys.argv) < 2:
     print("Usage: python3 wordle.py [-h] [-c | -m TARGET | -a TARGET | -e]")
@@ -638,6 +541,9 @@ def main():
       continue
     elif arg == '-e':  # everything
       solve_everything()
+      continue
+    elif arg == '-v':  # reverse-engineer
+      reverse_engineer_starting_guess(parse_snippet("".join(sys.stdin)))
       continue
 
     if arg.isnumeric():
