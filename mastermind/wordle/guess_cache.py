@@ -378,3 +378,122 @@ def cache(dictionary='wordle', hard=False):
     else: return EASY_MODE_CACHE
   elif dictionary == 'primel': return PRIMEL_CACHE
   return {}
+
+
+import wordle
+def hard_branches(c):
+  result = []
+  for k,v in c.items():
+    if not k: continue
+    #print(k,v)
+    next_guess, heuristic = v
+    biggest_bucket, valid_target, next_score = heuristic
+    if biggest_bucket > 10:
+      score = tuple(wordle.Score(s) for s in k[0])
+      next_score = tuple(wordle.Score(s) for s in next_score)
+      result.append((biggest_bucket, 'RAISE', wordle.pretty_print(score), next_guess, wordle.pretty_print(next_score)))
+  for x in sorted(result, reverse=True):
+    print(x)
+
+
+def main():
+  fancy_cache = {
+    ((0, 0, 0, 0, 0),): ('BLUDY', (13, 1, (wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.RIGHT_SPOT, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH))),
+    ((0, 0, 0, 0, 1),): ('DENET', (9, 1, (wordle.Score.NO_MATCH, wordle.Score.RIGHT_SPOT, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH))),
+    ((0, 0, 0, 0, 2),): ('CLOUD', (5, 1, (wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH))),
+    ((0, 0, 0, 1, 0),): ('POYNT', (7, 1, (wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.WRONG_SPOT, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH))),
+    ((0, 0, 0, 1, 1),): ('SPELT', (4, 0, (wordle.Score.WRONG_SPOT, wordle.Score.NO_MATCH, wordle.Score.WRONG_SPOT, wordle.Score.NO_MATCH, wordle.Score.WRONG_SPOT))),
+    ((0, 0, 0, 1, 2),): ('PUNTY', (3, 1, (wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH))),
+    ((0, 0, 0, 2, 0),): ('FLOSS', (2, 0, (wordle.Score.NO_MATCH, wordle.Score.RIGHT_SPOT, wordle.Score.NO_MATCH, wordle.Score.RIGHT_SPOT, wordle.Score.NO_MATCH))),
+    ((0, 0, 0, 2, 1),): ('GULPS', (1, 1, (wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.WRONG_SPOT, wordle.Score.NO_MATCH, wordle.Score.WRONG_SPOT))),
+    ((0, 0, 0, 2, 2),): ('CLOTH', (3, 1, (wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.RIGHT_SPOT, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH))),
+    ((0, 0, 1, 0, 0),): ('UNTIL', (11, 0, (wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.WRONG_SPOT, wordle.Score.NO_MATCH))),
+    ((0, 0, 1, 0, 1),): ('UNLID', (3, 1, (wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.WRONG_SPOT, wordle.Score.WRONG_SPOT, wordle.Score.RIGHT_SPOT))),
+    ((0, 0, 1, 0, 2),): ('GULCH', (4, 1, (wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH))),
+    ((0, 0, 1, 1, 0),): ('MOULT', (2, 1, (wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.RIGHT_SPOT))),
+    ((0, 0, 1, 1, 1),): ('SHEIK', (1, 0, (wordle.Score.WRONG_SPOT, wordle.Score.NO_MATCH, wordle.Score.WRONG_SPOT, wordle.Score.WRONG_SPOT, wordle.Score.NO_MATCH))),
+    ((0, 0, 1, 1, 2),): ('SINGE', (1, 0, (wordle.Score.RIGHT_SPOT, wordle.Score.RIGHT_SPOT, wordle.Score.NO_MATCH, wordle.Score.RIGHT_SPOT, wordle.Score.RIGHT_SPOT))),
+    ((0, 0, 1, 2, 0),): ('COMPT', (1, 1, (wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH))),
+    ((0, 0, 2, 0, 0),): ('CLOOT', (5, 1, (wordle.Score.RIGHT_SPOT, wordle.Score.RIGHT_SPOT, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH))),
+    ((0, 0, 2, 0, 1),): ('DAYNT', (2, 1, (wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.RIGHT_SPOT))),
+    ((0, 0, 2, 0, 2),): ('LOUND', (3, 1, (wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH))),
+    ((0, 0, 2, 1, 0),): ('BLUNT', (4, 1, (wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH))),
+    ((0, 0, 2, 1, 1),): ('SHIED', (1, 0, (wordle.Score.RIGHT_SPOT, wordle.Score.NO_MATCH, wordle.Score.RIGHT_SPOT, wordle.Score.RIGHT_SPOT, wordle.Score.NO_MATCH))),
+    ((0, 0, 2, 1, 2),): ('ALANT', (3, 1, (wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH))),
+    ((0, 0, 2, 2, 0),): ('THARM', (2, 1, (wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH))),
+    ((0, 0, 2, 2, 2),): ('NOISE', (1, 0, (wordle.Score.NO_MATCH, wordle.Score.RIGHT_SPOT, wordle.Score.RIGHT_SPOT, wordle.Score.RIGHT_SPOT, wordle.Score.RIGHT_SPOT))),
+    ((0, 1, 0, 0, 0),): ('CLOAK', (7, 0, (wordle.Score.NO_MATCH, wordle.Score.RIGHT_SPOT, wordle.Score.NO_MATCH, wordle.Score.WRONG_SPOT, wordle.Score.NO_MATCH))),
+    ((0, 1, 0, 0, 1),): ('METAL', (5, 0, (wordle.Score.NO_MATCH, wordle.Score.RIGHT_SPOT, wordle.Score.NO_MATCH, wordle.Score.RIGHT_SPOT, wordle.Score.NO_MATCH))),
+    ((0, 1, 0, 0, 2),): ('BLOCK', (7, 1, (wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH))),
+    ((0, 1, 0, 1, 0),): ('CLAPT', (4, 1, (wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.RIGHT_SPOT, wordle.Score.NO_MATCH, wordle.Score.WRONG_SPOT))),
+    ((0, 1, 0, 1, 1),): ('DWELT', (2, 1, (wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.WRONG_SPOT, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH))),
+    ((0, 1, 0, 1, 2),): ('THILK', (4, 1, (wordle.Score.NO_MATCH, wordle.Score.RIGHT_SPOT, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH))),
+    ((0, 1, 0, 2, 0),): ('SLASH', (3, 0, (wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.RIGHT_SPOT, wordle.Score.RIGHT_SPOT, wordle.Score.NO_MATCH))),
+    ((0, 1, 0, 2, 1),): ('BUFTY', (1, 1, (wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.WRONG_SPOT, wordle.Score.NO_MATCH))),
+    ((0, 1, 0, 2, 2),): ('BUTCH', (1, 1, (wordle.Score.WRONG_SPOT, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH))),
+    ((0, 1, 1, 0, 0),): ('UNTIL', (3, 1, (wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.WRONG_SPOT, wordle.Score.WRONG_SPOT))),
+    ((0, 1, 1, 0, 1),): ('MEDIA', (1, 0, (wordle.Score.NO_MATCH, wordle.Score.WRONG_SPOT, wordle.Score.WRONG_SPOT, wordle.Score.WRONG_SPOT, wordle.Score.WRONG_SPOT))),
+    ((0, 1, 1, 1, 0),): ('STAIN', (1, 0, (wordle.Score.RIGHT_SPOT, wordle.Score.NO_MATCH, wordle.Score.RIGHT_SPOT, wordle.Score.RIGHT_SPOT, wordle.Score.WRONG_SPOT))),
+    ((0, 1, 2, 0, 0),): ('AXION', (2, 0, (wordle.Score.RIGHT_SPOT, wordle.Score.NO_MATCH, wordle.Score.RIGHT_SPOT, wordle.Score.NO_MATCH, wordle.Score.WRONG_SPOT))),
+    ((0, 1, 2, 0, 2),): ('MVULE', (1, 1, (wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.WRONG_SPOT, wordle.Score.RIGHT_SPOT))),
+    ((0, 2, 0, 0, 0),): ('BUNTY', (11, 1, (wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.RIGHT_SPOT))),
+    ((0, 2, 0, 0, 1),): ('LIGHT', (3, 1, (wordle.Score.WRONG_SPOT, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH))),
+    ((0, 2, 0, 0, 2),): ('MULCT', (3, 1, (wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH))),
+    ((0, 2, 0, 1, 0),): ('POULT', (3, 1, (wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.WRONG_SPOT, wordle.Score.NO_MATCH))),
+    ((0, 2, 0, 1, 2),): ('BUTCH', (3, 1, (wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.WRONG_SPOT, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH))),
+    ((0, 2, 0, 2, 0),): ('STOLN', (1, 1, (wordle.Score.WRONG_SPOT, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.WRONG_SPOT, wordle.Score.NO_MATCH))),
+    ((0, 2, 0, 2, 2),): ('CLIPT', (1, 1, (wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH))),
+    ((0, 2, 1, 0, 0),): ('LOCUM', (2, 1, (wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.WRONG_SPOT, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH))),
+    ((0, 2, 1, 1, 0),): ('LUNTS', (1, 1, (wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.WRONG_SPOT))),
+    ((0, 2, 2, 0, 0),): ('FAINT', (2, 0, (wordle.Score.NO_MATCH, wordle.Score.RIGHT_SPOT, wordle.Score.RIGHT_SPOT, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH))),
+    ((0, 2, 2, 0, 2),): ('NAIVE', (1, 0, (wordle.Score.NO_MATCH, wordle.Score.RIGHT_SPOT, wordle.Score.RIGHT_SPOT, wordle.Score.RIGHT_SPOT, wordle.Score.RIGHT_SPOT))),
+    ((1, 0, 0, 0, 0),): ('COLON', (10, 1, (wordle.Score.NO_MATCH, wordle.Score.WRONG_SPOT, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH))),
+    ((1, 0, 0, 0, 1),): ('OUTER', (16, 0, (wordle.Score.WRONG_SPOT, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.RIGHT_SPOT, wordle.Score.RIGHT_SPOT))),
+    ((1, 0, 0, 0, 2),): ('COOPT', (6, 1, (wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.RIGHT_SPOT, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH))),
+    ((1, 0, 0, 1, 0),): ('CLOUT', (3, 1, (wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.RIGHT_SPOT, wordle.Score.NO_MATCH))),
+    ((1, 0, 0, 1, 1),): ('SEWER', (3, 0, (wordle.Score.RIGHT_SPOT, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.RIGHT_SPOT, wordle.Score.RIGHT_SPOT))),
+    ((1, 0, 0, 1, 2),): ('POTCH', (2, 1, (wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH))),
+    ((1, 0, 0, 2, 0),): ('CRUST', (2, 0, (wordle.Score.NO_MATCH, wordle.Score.RIGHT_SPOT, wordle.Score.NO_MATCH, wordle.Score.RIGHT_SPOT, wordle.Score.RIGHT_SPOT))),
+    ((1, 0, 0, 2, 1),): ('COWPS', (1, 1, (wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.WRONG_SPOT))),
+    ((1, 0, 0, 2, 2),): ('CAPON', (2, 1, (wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH))),
+    ((1, 0, 1, 0, 0),): ('CHOIR', (3, 0, (wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.RIGHT_SPOT, wordle.Score.RIGHT_SPOT, wordle.Score.WRONG_SPOT))),
+    ((1, 0, 1, 0, 1),): ('UNFED', (6, 1, (wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.RIGHT_SPOT, wordle.Score.NO_MATCH))),
+    ((1, 0, 1, 0, 2),): ('EERIE', (1, 0, (wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.WRONG_SPOT, wordle.Score.WRONG_SPOT, wordle.Score.RIGHT_SPOT))),
+    ((1, 0, 1, 1, 0),): ('SPRIG', (1, 0, (wordle.Score.RIGHT_SPOT, wordle.Score.WRONG_SPOT, wordle.Score.RIGHT_SPOT, wordle.Score.RIGHT_SPOT, wordle.Score.NO_MATCH))),
+    ((1, 0, 1, 1, 1),): ('MISER', (1, 0, (wordle.Score.NO_MATCH, wordle.Score.RIGHT_SPOT, wordle.Score.WRONG_SPOT, wordle.Score.RIGHT_SPOT, wordle.Score.WRONG_SPOT))),
+    ((1, 0, 2, 0, 0),): ('CLONK', (5, 1, (wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.RIGHT_SPOT, wordle.Score.NO_MATCH))),
+    ((1, 0, 2, 0, 1),): ('DECAF', (2, 1, (wordle.Score.WRONG_SPOT, wordle.Score.WRONG_SPOT, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH))),
+    ((1, 0, 2, 0, 2),): ('BUMPH', (4, 1, (wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH))),
+    ((1, 0, 2, 1, 0),): ('SHIRK', (1, 0, (wordle.Score.RIGHT_SPOT, wordle.Score.NO_MATCH, wordle.Score.RIGHT_SPOT, wordle.Score.RIGHT_SPOT, wordle.Score.NO_MATCH))),
+    ((1, 0, 2, 2, 0),): ('ABACK', (2, 1, (wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH))),
+    ((1, 1, 0, 0, 0),): ('TRONC', (9, 1, (wordle.Score.NO_MATCH, wordle.Score.WRONG_SPOT, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH))),
+    ((1, 1, 0, 0, 1),): ('BRACT', (5, 1, (wordle.Score.NO_MATCH, wordle.Score.WRONG_SPOT, wordle.Score.RIGHT_SPOT, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH))),
+    ((1, 1, 0, 0, 2),): ('GRACE', (6, 0, (wordle.Score.NO_MATCH, wordle.Score.RIGHT_SPOT, wordle.Score.RIGHT_SPOT, wordle.Score.NO_MATCH, wordle.Score.RIGHT_SPOT))),
+    ((1, 1, 0, 1, 0),): ('CHANT', (3, 1, (wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.WRONG_SPOT, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH))),
+    ((1, 1, 0, 1, 1),): ('WHIPT', (1, 1, (wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH))),
+    ((1, 1, 0, 1, 2),): ('NOTCH', (1, 1, (wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.WRONG_SPOT, wordle.Score.NO_MATCH))),
+    ((1, 1, 0, 2, 0),): ('BEGET', (2, 1, (wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH))),
+    ((1, 1, 1, 0, 0),): ('BLAND', (3, 1, (wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.WRONG_SPOT, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH))),
+    ((1, 1, 2, 0, 0),): ('CLEFT', (1, 1, (wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH))),
+    ((1, 2, 0, 0, 0),): ('CLOMP', (4, 1, (wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.WRONG_SPOT))),
+    ((1, 2, 0, 0, 1),): ('PIGHT', (7, 1, (wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH))),
+    ((1, 2, 0, 0, 2),): ('VIGIL', (1, 1, (wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH))),
+    ((1, 2, 2, 0, 0),): ('FENDS', (1, 1, (wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH))),
+    ((2, 0, 0, 0, 0),): ('MUTED', (1, 1, (wordle.Score.NO_MATCH, wordle.Score.WRONG_SPOT, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.RIGHT_SPOT))),
+    ((2, 0, 0, 0, 1),): ('COULD', (3, 1, (wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH))),
+    ((2, 0, 0, 0, 2),): ('ROGUE', (1, 0, (wordle.Score.RIGHT_SPOT, wordle.Score.RIGHT_SPOT, wordle.Score.RIGHT_SPOT, wordle.Score.RIGHT_SPOT, wordle.Score.RIGHT_SPOT))),
+    ((2, 0, 1, 0, 0),): ('ROBIN', (1, 0, (wordle.Score.RIGHT_SPOT, wordle.Score.RIGHT_SPOT, wordle.Score.RIGHT_SPOT, wordle.Score.RIGHT_SPOT, wordle.Score.RIGHT_SPOT))),
+    ((2, 0, 1, 0, 1),): ('COMPT', (2, 1, (wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.RIGHT_SPOT))),
+    ((2, 0, 1, 1, 1),): ('RESIN', (1, 0, (wordle.Score.RIGHT_SPOT, wordle.Score.WRONG_SPOT, wordle.Score.RIGHT_SPOT, wordle.Score.WRONG_SPOT, wordle.Score.RIGHT_SPOT))),
+    ((2, 1, 0, 0, 0),): ('RURAL', (1, 0, (wordle.Score.RIGHT_SPOT, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.RIGHT_SPOT, wordle.Score.RIGHT_SPOT))),
+    ((2, 1, 0, 0, 1),): ('HYLAS', (2, 1, (wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.WRONG_SPOT, wordle.Score.NO_MATCH))),
+    ((2, 2, 0, 0, 0),): ('LOHAN', (1, 1, (wordle.Score.NO_MATCH, wordle.Score.WRONG_SPOT, wordle.Score.NO_MATCH, wordle.Score.WRONG_SPOT, wordle.Score.NO_MATCH))),
+    ((2, 2, 0, 0, 1),): ('COVIN', (1, 1, (wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.RIGHT_SPOT))),
+    ((2, 2, 1, 0, 0),): ('EPHOD', (1, 1, (wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.NO_MATCH, wordle.Score.WRONG_SPOT, wordle.Score.WRONG_SPOT))),
+  }
+  hard_branches(fancy_cache)
+    
+
+
+if __name__ == '__main__':
+  main()
