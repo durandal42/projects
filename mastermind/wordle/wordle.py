@@ -42,10 +42,15 @@ def load_words():
 
 
 # scoring constants:
+@functools.total_ordering
 class Score(enum.Enum):
   NO_MATCH = 0
   WRONG_SPOT = 1
   RIGHT_SPOT = 2
+  def __lt__(self, other):
+    if self.__class__ is other.__class__:
+      return self.value < other.value
+    return NotImplemented    
 
 
 @functools.cache
@@ -254,14 +259,14 @@ def conservative_restricted_choice(prev_guesses, prev_scores):
         eligibility_tiebreaker = 0
       else:
         eligibility_tiebreaker = 1
-      worst_case_by_guess[guess] = (worst_case, eligibility_tiebreaker)
+      worst_case_by_guess[guess] = (worst_case, eligibility_tiebreaker) #, worst_score)
       best_worst_case_so_far = min(best_worst_case_so_far, worst_case)
 
   best_guess, best_worst_case = min(
       worst_case_by_guess.items(), key=lambda x: x[1])
   n = 100
-  print(f'Top {n} guesses:', sorted([(v, k) for k, v in worst_case_by_guess.items()])[:n])
-  print(f'worst case for guess {best_guess}: {best_worst_case} remaining possibilities')
+  #  print(f'Top {n} guesses:', sorted([(v, k) for k, v in worst_case_by_guess.items()])[:n])
+  #  print(f'worst case for guess {best_guess}: {best_worst_case} remaining possibilities')
 
   if cache_key not in cache:
     # print('updating cache: %s:%s' % (cache_key, (best_guess, best_worst_case)))
@@ -456,7 +461,7 @@ def solve_everything():
   #  for word,guesses_needed in solve_times.items():
   #    print(f'\t{word}\t{guesses_needed}')
   print("Distribution of guesses_needed:", sorted(meta_score.items()))
-  # dump_cache()
+  dump_cache()
 
 
 def dump_cache():
