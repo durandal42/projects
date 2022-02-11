@@ -9,6 +9,7 @@ import enum
 
 import guess_cache
 
+MULTIPLEX = 1
 WORD_LENGTH = 5
 DICTIONARY = 'wordle'  # also supported: 'primel'
 HARD_MODE = False
@@ -19,22 +20,27 @@ LEGAL_GUESSES = []
 
 def load_words():
   if DICTIONARY == 'wordle':
-    target_file='legal-targets.txt'
-    guess_file='legal-guesses.txt'
-  elif DICTIONARY == 'primel':
-    target_file = 'primel-words.txt'
+    target_file = 'wordlists/legal-targets.txt'
+    guess_file = 'wordlists/legal-guesses.txt'
+  elif DICTIONARY == 'wordlists/primel':
+    target_file = 'wordlists/primel.txt'
     guess_file = '/dev/null'
   elif DICTIONARY == 'sweardle':
-    target_file = 'sweardle-words.txt'
+    target_file = 'wordlists/sweardle.txt'
     guess_file = '/dev/null'
     WORD_LENGTH = 4
+  elif DICTIONARY == 'wordlewordle':
+    target_file = 'wordlists/wordlewordle.txt'
+    guess_file = '/dev/null'
+    WORD_LENGTH = 10
   else:
     assert False
   global LEGAL_TARGETS
   global LEGAL_GUESSES
   print('loading words...')
-  LEGAL_TARGETS = [word.strip().upper() for word in open(target_file)]
-  legal_guesses = [word.strip().upper() for word in open(guess_file)]
+  LEGAL_TARGETS = [word.strip().upper()
+                   for word in open(target_file)]  # [:10] + ['RAISE']
+  legal_guesses = [word.strip().upper() for word in open(guess_file)]  # [:10]
   num_targets = len(LEGAL_TARGETS)
   num_guesses = len(legal_guesses)
   print(f'finished loading {num_targets} legal targets and {num_guesses} additional legal guesses.')
@@ -47,16 +53,21 @@ class Score(enum.Enum):
   NO_MATCH = 0
   WRONG_SPOT = 1
   RIGHT_SPOT = 2
+  NO_SCORE = 3  # used in multiplex wordle
+
   def __lt__(self, other):
     if self.__class__ is other.__class__:
       return self.value < other.value
-    return NotImplemented    
+    return NotImplemented
 
 
-@functools.cache
-def auto_scorer(guess, target):
-  # print(f'Scoring {guess} vs {target}...')
-  score = [Score.NO_MATCH] * WORD_LENGTH
+def auto_scorer(guess, targets):
+  return tuple([auto_score_one_word(guess, t) for t in targets])
+
+
+# @functools.cache
+def auto_score_one_word(guess, target):
+  score = [Score.NO_MATCH] * len(target)
   target_counts = collections.Counter(target)
   for i, g in enumerate(guess):
     if target[i] == g:
@@ -86,92 +97,93 @@ class PrintMode(enum.Enum):
 
 # (Score, PrintMode, DarkMode?, ColorBlind?): 'display_string'
 score_to_string = {
-  (Score.NO_MATCH, PrintMode.UNICODE, False, False): '⬜',
-  (Score.WRONG_SPOT, PrintMode.UNICODE, False, False): '🟨',
-  (Score.RIGHT_SPOT, PrintMode.UNICODE, False, False): '🟩',
-  # TODO: fill this out if you want to use it
+    (Score.NO_MATCH, PrintMode.UNICODE, False, False): '⬜',
+    (Score.WRONG_SPOT, PrintMode.UNICODE, False, False): '🟨',
+    (Score.RIGHT_SPOT, PrintMode.UNICODE, False, False): '🟩',
+    # TODO: fill this out if you want to use it
 }
 
 PRETTY_PRINT = {
     Score.NO_MATCH: '⬛',
     Score.WRONG_SPOT: '🟨',
     Score.RIGHT_SPOT: '🟩',
+    Score.NO_SCORE: '--',
 }
 
 PRETTY_PRINT_DARK_MODE = {
     Score.NO_MATCH: '⬜',
     Score.WRONG_SPOT: '🟨',
     Score.RIGHT_SPOT: '🟩',
+    Score.NO_SCORE: '--',
 }
 
 PRETTY_PRINT_COLOR_BLIND = {
-  Score.NO_MATCH: '⬛',
-  Score.WRONG_SPOT: '🟦',
-  Score.RIGHT_SPOT: '🟧',
+    Score.NO_MATCH: '⬛',
+    Score.WRONG_SPOT: '🟦',
+    Score.RIGHT_SPOT: '🟧',
+    Score.NO_SCORE: '--',
 }
 
 UGLY_PRINT = {
     Score.NO_MATCH: 'B',
     Score.WRONG_SPOT: 'Y',
     Score.RIGHT_SPOT: 'G',
+    Score.NO_SCORE: '-',
 }
 
 UGLY_PRINT_COLOR_BLIND = {
-  Score.NO_MATCH: 'B',
-  Score.WRONG_SPOT: 'U',
-  Score.RIGHT_SPOT: 'O',
+    Score.NO_MATCH: 'B',
+    Score.WRONG_SPOT: 'U',
+    Score.RIGHT_SPOT: 'O',
+    Score.NO_SCORE: '-',
 }
 
 UGLY_PRINT_LOWER = {k: v.lower() for k, v in UGLY_PRINT.items()}
-UGLY_PRINT_COLOR_BLIND_LOWER = {k: v.lower() for k, v in UGLY_PRINT_COLOR_BLIND.items()}
+UGLY_PRINT_COLOR_BLIND_LOWER = {k: v.lower()
+                                for k, v in UGLY_PRINT_COLOR_BLIND.items()}
 
 INT_PRINT = {k: k.value for k in list(Score)}
 
 PRINT_METHODS = [
-  PRETTY_PRINT,
-  PRETTY_PRINT_DARK_MODE,
-  PRETTY_PRINT_COLOR_BLIND,
-  UGLY_PRINT,
-  UGLY_PRINT_LOWER,
-  UGLY_PRINT_COLOR_BLIND,
-  UGLY_PRINT_COLOR_BLIND_LOWER,
-  INT_PRINT,
+    PRETTY_PRINT,
+    PRETTY_PRINT_DARK_MODE,
+    PRETTY_PRINT_COLOR_BLIND,
+    UGLY_PRINT,
+    UGLY_PRINT_LOWER,
+    UGLY_PRINT_COLOR_BLIND,
+    UGLY_PRINT_COLOR_BLIND_LOWER,
+    INT_PRINT,
 ]
 
 PARSE_MAP = {}
 for s, c in itertools.chain.from_iterable(p.items() for p in PRINT_METHODS):
   PARSE_MAP[c] = s
-  
+
 SLACK_EMOJIS = {
-  ':black_large_square:': Score.NO_MATCH,
-  ':white_large_square:': Score.NO_MATCH,
-  ':large_yellow_square:': Score.WRONG_SPOT,
-  ':large_blue_square:': Score.WRONG_SPOT,
-  ':large_green_square:': Score.RIGHT_SPOT,
-  ':large_orange_square:': Score.RIGHT_SPOT,
+    ':black_large_square:': Score.NO_MATCH,
+    ':white_large_square:': Score.NO_MATCH,
+    ':large_yellow_square:': Score.WRONG_SPOT,
+    ':large_blue_square:': Score.WRONG_SPOT,
+    ':large_green_square:': Score.RIGHT_SPOT,
+    ':large_orange_square:': Score.RIGHT_SPOT,
 }
 
 
 def parse_score_string(score_string):
   for k, v in SLACK_EMOJIS.items():
     score_string = score_string.replace(k, UGLY_PRINT[v])
-  return tuple(PARSE_MAP[c] for c in score_string)
+  tokens = score_string.split(" ")
+  return tuple(tuple(PARSE_MAP[c] for c in t) for t in tokens)
 
-assert(auto_scorer('SANDS', 'BRASS') == parse_score_string('yybbg'))
-assert(auto_scorer('TURNS', 'BRASS') == parse_score_string('bbybg'))
-assert(auto_scorer('SUPER', 'BRASS') == parse_score_string('ybbby'))
-assert(auto_scorer('CARBS', 'BRASS') == parse_score_string('byyyg'))
-assert(auto_scorer('BARBS', 'BRASS') == parse_score_string('gyybg'))
+assert(auto_scorer('SANDS', ('BRASS',)) == parse_score_string('yybbg'))
+assert(auto_scorer('TURNS', ('BRASS',)) == parse_score_string('bbybg'))
+assert(auto_scorer('SUPER', ('BRASS',)) == parse_score_string('ybbby'))
+assert(auto_scorer('CARBS', ('BRASS',)) == parse_score_string('byyyg'))
+assert(auto_scorer('BARBS', ('BRASS',)) == parse_score_string('gyybg'))
 
-KATHLEEN_COLOR_BLIND = False
-def pretty_print(score, print_method=PRETTY_PRINT_COLOR_BLIND):
-  if KATHLEEN_COLOR_BLIND:
-    score = tuple({
-      Score.NO_MATCH:Score.NO_MATCH,
-      Score.WRONG_SPOT:Score.RIGHT_SPOT,
-      Score.RIGHT_SPOT:Score.WRONG_SPOT,
-    }[s] for s in score)
-  return ''.join(print_method[s] for s in score)
+
+def pretty_print(scores, print_method=PRETTY_PRINT_COLOR_BLIND):
+  return ' '.join(''.join(print_method[s] for s in score) for score in scores)
 
 assert(pretty_print(parse_score_string('byg')) == '⬛🟦🟧')
 assert(pretty_print(parse_score_string('⬛🟨🟩')) == '⬛🟦🟧')
@@ -203,7 +215,19 @@ def random_choice(prev_guesses=None, prev_scores=None, guess_domain=None):
 
 
 def restrict_one(targets, prev_guess, prev_score):
-  return [w for w in targets if auto_scorer(prev_guess, w) == prev_score]
+  #  print("restrict_one")
+  #  print(prev_guess, prev_score)
+  if prev_score == (Score.NO_SCORE,) * WORD_LENGTH: return targets
+  return [w for w in targets if auto_score_one_word(prev_guess, w) == prev_score]
+
+
+def restrict_multiplex(target_sets, prev_guesses, prev_scores):
+  result = []
+  for i, targets in enumerate(target_sets):
+    prev_subscores = [prev_score[i] for prev_score in prev_scores]
+    new_targets = restrict_many(targets, prev_guesses, prev_subscores)
+    result.append(new_targets)
+  return result
 
 
 def restrict_many(targets, prev_guesses, prev_scores):
@@ -217,20 +241,50 @@ def random_restricted_choice(prev_guesses, prev_scores):
   return random_choice(None, None, remaining_targets)
 
 
+def tuple_add(x, y):
+  return tuple(map(sum, zip(x, y)))
+
+
+def tuple_sum(tuples):
+  return functools.reduce(tuple_add, tuples)
+
+
 def conservative_restricted_choice(prev_guesses, prev_scores):
-  remaining_targets = restrict_many(LEGAL_TARGETS, prev_guesses, prev_scores)
-  remaining_targets_set = set(remaining_targets)
+  #  print("conservative_restricted_choice", prev_guesses, prev_score_lists)
+  remaining_targets_lists = restrict_multiplex(
+      [LEGAL_TARGETS] * MULTIPLEX, prev_guesses, prev_scores)
+  remaining_targets_sets = [set(rt) for rt in remaining_targets_lists]
   cache = guess_cache.cache(DICTIONARY, HARD_MODE)
   if HARD_MODE:
-    legal_guesses = restrict_many(LEGAL_GUESSES, prev_guesses, prev_scores)
+    assert MULTIPLEX == 1
+    legal_guesses = restrict_multiplex(
+        [LEGAL_GUESSES], prev_guesses, prev_scores)[0]
   else:
     legal_guesses = LEGAL_GUESSES
 
-  # print('%d possible targets remain' % len(remaining_targets))
+  solved = [False] * MULTIPLEX
+  for prev_score in prev_scores:
+    for i, score in enumerate(prev_score):
+      if score == (Score.RIGHT_SPOT,) * WORD_LENGTH:
+        solved[i] = True
+  # print("solver thinks solved?", solved)
+
+  print('%s possible targets remain' %
+        [len(remaining_targets) for remaining_targets in remaining_targets_lists])
+  print('remaining targets:', [len(rt) <= 10 and rt or "(%d targets)" % len(
+      rt) for rt in remaining_targets_lists])
+  for i, remaining_targets in enumerate(remaining_targets_lists):
+    if len(remaining_targets) == 1 and not solved[i]:
+      #    print('remaining targets down to %s; guessing %s' %
+      #          (remaining_targets, remaining_targets[0]))
+      return remaining_targets[0]
+
   cache_key = ()
   for score, guess in zip(prev_scores, prev_guesses):
+    #    print("computing cache key; score = ", score)
     if cache_key in cache and guess == cache[cache_key][0]:
-      cache_key = cache_key + (tuple(s.value for s in score),)
+      cache_key = cache_key + \
+          (tuple(s.value for subscore in score for s in subscore),)
     else:
       cache_key = None
       break
@@ -239,38 +293,35 @@ def conservative_restricted_choice(prev_guesses, prev_scores):
           cache[cache_key])
     return cache[cache_key][0]
 
-  if len(remaining_targets) <= 2:
-    print('remaining targets down to %s; guessing %s' %
-          (remaining_targets, remaining_targets[0]))
-    return remaining_targets[0]
-
-  worst_case_by_guess = {}
-  best_worst_case_so_far = len(remaining_targets)
-  for guess in legal_guesses:
+  worst_cases_by_guess = collections.defaultdict(list)
+  n = len(legal_guesses)
+  for j, guess in enumerate(legal_guesses):
+    #    print("considering guess: ", guess)
     score_counts = collections.defaultdict(int)
-    for target in remaining_targets:
-      score = auto_scorer(guess, target)
-      score_counts[score] += 1
-      #      if score_counts[score] > best_worst_case_so_far:
-      #        break
-    else:
+    for i, remaining_targets in enumerate(remaining_targets_lists):
+      for target in remaining_targets:
+        score = auto_score_one_word(guess, target)
+        score_counts[score] += 1
+
       worst_score, worst_case = max(score_counts.items(), key=lambda x: x[1])
-      if guess in remaining_targets_set:
-        eligibility_tiebreaker = 0
+      if guess in remaining_targets_sets[i] and not solved[i]:
+        eligibility_tiebreaker = 0  # lower is better
       else:
         eligibility_tiebreaker = 1
-      worst_case_by_guess[guess] = (worst_case, eligibility_tiebreaker) #, worst_score)
-      best_worst_case_so_far = min(best_worst_case_so_far, worst_case)
 
-  best_guess, best_worst_case = min(
-      worst_case_by_guess.items(), key=lambda x: x[1])
-  n = 100
-  #  print(f'Top {n} guesses:', sorted([(v, k) for k, v in worst_case_by_guess.items()])[:n])
-  #  print(f'worst case for guess {best_guess}: {best_worst_case} remaining possibilities')
+      worst_cases_by_guess[guess].append((worst_case, eligibility_tiebreaker))
+      print(f"\tworst case for {guess} ({j}/{n}): ", worst_cases_by_guess[guess])
+
+  best_guesses = sorted(worst_cases_by_guess.items(),
+                        key=lambda x: tuple_sum(x[1]))
+  best_guess, best_worst_cases = best_guesses[0]
+  n = 10
+  print(f'Top {n} guesses:', best_guesses[:n])
+  print(f'worst cases for guess {best_guess}: {best_worst_cases} remaining possibilities')
 
   if cache_key not in cache:
     # print('updating cache: %s:%s' % (cache_key, (best_guess, best_worst_case)))
-    cache[cache_key] = (best_guess, best_worst_case)
+    cache[cache_key] = (best_guess, best_worst_cases)
 
   return best_guess
 
@@ -281,7 +332,7 @@ def wordle_target(i):
 
 def random_target():
   target = random.choice(LEGAL_TARGETS)
-  #  print(f'spoiler: the target word is {target}')
+  print(f'spoiler: the target word is {target}')
   return target
 
 
@@ -307,14 +358,14 @@ def absurdle_score(guesses, scores):
   return score
 
 
-def play(targeter=random_target, guesser=user_choice, scorer=auto_scorer, absurdle=False):
-  target = targeter()
-
+def play(targets, guesser=user_choice, scorer=auto_scorer, absurdle=False):
   guesses = []
   scores = []
   legal_guesses = LEGAL_GUESSES
-  while not guesses or scores[-1] != (Score.RIGHT_SPOT,) * WORD_LENGTH:
+  solved = [None] * MULTIPLEX
+  while None in solved:
     guess = guesser(guesses, scores)
+    assert guess not in guesses
     if guess not in legal_guesses and not absurdle:
       print("Illegal guess. Try again.")
       continue
@@ -322,22 +373,30 @@ def play(targeter=random_target, guesser=user_choice, scorer=auto_scorer, absurd
     if absurdle:
       score = absurdle_score(guesses, scores)
     else:
-      score = scorer(guess, target)
+      score = scorer(guess, targets)
+    score = tuple([solved[i] and (Score.NO_SCORE,) *
+                   WORD_LENGTH or s for i, s in enumerate(score)])
     scores.append(score)
+    for i, s in enumerate(score):
+      if score[i] == (Score.RIGHT_SPOT,) * WORD_LENGTH:
+        solved[i] = guess
     pretty_score = pretty_print(score)
     print(f'{guess}: {pretty_score}')
+    # print("play() thinks solved?", solved)
     if HARD_MODE:
-      legal_guesses = restrict_one(legal_guesses, guess, score)
+      legal_guesses = restrict_one(legal_guesses, guess, score[0])
 
   print('\n')
-  if target is None:
-    target = guesses[-1]
+  if targets[0] is None:
+    targets = solved
   if absurdle:
     print(absurdle_snippet(scores))
+  elif MULTIPLEX > 1:
+    print(quordle_snippet(scores))
   elif DICTIONARY == 'primel':
-    print(primel_snippet(scores, LEGAL_TARGETS.index(target)))
+    print(primel_snippet(scores, LEGAL_TARGETS.index(targets[0])))
   else:
-    print(wordle_snippet(scores, LEGAL_TARGETS.index(target)))
+    print(wordle_snippet(scores, LEGAL_TARGETS.index(targets[0])))
   print()
   print('\t'.join(['guesses:'] + guesses))
   print('\n')
@@ -359,6 +418,59 @@ def primel_snippet(scores, i='?'):
 def absurdle_snippet(scores, i='?'):
   num_guesses = len(scores)
   return f'Absurdle {num_guesses}/∞\n\n' + '\n'.join(pretty_print(s) for s in scores)
+
+PRETTY_PRINT_QUORDLE = {
+    Score.NO_MATCH: ':white_large_square:',
+    Score.WRONG_SPOT: ':large_yellow_square:',
+    Score.RIGHT_SPOT: ':large_green_square:',
+    Score.NO_SCORE: ':black_large_square:',
+    0: ':zero:',
+    1: ':one:',
+    2: ':two:',
+    3: ':three:',
+    4: ':four:',
+    5: ':five:',
+    6: ':six:',
+    7: ':seven:',
+    8: ':eight:',
+    9: ':nine:',
+}
+QUORDLE_NAMES = ["Wordle", "Duordle", "Thrordle", "Quordle", "Quintordle",
+                 "Sextordle", "Septordle", "Octordle", "Nonordle", "Decordle"]
+QUORDLE_COLUMNS = [1, 2, 3, 2, 3, 3, 4, 4, 3, 5]
+
+
+def quordle_snippet(scores):
+  num_guesses = len(scores)
+  multiplex = len(scores[0])
+  name = QUORDLE_NAMES[multiplex - 1]
+  solved_at = [None] * multiplex
+  for i, s in enumerate(scores):
+    for j, subscore in enumerate(s):
+      if subscore == (Score.RIGHT_SPOT,) * WORD_LENGTH:
+        solved_at[j] = PRETTY_PRINT_QUORDLE.get(i + 1, ':large_red_square:')
+  columns = QUORDLE_COLUMNS[multiplex - 1]
+  sliced_scores = []
+  sliced_solved_at = []
+  for i in range(0, multiplex, columns):
+    sliced_scores.append(tuple(s[i:i + columns] for s in scores))
+    sliced_solved_at.append(solved_at[i:i + columns])
+  return (f'{name}\n' +
+          '\n'.join(''.join(solved_at_slice) for solved_at_slice in sliced_solved_at) +
+          '\n\n' +
+          '\n\n'.join('\n'.join(pretty_print(s, print_method=PRETTY_PRINT_QUORDLE)
+                                for s in score_slice if s != ((Score.NO_SCORE,) * WORD_LENGTH,) * columns)
+                      for score_slice in sliced_scores))
+
+
+def transpose_scores(score_lists):
+  transposed = []
+  for score_list in score_lists:
+    for i, score in enumerate(score_list):
+      while len(transposed) <= i:
+        transposed.append([])
+      transposed[i].append(score)
+  return transposed
 
 
 @dataclasses.dataclass
@@ -384,16 +496,18 @@ def parse_snippet(snippet):
       else:
         result.guess_count = int(m.group(3))
     else:
-      result.scores.append(parse_score_string(line))
+      result.scores.append(parse_score_string(line)[0])
   return result
 
+'''
 assert parse_snippet(wordle_snippet([
   parse_score_string('byg'),
   parse_score_string('gyb'),
 ], 5)).scores == [
-  parse_score_string('byg'),
-  parse_score_string('gyb'),
+  parse_score_string('byg')[0],
+  parse_score_string('gyb')[0],
 ]
+'''
 
 
 def wordle_keyboard(guesses, scores):
@@ -428,7 +542,7 @@ def wordle_keyboard(guesses, scores):
       print(f'\x1b[{color}m {c} \x1b[0m ', end='')
     print()
 
-
+'''
 def human_guesser(): play(targeter=random_target, guesser=user_choice)
 
 
@@ -445,6 +559,7 @@ def random_test_mode(): play(targeter=random_target,
 
 def history_mode(i): play(targeter=lambda: wordle_target(i),
                           guesser=conservative_restricted_choice)
+'''
 
 
 def solve_everything():
@@ -466,7 +581,7 @@ def solve_everything():
 
 def dump_cache():
   print("High-value cache items:")
-  for k, v in sorted(guess_cache.cache(DICTIONARY, HARD_MODE).items()):
+  for k, v in guess_cache.cache(DICTIONARY, HARD_MODE).items():
     if len(k) < 2:
       print(f'  {k}: {v},')
 
@@ -488,7 +603,8 @@ def reverse_engineer_starting_guess(game_summary):
     for guess in LEGAL_GUESSES:
       if auto_scorer(guess, target) != s:
         continue
-      # if scores.index(s) == 1 and auto_scorer(guess, 'SOLAR') != (0,0,0,0,0): continue  # autumn-specific
+      # if scores.index(s) == 1 and auto_scorer(guess, 'SOLAR') != (0,0,0,0,0):
+      # continue  # autumn-specific
       buckets = collections.defaultdict(list)
       for t in remaining_targets:
         buckets[auto_scorer(guess, t)].append(t)
@@ -586,15 +702,14 @@ def main():
     print("\t\t'-s', in which case 'absurdle' logic will put off picking a specific target for as long as possible.")
 
   guesser, scorer = None, None
+  targets = []
   absurdle = False
   global HARD_MODE
   global DICTIONARY
+  global MULTIPLEX
   for arg in sys.argv[1:]:
     if arg == '-h':  # enable hard mode
       HARD_MODE = True
-      continue
-    elif arg == '-k': # enable "Kathleen Colorblind" mode
-      KATHLEEN_COLOR_BLIND = random.choice([True, False])
       continue
     elif arg == '-p':  # primel
       DICTIONARY = 'primel'
@@ -604,11 +719,18 @@ def main():
       DICTIONARY = 'sweardle'
       load_words()
       continue
+    elif arg == '-ww':  # wordlewordle
+      DICTIONARY = 'wordlewordle'
+      load_words()
+      continue
+    elif arg[:2] == '-q':  # quordle
+      MULTIPLEX = int(arg[2:])
+      continue
     elif arg == '-c':  # cheat
       # AI will solve this wordle for you.
       guesser = conservative_restricted_choice
       scorer = user_scorer  # You'll need to score words as it makes guesses.
-      play(targeter=no_target, guesser=guesser, scorer=scorer)
+      play(targets=[None] * MULTIPLEX, guesser=guesser, scorer=scorer)
       continue
     elif arg == '-m':  # manual
       guesser = user_choice  # You'll be solving this wordle.
@@ -627,14 +749,14 @@ def main():
       continue
 
     if arg.isnumeric():
-      targeter = lambda: wordle_target(int(arg))
+      targets.append(wordle_target(int(arg)))
     elif arg.upper() in LEGAL_TARGETS:
-      targeter = lambda: arg.upper()
+      targets.append(arg.upper())
     elif arg == '-r':
-      targeter = random_target
+      targets = [random_target() for _ in range(MULTIPLEX)]
     elif arg == '-s':  # absurdle
-      targeter = lambda: None
-      absurdle = True
+      targets = [None]
+      assert MULTIPLEX == 1
     else:
       print(f'Don\'t know what to do with arg: {arg}')
       continue
@@ -642,14 +764,15 @@ def main():
     if guesser is None or scorer is None:
       print('You must specify one of [-m|-a] before selecting a target.')
       continue
-    play(targeter=targeter, guesser=guesser, scorer=scorer, absurdle=absurdle)
+    play(targets=tuple(targets), guesser=guesser,
+         scorer=scorer, absurdle=absurdle)
 
   # test_mode()
   # ai_guesser()
   # human_guesser()
   # solve_everything()
   # history_mode(206)
-  # dump_cache()
+  dump_cache()
 
 import cProfile
 if __name__ == '__main__':

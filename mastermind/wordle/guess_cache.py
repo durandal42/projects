@@ -1,3 +1,4 @@
+# TODO update cache after multiplexing
 EASY_MODE_CACHE = {
     (): ('RAISE', (168, 0)),
     ((0, 0, 0, 0, 0),): ('BLUDY', (13, 1)),
