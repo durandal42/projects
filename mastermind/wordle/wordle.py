@@ -34,6 +34,14 @@ def load_words():
     target_file = 'wordlists/wordlewordle-targets.txt'
     guess_file = 'wordlists/wordlewordle-guesses.txt'
     WORD_LENGTH = 10
+  elif DICTIONARY == 'nerdle6':
+    target_file = 'wordlists/nerdle6.txt'
+    guess_file = '/dev/null'
+    WORD_LENGTH = 6
+  elif DICTIONARY == 'nerdle8':
+    target_file = 'wordlists/nerdle8.txt'
+    guess_file = '/dev/null'
+    WORD_LENGTH = 8
   else:
     assert False
   global LEGAL_TARGETS
@@ -52,6 +60,8 @@ def load_words():
       print("Word with bad length:", word)
 
 # scoring constants:
+
+
 @functools.total_ordering
 class Score(enum.Enum):
   NO_MATCH = 0
@@ -69,8 +79,9 @@ def auto_scorer(guess, targets):
   return tuple([auto_score_one_word(guess, t) for t in targets])
 
 
-@functools.cache
+# @functools.cache
 def auto_score_one_word(guess, target):
+  # print(f'{guess} vs {target}...')
   score = [Score.NO_MATCH] * len(target)
   target_counts = collections.Counter(target)
   for i, g in enumerate(guess):
@@ -189,8 +200,8 @@ assert(auto_scorer('BARBS', ('BRASS',)) == parse_score_string('gyybg'))
 def pretty_print(scores, print_method=PRETTY_PRINT_DARK_MODE):
   return ' '.join(''.join(print_method[s] for s in score) for score in scores)
 
-#assert(pretty_print(parse_score_string('byg')) == '⬛🟦🟧')
-#assert(pretty_print(parse_score_string('⬛🟨🟩')) == '⬛🟦🟧')
+# assert(pretty_print(parse_score_string('byg')) == '⬛🟦🟧')
+# assert(pretty_print(parse_score_string('⬛🟨🟩')) == '⬛🟦🟧')
 
 
 def user_choice(prev_guesses=None, prev_scores=None):
@@ -299,6 +310,7 @@ def conservative_restricted_choice(prev_guesses, prev_scores):
 
   worst_cases_by_guess = collections.defaultdict(list)
   n = len(legal_guesses)
+  # smallest_largest_bucket_so_far = n
   for j, guess in enumerate(legal_guesses):
     #    print("considering guess: ", guess)
     score_counts = collections.defaultdict(int)
@@ -306,6 +318,8 @@ def conservative_restricted_choice(prev_guesses, prev_scores):
       for target in remaining_targets:
         score = auto_score_one_word(guess, target)
         score_counts[score] += 1
+        # if MULTIPLEX == 1 and score_counts[score] > smallest_largest_bucket_so_far:
+        #   break
 
       worst_score, worst_case = max(score_counts.items(), key=lambda x: x[1])
       if guess in remaining_targets_sets[i] and not solved[i]:
@@ -313,18 +327,23 @@ def conservative_restricted_choice(prev_guesses, prev_scores):
       else:
         eligibility_tiebreaker = 1
 
+      # smallest_largest_bucket_so_far = min(
+      #     smallest_largest_bucket_so_far, worst_case)
       worst_cases_by_guess[guess].append((worst_case, eligibility_tiebreaker))
-      # print(f"\tworst case for {guess} ({j}/{n}): ", worst_cases_by_guess[guess])
+      # print(f"\tworst case for {guess} ({j}/{n}): ",
+      #       worst_cases_by_guess[guess])
 
   best_guesses = sorted(worst_cases_by_guess.items(),
                         key=lambda x: tuple_sum(x[1]))
   best_guess, best_worst_cases = best_guesses[0]
   n = 10
-  print(f'Top {n} guesses:', best_guesses[:n])
-  print(f'worst cases for guess {best_guess}: {best_worst_cases} remaining possibilities')
+  # print(f'Top {n} guesses:', best_guesses[:n])
+  # print(f'worst cases for guess {best_guess}: {best_worst_cases} remaining
+  # possibilities')
 
   if cache_key not in cache:
-    # print('updating cache: %s:%s' % (cache_key, (best_guess, best_worst_case)))
+    # print('updating cache: %s:%s' % (cache_key, (best_guess,
+    # best_worst_case)))
     cache[cache_key] = (best_guess, best_worst_cases)
 
   return best_guess
@@ -400,7 +419,10 @@ def play(targets, guesser=user_choice, scorer=auto_scorer, absurdle=False):
   elif DICTIONARY == 'primel':
     print(primel_snippet(scores, LEGAL_TARGETS.index(targets[0])))
   elif DICTIONARY == 'wordlewordle':
-    print(wordle_snippet(scores, LEGAL_TARGETS.index(targets[0]), name='WordleWordle'))
+    print(wordle_snippet(scores, LEGAL_TARGETS.index(
+        targets[0]), name='WordleWordle'))
+  elif DICTIONARY[:6] == 'nerdle':
+    print(nerdle_snippet(scores, size=int(DICTIONARY[6:])))
   else:
     print(wordle_snippet(scores, LEGAL_TARGETS.index(targets[0])))
   print()
@@ -424,6 +446,35 @@ def primel_snippet(scores, i='?'):
 def absurdle_snippet(scores, i='?'):
   num_guesses = len(scores)
   return f'Absurdle {num_guesses}/∞\n\n' + '\n'.join(pretty_print(s) for s in scores)
+
+
+def nerdle_snippet(scores, size=8):
+  num_guesses = len(scores)
+  qualifier = ''
+  if size == 6: qualifier = 'mini '
+  return (f'{qualifier}nerdlegame ?? {num_guesses}/6\n\n' +
+          '\n'.join(pretty_print(s) for s in scores) +
+          '\n\nhttps://nerdlegame.com #nerdle')
+
+'''
+mini nerdlegame 24 3/6
+
+⬛🟩⬛⬛🟪⬛
+⬛🟩⬛🟩⬛⬛
+🟩🟩🟩🟩🟩🟩
+
+https://nerdlegame.com #nerdle
+
+mini nerdlegame ?? 2/6
+
+⬜🟩⬜🟩⬜⬜
+🟩🟩🟩🟩🟩🟩
+
+https://nerdlegame.com #nerdle
+
+
+
+'''
 
 PRETTY_PRINT_QUORDLE = {
     Score.NO_MATCH: ':white_large_square:',
@@ -678,7 +729,8 @@ def deep_search():
 
         worst_case = max((len(v), k) for k,v in buckets2.items())
         max_bucket_size, worst_score = worst_case
-        # print(f'\t{g1} -> {s} -> {g2} never leaves more than {max_bucket_size} targets in a single bucket.')
+        # print(f'\t{g1} -> {s} -> {g2} never leaves more than {max_bucket_size}
+        # targets in a single bucket.')
         best_worst_case = min(best_worst_case, (max_bucket_size, g2))
       smallest_largest_bucket_size, guess = best_worst_case
       print(f'{g1} -> {s} -> {guess} never leaves more than {smallest_largest_bucket_size} targets in a single bucket.')
@@ -727,6 +779,10 @@ def main():
       continue
     elif arg == '-ww':  # wordlewordle
       DICTIONARY = 'wordlewordle'
+      load_words()
+      continue
+    elif arg[:2] == '-n':  # nerdle
+      DICTIONARY = 'nerdle' + arg[2:]
       load_words()
       continue
     elif arg[:2] == '-q':  # quordle
