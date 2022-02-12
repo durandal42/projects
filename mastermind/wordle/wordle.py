@@ -265,7 +265,7 @@ def tuple_sum(tuples):
 
 
 def conservative_restricted_choice(prev_guesses, prev_scores):
-  #  print("conservative_restricted_choice", prev_guesses, prev_score_lists)
+  # print("conservative_restricted_choice", prev_guesses, prev_scores)
   remaining_targets_lists = restrict_multiplex(
       [LEGAL_TARGETS] * MULTIPLEX, prev_guesses, prev_scores)
   remaining_targets_sets = [set(rt) for rt in remaining_targets_lists]
@@ -284,15 +284,15 @@ def conservative_restricted_choice(prev_guesses, prev_scores):
         solved[i] = True
   # print("solver thinks solved?", solved)
 
-  print('%s possible targets remain' %
-        [len(remaining_targets) for remaining_targets in remaining_targets_lists])
-  print('remaining targets:', [len(rt) <= 10 and rt or "(%d targets)" % len(
-      rt) for rt in remaining_targets_lists])
+  # print('%s possible targets remain' %
+  #       [len(remaining_targets) for remaining_targets in remaining_targets_lists])
+  # print('remaining targets:', [len(rt) <= 10 and rt or "(%d targets)" % len(
+  #     rt) for rt in remaining_targets_lists])
   for i, remaining_targets in enumerate(remaining_targets_lists):
     if len(remaining_targets) == 1 and not solved[i]:
       #    print('remaining targets down to %s; guessing %s' %
       #          (remaining_targets, remaining_targets[0]))
-      return remaining_targets[0]
+      return remaining_targets[0], 1
 
   cache_key = ()
   for score, guess in zip(prev_scores, prev_guesses):
@@ -306,7 +306,7 @@ def conservative_restricted_choice(prev_guesses, prev_scores):
   if cache_key is not None and cache_key in cache:
     print('(precomputed) worst case for guess %s: %s (remaining targets, tiebreaker)' %
           cache[cache_key])
-    return cache[cache_key][0]
+    return cache[cache_key][0], cache[cache_key][1][0]
 
   worst_cases_by_guess = collections.defaultdict(list)
   n = len(legal_guesses)
@@ -346,7 +346,7 @@ def conservative_restricted_choice(prev_guesses, prev_scores):
     # best_worst_case)))
     cache[cache_key] = (best_guess, best_worst_cases)
 
-  return best_guess
+  return best_guess, tuple_sum(best_worst_cases)[0]
 
 
 def wordle_target(i):
@@ -387,7 +387,7 @@ def play(targets, guesser=user_choice, scorer=auto_scorer, absurdle=False):
   legal_guesses = LEGAL_GUESSES
   solved = [None] * MULTIPLEX
   while None in solved:
-    guess = guesser(guesses, scores)
+    guess, _ = guesser(guesses, scores)
     assert guess not in guesses
     if guess not in legal_guesses and not absurdle:
       print("Illegal guess. Try again.")
@@ -619,6 +619,42 @@ def history_mode(i): play(targeter=lambda: wordle_target(i),
 '''
 
 
+def explore(guesses):
+  n = len(LEGAL_TARGETS)
+  score_buckets_per_guess = collections.defaultdict(collections.Counter)
+  for g in guesses:
+    for t in LEGAL_TARGETS:
+      score_buckets_per_guess[g][auto_score_one_word(g, t)] += 1
+  print(f'\nPossible scores after first guess ({guesses}):',
+        [len(sb) for g, sb in score_buckets_per_guess.items()])
+  all_scores = set()
+  for k, v in score_buckets_per_guess.items():
+    all_scores.update(v.keys())
+  print(f'\nTotal scores to consider:', len(all_scores))
+  cum_probs = [0] * len(guesses)
+  print(
+      'bucket, [probability], [cum probability], [second guesses], [worst_buckets]')
+  for score in sorted(all_scores):
+    probs = [score_buckets_per_guess[g][score] for g in guesses]
+    b = pretty_print((score,))
+    for i, g in enumerate(guesses):
+      cum_probs[i] += probs[i]
+    # print(f'\nprobability of landing in bucket {b}: {probs}/{n}
+    # ({cum_probs}/{n} cum)')
+    worst_buckets = []
+    second_guesses = []
+    for i, g in enumerate(guesses):
+      if probs[i] == 0:
+        second_guess, worst_bucket = None, 0
+      else:
+        second_guess, worst_bucket = conservative_restricted_choice([g], [
+                                                                    (score,)])
+      worst_buckets.append(worst_bucket)
+      second_guesses.append(second_guess)
+    print(f'"{b}", {probs}, {cum_probs}, {second_guesses}, {worst_buckets}')
+    # print(f'second guesses, worst buckets:', second_guesses, worst_buckets)
+
+
 def solve_everything():
   solve_times = {}
   meta_score = collections.defaultdict(int)
@@ -804,7 +840,7 @@ def main():
       scorer = auto_scorer  # The computer will score its own guesses.
       continue
     elif arg == '-e':  # everything
-      solve_everything()
+      explore(['1+7*5=36', '58-46=12'])
       continue
     elif arg == '-v':  # reverse-engineer
       reverse_engineer_starting_guess(parse_snippet("".join(sys.stdin)))
