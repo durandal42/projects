@@ -1,4 +1,3 @@
-# TODO update cache after multiplexing
 EASY_MODE_CACHE = {
     (): ('RAISE', (168, 0)),
     ((0, 0, 0, 0, 0),): ('BLUDY', (13, 1)),
@@ -372,12 +371,15 @@ PRIMEL_CACHE = {
   ((2, 2, 1, 2, 0),): ('10453', (1, 1)),
   ((2, 2, 2, 0, 0),): ('30893', (1, 1)),
 }
-
+WORDLEWORDLE_CACHE = {
+  (): ('MEGACURIES', (10, 1)),
+}
 def cache(dictionary='wordle', hard=False):
   if dictionary == 'wordle':
     if hard: return HARD_MODE_CACHE
     else: return EASY_MODE_CACHE
   elif dictionary == 'primel': return PRIMEL_CACHE
+  elif dictionary == 'wordlewordle': return WORDLEWORDLE_CACHE
   return {}
 
 

@@ -19,6 +19,7 @@ LEGAL_GUESSES = []
 
 
 def load_words():
+  global WORD_LENGTH
   if DICTIONARY == 'wordle':
     target_file = 'wordlists/legal-targets.txt'
     guess_file = 'wordlists/legal-guesses.txt'
@@ -30,8 +31,8 @@ def load_words():
     guess_file = '/dev/null'
     WORD_LENGTH = 4
   elif DICTIONARY == 'wordlewordle':
-    target_file = 'wordlists/wordlewordle.txt'
-    guess_file = '/dev/null'
+    target_file = 'wordlists/wordlewordle-targets.txt'
+    guess_file = 'wordlists/wordlewordle-guesses.txt'
     WORD_LENGTH = 10
   else:
     assert False
@@ -46,6 +47,9 @@ def load_words():
   print(f'finished loading {num_targets} legal targets and {num_guesses} additional legal guesses.')
   LEGAL_GUESSES = sorted(set(LEGAL_TARGETS + legal_guesses))
 
+  for word in LEGAL_GUESSES:
+    if len(word) != WORD_LENGTH:
+      print("Word with bad length:", word)
 
 # scoring constants:
 @functools.total_ordering
@@ -65,7 +69,7 @@ def auto_scorer(guess, targets):
   return tuple([auto_score_one_word(guess, t) for t in targets])
 
 
-# @functools.cache
+@functools.cache
 def auto_score_one_word(guess, target):
   score = [Score.NO_MATCH] * len(target)
   target_counts = collections.Counter(target)
@@ -85,7 +89,7 @@ def user_scorer(word, target):
   # auto_scorer.
   score = parse_score_string(input(f'score {word}, please: ').strip())
   # "delete" the previous line, so we can pretty-print over it.
-  print("\033[A                             \033[A")
+  print("\033[A                                                          \033[A")
   return score
 
 
@@ -182,11 +186,11 @@ assert(auto_scorer('CARBS', ('BRASS',)) == parse_score_string('byyyg'))
 assert(auto_scorer('BARBS', ('BRASS',)) == parse_score_string('gyybg'))
 
 
-def pretty_print(scores, print_method=PRETTY_PRINT_COLOR_BLIND):
+def pretty_print(scores, print_method=PRETTY_PRINT_DARK_MODE):
   return ' '.join(''.join(print_method[s] for s in score) for score in scores)
 
-assert(pretty_print(parse_score_string('byg')) == '⬛🟦🟧')
-assert(pretty_print(parse_score_string('⬛🟨🟩')) == '⬛🟦🟧')
+#assert(pretty_print(parse_score_string('byg')) == '⬛🟦🟧')
+#assert(pretty_print(parse_score_string('⬛🟨🟩')) == '⬛🟦🟧')
 
 
 def user_choice(prev_guesses=None, prev_scores=None):
@@ -310,7 +314,7 @@ def conservative_restricted_choice(prev_guesses, prev_scores):
         eligibility_tiebreaker = 1
 
       worst_cases_by_guess[guess].append((worst_case, eligibility_tiebreaker))
-      print(f"\tworst case for {guess} ({j}/{n}): ", worst_cases_by_guess[guess])
+      # print(f"\tworst case for {guess} ({j}/{n}): ", worst_cases_by_guess[guess])
 
   best_guesses = sorted(worst_cases_by_guess.items(),
                         key=lambda x: tuple_sum(x[1]))
@@ -395,6 +399,8 @@ def play(targets, guesser=user_choice, scorer=auto_scorer, absurdle=False):
     print(quordle_snippet(scores))
   elif DICTIONARY == 'primel':
     print(primel_snippet(scores, LEGAL_TARGETS.index(targets[0])))
+  elif DICTIONARY == 'wordlewordle':
+    print(wordle_snippet(scores, LEGAL_TARGETS.index(targets[0]), name='WordleWordle'))
   else:
     print(wordle_snippet(scores, LEGAL_TARGETS.index(targets[0])))
   print()
@@ -404,10 +410,10 @@ def play(targets, guesser=user_choice, scorer=auto_scorer, absurdle=False):
   return len(scores)
 
 
-def wordle_snippet(scores, i='?'):
+def wordle_snippet(scores, i='?', name='Wordle'):
   num_guesses = len(scores)
   hard_mode_star = HARD_MODE and '*' or ''
-  return f'Wordle {i} {num_guesses}/6{hard_mode_star}\n\n' + '\n'.join(pretty_print(s) for s in scores)
+  return f'{name} {i} {num_guesses}/6{hard_mode_star}\n\n' + '\n'.join(pretty_print(s) for s in scores)
 
 
 def primel_snippet(scores, i='?'):
@@ -567,7 +573,7 @@ def solve_everything():
   meta_score = collections.defaultdict(int)
   for word in LEGAL_TARGETS:  # [:10]:
     #        print(f'Solving: {word}...')
-    guesses_needed = play(targeter=lambda: word,
+    guesses_needed = play(targets=[word],
                           guesser=conservative_restricted_choice)
     solve_times[word] = guesses_needed
     meta_score[guesses_needed] += 1
@@ -772,7 +778,7 @@ def main():
   # human_guesser()
   # solve_everything()
   # history_mode(206)
-  dump_cache()
+  # dump_cache()
 
 import cProfile
 if __name__ == '__main__':
