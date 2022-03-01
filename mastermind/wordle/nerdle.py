@@ -32,6 +32,7 @@ def validate_lhs_skeleton(lhs_skeleton, length):
     return False
   return True
 
+
 OPERATORS = '+-*/'
 
 
@@ -70,7 +71,8 @@ def generate_nerdles(length=8):
         rhs = eval(lhs)
       except ZeroDivisionError:
         continue
-      if rhs < 0: continue
+      if rhs < 0:
+        continue
       rhs_int = int(rhs)
       nerdle = lhs + '=' + str(rhs_int)
       if rhs != rhs_int:
@@ -79,6 +81,7 @@ def generate_nerdles(length=8):
         # print("rejected: [%s]" % nerdle)
         continue
       yield nerdle
+
 
 # for now, assume length = 8
 # there's a length = 6 variant, though
