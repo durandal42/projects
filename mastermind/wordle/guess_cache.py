@@ -1773,6 +1773,3 @@ def cache(dictionary='wordle', hard=False):
   elif dictionary == 'nerdle8':
     return NERDLE8_CACHE
   return {}
-
-
-n {}
