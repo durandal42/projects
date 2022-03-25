@@ -319,8 +319,8 @@ def conservative_restricted_choice(
       cache_key = None
       break
   if cache_key is not None and cache_key in cache:
-    # print('(precomputed) worst case for guess %s: %s (remaining targets, tiebreaker)' %
-    #      cache[cache_key])
+    print('(precomputed) worst case for guess %s: %s (remaining targets, tiebreaker)' %
+          cache[cache_key])
     return cache[cache_key][0], cache[cache_key][1][0]
 
   worst_cases_by_guess = collections.defaultdict(list)
