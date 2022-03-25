@@ -2,8 +2,8 @@ from distribution import *
 from dnd import *
 
 
-def nyctala(sneak=2, dex=3, prof=2,
-            advantage=True,
+def nyctala(sneak=2, dex=5, prof=4,
+            advantage=True, ac=15,
             elven_accuracy=False, archery=False, sharpshooter=False):
   attack_die = roll(advantage)
   if advantage and elven_accuracy:
@@ -11,38 +11,40 @@ def nyctala(sneak=2, dex=3, prof=2,
   return damage(attack(attack_die, dex + prof
                        + (2 if archery else 0)
                        + (-5 if sharpshooter else 0),
-                       AC),
+                       ac),
                 die(8) + dex + (10 if sharpshooter else 0) + dice(sneak, 6),
                 die(8) + dice(sneak, 6))
+
 
 summarize(nyctala())
 
 
-def compare_ea_vs_dex(sneak, AC):
-  ea_adv = (nyctala(sneak=sneak, dex=3, elven_accuracy=True).ev() -
-            nyctala(sneak=sneak, dex=4, elven_accuracy=False).ev())
-  ea_noadv = (nyctala(sneak=sneak, dex=3, advantage=False).ev() -
-              nyctala(sneak=sneak, dex=4, advantage=False).ev())
+def compare_ea_vs_dex(sneak, ac):
+  ea_adv = (nyctala(sneak=sneak, dex=3, ac=ac, elven_accuracy=True).ev() -
+            nyctala(sneak=sneak, dex=4, ac=ac, elven_accuracy=False).ev())
+  ea_noadv = (nyctala(sneak=sneak, dex=3, ac=ac, advantage=False).ev() -
+              nyctala(sneak=sneak, dex=4, ac=ac, advantage=False).ev())
   p = ea_noadv / (ea_noadv - ea_adv)
   if float(p) >= 1:
     conclusion = "EA always worse"
-    print "[" + " " * 100 + "]"
+    print("[" + " " * 100 + "]")
   else:
     conclusion = "EA better when at advantage >= %.0f%%" % float(100 * p)
-    print "[" + " " * int(100 * p) + "*" * (100 - int(100 * p)) + "]"
-  print "%dd6 SA vs %02d AC: %s" % (sneak, AC, conclusion)
+    print("[" + " " * int(100 * p) + "*" * (100 - int(100 * p)) + "]")
+  print("%dd6 SA vs %02d AC: %s" % (sneak, AC, conclusion))
 
 
 def compare_ss(sneak, AC, elven_accuracy, archery=False):
-  ss = nyctala(sneak=sneak, elven_accuracy=elven_accuracy,
+  ss = nyctala(sneak=sneak, ac=ac, elven_accuracy=elven_accuracy,
                archery=archery, sharpshooter=True).ev()
-  noss = nyctala(sneak=sneak, elven_accuracy=elven_accuracy,
+  noss = nyctala(sneak=sneak, ac=ac, elven_accuracy=elven_accuracy,
                  archery=archery, sharpshooter=False).ev()
-  print "\t%d\t%d\t%s\t%s" % (sneak, AC, ("ss" if ss > noss else "noss"), float(ss - noss))
+  print("\t%d\t%d\t%s\t%s" %
+        (sneak, AC, ("ss" if ss > noss else "noss"), float(ss - noss)))
 
 
 def sneak_dice(level):
-  return (level + 1) / 2
+  return math.floor((level + 1) / 2)
 
 
 def likely_ac(level):
@@ -55,6 +57,8 @@ def circumstances_by_level_range(levels):
     for ac in likely_ac(l):
       yield (l, sneak_dice(l), ac)
 
+
+'''
 for level, sneak, AC in circumstances_by_level_range(range(1, 13)):
   compare_ea_vs_dex(sneak, AC)
   # pass
@@ -66,3 +70,7 @@ for elven_accuracy in [False, True]:
     print "\t", level,
     compare_ss(sneak, AC, elven_accuracy)
   print
+'''
+
+for level, sneak, ac in circumstances_by_level_range([12]):
+  compare_ss(sneak, ac, elven_accuracy=False)

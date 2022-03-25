@@ -15,7 +15,8 @@ class Distribution:
   def __repr__(self):
     if not self._dist:
       return "Distribution()"
-    return "Distribution(\n\t%s\n)" % (",\n\t".join("%s:\t%s" % item for item in self._dist.iteritems()))
+    return "Distribution(\n\t%s\n)" % (",\n\t".join(
+        "%s:\t%s" % item for item in self._dist.items()))
 
   HISTOGRAM_WIDTH = 50
 
@@ -26,7 +27,7 @@ class Distribution:
     return "Distribution(\n\t%s\n)" % ("\n\t".join(
         "%s:\t%0.4f - [%s]" % (x, px, "*" *
                                int(Distribution.HISTOGRAM_WIDTH * px / max_p))
-        for x, px in sorted(self._dist.iteritems())))
+        for x, px in sorted(self._dist.items())))
 
   def equivalent(left, right):
     if isinstance(left, Distribution):
@@ -43,9 +44,9 @@ class Distribution:
 
   def combine(self, other, operator):
     result = collections.defaultdict(fractions.Fraction)
-    for x, px in self._dist.iteritems():
+    for x, px in self._dist.items():
       if isinstance(other, self.__class__):
-        for y, py in other._dist.iteritems():
+        for y, py in other._dist.items():
           result[operator(x, y)] += px * py
       else:
         result[operator(x, other)] += px
@@ -54,11 +55,11 @@ class Distribution:
   def map(self, operator):
     # print "mapping:", self, operator
     result = collections.defaultdict(fractions.Fraction)
-    for x, px in self._dist.iteritems():
+    for x, px in self._dist.items():
       mapped = operator(x)
       # print 'mapped:', mapped
       if isinstance(mapped, self.__class__):
-        for y, py in mapped._dist.iteritems():
+        for y, py in mapped._dist.items():
           result[y] += px * py
       else:
         result[mapped] += px
@@ -67,30 +68,40 @@ class Distribution:
 
   def ev(self):
     try:
-      return sum(x * px for x, px in self._dist.iteritems())
+      return sum(x * px for x, px in self._dist.items())
     except TypeError:
-      return reduce(lambda t1, t2: tuple(map(sum, zip(t1, t2))), (tuple(x * px for x in t) for t, px in self._dist.iteritems()))
+      return functools.reduce(
+          lambda t1, t2: tuple(map(sum, zip(t1, t2))),
+          (tuple(x * px for x in t) for t, px in self._dist.items()))
 
   def stddev(self):
     mean = self.ev()
-    return math.sqrt(sum(px * (x - mean)**2 for x, px in self._dist.iteritems()))
+    return math.sqrt(sum(px * (x - mean)**2 for x, px in self._dist.items()))
 
   def cum(self):
     cp = 0
     result = {}
-    for x, px in sorted(self._dist.iteritems()):
+    for x, px in sorted(self._dist.items()):
       cp += px
       result[x] = cp
     return self.__class__(result)
 
+  def choice(self, p):
+    cp = 0
+    for x, px in sorted(self._dist.items()):
+      cp += px
+      if cp > p:
+        return x
+    assert False
+
   def filter(self, predicate):
     cp = 0
     result = {}
-    for x, px in self._dist.iteritems():
+    for x, px in self._dist.items():
       if predicate(x):
         cp += px
         result[x] = px
-    for x, px in result.iteritems():
+    for x, px in result.items():
       result[x] = px / cp
     return self.__class__(result)
 
@@ -128,16 +139,16 @@ class Distribution:
     return self.combine(other, operator.__ge__)
 
   def __nonzero__(self):
-    for x, px in self._dist.iteritems():
+    for x, px in self._dist.items():
       if not x:
         return False
     return True
 
-  def iteritems(self):
-    return self._dist.iteritems()
+  def items(self):
+    return self._dist.items()
 
   def max(self):
-    p, x = max((p, x) for x, p in self.iteritems())
+    p, x = max((p, x) for x, p in self.items())
     return (x, p)
 
 
@@ -155,6 +166,7 @@ def die(size):
 
 
 def dice(num, size):
+  # print(f"dice({num},{size})")
   return sum(die(size) for _ in range(num))
 
 
@@ -175,6 +187,7 @@ def switch_f(x, condition_result_list):
 
 def switch(input, condition_result_list):
   return input.map(lambda x: switch_f(x, condition_result_list))
+
 
 # basic combinations
 assert Distribution.equivalent(die(6), dict(
@@ -198,8 +211,12 @@ assert 19.5 == (die(8) + 4 + dice(2, 6) + 4).ev()
 
 # boolean magic
 assert Distribution.equivalent(
-    die(6) == 3, {True: fractions.Fraction(1, 6), False: fractions.Fraction(5, 6)})
+    die(6) == 3,
+    {
+        True: fractions.Fraction(1, 6),
+        False: fractions.Fraction(5, 6)
+    })
 
 
 def summarize(d):
-  print d, "mean:", float(d.ev()), "stddev:", d.stddev()
+  print(d, "mean:", float(d.ev()), "stddev:", d.stddev())

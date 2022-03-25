@@ -1,8 +1,11 @@
 from distribution import *
+from functools import reduce
 
 
 def d20():
   return die(20)
+
+
 assert 10.5 == d20().ev()
 
 
@@ -16,11 +19,15 @@ def lowest(ds):
 
 def advantage(d=d20()):
   return highest([d, d])
+
+
 assert 13.825 == float(advantage().ev())
 
 
 def disadvantage(d=d20()):
   return lowest([d, d])
+
+
 assert 7.175 == float(disadvantage().ev())
 
 MISS = 0
@@ -45,6 +52,7 @@ def damage(result, hit_dmg, crit_dmg):
                 [(lambda r: r == CRIT, hit_dmg + crit_dmg),
                  (lambda r: r == HIT, hit_dmg)])
 
+
 NORMAL = 0
 ADVANTAGE = 1
 DISADVANTAGE = -1
@@ -56,6 +64,7 @@ def roll(adv):
   if adv <= DISADVANTAGE:
     return disadvantage()
   return d20()
+
 
 AC = 18
 
