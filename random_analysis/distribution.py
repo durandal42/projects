@@ -2,6 +2,7 @@ import fractions
 import collections
 import operator
 import math
+import functools
 
 
 class Distribution:
@@ -68,9 +69,6 @@ class Distribution:
         result[mapped] += px
     # print 'map complete:', result
     return self.__class__(result)
-
-  def product(self, other):
-    return self.combine(other, lambda a, b: (a, b))
 
   def ev(self):
     try:
@@ -226,3 +224,10 @@ assert Distribution.equivalent(
 
 def summarize(d):
   print(d, "mean:", float(d.ev()), "stddev:", d.stddev())
+
+
+def product(distributions):
+  return functools.reduce(
+      operator.__add__,
+      map(lambda d: d.map(lambda x: (x,)),
+          distributions))
