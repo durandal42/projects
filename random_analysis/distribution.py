@@ -29,6 +29,9 @@ class Distribution:
                                int(Distribution.HISTOGRAM_WIDTH * px / max_p))
         for x, px in sorted(self._dist.items())))
 
+  def __len__(self):
+    return len(self._dist)
+
   def equivalent(left, right):
     if isinstance(left, Distribution):
       left = left._dist
@@ -65,6 +68,9 @@ class Distribution:
         result[mapped] += px
     # print 'map complete:', result
     return self.__class__(result)
+
+  def product(self, other):
+    return self.combine(other, lambda a, b: (a, b))
 
   def ev(self):
     try:

@@ -1,4 +1,3 @@
-import random
 from distribution import *
 from functools import reduce
 
@@ -17,11 +16,6 @@ def stat_3d6():
 
 def stat_4d6_drop_lowest():
   return mktuple((die(6) for _ in range(4))).map(lambda t: sum(sorted(t)[1:]))
-
-
-print("Single ability score (4d6, drop lowest)")
-summarize(stat_4d6_drop_lowest())
-print()
 
 
 # Methods for generating arrays of ability scores:
@@ -101,32 +95,6 @@ def array_utility(a):
   return sum((len(a) - v) * (s - 10) for v, s in enumerate(a))
 
 
-print("Utility score of the standard array %s: %d" %
-      (STANDARD_ARRAY, array_utility(STANDARD_ARRAY)))
-print
-
-print("pointbuy-legal arrays:")
-pointbuy_legal = (stat_array(lambda: die(8) + 7)
-                  .filter(lambda a: array_pointbuy_cost(a) == 27))
-print(pointbuy_legal)
-print("utility distribution of pointbuy-legal arrays:")
-summarize(pointbuy_legal.map(lambda a: array_utility(a)))
-print()
-
-print("highest-utility pointbuy-legal array:")
-print(max((array_utility(x), x) for x, p in pointbuy_legal.items()))
-
-
-def sample(dist, n):
-  for _ in range(n):
-    print(dist.choice(random.random()))
-
-
-print("16 random pointbuy-legal statlines:")
-sample(stat_array(lambda: die(8) + 7, sort=False)
-       .filter(lambda a: array_pointbuy_cost(a) == 27), 16)
-
-
 def summarize_nth_best(allocation):
   print("nth best stat:")
   for n in range(len(STANDARD_ARRAY)):
@@ -159,6 +127,26 @@ def summarize_party_spread(dist):
 
 if __name__ == "__main__":
   # execute only if run as a script
+
+  print("Single ability score (4d6, drop lowest)")
+  summarize(stat_4d6_drop_lowest())
+  print()
+
+  print("Utility score of the standard array %s: %d" %
+        (STANDARD_ARRAY, array_utility(STANDARD_ARRAY)))
+  print()
+
+  print("pointbuy-legal arrays:")
+  pointbuy_legal = (stat_array(lambda: die(8) + 7)
+                    .filter(lambda a: array_pointbuy_cost(a) == 27))
+  print(pointbuy_legal)
+  print("utility distribution of pointbuy-legal arrays:")
+  summarize(pointbuy_legal.map(lambda a: array_utility(a)))
+  print()
+
+  print("highest-utility pointbuy-legal array:")
+  print(max((array_utility(x), x) for x, p in pointbuy_legal.items()))
+
   a_4d6_drop_lowest = stat_array(stat_4d6_drop_lowest)
   for description, allocation in [
       ("standard array", stat_array_standard()),
