@@ -241,7 +241,8 @@ def restrict_one(targets, prev_guess, prev_score):
   #  print(prev_guess, prev_score)
   if prev_score == (Score.NO_SCORE,) * WORD_LENGTH:
     return targets
-  return [w for w in targets if auto_score_one_word(prev_guess, w) == prev_score]
+  return [w for w in targets
+          if auto_score_one_word(prev_guess, w) == prev_score]
 
 
 def restrict_multiplex(target_sets, prev_guesses, prev_scores):
@@ -305,7 +306,7 @@ def conservative_restricted_choice(
   # print("solver thinks solved?", solved)
 
   # print('%s possible targets remain' %
-  #       [len(remaining_targets) for remaining_targets in remaining_targets_lists])
+  #       [len(rts) for rts in remaining_targets_lists])
   print('remaining targets:', [len(rt) <= 10 and rt or "(%d targets)" % len(
       rt) for rt in remaining_targets_lists])
   for i, remaining_targets in enumerate(remaining_targets_lists):
@@ -403,7 +404,8 @@ def absurdle_score(guesses, scores):
   return score
 
 
-def play(targets, guesser=user_choice, scorer=auto_scorer, absurdle=False, target_index='?'):
+def play(targets, guesser=user_choice, scorer=auto_scorer,
+         absurdle=False, target_index='?'):
   guesses = []
   scores = []
   legal_guesses = LEGAL_GUESSES
@@ -437,7 +439,7 @@ def play(targets, guesser=user_choice, scorer=auto_scorer, absurdle=False, targe
   if absurdle:
     print(absurdle_snippet(scores))
   elif MULTIPLEX > 1:
-    print(quordle_snippet(scores, target_index))
+    print(quordle_snippet(scores, targets, target_index))
   elif DICTIONARY == 'primel':
     print(primel_snippet(scores, target_index))
   elif DICTIONARY == 'wordlewordle':
@@ -456,17 +458,20 @@ def play(targets, guesser=user_choice, scorer=auto_scorer, absurdle=False, targe
 def wordle_snippet(scores, i='?', name='Wordle'):
   num_guesses = len(scores)
   hard_mode_star = HARD_MODE and '*' or ''
-  return f'{name} {i} {num_guesses}/6{hard_mode_star}\n\n' + '\n'.join(pretty_print(s) for s in scores)
+  return (f'{name} {i} {num_guesses}/6{hard_mode_star}\n\n' +
+          '\n'.join(pretty_print(s) for s in scores))
 
 
 def primel_snippet(scores, i='?'):
   num_guesses = len(scores)
-  return f'Primel {i} {num_guesses}/6\n\n' + '\n'.join(pretty_print(s) for s in scores)
+  return (f'Primel {i} {num_guesses}/6\n\n' +
+          '\n'.join(pretty_print(s) for s in scores))
 
 
 def absurdle_snippet(scores, i='?'):
   num_guesses = len(scores)
-  return f'Absurdle {num_guesses}/∞\n\n' + '\n'.join(pretty_print(s) for s in scores)
+  return (f'Absurdle {num_guesses}/∞\n\n' +
+          '\n'.join(pretty_print(s) for s in scores))
 
 
 def nerdle_snippet(scores, size=8):
@@ -520,10 +525,14 @@ QUORDLE_NAMES = ["Wordle", "Dordle", "Thrordle", "Quordle", "Quintordle",
 QUORDLE_COLUMNS = [1, 2, 3, 2, 3, 3, 4, 4, 3, 5]
 
 
-def quordle_snippet(scores, i='?'):
+def quordle_snippet(scores, targets, i='?'):
   num_guesses = len(scores)
   multiplex = len(scores[0])
   name = QUORDLE_NAMES[multiplex - 1]
+  if i == '?':
+    name = f'Practice {name}'
+  else:
+    name = f'Daily {name} #{i}'
   solved_at = [None] * multiplex
   for i, s in enumerate(scores):
     for j, subscore in enumerate(s):
@@ -532,15 +541,27 @@ def quordle_snippet(scores, i='?'):
   columns = QUORDLE_COLUMNS[multiplex - 1]
   sliced_scores = []
   sliced_solved_at = []
+  sliced_targets = []
   for i in range(0, multiplex, columns):
     sliced_scores.append(tuple(s[i:i + columns] for s in scores))
     sliced_solved_at.append(solved_at[i:i + columns])
+    sliced_targets.append(targets[i:i + columns])
+  if i == '?':
+    meta_score_block = '\n'.join(
+        ''.join(solved_at_slice) + ' ' + ' - '.join(target_slice)
+        for solved_at_slice, target_slice in zip(sliced_solved_at, sliced_targets))
+  else:
+    meta_score_block = '\n'.join(
+        ''.join(solved_at_slice)
+        for solved_at_slice in sliced_solved_at)
   return (f'{name}\n' +
-          '\n'.join(''.join(solved_at_slice) for solved_at_slice in sliced_solved_at) +
-          '\n\n' +
-          '\n\n'.join('\n'.join(pretty_print(s, print_method=PRETTY_PRINT_QUORDLE)
-                                for s in score_slice if s != ((Score.NO_SCORE,) * WORD_LENGTH,) * columns)
-                      for score_slice in sliced_scores))
+          meta_score_block +
+          '\nquordle.com\n' +
+          '\n\n'.join('\n'.join(
+              pretty_print(s, print_method=PRETTY_PRINT_QUORDLE)
+              for s in score_slice
+              if s != ((Score.NO_SCORE,) * WORD_LENGTH,) * columns)
+              for score_slice in sliced_scores))
 
 
 def transpose_scores(score_lists):
@@ -553,7 +574,7 @@ def transpose_scores(score_lists):
   return transposed
 
 
-@dataclasses.dataclass
+@ dataclasses.dataclass
 class GameSummary:
   """Class for summarizing a single game of Wordle."""
   game_type: str = "Wordle"
@@ -658,8 +679,8 @@ def explore(guesses):
     all_scores.update(v.keys())
   print(f'\nTotal scores to consider:', len(all_scores))
   cum_probs = [0] * len(guesses)
-  print(
-      'bucket, [probability], [cum probability], [second guesses], [worst_buckets]')
+  print('bucket, [probability], [cum probability],',
+        '[second guesses], [worst_buckets]')
   for score in sorted(all_scores):
     probs = [score_buckets_per_guess[g][score] for g in guesses]
     b = pretty_print((score,))
@@ -674,7 +695,7 @@ def explore(guesses):
         second_guess, worst_bucket = None, 0
       else:
         second_guess, worst_bucket = conservative_restricted_choice([g], [
-                                                                    (score,)])
+            (score,)])
       worst_buckets.append(worst_bucket)
       second_guesses.append(second_guess)
     print(f'"{b}", {probs}, {cum_probs}, {second_guesses}, {worst_buckets}')
@@ -698,7 +719,8 @@ def solve_everything():
   dump_cache()
 
 
-def solve_everything2(targets=None, prev_guesses=None, prev_scores=None, prev_bucket_sizes=None):
+def solve_everything2(targets=None, prev_guesses=None, prev_scores=None,
+                      prev_bucket_sizes=None):
   if targets is None:
     targets = LEGAL_TARGETS
     print("guess 1, score 1, remaining target count 1, ..., guess n (target)")
