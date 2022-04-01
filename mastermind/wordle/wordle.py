@@ -403,7 +403,7 @@ def absurdle_score(guesses, scores):
   return score
 
 
-def play(targets, guesser=user_choice, scorer=auto_scorer, absurdle=False):
+def play(targets, guesser=user_choice, scorer=auto_scorer, absurdle=False, target_index='?'):
   guesses = []
   scores = []
   legal_guesses = LEGAL_GUESSES
@@ -437,16 +437,15 @@ def play(targets, guesser=user_choice, scorer=auto_scorer, absurdle=False):
   if absurdle:
     print(absurdle_snippet(scores))
   elif MULTIPLEX > 1:
-    print(quordle_snippet(scores))
+    print(quordle_snippet(scores, target_index))
   elif DICTIONARY == 'primel':
-    print(primel_snippet(scores, LEGAL_TARGETS.index(targets[0])))
+    print(primel_snippet(scores, target_index))
   elif DICTIONARY == 'wordlewordle':
-    print(wordle_snippet(scores, LEGAL_TARGETS.index(
-        targets[0]), name='WordleWordle'))
+    print(wordle_snippet(scores, target_index, name='WordleWordle'))
   elif DICTIONARY[:6] == 'nerdle':
     print(nerdle_snippet(scores, size=int(DICTIONARY[6:])))
   else:
-    print(wordle_snippet(scores, LEGAL_TARGETS.index(targets[0])))
+    print(wordle_snippet(scores, target_index))
   print()
   print('\t'.join(['guesses:'] + guesses))
   print('\n')
@@ -861,6 +860,7 @@ def main():
   guesser, scorer = None, None
   targets = []
   absurdle = False
+  target_index = '?'
   global HARD_MODE
   global DICTIONARY
   global MULTIPLEX
@@ -912,13 +912,17 @@ def main():
       continue
 
     if arg.isnumeric():
+      target_index = int(arg)
       if MULTIPLEX == 1:
-        targets = [wordle_target(int(arg))]
+        targets = [wordle_target(target_index)]
       else:
-        targets = quordle_future.select_words(int(arg), MULTIPLEX)
+        targets = quordle_future.select_words(target_index, MULTIPLEX)
     elif arg.upper() in LEGAL_TARGETS:
-      print("Adding target from command line:", arg.upper())
-      targets.append(arg.upper())
+      target = arg.upper()
+      print("Adding target from command line:", target)
+      targets.append(target)
+      if MULTIPLEX == 1:
+        target_index = LEGAL_TARGETS.index(target)
     elif arg == '-r':
       targets = [random_target() for _ in range(MULTIPLEX)]
     elif arg == '-s':  # absurdle
@@ -932,7 +936,7 @@ def main():
       print('You must specify one of [-m|-a] before selecting a target.')
       continue
   play(targets=tuple(targets), guesser=guesser,
-       scorer=scorer, absurdle=absurdle)
+       scorer=scorer, absurdle=absurdle, target_index=target_index)
 
   # test_mode()
   # ai_guesser()
