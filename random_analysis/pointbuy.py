@@ -15,7 +15,7 @@ def stat_3d6():
 
 
 def stat_4d6_drop_lowest():
-  return mktuple((die(6) for _ in range(4))).map(lambda t: sum(sorted(t)[1:]))
+  return cartesian_product((die(6) for _ in range(4))).map(lambda t: sum(sorted(t)[1:]))
 
 
 # Methods for generating arrays of ability scores:
@@ -25,7 +25,7 @@ def stat_array_standard():
 
 
 def stat_array(stat_generate_f, sort=True):
-  stats = [mktuple((stat_generate_f(),)) for _ in range(6)]
+  stats = [cartesian_product((stat_generate_f(),)) for _ in range(6)]
   if sort:
     def combine_op(a, b): return tuple(sorted(a + b, reverse=True))
   else:
@@ -34,7 +34,7 @@ def stat_array(stat_generate_f, sort=True):
 
 
 def stat_array_3up3down():
-  return mktuple([die(6), die(8), die(10)]).map(lambda d: tuple(sorted([
+  return cartesian_product([die(6), die(8), die(10)]).map(lambda d: tuple(sorted([
       10 + d[0], 15 - d[0], 10 + d[1], 15 - d[1], 8 + d[2], 17 - d[2]])))
 
 
@@ -53,12 +53,12 @@ def stat_array_pool(d6s):
 def stat_array_24d6_drop_lowest6_pool():
   result = constant(())
   for _ in range(24 - 6):
-    result = (result + mktuple([die(6)])).map(lambda a: tuple(sorted(a)))
+    result = (result + cartesian_product([die(6)])).map(lambda a: tuple(sorted(a)))
     print("working on expensive distribution 24d6 drop lowest 6:",
           _, len(result._dist), result.max())
     # print result
   for _ in range(6):
-    result = (result + mktuple([die(6)])
+    result = (result + cartesian_product([die(6)])
               ).map(lambda a: tuple(sorted(a)[6 - 24:]))
     print("working on expensive distribution 24d6 drop lowest 6:",
           _ + 24 - 6, len(result._dist), result.max())

@@ -21,10 +21,11 @@ class Distribution:
 
   HISTOGRAM_WIDTH = 50
 
-  def __str__(self):
+  def __str__(self, max_p=None):
     if not self._dist:
       return "Distribution()"
-    max_p = max(self._dist.values())
+    if max_p is None:
+      max_p = max(self._dist.values())
     return "Distribution(\n\t%s\n)" % ("\n\t".join(
         "%s:\t%0.4f - [%s]" % (x, px, "*" *
                                int(Distribution.HISTOGRAM_WIDTH * px / max_p))
@@ -160,7 +161,7 @@ def constant(x):
   return Distribution({x: 1})
 
 
-def mktuple(dists):
+def cartesian_product(dists):
   return sum((d.map(lambda x: (x,)) for d in dists), ())
 
 
@@ -224,10 +225,3 @@ assert Distribution.equivalent(
 
 def summarize(d):
   print(d, "mean:", float(d.ev()), "stddev:", d.stddev())
-
-
-def product(distributions):
-  return functools.reduce(
-      operator.__add__,
-      map(lambda d: d.map(lambda x: (x,)),
-          distributions))

@@ -40,8 +40,10 @@ STAT_WEIGHTS_BY_CLASS = {
     "Wizard": (0, 3, 3, 6, 2, 0),
 }
 
-RACIAL_BONUS_INDICES = distribution.product(
-    [distribution.die(6), distribution.die(6), distribution.die(6)]).filter(lambda x: x[0] != x[1])
+RACIAL_BONUS_INDICES = distribution.cartesian_product(
+    [distribution.die(6),
+     # distribution.die(6),
+     distribution.die(6)]).filter(lambda x: x[0] != x[1])
 print(RACIAL_BONUS_INDICES)
 
 
@@ -49,11 +51,11 @@ def pick_racials(stats, weights):
   best_stats = None
   best_score = -100
   for bonuses, _ in RACIAL_BONUS_INDICES.items():
-    plus_two, plus_one, feat_plus_one = bonuses
     stats_after_racials = list(stats)
-    stats_after_racials[plus_two - 1] += 2
-    stats_after_racials[plus_one - 1] += 1
-    stats_after_racials[feat_plus_one - 1] += 1
+    stats_after_racials[bonuses[0] - 1] += 2
+    stats_after_racials[bonuses[1] - 1] += 1
+    if len(bonuses) >= 3:
+      stats_after_racials[bonuses[2] - 1] += 1
     stats_after_racials = tuple(stats_after_racials)
     score = score_array(stats_after_racials, weights)
     best_score, best_stats = max(
@@ -99,10 +101,7 @@ def assign_percentile(value, bucket_boundaries):
       return i
   return len(bucket_boundaries)
 
-
-print("\n16 random pointbuy-legal statlines:")
-for stats in sample(pointbuy_legal, 16):
-  print(stats)
+def evaluate(stats):
   evaluation = []
   for c, weights in STAT_WEIGHTS_BY_CLASS.items():
     post_racials = pick_racials(stats, weights)
@@ -110,5 +109,19 @@ for stats in sample(pointbuy_legal, 16):
     evaluation.append((assign_percentile(score, BUCKET_BOUNDARIES_BY_CLASS[c]),
                        c, post_racials))
   evaluation.sort(reverse=True)
-  for e in evaluation:
+  return evaluation
+
+print("\n16 random pointbuy-legal statlines:")
+for stats in sample(pointbuy_legal, 16):
+  print(stats)
+  for e in evaluate(stats):
     print("\t", e)
+
+best_class_count = collections.Counter()
+worst_class_count = collections.Counter()
+for stats,p in pointbuy_legal.items():
+  e = evaluate(stats)
+  best_class_count[e[0][1]] += 1
+  worst_class_count[e[-1][1]] += 1
+print("Class representation (best):", best_class_count)
+print("Class representation (worst):", worst_class_count)
