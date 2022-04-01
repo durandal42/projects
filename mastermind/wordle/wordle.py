@@ -10,6 +10,7 @@ import enum
 import math
 
 import guess_cache
+import quordle_future
 
 MULTIPLEX = 1
 WORD_LENGTH = 5
@@ -54,7 +55,8 @@ def load_words():
   legal_guesses = [word.strip().upper() for word in open(guess_file)]  # [:10]
   num_targets = len(LEGAL_TARGETS)
   num_guesses = len(legal_guesses)
-  print(f'finished loading {num_targets} legal targets and {num_guesses} additional legal guesses.')
+  print(f'finished loading {num_targets} legal targets',
+        f'and {num_guesses} additional legal guesses.')
   LEGAL_GUESSES = sorted(set(LEGAL_TARGETS + legal_guesses))
 
   for word in LEGAL_GUESSES:
@@ -100,9 +102,10 @@ def auto_score_one_word(guess, target):
 def user_scorer(word, target):
   # we don't know what the target is, but we want the same interface as
   # auto_scorer.
-  score = parse_score_string(input(f'score {word}, please: ').strip())
+  input_string = input(f'score {word}, please: ')
+  score = parse_score_string(input_string.strip())
   # "delete" the previous line, so we can pretty-print over it.
-  print("\033[A                                                          \033[A")
+  print("\033[A" + " " * len(input_string) + "\033[A")
   return score
 
 
@@ -214,14 +217,15 @@ def user_choice(prev_guesses=None, prev_scores=None):
       pretty_score = pretty_print(score)
       print(f'{guess}: {pretty_score}')
     wordle_keyboard(prev_guesses, prev_scores)
-  remaining_targets = restrict_many(LEGAL_TARGETS, prev_guesses, prev_scores)
-  print("Remaining targets:", len(remaining_targets))
-  if len(remaining_targets) < 20:
-    print(remaining_targets)
+  remaining_targets = restrict_multiplex(
+      [LEGAL_TARGETS], prev_guesses, prev_scores)
+  print("Remaining targets:", len(remaining_targets[0]))
+  if len(remaining_targets[0]) < 20:
+    print(remaining_targets[0])
   response = input('next guess: ').strip().upper()
   if response == '?':
     return conservative_restricted_choice(prev_guesses, prev_scores)
-  return response
+  return response, None
 
 
 def random_choice(prev_guesses=None, prev_scores=None, guess_domain=None):
@@ -229,7 +233,7 @@ def random_choice(prev_guesses=None, prev_scores=None, guess_domain=None):
     guess_domain = LEGAL_TARGETS
   guess = random.choice(guess_domain)
   print(guess, '(randomly chosen)')
-  return guess
+  return guess, None
 
 
 def restrict_one(targets, prev_guess, prev_score):
@@ -517,7 +521,7 @@ QUORDLE_NAMES = ["Wordle", "Dordle", "Thrordle", "Quordle", "Quintordle",
 QUORDLE_COLUMNS = [1, 2, 3, 2, 3, 3, 4, 4, 3, 5]
 
 
-def quordle_snippet(scores):
+def quordle_snippet(scores, i='?'):
   num_guesses = len(scores)
   multiplex = len(scores[0])
   name = QUORDLE_NAMES[multiplex - 1]
@@ -597,7 +601,7 @@ def wordle_keyboard(guesses, scores):
   alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
   alphamap = collections.defaultdict(int)
 
-  for guess, score in zip(guesses, scores):
+  for guess, score in zip(guesses, scores[0]):
     for g, s in zip(guess, score):
       if s == Score.NO_MATCH:
         alphamap[g] = max(alphamap[g], ABSENT)
@@ -908,7 +912,10 @@ def main():
       continue
 
     if arg.isnumeric():
-      targets.append(wordle_target(int(arg)))
+      if MULTIPLEX == 1:
+        targets = [wordle_target(int(arg))]
+      else:
+        targets = quordle_future.select_words(int(arg), MULTIPLEX)
     elif arg.upper() in LEGAL_TARGETS:
       print("Adding target from command line:", arg.upper())
       targets.append(arg.upper())
