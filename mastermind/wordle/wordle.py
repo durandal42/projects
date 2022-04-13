@@ -532,7 +532,7 @@ def quordle_snippet(scores, targets, i='?'):
   if i == '?':
     name = f'Practice {name}'
   else:
-    name = f'Daily {name} #{i}'
+    name = f'Daily {name} {i}'
   solved_at = [None] * multiplex
   for i, s in enumerate(scores):
     for j, subscore in enumerate(s):
