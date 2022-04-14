@@ -1,46 +1,19 @@
 import random
 
-dates_by_index = {
-    67: "2022/04/01",
-    66: "2022/03/31",
-    65: "2022/03/30",
-    64: "2022/03/29",
-    63: "2022/03/28",
-    62: "2022/03/27",
-    61: "2022/03/26",
-    60: "2022/03/25",
-    59: "2022/03/24",
-    58: "2022/03/23",
-    57: "2022/03/22",
-    56: "2022/03/21",
-    55: "2022/03/20",
-    54: "2022/03/19",
-    53: "2022/03/18",
-    52: "2022/03/17",
-    51: "2022/03/16",
-    50: "2022/03/15",
-    49: "2022/03/14",
-    48: "2022/03/13",
-    47: "2022/03/12",
-    46: "2022/03/11",
-    45: "2022/03/10",
-    44: "2022/03/09",
-    43: "2022/03/08",
-    42: "2022/03/07",
-    41: "2022/03/06",
-    40: "2022/03/05",
-    39: "2022/03/04",
-    38: "2022/03/03",
-    37: "2022/03/02",
-    36: "2022/03/01",
-    35: "2022/02/28",
-    34: "2022/02/27",
-    33: "2022/02/26",
-    32: "2022/02/25",
-    31: "2022/02/24",
-}
-
 solutions_by_index = {
+    80: ("TREND", "DEATH", "LOWLY", "LUSTY"),
+    79: ("DRUNK", "HAPPY", "INANE", "MAKER"),
+    78: ("GROWN", "ODDER", "SCAMP", "TACIT"),
+    77: ("QUEER", "BAWDY", "OZONE", "SPUNK"),
+    76: ("LORRY", "TOAST", "CHEST", "SPARK"),
+    75: ("SULLY", "ICILY", "UNCLE", "INTER"),
+    74: ("REBUT", "KNOCK", "TONAL", "SKULL"),
+    73: ("GRIME", "BLOOD", "DEMUR", "NIECE"),
+    72: ("APHID", "HOLLY", "DEATH", "BLEED"),
+    71: ("BRUSH", "ACORN", "IRONY", "JOINT"),
+    70: ("PITHY", "SHYLY", "TRACK", "HUMAN"),
+    69: ("SPLIT", "POKER", "PARTY", "REALM"),
+    68: ("THORN", "ANNOY", "PUFFY", "JAZZY"),
     67: ("MAUVE", "MINOR", "HANDY", "GOUGE"),
     66: ("BISON", "DECRY", "RIVET", "FAIRY"),
     65: ("MERIT", "TRUST", "TAROT", "GOOSE"),
@@ -78,6 +51,18 @@ solutions_by_index = {
     33: ("PEARL", "TOUGH", "BELLE", "JUNTO"),  # predates badword filter!
     32: ("VIXEN", "SHREW", "ALIGN", "QUILL"),
     31: ("BOAST", "MIGHT", "STILT", "FLIER"),
+    30: ("TROVE", "CAPER", "SHOUT", "BEADY"),
+    29: ("JOINT", "SCOLD", "GORGE", "CAPUT"),
+    28: ("FILER", "CADET", "BEGIN", "ROBOT"),
+    27: ("ACRID", "QUITE", "GOING", "SEPIA"),
+    26: ("QUOTH", "DOGMA", "SCOLD", "STINK"),
+    25: ("SPICE", "CLUMP", "KHAKI", "SWINE"),
+    24: ("PLUMB", "GLEAN", "VALID", "IMPLY"),
+    23: ("BRAVE", "CLOSE", "FLAIL", "PRUDE"),
+    22: ("GAVEL", "FRAME", "LIVID", "TRICK"),
+    21: ("FAVOR", "WORRY", "BATHE", "BANAL"),
+    20: ("HORSE", "TOWER", "HUNKY", "CLEAN"),
+    19: ("DANCE", "RIDGE", "FAULT", "FEMME"),
 }
 
 
@@ -198,7 +183,10 @@ def select_words(seed, n, badwords=None):
 def test_vs_observed():
   for i, s in solutions_by_index.items():
     calculated = select_words(i, 4)
-    print(f"Calculated: {calculated}, Actual: {s}, Match: {calculated==s}")
+    print(f"#{i}: Calculated: {calculated}, Actual: {s}, Match: {calculated==s}")
+  for i in range(min(solutions_by_index.keys()) - 1, -1, -1):
+    calculated = select_words(i, 4)
+    print(f"#{i}: Calculated: {calculated}, Actual: ???")
 
 
 if __name__ == '__main__':
