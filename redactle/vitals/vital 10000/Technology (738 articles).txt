@@ -1,654 +1,654 @@
- Agricultural science
- Aquaculture
- Beekeeping
- Dairy
- Extensive farming
- Gardening
- Intensive farming
- Orchard
- Organic farming
- Sustainable agriculture
- Subsistence agriculture
- Urban agriculture
- Farm
- Barn
- Stable
- Silo
- Granary
- Selective breeding
- Breed
- Livestock
- Hay
- Agronomy
- Horticulture
- Plant breeding
- Cultivar
- Harvest
-  Irrigation
- Pesticide
- Tillage
- Genetically modified organism
- Cybernetics
- Cloning
- Gel electrophoresis
-  Polymerase chain reaction
+Agricultural science
+Aquaculture
+Beekeeping
+Dairy
+Extensive farming
+Gardening
+Intensive farming
+Orchard
+Organic farming
+Sustainable agriculture
+Subsistence agriculture
+Urban agriculture
+Farm
+Barn
+Stable
+Silo
+Granary
+Selective breeding
+Breed
+Livestock
+Hay
+Agronomy
+Horticulture
+Plant breeding
+Cultivar
+Harvest
+Irrigation
+Pesticide
+Tillage
+Genetically modified organism
+Cybernetics
+Cloning
+Gel electrophoresis
+Polymerase chain reaction
 For topics in theoretical computer science, see Mathematics: Discrete mathematics
 
- Computing
- Information technology
- Abacus
- Calculator
-  Computer security
-  Malware
- Data
- Data communication
- Computer architecture
- Computer simulation
- Parallel computing
- Computer hardware
- Booting
-  Central processing unit
- ENIAC
-   Computer program
- Database
- Open-source software
- Software
- Spreadsheet
- Web browser
- Word processor
- Operating system
- Android
-  iOS
-   Linux
- Macintosh operating systems
-  Microsoft Windows
- MS-DOS
- Unix
- User interface
- Keyboard technology
- Computer monitor
- Touchscreen
- Authentication
- Encryption
- Computer file
- File system
- Barcode
- Data storage
- Hard disk drive
- Magnetic tape
- Memory card
- Optical disc
- Punched card
- Random-access memory
- Read-only memory
- Computer network
- Email
-  Ethernet
- Router
- Wi-Fi
- HTML
- Hypertext Transfer Protocol
- Internet protocol suite
- Search engine
- Website
-  World Wide Web
- Computer programming
- Character encoding
- Compiler
-  Programming language
-  Assembly language
-  C
- JavaScript
- Programming paradigm
-  Functional programming
- Structured programming
- Object-oriented programming
- Consumer electronics
- Sensor
- Signal processing
- Signal-to-noise ratio
- Circuit design
- Oscilloscope
- Remote control
- Transistor
- Diode
- Light-emitting diode
-  Amplifier
- Antenna
- Capacitor
- Cavity magnetron
- Electrical connector
- Filter
- Inductor
- Power supply
- Printed circuit board
- Resistor
- Switch
- Circuit breaker
- Fuse
- Relay
-  Transformer
- Vacuum tube
- Waveguide
- Wire
- Nanotechnology
- Nuclear technology
- Technical drawing
-  Aerospace engineering
- Architectural engineering
- Automotive engineering
- Biomedical engineering
- Chemical engineering
-  Electrical engineering
- Industrial engineering
- Military engineering
- Software engineering
+Computing
+Information technology
+Abacus
+Calculator
+Computer security
+Malware
+Data
+Data communication
+Computer architecture
+Computer simulation
+Parallel computing
+Computer hardware
+Booting
+Central processing unit
+ENIAC
+Computer program
+Database
+Open-source software
+Software
+Spreadsheet
+Web browser
+Word processor
+Operating system
+Android
+iOS
+Linux
+Macintosh operating systems
+Microsoft Windows
+MS-DOS
+Unix
+User interface
+Keyboard technology
+Computer monitor
+Touchscreen
+Authentication
+Encryption
+Computer file
+File system
+Barcode
+Data storage
+Hard disk drive
+Magnetic tape
+Memory card
+Optical disc
+Punched card
+Random-access memory
+Read-only memory
+Computer network
+Email
+Ethernet
+Router
+Wi-Fi
+HTML
+Hypertext Transfer Protocol
+Internet protocol suite
+Search engine
+Website
+World Wide Web
+Computer programming
+Character encoding
+Compiler
+Programming language
+Assembly language
+C
+JavaScript
+Programming paradigm
+Functional programming
+Structured programming
+Object-oriented programming
+Consumer electronics
+Sensor
+Signal processing
+Signal-to-noise ratio
+Circuit design
+Oscilloscope
+Remote control
+Transistor
+Diode
+Light-emitting diode
+Amplifier
+Antenna
+Capacitor
+Cavity magnetron
+Electrical connector
+Filter
+Inductor
+Power supply
+Printed circuit board
+Resistor
+Switch
+Circuit breaker
+Fuse
+Relay
+Transformer
+Vacuum tube
+Waveguide
+Wire
+Nanotechnology
+Nuclear technology
+Technical drawing
+Aerospace engineering
+Architectural engineering
+Automotive engineering
+Biomedical engineering
+Chemical engineering
+Electrical engineering
+Industrial engineering
+Military engineering
+Software engineering
 See also: "Industry" in Business and economics
 
- Factory
- Assembly line
- Automation
- Industrial robot
- Interchangeable parts
- Mass production
- Mechanization
- Standardization
- Waste
-  Landfill
- Recycling
- Waste management
- Candle
- Fuel
- Biofuel
- Charcoal
- Gasoline
- Kerosene
-  Oil refinery
- Oil well
- Geothermal power
- Hydroelectricity
- Watermill
-  Solar power
-  Solar cell
-  Windmill
+Factory
+Assembly line
+Automation
+Industrial robot
+Interchangeable parts
+Mass production
+Mechanization
+Standardization
+Waste
+Landfill
+Recycling
+Waste management
+Candle
+Fuel
+Biofuel
+Charcoal
+Gasoline
+Kerosene
+Oil refinery
+Oil well
+Geothermal power
+Hydroelectricity
+Watermill
+Solar power
+Solar cell
+Windmill
 See also: Electromagnetism and Electromagnetism
 
- Incandescent light bulb
- Electric power transmission
- Electric power distribution
- Electrical grid
- Electric generator
- Electricity generation
- Electrification
- Power station
- Turbine
- Gas turbine
- Steam turbine
- Wind turbine
- Cooling tower
- Bleach
- Desalination
- Detergent
- Laundry
- Pasteurization
- Sanitary sewer
- Sewage treatment
- Water purification
- Soap
- Water supply network
- Aqueduct
- Plumbing
- Qanat
- Pumping station
- Water tower
- Well
- Abrasive
- Adhesive
- Ceramic
- Chemical plant
- Composite material
- Dynamite
- Fireworks
- Parchment
- Papyrus
- Petrochemical
- Porcelain
- Woodworking
- Carpentry
- Smelting
- Metalworking
- Die casting
- Extrusion
- Forging
- Heat treating
- Laser cutting
- Rolling
- Soldering
- Steelmaking
- Welding
+Incandescent light bulb
+Electric power transmission
+Electric power distribution
+Electrical grid
+Electric generator
+Electricity generation
+Electrification
+Power station
+Turbine
+Gas turbine
+Steam turbine
+Wind turbine
+Cooling tower
+Bleach
+Desalination
+Detergent
+Laundry
+Pasteurization
+Sanitary sewer
+Sewage treatment
+Water purification
+Soap
+Water supply network
+Aqueduct
+Plumbing
+Qanat
+Pumping station
+Water tower
+Well
+Abrasive
+Adhesive
+Ceramic
+Chemical plant
+Composite material
+Dynamite
+Fireworks
+Parchment
+Papyrus
+Petrochemical
+Porcelain
+Woodworking
+Carpentry
+Smelting
+Metalworking
+Die casting
+Extrusion
+Forging
+Heat treating
+Laser cutting
+Rolling
+Soldering
+Steelmaking
+Welding
 See also Arts: Architecture
 
- Building
- Brick
- Quarry
- Cement
- Lumber
- Scaffolding
- Arch
- Ceiling
- Column
- Dome
- Door
- Elevator
- Façade
- Floor
- Foundation
- Ladder
- Lighting
- Roof
- Room
- Stairs
- Wall
- Window
- Dock
- Harbor
- Lighthouse
- Pier
- Port
- Pagoda
- Pyramid
- Office
- Warehouse
- Tower
- Tower block
- Skyscraper
- House
- Apartment
- Hut
-  Igloo
- Palace
- Tent
- Villa
- Hotel
- Bathroom
- Bedroom
- Garage
-  Kitchen
- Sauna
- Electrical wiring
- Heating, ventilation, and air conditioning
-  Aswan Dam
- Hoover Dam
- Itaipu Dam
- Three Gorges Dam
- Drainage
- Flood control
- Flood control in the Netherlands
- Levee
- Reservoir
- Akashi Kaikyo Bridge
- Brooklyn Bridge
-  Golden Gate Bridge
- London Bridge
- Tunnel
-  Channel Tunnel
- Machine
- Diesel engine
- Four-stroke engine
-  Robot
- Inclined plane
- Lever
- Pulley
- Wedge
- Wheel and axle
- Siphon
-  System
- Axle
- Bearing
- Clutch
- Gear
- Electrical cable
- Chain
- Rope
- Fastener
- Knot
- Rivet
- Washer
- Lock and key
- Pipe
- Gasket
- Valve
- Container
- Measuring instrument
- Barometer
- Calipers
- Photometer
- Ruler
- Spectrometer
- Thermometer
- Ink
- Modelling clay
- Paint
- Brush
- Pastel
- Pencil
-  Pigment
- Pen
- Axe
- Chisel
- Clamp
- Drilling
- Hammer
- Saw
- Scissors
- Archimedes' screw
- Machete
- Plough
- Sickle
- Shovel
- Wheelbarrow
- Chainsaw
- Combine harvester
- Cotton gin
- Cultivator
- Irrigation sprinkler
- Lawn mower
- Home appliance
- Air conditioning
- Clothes dryer
- Dishwasher
- Ironing
- Microwave oven
- Oven
- Refrigerator
- Sewing machine
- Sink
- Toilet
- Vacuum cleaner
-  Washing machine
- Centrifuge
- Lathe
- Loom
- Machine press
- Potter's wheel
+Building
+Brick
+Quarry
+Cement
+Lumber
+Scaffolding
+Arch
+Ceiling
+Column
+Dome
+Door
+Elevator
+Façade
+Floor
+Foundation
+Ladder
+Lighting
+Roof
+Room
+Stairs
+Wall
+Window
+Dock
+Harbor
+Lighthouse
+Pier
+Port
+Pagoda
+Pyramid
+Office
+Warehouse
+Tower
+Tower block
+Skyscraper
+House
+Apartment
+Hut
+Igloo
+Palace
+Tent
+Villa
+Hotel
+Bathroom
+Bedroom
+Garage
+Kitchen
+Sauna
+Electrical wiring
+Heating, ventilation, and air conditioning
+Aswan Dam
+Hoover Dam
+Itaipu Dam
+Three Gorges Dam
+Drainage
+Flood control
+Flood control in the Netherlands
+Levee
+Reservoir
+Akashi Kaikyo Bridge
+Brooklyn Bridge
+Golden Gate Bridge
+London Bridge
+Tunnel
+Channel Tunnel
+Machine
+Diesel engine
+Four-stroke engine
+Robot
+Inclined plane
+Lever
+Pulley
+Wedge
+Wheel and axle
+Siphon
+System
+Axle
+Bearing
+Clutch
+Gear
+Electrical cable
+Chain
+Rope
+Fastener
+Knot
+Rivet
+Washer
+Lock and key
+Pipe
+Gasket
+Valve
+Container
+Measuring instrument
+Barometer
+Calipers
+Photometer
+Ruler
+Spectrometer
+Thermometer
+Ink
+Modelling clay
+Paint
+Brush
+Pastel
+Pencil
+Pigment
+Pen
+Axe
+Chisel
+Clamp
+Drilling
+Hammer
+Saw
+Scissors
+Archimedes' screw
+Machete
+Plough
+Sickle
+Shovel
+Wheelbarrow
+Chainsaw
+Combine harvester
+Cotton gin
+Cultivator
+Irrigation sprinkler
+Lawn mower
+Home appliance
+Air conditioning
+Clothes dryer
+Dishwasher
+Ironing
+Microwave oven
+Oven
+Refrigerator
+Sewing machine
+Sink
+Toilet
+Vacuum cleaner
+Washing machine
+Centrifuge
+Lathe
+Loom
+Machine press
+Potter's wheel
 See also Arts: Literature; Society: Mass media; and Technology: Computing and information technology
 
-  Cathode-ray tube
- Communications satellite
- Flat-panel display
- Liquid-crystal display
- Image
- Image scanner
- Courier
- Postage stamp
- Smartphone
- Photocopier
- Printer
- Printing press
-  Amateur radio
- Radio broadcasting
- Social media
- Sound recording and reproduction
- Loudspeaker
- Microphone
-  Speech synthesis
- Modulation
- Telegraphy
- Cable television
- Satellite television
- Text messaging
-  Typewriter
- Video camera
- Artificial organ
- Prosthesis
- Wheelchair
- Cardiopulmonary bypass
- Dialysis
- DNA profiling
- Electrocardiography
- Endoscopy
- Ambulance
- Magnetic resonance imaging
- Medical ultrasonography
- Radiography
-  Tank
- Military technology
-  Horses in warfare
- Chariot
- Stealth technology
-  War elephant
- Ammunition
- Bulletproof vest
- Helmet
- Chain mail
- Plate armour
- Shield
- Bomb
- Cluster munition
- Improvised explosive device
- Grenade
- Land mine
- Missile
- Castle
- Defensive wall
- Napalm
- Dagger
- Sword
- Katana
- Rapier
- Battle axe
- Bayonet
- Spear
- Military aircraft
- Attack aircraft
- Bomber
- Fighter aircraft
-  Aircraft carrier
- Battleship
- Galley
- Naval mine
- Ship of the line
-  Submarine
- Torpedo
- Warship
- Boomerang
-  Crossbow
- Rifle
- Assault rifle
- Handgun
- Machine gun
- Musket
- Shotgun
- Sling
- Artillery
- Ballista
- Battering ram
- Cannon
- Catapult
- Mortar
- Weapon of mass destruction
- Biological warfare
- Chemical weapon
- Thermonuclear weapon
+Cathode-ray tube
+Communications satellite
+Flat-panel display
+Liquid-crystal display
+Image
+Image scanner
+Courier
+Postage stamp
+Smartphone
+Photocopier
+Printer
+Printing press
+Amateur radio
+Radio broadcasting
+Social media
+Sound recording and reproduction
+Loudspeaker
+Microphone
+Speech synthesis
+Modulation
+Telegraphy
+Cable television
+Satellite television
+Text messaging
+Typewriter
+Video camera
+Artificial organ
+Prosthesis
+Wheelchair
+Cardiopulmonary bypass
+Dialysis
+DNA profiling
+Electrocardiography
+Endoscopy
+Ambulance
+Magnetic resonance imaging
+Medical ultrasonography
+Radiography
+Tank
+Military technology
+Horses in warfare
+Chariot
+Stealth technology
+War elephant
+Ammunition
+Bulletproof vest
+Helmet
+Chain mail
+Plate armour
+Shield
+Bomb
+Cluster munition
+Improvised explosive device
+Grenade
+Land mine
+Missile
+Castle
+Defensive wall
+Napalm
+Dagger
+Sword
+Katana
+Rapier
+Battle axe
+Bayonet
+Spear
+Military aircraft
+Attack aircraft
+Bomber
+Fighter aircraft
+Aircraft carrier
+Battleship
+Galley
+Naval mine
+Ship of the line
+Submarine
+Torpedo
+Warship
+Boomerang
+Crossbow
+Rifle
+Assault rifle
+Handgun
+Machine gun
+Musket
+Shotgun
+Sling
+Artillery
+Ballista
+Battering ram
+Cannon
+Catapult
+Mortar
+Weapon of mass destruction
+Biological warfare
+Chemical weapon
+Thermonuclear weapon
 
- Chinese calendar
- Gregorian calendar
- Islamic calendar
- Julian calendar
- Leap year
- Watch
- Atomic clock
- Pendulum
- Sundial
- Time zone
-  Daylight saving time
+Chinese calendar
+Gregorian calendar
+Islamic calendar
+Julian calendar
+Leap year
+Watch
+Atomic clock
+Pendulum
+Sundial
+Time zone
+Daylight saving time
 See the Cartography section under Geography for Map.
 
- Cardinal direction
- Celestial navigation
- Sextant
- Dead reckoning
- Gyroscope
- Satellite navigation
- Global Positioning System
- Sonar
- Holography
-  Optical fiber
- Fresnel lens
- Anti-reflective coating
- Diffraction grating
- Mirror
- Polarizer
- Prism
- Electron microscope
- Optical microscope
- Optical telescope
- Radio telescope
- Theodolite
- Digital photography
- Fine-art photography
- Photographic film
-  Glasses
- Binoculars
- Charge-coupled device
- Interferometry
-  Exploration of Mars
- Launch pad
- Launch vehicle
- Rocket engine
-  Astronaut
- Space capsule
- Space probe
+Cardinal direction
+Celestial navigation
+Sextant
+Dead reckoning
+Gyroscope
+Satellite navigation
+Global Positioning System
+Sonar
+Holography
+Optical fiber
+Fresnel lens
+Anti-reflective coating
+Diffraction grating
+Mirror
+Polarizer
+Prism
+Electron microscope
+Optical microscope
+Optical telescope
+Radio telescope
+Theodolite
+Digital photography
+Fine-art photography
+Photographic film
+Glasses
+Binoculars
+Charge-coupled device
+Interferometry
+Exploration of Mars
+Launch pad
+Launch vehicle
+Rocket engine
+Astronaut
+Space capsule
+Space probe
 
-   NASA
- Apollo program
- Kennedy Space Center
- Voyager program
- Soviet space program
- Baikonur Cosmodrome
- Russian Federal Space Agency
-  European Space Agency
- China National Space Administration
+NASA
+Apollo program
+Kennedy Space Center
+Voyager program
+Soviet space program
+Baikonur Cosmodrome
+Russian Federal Space Agency
+European Space Agency
+China National Space Administration
 
-  International Space Station
-  Mir
- Space Shuttle
-   Saturn V
- Hubble Space Telescope
- Sputnik 1
- Atacama Large Millimeter Array
- Mauna Kea Observatories
- Canvas
- Cotton
- Felt
- Fiber
- Jute
- Lace
- Leather
- Linen
- Silk
- Thread
- Wool
- Yarn
- Basket weaving
- Crochet
- Dyeing
- Dye
- Embroidery
- Hand spinning
-  Knitting
- Macramé
- Quilting
- Sewing
- Tapestry
- Weaving
- Public transport
- Travel
- Freight transport
- Cargo
- Passport
- Vehicle
- Highway
- Controlled-access highway
- Trail
- Cycling
- Bus
-  Motorcycle
- Rickshaw
- Truck
- Taxi
- Van
- Driving
- Parking
- Tire
-  Filling station
- Traffic collision
- Carriage
- Cart
- Saddle
- Railway track
- Train
- Locomotive
- Steam locomotive
- Train station
-  Rapid transit
-  London Underground
- New York City Subway
- High-speed rail
- Shinkansen
- Monorail
- Tram
-  Trans-Siberian Railway
- Aviation
- Air traffic control
- Aircraft engine
- Airline
- Airplane
- Airport
-  Airship
-  Hot air balloon
- Fixed-wing aircraft
- Glider
- Helicopter
- Jet aircraft
- Parachute
- Unmanned aerial vehicle
- Wing
- Barge
- Boat
- Canoe
- Cargo ship
- Ferry
- Fishing vessel
- Hovercraft
- Merchant ship
- Passenger ship
- Riverboat
- Sailing
- Sail
- Sailing ship
- Shipbuilding
- Steamboat
- Tanker
- Cable transport
- Aerial tramway
- Baby transport
- Pipeline transport
- Tractor
- Mouse (computing)
-  Java (programming language)
- Crane (machine)
- Screw (simple machine)
- Nail (fastener)
- Nut (hardware)
- Spring (device)
- Plane (tool)
- Harrow (tool)
- Hoe (tool)
- Rake (tool)
- Furnace (central heating)
- Club (weapon)
+International Space Station
+Mir
+Space Shuttle
+Saturn V
+Hubble Space Telescope
+Sputnik 1
+Atacama Large Millimeter Array
+Mauna Kea Observatories
+Canvas
+Cotton
+Felt
+Fiber
+Jute
+Lace
+Leather
+Linen
+Silk
+Thread
+Wool
+Yarn
+Basket weaving
+Crochet
+Dyeing
+Dye
+Embroidery
+Hand spinning
+Knitting
+Macramé
+Quilting
+Sewing
+Tapestry
+Weaving
+Public transport
+Travel
+Freight transport
+Cargo
+Passport
+Vehicle
+Highway
+Controlled-access highway
+Trail
+Cycling
+Bus
+Motorcycle
+Rickshaw
+Truck
+Taxi
+Van
+Driving
+Parking
+Tire
+Filling station
+Traffic collision
+Carriage
+Cart
+Saddle
+Railway track
+Train
+Locomotive
+Steam locomotive
+Train station
+Rapid transit
+London Underground
+New York City Subway
+High-speed rail
+Shinkansen
+Monorail
+Tram
+Trans-Siberian Railway
+Aviation
+Air traffic control
+Aircraft engine
+Airline
+Airplane
+Airport
+Airship
+Hot air balloon
+Fixed-wing aircraft
+Glider
+Helicopter
+Jet aircraft
+Parachute
+Unmanned aerial vehicle
+Wing
+Barge
+Boat
+Canoe
+Cargo ship
+Ferry
+Fishing vessel
+Hovercraft
+Merchant ship
+Passenger ship
+Riverboat
+Sailing
+Sail
+Sailing ship
+Shipbuilding
+Steamboat
+Tanker
+Cable transport
+Aerial tramway
+Baby transport
+Pipeline transport
+Tractor
+Mouse (computing)
+Java (programming language)
+Crane (machine)
+Screw (simple machine)
+Nail (fastener)
+Nut (hardware)
+Spring (device)
+Plane (tool)
+Harrow (tool)
+Hoe (tool)
+Rake (tool)
+Furnace (central heating)
+Club (weapon)
 
- Soyuz (spacecraft)
- Balloon (aeronautics)
- Lock (water navigation)
+Soyuz (spacecraft)
+Balloon (aeronautics)
+Lock (water navigation)

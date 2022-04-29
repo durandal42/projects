@@ -1,430 +1,430 @@
- Belt (clothing)
- Button
- Cloak
- Coat
- Cosmetics
- Perfume
- Dress
- Skirt
- Glove
- Hairstyle
- Beard
- Moustache
- Wig
- Handbag
- Hat
- Mask
- Nightwear
- Nudity
- Scarf
- Shirt
- Shoe
- Boot
- Suit
- Swimsuit
- Trousers
- Undergarment
-   Bra
- Sock
-  Diaper
- Umbrella
- Uniform
- Veil
- Wallet
- Zipper
- Eating
- Drinking
- Meal
- Breakfast
- Lunch
- Dinner
- Snack
- Dieting
- Vegetarianism
-   Veganism
- Cuisine
- Chinese cuisine
- Fast food
- French cuisine
- Japanese cuisine
- Indian cuisine
-  Italian cuisine
- Mexican cuisine
- Middle Eastern cuisine
- Biscuit
- Breakfast cereal
- Casserole
- Curry
- Dessert
- Cake
- Candy
-  Chocolate
- Dumpling
- Noodle
-  Pasta
- Pastry
- Pie
- Pizza
- Porridge
- Salad
- Sandwich
- Hamburger
- Soup
- Stew
- Sushi
- Baking
- Cooking oil
-  Vegetable oil
- Frying
- Grilling
- Steaming
- Canning
- Fruit preserves
- Pickling
- Brewing
- Bar (establishment)
- Restaurant
- Beef
- Veal
- Lamb and mutton
- Offal
- Pork
-  Bacon
- Ham
- Lard
- Poultry
- Chicken as food
- Sausage
- Seafood
- Fish as food
- Egg as food
- Honey
-  Butter
- Cream
- Margarine
- Ice cream
- Soy milk
-  Tofu
- Yogurt
- Flatbread
- Flour
- Condiment
-  Ketchup
- Mayonnaise
- Mustard (condiment)
- Sauce
- Chutney
- Soy sauce
- Herb
- Vinegar
- Hot chocolate
- Juice
- Soft drink
-  Coca-Cola
-  Beer
- Wine
- Cider
- Cocktail
- Liquor
- Brandy
- Gin
- Liqueur
-  Rum
- Sake
- Tequila
-  Vodka
- Whisky
- Household
- Nuclear family
- Extended family
- Stepfamily
- Kinship
- Affinity
- Clan
- Consanguinity
- Lineage
- Matrilineality
- Patrilineality
- Interpersonal relationship
- Intimate relationship
- Breakup
- Cohabitation
- Concubinage
- Infidelity
- Same-sex relationship
- Arranged marriage
- Civil union
- Courtship
- Dating
- Romance
- Wedding
- Divorce
- Polygamy
- Monogamy
- Bigamy
- Endogamy
- Exogamy
- Childbirth
- Family planning
- Adoption
- Orphan
- Husband
- Wife
- Parent
- Father
- Mother
- Sibling
- Twin
- Grandparent
- Cousin
- Godparent
- Pet
+Belt (clothing)
+Button
+Cloak
+Coat
+Cosmetics
+Perfume
+Dress
+Skirt
+Glove
+Hairstyle
+Beard
+Moustache
+Wig
+Handbag
+Hat
+Mask
+Nightwear
+Nudity
+Scarf
+Shirt
+Shoe
+Boot
+Suit
+Swimsuit
+Trousers
+Undergarment
+Bra
+Sock
+Diaper
+Umbrella
+Uniform
+Veil
+Wallet
+Zipper
+Eating
+Drinking
+Meal
+Breakfast
+Lunch
+Dinner
+Snack
+Dieting
+Vegetarianism
+Veganism
+Cuisine
+Chinese cuisine
+Fast food
+French cuisine
+Japanese cuisine
+Indian cuisine
+Italian cuisine
+Mexican cuisine
+Middle Eastern cuisine
+Biscuit
+Breakfast cereal
+Casserole
+Curry
+Dessert
+Cake
+Candy
+Chocolate
+Dumpling
+Noodle
+Pasta
+Pastry
+Pie
+Pizza
+Porridge
+Salad
+Sandwich
+Hamburger
+Soup
+Stew
+Sushi
+Baking
+Cooking oil
+Vegetable oil
+Frying
+Grilling
+Steaming
+Canning
+Fruit preserves
+Pickling
+Brewing
+Bar (establishment)
+Restaurant
+Beef
+Veal
+Lamb and mutton
+Offal
+Pork
+Bacon
+Ham
+Lard
+Poultry
+Chicken as food
+Sausage
+Seafood
+Fish as food
+Egg as food
+Honey
+Butter
+Cream
+Margarine
+Ice cream
+Soy milk
+Tofu
+Yogurt
+Flatbread
+Flour
+Condiment
+Ketchup
+Mayonnaise
+Mustard (condiment)
+Sauce
+Chutney
+Soy sauce
+Herb
+Vinegar
+Hot chocolate
+Juice
+Soft drink
+Coca-Cola
+Beer
+Wine
+Cider
+Cocktail
+Liquor
+Brandy
+Gin
+Liqueur
+Rum
+Sake
+Tequila
+Vodka
+Whisky
+Household
+Nuclear family
+Extended family
+Stepfamily
+Kinship
+Affinity
+Clan
+Consanguinity
+Lineage
+Matrilineality
+Patrilineality
+Interpersonal relationship
+Intimate relationship
+Breakup
+Cohabitation
+Concubinage
+Infidelity
+Same-sex relationship
+Arranged marriage
+Civil union
+Courtship
+Dating
+Romance
+Wedding
+Divorce
+Polygamy
+Monogamy
+Bigamy
+Endogamy
+Exogamy
+Childbirth
+Family planning
+Adoption
+Orphan
+Husband
+Wife
+Parent
+Father
+Mother
+Sibling
+Twin
+Grandparent
+Cousin
+Godparent
+Pet
 For appliances, see Household appliances
 
- Bathtub
- Bed
- Cabinetry
-  Carpet
- Chair
- Couch
- Fireplace
- Pillow
- Shower
- Table
- Chopsticks
- Cookware and bakeware
- Cutlery
- Fork
- Spoon
- Tableware
- Cup
- Plate
- Transgender
- Intersex
- Heterosexuality
-   Homosexuality
- Bisexuality
- Asexuality
- Human sexual activity
- Foreplay
- Kiss
- Oral sex
- Anal sex
- BDSM
- Incest
- Masturbation
- Orgasm
- Promiscuity
-  Prostitution
- Combined oral contraceptive pill
- Condom
- Fertility
- Sex education
- Age of consent
- Pornography
- Sexual attraction
- Sexual fetishism
- Virginity
- Boy
- Girl
- Preadolescence
- Young adult
- Middle age
+Bathtub
+Bed
+Cabinetry
+Carpet
+Chair
+Couch
+Fireplace
+Pillow
+Shower
+Table
+Chopsticks
+Cookware and bakeware
+Cutlery
+Fork
+Spoon
+Tableware
+Cup
+Plate
+Transgender
+Intersex
+Heterosexuality
+Homosexuality
+Bisexuality
+Asexuality
+Human sexual activity
+Foreplay
+Kiss
+Oral sex
+Anal sex
+BDSM
+Incest
+Masturbation
+Orgasm
+Promiscuity
+Prostitution
+Combined oral contraceptive pill
+Condom
+Fertility
+Sex education
+Age of consent
+Pornography
+Sexual attraction
+Sexual fetishism
+Virginity
+Boy
+Girl
+Preadolescence
+Young adult
+Middle age
 
- Leisure
-  Aquarium
- Beauty pageant
- Collecting
- Karaoke
- Party
- Puzzle
- Crossword
- Jigsaw puzzle
- Maze
- Riddle
- Professional wrestling
- Quiz
- Recreation
- Playground
- Amusement park
- Camping
- Hiking
- Zoo
- Action figure
- Doll
- Barbie
- Frisbee
- Kite
-  Lego
-  Rubik's Cube
- Scale model
- Stuffed toy
- Yo-yo
-  Backgammon
- Chaturanga
-  Chess
- Checkers
-  Go
- Mancala
-  Monopoly
- Pachisi
- Scrabble
- Shogi
-  Xiangqi
- Tarot
-  Blackjack
- Contract bridge
-  Poker
- Casino
-  Dice
- Lottery
- Roulette
- Slot machine
- Video game console
-   Pokémon
- Tetris
- Arcade game
- Dominoes
- Hide-and-seek
- Hopscotch
- Mahjong
- Pinball
- Tag
- Doping in sport
- Extreme sport
- Sports equipment
- Ball
- Women's sports
- Ancient Olympic Games
- Paralympic Games
-  Summer Olympic Games
- Winter Olympic Games
- Asian Games
- Mascot
- Stadium
- American football
- National Football League
-  Super Bowl
- FIFA World Cup
- La Liga
- Premier League
- UEFA Champions League
- Australian rules football
- Bandy
- Baseball
-  Major League Baseball
-  Softball
- Basketball
-  National Basketball Association
- Basque pelota
-  Cricket
- Cricket World Cup
- Curling
- Field hockey
- Handball
- Ice hockey
-   National Hockey League
- Kabaddi
-  Lacrosse
- Netball
- Polo
- Rugby football
- Rugby league
- Rugby sevens
- Rugby union
-  Rugby World Cup
- Sepak takraw
- Tug of war
- Volleyball
- Beach volleyball
- Running
- Track and field
- 100 metres
- Decathlon
- Discus throw
- High jump
- Hurdling
- Javelin throw
- Long jump
- Marathon
- Pole vault
- Shot put
- Walking
- Ice skating
- Figure skating
- Speed skating
- Roller skating
- Skateboarding
- Canoeing
- Diving
-   Rowing
- Underwater diving
- Scuba diving
- Swimming pool
- Water polo
-  Boxing
-  Capoeira
-  Judo
- Jujutsu
- Karate
- Kickboxing
- Mixed martial arts
- Muay Thai
-  Taekwondo
-  Wrestling
- Freestyle wrestling
- Greco-Roman wrestling
-  Sumo
- Wushu
- Angling
- Archery
- Arm wrestling
- Auto racing
-  Formula One
-  Badminton
- Bowling
- Bocce
- Bowls
- Ten-pin bowling
- Bodybuilding
-  Bullfighting
- Croquet
- Cue sports
- Carom billiards
- Pool
- Snooker
- Cycle sport
- Mountain biking
-  Tour de France
- Darts
- Equestrianism
- Horse racing
- Fencing
- Gladiator
-  Golf
-  Gymnastics
- Mountaineering
- Orienteering
- Rock climbing
- Rodeo
- Shooting sports
- Biathlon
- Skiing
- Alpine skiing
- Cross-country skiing
- Ski jumping
- Slalom skiing
- Sled
- Bobsleigh
- Luge
- Snowboarding
- Squash
- Surfing
-  Table tennis
- Tennis
- Olympic weightlifting
- Smoking (cooking)
+Leisure
+Aquarium
+Beauty pageant
+Collecting
+Karaoke
+Party
+Puzzle
+Crossword
+Jigsaw puzzle
+Maze
+Riddle
+Professional wrestling
+Quiz
+Recreation
+Playground
+Amusement park
+Camping
+Hiking
+Zoo
+Action figure
+Doll
+Barbie
+Frisbee
+Kite
+Lego
+Rubik's Cube
+Scale model
+Stuffed toy
+Yo-yo
+Backgammon
+Chaturanga
+Chess
+Checkers
+Go
+Mancala
+Monopoly
+Pachisi
+Scrabble
+Shogi
+Xiangqi
+Tarot
+Blackjack
+Contract bridge
+Poker
+Casino
+Dice
+Lottery
+Roulette
+Slot machine
+Video game console
+Pokémon
+Tetris
+Arcade game
+Dominoes
+Hide-and-seek
+Hopscotch
+Mahjong
+Pinball
+Tag
+Doping in sport
+Extreme sport
+Sports equipment
+Ball
+Women's sports
+Ancient Olympic Games
+Paralympic Games
+Summer Olympic Games
+Winter Olympic Games
+Asian Games
+Mascot
+Stadium
+American football
+National Football League
+Super Bowl
+FIFA World Cup
+La Liga
+Premier League
+UEFA Champions League
+Australian rules football
+Bandy
+Baseball
+Major League Baseball
+Softball
+Basketball
+National Basketball Association
+Basque pelota
+Cricket
+Cricket World Cup
+Curling
+Field hockey
+Handball
+Ice hockey
+National Hockey League
+Kabaddi
+Lacrosse
+Netball
+Polo
+Rugby football
+Rugby league
+Rugby sevens
+Rugby union
+Rugby World Cup
+Sepak takraw
+Tug of war
+Volleyball
+Beach volleyball
+Running
+Track and field
+100 metres
+Decathlon
+Discus throw
+High jump
+Hurdling
+Javelin throw
+Long jump
+Marathon
+Pole vault
+Shot put
+Walking
+Ice skating
+Figure skating
+Speed skating
+Roller skating
+Skateboarding
+Canoeing
+Diving
+Rowing
+Underwater diving
+Scuba diving
+Swimming pool
+Water polo
+Boxing
+Capoeira
+Judo
+Jujutsu
+Karate
+Kickboxing
+Mixed martial arts
+Muay Thai
+Taekwondo
+Wrestling
+Freestyle wrestling
+Greco-Roman wrestling
+Sumo
+Wushu
+Angling
+Archery
+Arm wrestling
+Auto racing
+Formula One
+Badminton
+Bowling
+Bocce
+Bowls
+Ten-pin bowling
+Bodybuilding
+Bullfighting
+Croquet
+Cue sports
+Carom billiards
+Pool
+Snooker
+Cycle sport
+Mountain biking
+Tour de France
+Darts
+Equestrianism
+Horse racing
+Fencing
+Gladiator
+Golf
+Gymnastics
+Mountaineering
+Orienteering
+Rock climbing
+Rodeo
+Shooting sports
+Biathlon
+Skiing
+Alpine skiing
+Cross-country skiing
+Ski jumping
+Slalom skiing
+Sled
+Bobsleigh
+Luge
+Snowboarding
+Squash
+Surfing
+Table tennis
+Tennis
+Olympic weightlifting
+Smoking (cooking)
 
- Marble (toy)
- Sailing (sport)
- Swimming (sport)
+Marble (toy)
+Sailing (sport)
+Swimming (sport)

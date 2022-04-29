@@ -1,1351 +1,1351 @@
- Model organism
- Microbiology
-  Mycology
- Biomechanics
- Genetic code
- Gene expression
- Epigenetics
-  Human genome
- Hybrid (biology)
- Mendelian inheritance
- Adaptation
- Genetic drift
- History of life
- Mutation
- Australopithecus
- Homo habilis
- Homo erectus
-  Early European modern humans
- Denisovan
- Neanderthal
- Paranthropus
- Neuroscience
- Fossil
- Phylogenetics
- Binomial nomenclature
- Domain (biology)
- Kingdom (biology)
- Dissection
- Organ (biology)
- Tissue (biology)
- Sexual dimorphism
- Endocrine system
- Adrenal gland
- Thyroid
- Antibody
- Abdomen
- Head
- Thorax
- Venom
- Artery
- Red blood cell
- White blood cell
- Capillary
- Lymphatic system
- Spleen
- Vein
- Mouth
- Esophagus
- Stomach
- Small intestine
- Large intestine
- Pancreas
- Muscular system
- Muscle cell
- Sarcomere
- Central nervous system
- Peripheral nervous system
- Brainstem
- Cerebellum
- Cerebral cortex
- Cerebrum
- Neuron
- Spinal cord
- Sensory nervous system
- Auditory system
- Hearing
- Taste
- Tongue
- Olfactory system
- Nose
- Sense of smell
- Somatosensory system
- Pain
- Visual system
- Visual perception
- Color vision
- Integumentary system
- Breast
- Feather
- Fingerprint
- Fur
- Hair
-  Reproductive system
- Female reproductive system
- Male reproductive system
- Sex organ
- Clitoris
- Ovary
- Penis
- Placenta
- Testicle
- Uterus
- Vagina
- Respiratory system
- Gill
- Jaw
- Joint
- Pelvis
- Skull
- Vertebral column
- Urinary bladder
- Kidney
- Urinary system
- Connective tissue
- Cartilage
- Tendon
- Epithelium
- Muscle tissue
- Nervous tissue
- Plant anatomy
- Plant morphology
- Berry
- Nut (fruit)
- Leaf
- Root
- Stoma
- Shrub
- Plant stem
- Bark (botany)
- Trunk (botany)
- Epidermis
- Ground tissue
- Meristem
- Vascular tissue
- Vascular cambium
- Hypha
- Mycelium
- Chemical biology
- Biomolecule
- Alkaloid
-  Caffeine
-  Cocaine
- Morphine
- Nicotine
- Biological pigment
- Carotenoid
- Chlorophyll
- Melanin
- Carbohydrate
- Fructose
- Glucose
- Lactose
- Cellulose
- Chitin
- Glycogen
- Starch
- Dopamine
- Adrenaline
- Estrogen
-  Insulin
- Oxytocin
- Plant hormone
- Testosterone
- Lipid
- Cholesterol
- Fat
- Fatty acid
- Nucleic acid
- Amino acid
- Enzyme
- Hemoglobin
- Steroid
- Blood sugar level
- Circadian rhythm
- Excretion
- Muscle contraction
- Respiration (physiology)
- Thermoregulation
- Transpiration
- Asexual reproduction
- Sexual reproduction
- Female
- Male
- Microbial cyst
- Spore
- Birth
- Egg
- Menstrual cycle
- Menopause
- Semen
- Sperm
- Plant reproduction
-  Alternation of generations
- Gametophyte
- Plant reproductive morphology
- Pollen
- Pollination
- Sporophyte
- Developmental biology
- Development of the human body
- Cuticle
- Embryo
- Fetus
- Imago
- Larva
- Longevity
- Metamorphosis
- Moulting
- Nymph
- Ontogeny
- Puberty
- Pupa
- Tadpole
- Carnivorous plant
- Flowering plant
- Weed
- Cell biology
- Active transport
- Cell signaling
- Cellular respiration
- Glycolysis
- DNA replication
- Fermentation
- Programmed cell death
-  Stem cell
- Transcription (biology)
- Cell cycle
- Fission (biology)
- Meiosis
-  Mitosis
- Plasmid
- Cell membrane
- Cytoplasm
- Cytoskeleton
- Flagellum
- Symbiogenesis
- Organelle
-  Cell nucleus
- Chromosome
- Centriole
- Endoplasmic reticulum
-  Golgi apparatus
- Lysosome
- Mitochondrion
-  Ribosome
- Vacuole
- Plant cell
- Cell wall
-  Chloroplast
- Plastid
- Biome
- Biosphere
- Ecological niche
- Endangered species
- Extremophile
- Habitat
- Invasive species
- Parasitism
- Population
- Sustainability
- Symbiosis
- Wildlife conservation
- Animal coloration
- Camouflage
- Ethology
- Hibernation
- Animal locomotion
- Bipedalism
- Animal migration
- Carnivore
- Predation
- Scavenger
- Herbivore
- Grazing
- Instinct
- Sociality
- Bilateria
- Chordate
- Craniate
- Vertebrate
- Gnathostomata
- Invertebrate
- Tetrapod
- Cnidaria
- Coral
- Jellyfish
- Echinoderm
- Sea cucumber
- Sea urchin
- Starfish
- Clam
- Mussel
- Oyster
-  Scallop
- Octopus
- Squid
- Conch
-  Slug
- Snail
- Sponge
+Model organism
+Microbiology
+Mycology
+Biomechanics
+Genetic code
+Gene expression
+Epigenetics
+Human genome
+Hybrid (biology)
+Mendelian inheritance
+Adaptation
+Genetic drift
+History of life
+Mutation
+Australopithecus
+Homo habilis
+Homo erectus
+Early European modern humans
+Denisovan
+Neanderthal
+Paranthropus
+Neuroscience
+Fossil
+Phylogenetics
+Binomial nomenclature
+Domain (biology)
+Kingdom (biology)
+Dissection
+Organ (biology)
+Tissue (biology)
+Sexual dimorphism
+Endocrine system
+Adrenal gland
+Thyroid
+Antibody
+Abdomen
+Head
+Thorax
+Venom
+Artery
+Red blood cell
+White blood cell
+Capillary
+Lymphatic system
+Spleen
+Vein
+Mouth
+Esophagus
+Stomach
+Small intestine
+Large intestine
+Pancreas
+Muscular system
+Muscle cell
+Sarcomere
+Central nervous system
+Peripheral nervous system
+Brainstem
+Cerebellum
+Cerebral cortex
+Cerebrum
+Neuron
+Spinal cord
+Sensory nervous system
+Auditory system
+Hearing
+Taste
+Tongue
+Olfactory system
+Nose
+Sense of smell
+Somatosensory system
+Pain
+Visual system
+Visual perception
+Color vision
+Integumentary system
+Breast
+Feather
+Fingerprint
+Fur
+Hair
+Reproductive system
+Female reproductive system
+Male reproductive system
+Sex organ
+Clitoris
+Ovary
+Penis
+Placenta
+Testicle
+Uterus
+Vagina
+Respiratory system
+Gill
+Jaw
+Joint
+Pelvis
+Skull
+Vertebral column
+Urinary bladder
+Kidney
+Urinary system
+Connective tissue
+Cartilage
+Tendon
+Epithelium
+Muscle tissue
+Nervous tissue
+Plant anatomy
+Plant morphology
+Berry
+Nut (fruit)
+Leaf
+Root
+Stoma
+Shrub
+Plant stem
+Bark (botany)
+Trunk (botany)
+Epidermis
+Ground tissue
+Meristem
+Vascular tissue
+Vascular cambium
+Hypha
+Mycelium
+Chemical biology
+Biomolecule
+Alkaloid
+Caffeine
+Cocaine
+Morphine
+Nicotine
+Biological pigment
+Carotenoid
+Chlorophyll
+Melanin
+Carbohydrate
+Fructose
+Glucose
+Lactose
+Cellulose
+Chitin
+Glycogen
+Starch
+Dopamine
+Adrenaline
+Estrogen
+Insulin
+Oxytocin
+Plant hormone
+Testosterone
+Lipid
+Cholesterol
+Fat
+Fatty acid
+Nucleic acid
+Amino acid
+Enzyme
+Hemoglobin
+Steroid
+Blood sugar level
+Circadian rhythm
+Excretion
+Muscle contraction
+Respiration (physiology)
+Thermoregulation
+Transpiration
+Asexual reproduction
+Sexual reproduction
+Female
+Male
+Microbial cyst
+Spore
+Birth
+Egg
+Menstrual cycle
+Menopause
+Semen
+Sperm
+Plant reproduction
+Alternation of generations
+Gametophyte
+Plant reproductive morphology
+Pollen
+Pollination
+Sporophyte
+Developmental biology
+Development of the human body
+Cuticle
+Embryo
+Fetus
+Imago
+Larva
+Longevity
+Metamorphosis
+Moulting
+Nymph
+Ontogeny
+Puberty
+Pupa
+Tadpole
+Carnivorous plant
+Flowering plant
+Weed
+Cell biology
+Active transport
+Cell signaling
+Cellular respiration
+Glycolysis
+DNA replication
+Fermentation
+Programmed cell death
+Stem cell
+Transcription (biology)
+Cell cycle
+Fission (biology)
+Meiosis
+Mitosis
+Plasmid
+Cell membrane
+Cytoplasm
+Cytoskeleton
+Flagellum
+Symbiogenesis
+Organelle
+Cell nucleus
+Chromosome
+Centriole
+Endoplasmic reticulum
+Golgi apparatus
+Lysosome
+Mitochondrion
+Ribosome
+Vacuole
+Plant cell
+Cell wall
+Chloroplast
+Plastid
+Biome
+Biosphere
+Ecological niche
+Endangered species
+Extremophile
+Habitat
+Invasive species
+Parasitism
+Population
+Sustainability
+Symbiosis
+Wildlife conservation
+Animal coloration
+Camouflage
+Ethology
+Hibernation
+Animal locomotion
+Bipedalism
+Animal migration
+Carnivore
+Predation
+Scavenger
+Herbivore
+Grazing
+Instinct
+Sociality
+Bilateria
+Chordate
+Craniate
+Vertebrate
+Gnathostomata
+Invertebrate
+Tetrapod
+Cnidaria
+Coral
+Jellyfish
+Echinoderm
+Sea cucumber
+Sea urchin
+Starfish
+Clam
+Mussel
+Oyster
+Scallop
+Octopus
+Squid
+Conch
+Slug
+Snail
+Sponge
 Acari
- Arachnid
-  Pseudoscorpion
- Scorpion
- Spider
-  Tarantula
- Tick
- Astacus astacus
-  Crab
- Decapoda
-  Krill
- Lobster
- Malacostraca
- Ostracod
- Shrimp
- Woodlouse
- Pterygota
- Cockroach
- Earwig
- Flea
- Louse
- Body louse
- Mantis
- Phasmatodea
- Termite
+Arachnid
+Pseudoscorpion
+Scorpion
+Spider
+Tarantula
+Tick
+Astacus astacus
+Crab
+Decapoda
+Krill
+Lobster
+Malacostraca
+Ostracod
+Shrimp
+Woodlouse
+Pterygota
+Cockroach
+Earwig
+Flea
+Louse
+Body louse
+Mantis
+Phasmatodea
+Termite
 
- Beetle
- Coccinellidae
- Dung beetle
- Firefly
- Weevil
+Beetle
+Coccinellidae
+Dung beetle
+Firefly
+Weevil
 
- Fly
-  Common fruit fly
- Black fly
- Botfly
- Crane fly
- Calliphoridae
- Horse-fly
- Housefly
- Mosquito
- Tsetse fly
+Fly
+Common fruit fly
+Black fly
+Botfly
+Crane fly
+Calliphoridae
+Horse-fly
+Housefly
+Mosquito
+Tsetse fly
 
- Hemiptera
- Cicada
-  Bed bug
- Leafhopper
- Aphid
- Scale insect
- Whitefly
- Hymenoptera
- Ant
- Fire ant
- Carpenter ant
- Bee
-  Bumblebee
- Africanized bee
- Western honey bee
- Wasp
- Hornet
- Lepidoptera
- Butterfly
- Bombyx mori
- Geometer moth
- Lymantria dispar dispar
- Moth
- Pieris brassicae
-  Swallowtail butterfly
- Odonata
- Damselfly
- Dragonfly
- Orthoptera
- Grasshopper
- Mole cricket
- Locust
- Tettigoniidae
- Trilobite
-  Hexapoda
- Springtail
- Myriapoda
- Centipede
- Millipede
- Chelicerata
- Eurypterid
- Xiphosura
- Nematode
- Caenorhabditis elegans
- Tardigrade
- Annelid
- Earthworm
- Leech
- Polychaete
- Bryozoa
- Flatworm
- Cestoda
- Agnatha
- Hagfish
- Lamprey
- Ostracoderm
- Coral reef fish
- Deep-sea fish
- Chondrichthyes
- Acanthodii
- Osteichthyes
- Actinopterygii
- Sarcopterygii
- Coelacanth
- Lungfish
- Placodermi
- Anglerfish
- Arapaima
- Chimaera
- Eel
- Electric eel
- Flying fish
- Milkfish
- Northern pike
- Oarfish
- Mullet (fish)
- Ophidiiformes
- Scorpaeniformes
- Stickleback
- Batoidea
- Stingray
- Manta ray
- Skate (fish)
- Sawfish
- Electric ray
- Characiformes
- Characidae
- Piranha
- Bichir
- Sturgeon
- Anchovy
- Herring
- Ilish
- Sardine
- Sprat
- Cypriniformes
- Cyprinidae
- Carp
-   Goldfish
- Koi
- Cyprinodontiformes
- Guppy
- Alaska pollock
- Cod
- Haddock
- Galaxiidae
- Smelt (fish)
- Perciformes
- Barracuda
-  Cichlid
- Tilapia
- Goby
- Mackerel
- Marlin
- Mahi-mahi
- Serranidae
- European bass
- Grouper
- Siamese fighting fish
- Swordfish
- Perch
- Remora
- Tuna
- Wrasse
- Flatfish
- Flounder
- Halibut
- Plaice
- Turbot
- Salmonidae
- Salmon
- Trout
- Shark
- Great white shark
- Hammerhead shark
- Tiger shark
- Nurse shark
- Whale shark
- Catfish
- Loricariidae
- Seahorse
- Ocean sunfish
-  Tetraodontidae
- Caecilian
- Salamander
- Newt
- Frog
- Hylidae
- Leptodactylidae
- True toad
- True frog
- American bullfrog
- Crocodilia
- Alligator
- Caiman
- Crocodile
- Lizard
- Chameleon
- Gecko
- Gila monster
- Green iguana
- Horned lizard
- Komodo dragon
- Skink
-  Snake
- Eastern copperhead
- Agkistrodon piscivorus
- Boidae
- Coral snake
- Garter snake
- Sea snake
- Mamba
- Naja
- Rattlesnake
- Vipera berus
- Tuatara
- Turtle
- Alligator snapping turtle
- Box turtle
- Common snapping turtle
- Painted turtle
- Red-eared slider
- Sea turtle
- Tortoise
- Galápagos tortoise
- Allosaurus
- Apatosaurus
- Diplodocus
- Iguanodon
- Stegosaurus
- Triceratops
- Tyrannosaurus
- Velociraptor
- Plesiosaur
- Pterosaur
- Synapsid
- Dimetrodon
-  Seabird
- Bird of prey
- Palaeognathae
- Archaeopteryx
- Accipiter
- Eagle
- Golden eagle
- Falcon
- Peregrine falcon
-  New World vulture
- Old World vulture
-  Osprey
- Secretarybird
- Duck
- Mallard
- Goose
- Swan
- Hummingbird
- Swift (bird)
- Nightjar
- Auk
- Gull
- Sandpiper
- Tern
- Heron
- Ibis
- Shoebill
- Stork
- Columbidae
- Dodo
- Passenger pigeon
-   Rock dove
- River kingfisher
- Hornbill
- Hoopoe
-  Cuckoo
- Hoatzin
- Turaco
- Galliformes
- Grouse
- Guineafowl
- Peafowl
- Common pheasant
- Common quail
- Domestic turkey
- Loon
- Gruiformes
- Bustard
- Rail (bird)
- Passerine
- Songbird
- Bird-of-paradise
- Corvidae
- Corvus
- Common raven
- Eurasian magpie
- Honeyeater
- Lyrebird
- Shrike
- Bulbul
- Cardinal (bird)
- Bunting (bird)
- Finch
- Icterid
- Lark
- Mockingbird
- New World warbler
- Old World flycatcher
- European robin
- Common nightingale
- Ploceidae
- Old World sparrow
- House sparrow
- Starling
- Common myna
- Common starling
- Sunbird
- Swallow
- Tit (bird)
- Thrush (bird)
- American robin
- Wren
- Antbird
- Tyrant flycatcher
- Cormorant
- Darter
- Frigatebird
- Pelican
- Sulidae
- Flamingo
- Honeyguide
- Toucan
- Woodpecker
- Procellariiformes
- Albatross
- Procellariidae
- Parrot
- Ara (bird)
- Budgerigar
- Cockatoo
- Cassowary
- Emu
- Kiwi (bird)
- Moa
- Common ostrich
- Rhea (bird)
- Penguin
- Owl
- Eurasian eagle-owl
- Barn owl
- Tinamou
- Trogon
- Resplendent quetzal
- Aardvark
- Armadillo
- Hyrax
- Pangolin
- Sirenia
- Bat
- Megabat
- Microbat
- Pteropus
- Vampire bat
- Carnivora
- Bear
- Brown bear
-  Giant panda
- Polar bear
- Canidae
-  Dingo
- Coyote
- Fox
- Jackal
- Wolf
- Felidae
- Cheetah
- Cougar
- Jaguar
-  Leopard
- Lion
- Lynx
- Smilodon
- Snow leopard
- Tiger
- Hyena
- Mongoose
- Mustelidae
- European badger
- Honey badger
- Marten
- Otter
- Sea otter
- Stoat
- Weasel
- Wolverine
- Procyonidae
- Skunk
- Cetacea
- Whale
- Blue whale
- Dolphin
- Humpback whale
- Orca
- Porpoise
-  Sperm whale
- Hedgehog
- Even-toed ungulate
- Alpaca
- Bovidae
- African buffalo
- American bison
- Antelope
- Aurochs
- Capra (genus)
- Gazelle
- Gaur
- Goat
- Impala
- Muskox
- Water buffalo
- Wildebeest
- European bison
- Yak
- Camel
- Bactrian camel
- Dromedary
- Deer
- Elk
- Moose
- Red deer
-  Reindeer
- Llama
- Giraffe
- Guanaco
- Hippopotamus
- Peccary
- Pronghorn
- Wild boar
- Vicuña
- Lagomorpha
- Hare
- Rabbit
- Marsupial
- Diprotodontia
- Kangaroo
- Koala
- Dasyuromorphia
- Tasmanian devil
- Opossum
- Peramelemorphia
- Monotreme
- Echidna
- Platypus
- Odd-toed ungulate
- Donkey
- Equidae
- Rhinoceros
- Tapir
- Zebra
- Anteater
- Sloth
- Pinniped
- Eared seal
- Earless seal
- Walrus
- Monkey
- Ape
- Chimpanzee
- Bonobo
- Gibbon
-  Gorilla
- Orangutan
- New World monkey
- Capuchin monkey
- Spider monkey
- Old World monkey
- Baboon
- Macaque
- Rhesus macaque
- Strepsirrhini
- Slow loris
- Galago
- Lemur
- Tarsier
- Proboscidea
- Elephant
- Mammoth
- Capybara
- Nutria
- Beaver
- Dormouse
-  Guinea pig
- Hamster
- Marmot
- Mouse
- Muridae
- Muskrat
- Porcupine
- Rat
- Brown rat
- Squirrel
- Shrew
- Siamese cat
- Domestic short-haired cat
- American Brahman
- Hereford cattle
- Holstein Friesian cattle
- Gun dog
- Herding dog
- Hound
- Livestock guardian dog
- Mastiff
- Spitz
- Terrier
- Arabian horse
- Andalusian horse
- Friesian horse
- Thoroughbred
- Pony
- Mule
- Merino
- Green algae
- Charophyta
- Chlorophyta
- Bryophyte
- Hornwort
- Marchantiophyta
-  Moss
- Sphagnum
- Pteridophyte
- Fern
- Equisetum
- Lycophyte
- Gymnosperm
- Cycad
- Ginkgo biloba
+Hemiptera
+Cicada
+Bed bug
+Leafhopper
+Aphid
+Scale insect
+Whitefly
+Hymenoptera
+Ant
+Fire ant
+Carpenter ant
+Bee
+Bumblebee
+Africanized bee
+Western honey bee
+Wasp
+Hornet
+Lepidoptera
+Butterfly
+Bombyx mori
+Geometer moth
+Lymantria dispar dispar
+Moth
+Pieris brassicae
+Swallowtail butterfly
+Odonata
+Damselfly
+Dragonfly
+Orthoptera
+Grasshopper
+Mole cricket
+Locust
+Tettigoniidae
+Trilobite
+Hexapoda
+Springtail
+Myriapoda
+Centipede
+Millipede
+Chelicerata
+Eurypterid
+Xiphosura
+Nematode
+Caenorhabditis elegans
+Tardigrade
+Annelid
+Earthworm
+Leech
+Polychaete
+Bryozoa
+Flatworm
+Cestoda
+Agnatha
+Hagfish
+Lamprey
+Ostracoderm
+Coral reef fish
+Deep-sea fish
+Chondrichthyes
+Acanthodii
+Osteichthyes
+Actinopterygii
+Sarcopterygii
+Coelacanth
+Lungfish
+Placodermi
+Anglerfish
+Arapaima
+Chimaera
+Eel
+Electric eel
+Flying fish
+Milkfish
+Northern pike
+Oarfish
+Mullet (fish)
+Ophidiiformes
+Scorpaeniformes
+Stickleback
+Batoidea
+Stingray
+Manta ray
+Skate (fish)
+Sawfish
+Electric ray
+Characiformes
+Characidae
+Piranha
+Bichir
+Sturgeon
+Anchovy
+Herring
+Ilish
+Sardine
+Sprat
+Cypriniformes
+Cyprinidae
+Carp
+Goldfish
+Koi
+Cyprinodontiformes
+Guppy
+Alaska pollock
+Cod
+Haddock
+Galaxiidae
+Smelt (fish)
+Perciformes
+Barracuda
+Cichlid
+Tilapia
+Goby
+Mackerel
+Marlin
+Mahi-mahi
+Serranidae
+European bass
+Grouper
+Siamese fighting fish
+Swordfish
+Perch
+Remora
+Tuna
+Wrasse
+Flatfish
+Flounder
+Halibut
+Plaice
+Turbot
+Salmonidae
+Salmon
+Trout
+Shark
+Great white shark
+Hammerhead shark
+Tiger shark
+Nurse shark
+Whale shark
+Catfish
+Loricariidae
+Seahorse
+Ocean sunfish
+Tetraodontidae
+Caecilian
+Salamander
+Newt
+Frog
+Hylidae
+Leptodactylidae
+True toad
+True frog
+American bullfrog
+Crocodilia
+Alligator
+Caiman
+Crocodile
+Lizard
+Chameleon
+Gecko
+Gila monster
+Green iguana
+Horned lizard
+Komodo dragon
+Skink
+Snake
+Eastern copperhead
+Agkistrodon piscivorus
+Boidae
+Coral snake
+Garter snake
+Sea snake
+Mamba
+Naja
+Rattlesnake
+Vipera berus
+Tuatara
+Turtle
+Alligator snapping turtle
+Box turtle
+Common snapping turtle
+Painted turtle
+Red-eared slider
+Sea turtle
+Tortoise
+Galápagos tortoise
+Allosaurus
+Apatosaurus
+Diplodocus
+Iguanodon
+Stegosaurus
+Triceratops
+Tyrannosaurus
+Velociraptor
+Plesiosaur
+Pterosaur
+Synapsid
+Dimetrodon
+Seabird
+Bird of prey
+Palaeognathae
+Archaeopteryx
+Accipiter
+Eagle
+Golden eagle
+Falcon
+Peregrine falcon
+New World vulture
+Old World vulture
+Osprey
+Secretarybird
+Duck
+Mallard
+Goose
+Swan
+Hummingbird
+Swift (bird)
+Nightjar
+Auk
+Gull
+Sandpiper
+Tern
+Heron
+Ibis
+Shoebill
+Stork
+Columbidae
+Dodo
+Passenger pigeon
+Rock dove
+River kingfisher
+Hornbill
+Hoopoe
+Cuckoo
+Hoatzin
+Turaco
+Galliformes
+Grouse
+Guineafowl
+Peafowl
+Common pheasant
+Common quail
+Domestic turkey
+Loon
+Gruiformes
+Bustard
+Rail (bird)
+Passerine
+Songbird
+Bird-of-paradise
+Corvidae
+Corvus
+Common raven
+Eurasian magpie
+Honeyeater
+Lyrebird
+Shrike
+Bulbul
+Cardinal (bird)
+Bunting (bird)
+Finch
+Icterid
+Lark
+Mockingbird
+New World warbler
+Old World flycatcher
+European robin
+Common nightingale
+Ploceidae
+Old World sparrow
+House sparrow
+Starling
+Common myna
+Common starling
+Sunbird
+Swallow
+Tit (bird)
+Thrush (bird)
+American robin
+Wren
+Antbird
+Tyrant flycatcher
+Cormorant
+Darter
+Frigatebird
+Pelican
+Sulidae
+Flamingo
+Honeyguide
+Toucan
+Woodpecker
+Procellariiformes
+Albatross
+Procellariidae
+Parrot
+Ara (bird)
+Budgerigar
+Cockatoo
+Cassowary
+Emu
+Kiwi (bird)
+Moa
+Common ostrich
+Rhea (bird)
+Penguin
+Owl
+Eurasian eagle-owl
+Barn owl
+Tinamou
+Trogon
+Resplendent quetzal
+Aardvark
+Armadillo
+Hyrax
+Pangolin
+Sirenia
+Bat
+Megabat
+Microbat
+Pteropus
+Vampire bat
+Carnivora
+Bear
+Brown bear
+Giant panda
+Polar bear
+Canidae
+Dingo
+Coyote
+Fox
+Jackal
+Wolf
+Felidae
+Cheetah
+Cougar
+Jaguar
+Leopard
+Lion
+Lynx
+Smilodon
+Snow leopard
+Tiger
+Hyena
+Mongoose
+Mustelidae
+European badger
+Honey badger
+Marten
+Otter
+Sea otter
+Stoat
+Weasel
+Wolverine
+Procyonidae
+Skunk
+Cetacea
+Whale
+Blue whale
+Dolphin
+Humpback whale
+Orca
+Porpoise
+Sperm whale
+Hedgehog
+Even-toed ungulate
+Alpaca
+Bovidae
+African buffalo
+American bison
+Antelope
+Aurochs
+Capra (genus)
+Gazelle
+Gaur
+Goat
+Impala
+Muskox
+Water buffalo
+Wildebeest
+European bison
+Yak
+Camel
+Bactrian camel
+Dromedary
+Deer
+Elk
+Moose
+Red deer
+Reindeer
+Llama
+Giraffe
+Guanaco
+Hippopotamus
+Peccary
+Pronghorn
+Wild boar
+Vicuña
+Lagomorpha
+Hare
+Rabbit
+Marsupial
+Diprotodontia
+Kangaroo
+Koala
+Dasyuromorphia
+Tasmanian devil
+Opossum
+Peramelemorphia
+Monotreme
+Echidna
+Platypus
+Odd-toed ungulate
+Donkey
+Equidae
+Rhinoceros
+Tapir
+Zebra
+Anteater
+Sloth
+Pinniped
+Eared seal
+Earless seal
+Walrus
+Monkey
+Ape
+Chimpanzee
+Bonobo
+Gibbon
+Gorilla
+Orangutan
+New World monkey
+Capuchin monkey
+Spider monkey
+Old World monkey
+Baboon
+Macaque
+Rhesus macaque
+Strepsirrhini
+Slow loris
+Galago
+Lemur
+Tarsier
+Proboscidea
+Elephant
+Mammoth
+Capybara
+Nutria
+Beaver
+Dormouse
+Guinea pig
+Hamster
+Marmot
+Mouse
+Muridae
+Muskrat
+Porcupine
+Rat
+Brown rat
+Squirrel
+Shrew
+Siamese cat
+Domestic short-haired cat
+American Brahman
+Hereford cattle
+Holstein Friesian cattle
+Gun dog
+Herding dog
+Hound
+Livestock guardian dog
+Mastiff
+Spitz
+Terrier
+Arabian horse
+Andalusian horse
+Friesian horse
+Thoroughbred
+Pony
+Mule
+Merino
+Green algae
+Charophyta
+Chlorophyta
+Bryophyte
+Hornwort
+Marchantiophyta
+Moss
+Sphagnum
+Pteridophyte
+Fern
+Equisetum
+Lycophyte
+Gymnosperm
+Cycad
+Ginkgo biloba
 
- Conifer
- Cedrus
- Cupressus
- Douglas fir
- Fir
- Juniper
- Pine
- Podocarpus
- Sequoioideae
- Spruce
- Monocotyledon
- Araceae
- Anthurium
- Philodendron
- Arecaceae
- Agave
- Aloe
- Amaryllis
- Gladiolus
-  Iridaceae
- Iris (plant)
- Lily of the valley
- Narcissus (plant)
- Orchidaceae
- Yucca
- Eichhornia crassipes
- Alstroemeria
- Colchicum
- Liliaceae
- Lilium
- Tulip
- Pandanus
- Bromeliaceae
- Puya (plant)
- Spanish moss
- Cyperaceae
- Juncus
- Poaceae
- Bamboo
- Sugarcane
- Typha
- Canna (plant)
- Heliconia
- Eudicots
- Magnoliids
- Apiaceae
- Hedera
- Asteraceae
- Bellis perennis
- Chrysanthemum
- Cirsium
- Dahlia
- Solidago
- Helianthus
- Sonchus
- Tagetes
- Taraxacum
- Campanulaceae
- Arabidopsis thaliana
-  Tropaeolum
- Cactus
- Cornus
- Cucurbitaceae
- Diospyros
- Ericaceae
- Rhododendron
- Azalea
- Theaceae
- Camellia
- Impatiens
- Primulaceae
- Fabaceae
- Mimosa
- Alder
- Beech
- Birch
- Hickory
- Oak
- Apocynaceae
- Gardenia
- Rubiaceae
- Lamiaceae
- Oleaceae
- Fraxinus
- Salvia
- Sesame
- Verbena
- Euphorbiaceae
- Flax
-  Hypericum
- Poinsettia
- Viola
- Willow
- Malvaceae
- Adansonia
- Henna
- Melastomataceae
- Myrtaceae
- Eucalyptus
- Proteaceae
- Nelumbo
- Platanus
- Cannabis
- Elm
- Moraceae
- Ficus sycomorus
- Rosaceae
- Rose
- Mahogany
- Maple
- Convolvulaceae
- Apple
- Apricot
- Avocado
-  Banana
- Blackberry
- Blackcurrant
- Blueberry
- Cherry
- Citrus
- Grapefruit
- Kumquat
-  Lemon
- Lime (fruit)
- Orange (fruit)
- Mandarin orange
- Fig
- Cranberry
- Date palm
- Durian
- Grape
- Guava
- Jackfruit
- Kiwifruit
- Lychee
- Mango
- Morus (plant)
- Cucumis melo
-  Olive
- Papaya
- Peach
- Pear
- Pineapple
-  Plum
- Pomegranate
- Raspberry
- Strawberry
- Tamarind
-  Watermelon
- Bell pepper
- Breadfruit
- Chili pepper
- Cooking banana
- Cucumber
- Cucurbita
- Pumpkin
- Zucchini
- Eggplant
- Green bean
- Okra
- Tomato
- Barley
- Millet
- Oat
- Oryza sativa
- Rye
- Sorghum
- Common wheat
- Amaranth
- Buckwheat
- Quinoa
- Almond
- Brazil nut
- Cashew
- Chestnut
- Hazelnut
- Macadamia
- Pecan
- Walnut
- Bean
- Vicia faba
- Lima bean
- Phaseolus vulgaris
- Chickpea
- Lentil
-  Pea
- Peanut
- Eruca vesicaria
- Cabbage
- Chard
- Chinese cabbage
- Kale
- Lettuce
- Rapeseed
- Spinach
- Arrowroot
- Beetroot
- Carrot
- Cassava
- Daikon
- Onion
- Parsnip
- Radish
- Rutabaga
- Sugar beet
- Sweet potato
- Taro
- Turnip
- Yam (vegetable)
- Artichoke
- Asparagus
- Broccoli
- Cauliflower
- Celery
- Chicory
- Coconut
- Kohlrabi
- Leek
- Anise
- Basil
-  Black pepper
- Cardamom
- Cinnamon
- Clove
- Cumin
- Fennel
- Garlic
- Ginger
- Ginseng
- Horseradish
- Lavandula
- Liquorice
- Mentha
- Nutmeg
- Parsley
-  Saffron
- Thyme
-  Vanilla
- Mushroom
-  Yeast
- Saccharomyces cerevisiae
- Ascomycota
- Basidiomycota
- Zygomycota
- Agaricus
- Boletus edulis
- Chanterelle
- Pleurotus ostreatus
- Shiitake
- Truffle
- Amanita muscaria
- Amanita phalloides
- Plankton
- Protist
- Paramecium
- Prokaryote
- Cyanobacteria
- Escherichia coli
- Salmonella
- Staphylococcus aureus
- Rhizaria
- Excavata
- Euglenozoa
- Red algae
- Seaweed
- Chromalveolata
- Heterokont
- Brown algae
- Kelp
- Diatom
- Haptophyte
- Cryptomonad
- Alveolate
- Dinoflagellate
- Lichen
- Amoebozoa
- Slime mold
- Diet (nutrition)
- Dietary supplement
- Food group
- Hunger
- Malnutrition
- Vitamin
- Bathing
- Feminine hygiene
- Oral hygiene
- Shaving
- Physical fitness
- Body mass index
- Weight loss
-  Breastfeeding
- Fertilisation
- Infertility
- Occupational safety and health
- Vaccination
- Smallpox vaccine
- Polio vaccine
- Prescription drug
- Amphetamine
- Analgesic
- Penicillin
- Aspirin
- Benzodiazepine
- Quinine
- Alcohol intoxication
- Tobacco
- Cannabis
-  Opium
-  Substance use disorder
- Cigarette
- Substance dependence
- Pharmacology
- Pharmacokinetics
- Placebo
- Pharmacy
- Pharmacist
- Emergency medical services
- First aid
- Health care
- Veterinary medicine
- Medical ethics
-  Emergency department
- Psychiatric hospital
- Physician
- Arm
- Face
- Foot
- Hand
- Finger
- Human brain
- Human eye
- Gastrointestinal tract
- Human leg
- Human skeleton
- Human tooth
-  Human voice
- Dental restoration
- Dentures
- Root canal
- Toothache
-  Tooth decay
- Alternative medicine
- Acupuncture
- Chiropractic
- Herbal medicine
- Homeopathy
- Angiology
- Cardiology
- Dermatology
- Gastroenterology
- Geriatrics
- Hematology
-  Blood type
- Immunology
- Neurology
- Obstetrics and gynaecology
- Oncology
- Ophthalmology
- Otorhinolaryngology
- Pediatrics
- Psychiatry
- Public health
- Epidemiology
- Preventive healthcare
- Pulmonology
- Radiology
- Sexual and reproductive health
- Toxicology
- Traditional medicine
- Ayurveda
- Urology
- Amputation
- Organ transplantation
-  Plastic surgery
- Medical diagnosis
- Medical test
- Palliative care
- Physical examination
- Autopsy
- Biopsy
-  Blood pressure
- Blood test
- Blood transfusion
- Eye examination
- Lumbar puncture
- Pap test
- Pulse
- Reflex
- Sterilization (medicine)
- Therapy
- Chemotherapy
- Physical therapy
- Radiation therapy
- Symptomatic treatment
- Acne
-  Alzheimer's disease
- Anemia
- Arthritis
- Autoimmune disease
- Bronchitis
- Hypertension
- Myocardial infarction
- Chronic obstructive pulmonary disease
- Cirrhosis
- Dementia
- Diarrhea
- Epilepsy
- Gout
- Hepatitis
- Meningitis
- Migraine
-  Multiple sclerosis
-  Parkinson's disease
- Blunt trauma
- Bone fracture
- Bruise
- Burn
- Frostbite
- Wound
-  Major trauma
- Aneurysm
- Brain damage
- Concussion
- Bleeding
- Cardiac arrest
- Hypothermia
- Hypoxia (medical)
- Inflammation
- Respiratory failure
-  Shock (circulatory)
- Foodborne illness
- Botulism
- Mushroom poisoning
- Typhoid fever
- Pathogen
- Coronavirus
- Human papillomavirus infection
- HIV
- Tobacco mosaic virus
- Prion
- Anthrax
- Bubonic plague
- Chickenpox
-  Cholera
- Dengue fever
- Diphtheria
-  Ebola
- Encephalitis
- Gangrene
- Dysentery
- Hand, foot, and mouth disease
- Leprosy
-  Lyme disease
-  Measles
- Mumps
- Fungal infection
- Polio
-  Rabies
- Scabies
- Scarlet fever
- SARS
- Chlamydia
- Gonorrhea
- Herpes simplex
- Syphilis
- Tetanus
- Typhus
- West Nile fever
- Whooping cough
-  Yellow fever
- Visual impairment
- Cerebral palsy
-  Color blindness
-  Down syndrome
- Dyslexia
- Hearing loss
- Intellectual disability
- Physical disability
- Brain tumor
- Carcinogen
-  Breast cancer
-  Colorectal cancer
-  Leukemia
- Lung cancer
- Lymphoma
- Neoplasm
-  Prostate cancer
- Skin cancer
- Melanoma
- Anxiety disorder
- Phobia
- Post-traumatic stress disorder
- Attention deficit hyperactivity disorder
-  Autism spectrum
- Bipolar disorder
- Eating disorder
- Major depressive disorder
- Neurosis
- Pedophilia
- Personality disorder
- Psychopathy
-  Psychosis
- Delusion
-  Hallucination
- Schizophrenia
- Coma
- Persistent vegetative state
- Poison
- Toxicity
- Syndrome
- Nail (anatomy)
- Scale (anatomy)
- Protein (nutrient)
- Translation (biology)
- Competition (biology)
- Cricket (insect)
- Crane (bird)
- Ovenbird (family)
- Sus (genus)
-  Pan (genus)
- Mole (animal)
- Collard (plant)
- Stress (biology)
- Alcohol (drug)
+Conifer
+Cedrus
+Cupressus
+Douglas fir
+Fir
+Juniper
+Pine
+Podocarpus
+Sequoioideae
+Spruce
+Monocotyledon
+Araceae
+Anthurium
+Philodendron
+Arecaceae
+Agave
+Aloe
+Amaryllis
+Gladiolus
+Iridaceae
+Iris (plant)
+Lily of the valley
+Narcissus (plant)
+Orchidaceae
+Yucca
+Eichhornia crassipes
+Alstroemeria
+Colchicum
+Liliaceae
+Lilium
+Tulip
+Pandanus
+Bromeliaceae
+Puya (plant)
+Spanish moss
+Cyperaceae
+Juncus
+Poaceae
+Bamboo
+Sugarcane
+Typha
+Canna (plant)
+Heliconia
+Eudicots
+Magnoliids
+Apiaceae
+Hedera
+Asteraceae
+Bellis perennis
+Chrysanthemum
+Cirsium
+Dahlia
+Solidago
+Helianthus
+Sonchus
+Tagetes
+Taraxacum
+Campanulaceae
+Arabidopsis thaliana
+Tropaeolum
+Cactus
+Cornus
+Cucurbitaceae
+Diospyros
+Ericaceae
+Rhododendron
+Azalea
+Theaceae
+Camellia
+Impatiens
+Primulaceae
+Fabaceae
+Mimosa
+Alder
+Beech
+Birch
+Hickory
+Oak
+Apocynaceae
+Gardenia
+Rubiaceae
+Lamiaceae
+Oleaceae
+Fraxinus
+Salvia
+Sesame
+Verbena
+Euphorbiaceae
+Flax
+Hypericum
+Poinsettia
+Viola
+Willow
+Malvaceae
+Adansonia
+Henna
+Melastomataceae
+Myrtaceae
+Eucalyptus
+Proteaceae
+Nelumbo
+Platanus
+Cannabis
+Elm
+Moraceae
+Ficus sycomorus
+Rosaceae
+Rose
+Mahogany
+Maple
+Convolvulaceae
+Apple
+Apricot
+Avocado
+Banana
+Blackberry
+Blackcurrant
+Blueberry
+Cherry
+Citrus
+Grapefruit
+Kumquat
+Lemon
+Lime (fruit)
+Orange (fruit)
+Mandarin orange
+Fig
+Cranberry
+Date palm
+Durian
+Grape
+Guava
+Jackfruit
+Kiwifruit
+Lychee
+Mango
+Morus (plant)
+Cucumis melo
+Olive
+Papaya
+Peach
+Pear
+Pineapple
+Plum
+Pomegranate
+Raspberry
+Strawberry
+Tamarind
+Watermelon
+Bell pepper
+Breadfruit
+Chili pepper
+Cooking banana
+Cucumber
+Cucurbita
+Pumpkin
+Zucchini
+Eggplant
+Green bean
+Okra
+Tomato
+Barley
+Millet
+Oat
+Oryza sativa
+Rye
+Sorghum
+Common wheat
+Amaranth
+Buckwheat
+Quinoa
+Almond
+Brazil nut
+Cashew
+Chestnut
+Hazelnut
+Macadamia
+Pecan
+Walnut
+Bean
+Vicia faba
+Lima bean
+Phaseolus vulgaris
+Chickpea
+Lentil
+Pea
+Peanut
+Eruca vesicaria
+Cabbage
+Chard
+Chinese cabbage
+Kale
+Lettuce
+Rapeseed
+Spinach
+Arrowroot
+Beetroot
+Carrot
+Cassava
+Daikon
+Onion
+Parsnip
+Radish
+Rutabaga
+Sugar beet
+Sweet potato
+Taro
+Turnip
+Yam (vegetable)
+Artichoke
+Asparagus
+Broccoli
+Cauliflower
+Celery
+Chicory
+Coconut
+Kohlrabi
+Leek
+Anise
+Basil
+Black pepper
+Cardamom
+Cinnamon
+Clove
+Cumin
+Fennel
+Garlic
+Ginger
+Ginseng
+Horseradish
+Lavandula
+Liquorice
+Mentha
+Nutmeg
+Parsley
+Saffron
+Thyme
+Vanilla
+Mushroom
+Yeast
+Saccharomyces cerevisiae
+Ascomycota
+Basidiomycota
+Zygomycota
+Agaricus
+Boletus edulis
+Chanterelle
+Pleurotus ostreatus
+Shiitake
+Truffle
+Amanita muscaria
+Amanita phalloides
+Plankton
+Protist
+Paramecium
+Prokaryote
+Cyanobacteria
+Escherichia coli
+Salmonella
+Staphylococcus aureus
+Rhizaria
+Excavata
+Euglenozoa
+Red algae
+Seaweed
+Chromalveolata
+Heterokont
+Brown algae
+Kelp
+Diatom
+Haptophyte
+Cryptomonad
+Alveolate
+Dinoflagellate
+Lichen
+Amoebozoa
+Slime mold
+Diet (nutrition)
+Dietary supplement
+Food group
+Hunger
+Malnutrition
+Vitamin
+Bathing
+Feminine hygiene
+Oral hygiene
+Shaving
+Physical fitness
+Body mass index
+Weight loss
+Breastfeeding
+Fertilisation
+Infertility
+Occupational safety and health
+Vaccination
+Smallpox vaccine
+Polio vaccine
+Prescription drug
+Amphetamine
+Analgesic
+Penicillin
+Aspirin
+Benzodiazepine
+Quinine
+Alcohol intoxication
+Tobacco
+Cannabis
+Opium
+Substance use disorder
+Cigarette
+Substance dependence
+Pharmacology
+Pharmacokinetics
+Placebo
+Pharmacy
+Pharmacist
+Emergency medical services
+First aid
+Health care
+Veterinary medicine
+Medical ethics
+Emergency department
+Psychiatric hospital
+Physician
+Arm
+Face
+Foot
+Hand
+Finger
+Human brain
+Human eye
+Gastrointestinal tract
+Human leg
+Human skeleton
+Human tooth
+Human voice
+Dental restoration
+Dentures
+Root canal
+Toothache
+Tooth decay
+Alternative medicine
+Acupuncture
+Chiropractic
+Herbal medicine
+Homeopathy
+Angiology
+Cardiology
+Dermatology
+Gastroenterology
+Geriatrics
+Hematology
+Blood type
+Immunology
+Neurology
+Obstetrics and gynaecology
+Oncology
+Ophthalmology
+Otorhinolaryngology
+Pediatrics
+Psychiatry
+Public health
+Epidemiology
+Preventive healthcare
+Pulmonology
+Radiology
+Sexual and reproductive health
+Toxicology
+Traditional medicine
+Ayurveda
+Urology
+Amputation
+Organ transplantation
+Plastic surgery
+Medical diagnosis
+Medical test
+Palliative care
+Physical examination
+Autopsy
+Biopsy
+Blood pressure
+Blood test
+Blood transfusion
+Eye examination
+Lumbar puncture
+Pap test
+Pulse
+Reflex
+Sterilization (medicine)
+Therapy
+Chemotherapy
+Physical therapy
+Radiation therapy
+Symptomatic treatment
+Acne
+Alzheimer's disease
+Anemia
+Arthritis
+Autoimmune disease
+Bronchitis
+Hypertension
+Myocardial infarction
+Chronic obstructive pulmonary disease
+Cirrhosis
+Dementia
+Diarrhea
+Epilepsy
+Gout
+Hepatitis
+Meningitis
+Migraine
+Multiple sclerosis
+Parkinson's disease
+Blunt trauma
+Bone fracture
+Bruise
+Burn
+Frostbite
+Wound
+Major trauma
+Aneurysm
+Brain damage
+Concussion
+Bleeding
+Cardiac arrest
+Hypothermia
+Hypoxia (medical)
+Inflammation
+Respiratory failure
+Shock (circulatory)
+Foodborne illness
+Botulism
+Mushroom poisoning
+Typhoid fever
+Pathogen
+Coronavirus
+Human papillomavirus infection
+HIV
+Tobacco mosaic virus
+Prion
+Anthrax
+Bubonic plague
+Chickenpox
+Cholera
+Dengue fever
+Diphtheria
+Ebola
+Encephalitis
+Gangrene
+Dysentery
+Hand, foot, and mouth disease
+Leprosy
+Lyme disease
+Measles
+Mumps
+Fungal infection
+Polio
+Rabies
+Scabies
+Scarlet fever
+SARS
+Chlamydia
+Gonorrhea
+Herpes simplex
+Syphilis
+Tetanus
+Typhus
+West Nile fever
+Whooping cough
+Yellow fever
+Visual impairment
+Cerebral palsy
+Color blindness
+Down syndrome
+Dyslexia
+Hearing loss
+Intellectual disability
+Physical disability
+Brain tumor
+Carcinogen
+Breast cancer
+Colorectal cancer
+Leukemia
+Lung cancer
+Lymphoma
+Neoplasm
+Prostate cancer
+Skin cancer
+Melanoma
+Anxiety disorder
+Phobia
+Post-traumatic stress disorder
+Attention deficit hyperactivity disorder
+Autism spectrum
+Bipolar disorder
+Eating disorder
+Major depressive disorder
+Neurosis
+Pedophilia
+Personality disorder
+Psychopathy
+Psychosis
+Delusion
+Hallucination
+Schizophrenia
+Coma
+Persistent vegetative state
+Poison
+Toxicity
+Syndrome
+Nail (anatomy)
+Scale (anatomy)
+Protein (nutrient)
+Translation (biology)
+Competition (biology)
+Cricket (insect)
+Crane (bird)
+Ovenbird (family)
+Sus (genus)
+Pan (genus)
+Mole (animal)
+Collard (plant)
+Stress (biology)
+Alcohol (drug)
