@@ -1,3 +1,4 @@
+Technology
 Agricultural science
 Aquaculture
 Beekeeping
@@ -10,11 +11,14 @@ Organic farming
 Sustainable agriculture
 Subsistence agriculture
 Urban agriculture
+Garden
 Farm
 Barn
 Stable
 Silo
 Granary
+Animal husbandry
+Domestication
 Selective breeding
 Breed
 Livestock
@@ -23,29 +27,33 @@ Agronomy
 Horticulture
 Plant breeding
 Cultivar
+Fertilizer
 Harvest
 Irrigation
 Pesticide
 Tillage
+Biotechnology
+Genetic engineering
 Genetically modified organism
 Cybernetics
 Cloning
 Gel electrophoresis
 Polymerase chain reaction
-For topics in theoretical computer science, see Mathematics: Discrete mathematics
-
 Computing
 Information technology
 Abacus
 Calculator
 Computer security
 Malware
-Data
+Data (computing)
 Data communication
+Computer science
+Artificial intelligence
 Computer architecture
 Computer simulation
 Parallel computing
 Computer hardware
+Computer
 Booting
 Central processing unit
 ENIAC
@@ -57,8 +65,8 @@ Spreadsheet
 Web browser
 Word processor
 Operating system
-Android
-iOS
+Android (operating system)
+IOS
 Linux
 Macintosh operating systems
 Microsoft Windows
@@ -67,7 +75,9 @@ Unix
 User interface
 Keyboard technology
 Computer monitor
+Computer mouse
 Touchscreen
+Cryptography
 Authentication
 Encryption
 Computer file
@@ -84,8 +94,9 @@ Read-only memory
 Computer network
 Email
 Ethernet
-Router
+Router (computing)
 Wi-Fi
+Internet
 HTML
 Hypertext Transfer Protocol
 Internet protocol suite
@@ -97,12 +108,14 @@ Character encoding
 Compiler
 Programming language
 Assembly language
-C
+C (programming language)
+Java (programming language)
 JavaScript
 Programming paradigm
 Functional programming
 Structured programming
 Object-oriented programming
+Electronics
 Consumer electronics
 Sensor
 Signal processing
@@ -110,30 +123,36 @@ Signal-to-noise ratio
 Circuit design
 Oscilloscope
 Remote control
+Semiconductor device
 Transistor
 Diode
 Light-emitting diode
+Integrated circuit
+Electric battery
 Amplifier
-Antenna
+Antenna (radio)
 Capacitor
 Cavity magnetron
 Electrical connector
-Filter
+Filter (signal processing)
 Inductor
 Power supply
 Printed circuit board
 Resistor
 Switch
 Circuit breaker
-Fuse
+Fuse (electrical)
 Relay
 Transformer
 Vacuum tube
 Waveguide
 Wire
+Engineering
 Nanotechnology
 Nuclear technology
 Technical drawing
+Civil engineering
+Mechanical engineering
 Aerospace engineering
 Architectural engineering
 Automotive engineering
@@ -143,8 +162,6 @@ Electrical engineering
 Industrial engineering
 Military engineering
 Software engineering
-See also: "Industry" in Business and economics
-
 Factory
 Assembly line
 Automation
@@ -157,22 +174,31 @@ Waste
 Landfill
 Recycling
 Waste management
+Fire
 Candle
 Fuel
 Biofuel
 Charcoal
+Fossil fuel
+Coal
+Natural gas
+Petroleum
 Gasoline
 Kerosene
 Oil refinery
 Oil well
+Nuclear power
+Renewable energy
 Geothermal power
+Hydropower
 Hydroelectricity
 Watermill
+Solar energy
 Solar power
 Solar cell
+Wind power
 Windmill
-See also: Electromagnetism and Electromagnetism
-
+Electric light
 Incandescent light bulb
 Electric power transmission
 Electric power distribution
@@ -191,12 +217,14 @@ Desalination
 Detergent
 Laundry
 Pasteurization
+Refrigeration
+Sanitation
 Sanitary sewer
 Sewage treatment
 Water purification
 Soap
 Water supply network
-Aqueduct
+Aqueduct (water supply)
 Plumbing
 Qanat
 Pumping station
@@ -207,14 +235,22 @@ Adhesive
 Ceramic
 Chemical plant
 Composite material
+Explosive
 Dynamite
 Fireworks
+Glass
+Natural rubber
+Paper
 Parchment
 Papyrus
 Petrochemical
+Plastic
+Pottery
 Porcelain
+Wood
 Woodworking
 Carpentry
+Metallurgy
 Smelting
 Metalworking
 Die casting
@@ -222,13 +258,14 @@ Extrusion
 Forging
 Heat treating
 Laser cutting
-Rolling
+Rolling (metalworking)
 Soldering
 Steelmaking
 Welding
-See also Arts: Architecture
-
+Infrastructure
 Building
+Concrete
+Masonry
 Brick
 Quarry
 Cement
@@ -240,9 +277,9 @@ Column
 Dome
 Door
 Elevator
-Façade
+Fa%C3%A7ade
 Floor
-Foundation
+Foundation (engineering)
 Ladder
 Lighting
 Roof
@@ -262,6 +299,7 @@ Warehouse
 Tower
 Tower block
 Skyscraper
+Home
 House
 Apartment
 Hut
@@ -272,11 +310,12 @@ Villa
 Hotel
 Bathroom
 Bedroom
-Garage
+Garage (residential)
 Kitchen
 Sauna
 Electrical wiring
 Heating, ventilation, and air conditioning
+Dam
 Aswan Dam
 Hoover Dam
 Itaipu Dam
@@ -286,6 +325,7 @@ Flood control
 Flood control in the Netherlands
 Levee
 Reservoir
+Bridge
 Akashi Kaikyo Bridge
 Brooklyn Bridge
 Golden Gate Bridge
@@ -293,18 +333,28 @@ London Bridge
 Tunnel
 Channel Tunnel
 Machine
+Crane (machine)
+Engine
+Electric motor
+Internal combustion engine
 Diesel engine
 Four-stroke engine
+Jet engine
+Steam engine
+Robotics
 Robot
+Simple machine
 Inclined plane
 Lever
 Pulley
+Screw (simple machine)
 Wedge
+Wheel
 Wheel and axle
 Siphon
 System
 Axle
-Bearing
+Bearing (mechanical)
 Clutch
 Gear
 Electrical cable
@@ -312,12 +362,16 @@ Chain
 Rope
 Fastener
 Knot
+Nail (fastener)
+Nut (hardware)
 Rivet
-Washer
+Washer (hardware)
 Lock and key
-Pipe
+Pipe (fluid conveyance)
 Gasket
 Valve
+Spring (device)
+Tool
 Container
 Measuring instrument
 Barometer
@@ -336,14 +390,18 @@ Pigment
 Pen
 Axe
 Chisel
-Clamp
+Clamp (tool)
 Drilling
 Hammer
+Plane (tool)
 Saw
 Scissors
-Archimedes' screw
+Archimedes%27 screw
+Harrow (tool)
+Hoe (tool)
 Machete
 Plough
+Rake (tool)
 Sickle
 Shovel
 Wheelbarrow
@@ -357,12 +415,14 @@ Home appliance
 Air conditioning
 Clothes dryer
 Dishwasher
+Furnace (central heating)
 Ironing
 Microwave oven
 Oven
 Refrigerator
 Sewing machine
 Sink
+Stove
 Toilet
 Vacuum cleaner
 Washing machine
@@ -370,21 +430,25 @@ Centrifuge
 Lathe
 Loom
 Machine press
-Potter's wheel
-See also Arts: Literature; Society: Mass media; and Technology: Computing and information technology
-
+Potter%27s wheel
+Broadcasting
 Cathode-ray tube
 Communications satellite
 Flat-panel display
 Liquid-crystal display
 Image
 Image scanner
+Mail
 Courier
 Postage stamp
+Mobile phone
 Smartphone
+Printing
+Book
 Photocopier
-Printer
+Printer (computing)
 Printing press
+Radio
 Amateur radio
 Radio broadcasting
 Social media
@@ -392,12 +456,16 @@ Sound recording and reproduction
 Loudspeaker
 Microphone
 Speech synthesis
+Telecommunications
 Modulation
 Telegraphy
+Telephone
+Television
 Cable television
 Satellite television
 Text messaging
 Typewriter
+Video
 Video camera
 Artificial organ
 Prosthesis
@@ -408,9 +476,11 @@ DNA profiling
 Electrocardiography
 Endoscopy
 Ambulance
+Medical imaging
 Magnetic resonance imaging
-Medical ultrasonography
+Medical ultrasound
 Radiography
+Weapon
 Tank
 Military technology
 Horses in warfare
@@ -418,6 +488,8 @@ Chariot
 Stealth technology
 War elephant
 Ammunition
+Gunpowder
+Armour
 Bulletproof vest
 Helmet
 Chain mail
@@ -429,15 +501,18 @@ Improvised explosive device
 Grenade
 Land mine
 Missile
+Fortification
 Castle
 Defensive wall
 Napalm
+Knife
 Dagger
 Sword
 Katana
 Rapier
 Battle axe
 Bayonet
+Club (weapon)
 Spear
 Military aircraft
 Attack aircraft
@@ -452,38 +527,44 @@ Submarine
 Torpedo
 Warship
 Boomerang
+Bow and arrow
 Crossbow
+Firearm
 Rifle
 Assault rifle
 Handgun
 Machine gun
 Musket
 Shotgun
-Sling
+Sling (weapon)
 Artillery
 Ballista
 Battering ram
 Cannon
 Catapult
-Mortar
+Mortar (weapon)
 Weapon of mass destruction
 Biological warfare
 Chemical weapon
+Nuclear weapon
 Thermonuclear weapon
-
+Calendar
 Chinese calendar
 Gregorian calendar
 Islamic calendar
 Julian calendar
 Leap year
+Clock
 Watch
 Atomic clock
 Pendulum
 Sundial
 Time zone
 Daylight saving time
-See the Cartography section under Geography for Map.
-
+Cartography
+Map
+Navigation
+Compass
 Cardinal direction
 Celestial navigation
 Sextant
@@ -491,20 +572,27 @@ Dead reckoning
 Gyroscope
 Satellite navigation
 Global Positioning System
+Radar
 Sonar
+Laser
 Holography
 Optical fiber
+Lens
 Fresnel lens
 Anti-reflective coating
 Diffraction grating
 Mirror
 Polarizer
 Prism
+Microscope
 Electron microscope
 Optical microscope
+Telescope
 Optical telescope
 Radio telescope
 Theodolite
+Camera
+Photography
 Digital photography
 Fine-art photography
 Photographic film
@@ -512,32 +600,37 @@ Glasses
 Binoculars
 Charge-coupled device
 Interferometry
+Space exploration
 Exploration of Mars
+Spaceflight
+Rocket
 Launch pad
 Launch vehicle
 Rocket engine
+Satellite
+Space station
 Astronaut
 Space capsule
 Space probe
-
 NASA
 Apollo program
 Kennedy Space Center
 Voyager program
 Soviet space program
 Baikonur Cosmodrome
-Russian Federal Space Agency
+Roscosmos
 European Space Agency
 China National Space Administration
-
 International Space Station
 Mir
 Space Shuttle
 Saturn V
+Soyuz (spacecraft)
 Hubble Space Telescope
 Sputnik 1
 Atacama Large Millimeter Array
 Mauna Kea Observatories
+Textile
 Canvas
 Cotton
 Felt
@@ -547,7 +640,7 @@ Lace
 Leather
 Linen
 Silk
-Thread
+Thread (yarn)
 Wool
 Yarn
 Basket weaving
@@ -557,20 +650,24 @@ Dye
 Embroidery
 Hand spinning
 Knitting
-Macramé
+Macram%C3%A9
 Quilting
 Sewing
 Tapestry
 Weaving
+Transport
 Public transport
 Travel
 Freight transport
 Cargo
 Passport
 Vehicle
+Road
 Highway
 Controlled-access highway
 Trail
+Car
+Bicycle
 Cycling
 Bus
 Motorcycle
@@ -586,6 +683,7 @@ Traffic collision
 Carriage
 Cart
 Saddle
+Rail transport
 Railway track
 Train
 Locomotive
@@ -599,6 +697,7 @@ Shinkansen
 Monorail
 Tram
 Trans-Siberian Railway
+Aircraft
 Aviation
 Air traffic control
 Aircraft engine
@@ -606,14 +705,18 @@ Airline
 Airplane
 Airport
 Airship
+Balloon (aeronautics)
 Hot air balloon
 Fixed-wing aircraft
-Glider
+Glider (aircraft)
 Helicopter
 Jet aircraft
 Parachute
 Unmanned aerial vehicle
 Wing
+Ship
+Canal
+Lock (water navigation)
 Barge
 Boat
 Canoe
@@ -629,26 +732,9 @@ Sail
 Sailing ship
 Shipbuilding
 Steamboat
-Tanker
+Tanker (ship)
 Cable transport
 Aerial tramway
 Baby transport
 Pipeline transport
 Tractor
-Mouse (computing)
-Java (programming language)
-Crane (machine)
-Screw (simple machine)
-Nail (fastener)
-Nut (hardware)
-Spring (device)
-Plane (tool)
-Harrow (tool)
-Hoe (tool)
-Rake (tool)
-Furnace (central heating)
-Club (weapon)
-
-Soyuz (spacecraft)
-Balloon (aeronautics)
-Lock (water navigation)

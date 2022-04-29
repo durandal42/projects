@@ -1,24 +1,36 @@
-See also: People: Mathematicians
+Mathematics
 Mathematician
+Arithmetic
 Addition
 Subtraction
 Multiplication
-Division
+Division (mathematics)
 Euclidean algorithm
+Fraction
 Percentage
 Modular arithmetic
-Parity
+Number
+Integer
+Natural number
+Parity (mathematics)
+Real number
 Rational number
 Irrational number
 Negative number
+Complex number
 Imaginary number
 Positional notation
 Numerical digit
 Decimal
+Arabic numerals
 Roman numerals
 Binary number
 Scientific notation
 Order of operations
+Function (mathematics)
+Exponentiation
+Logarithm
+Nth root
 Square root
 Exponential function
 Inverse function
@@ -26,49 +38,67 @@ Implicit function
 Function composition
 Graph of a function
 Parametric equation
+Equation
+Series (mathematics)
 Equation solving
 Polynomial
-Constant
+Variable (mathematics)
+Constant (mathematics)
+Pi
+E (mathematical constant)
+0
 1
-−1
-i
+%E2%88%921
+Imaginary unit
 Golden ratio
 Formula
 Theorem
 Conjecture
 Factorial
 Gamma function
-Hilbert's problems
+Hilbert%27s problems
+Geometry
 Coordinate system
 Cartesian coordinate system
 Polar coordinate system
 Dimension
-Point
+Point (geometry)
+Line (geometry)
 Curve
 Two-dimensional space
-Plane
+Plane (geometry)
+Angle
 Right angle
+Area
 Shape
+Polygon
+Triangle
 Quadrilateral
 Square
+Conic section
+Circle
 Ellipse
 Parabola
 Hyperbola
+Three-dimensional space
+Volume
 Sphere
 Polyhedron
 Cube
+Trigonometry
 Trigonometric functions
 Hyperbolic functions
+Topology
 General topology
 Topological space
 Compact space
 Manifold
 Open set
-Homology
+Homology (mathematics)
 Homotopy
 Euler characteristic
 Knot theory
-Poincaré conjecture
+Poincar%C3%A9 conjecture
 Length
 Distance
 Metric space
@@ -85,10 +115,12 @@ Non-Euclidean geometry
 Fractal
 Tensor
 Tessellation
+Algebra
 Elementary algebra
+Linear algebra
 Linear equation
 Gaussian elimination
-Matrix
+Matrix (mathematics)
 Determinant
 Eigenvalues and eigenvectors
 Vector space
@@ -98,17 +130,19 @@ Dot product
 Algebraic geometry
 Algebraic variety
 Boolean algebra
-Inequality
+Inequality (mathematics)
 Quadratic equation
+Abstract algebra
 Algebraic topology
-Sheaf
+Sheaf (mathematics)
 Associative property
 Commutative algebra
 Commutative property
 Distributive property
+Field (mathematics)
 Fundamental theorem of algebra
 Galois theory
-Group
+Group (mathematics)
 Abelian group
 Classification of finite simple groups
 Fundamental group
@@ -116,35 +150,37 @@ Group representation
 Group theory
 Homological algebra
 Isomorphism
-Module
+Module (mathematics)
 Representation theory
 Ring theory
 Commutative ring
-Ring
+Ring (mathematics)
+Statistics
 Bayesian inference
 Correlation
-Regression
-Least squares
+Regression analysis
+Ordinary least squares
 Data and information visualization
 Design of experiments
 Randomized controlled trial
 Mean
 Median
 Meta-analysis
-Mode
+Mode (statistics)
 Observational study
 Sample mean and covariance
 Standard deviation
 Standard error
 Statistical hypothesis testing
-p-value
+P-value
 Chi-squared test
-Student's t-test
+Student%27s t-test
 Survey methodology
 Statistical population
-Sampling
+Sampling (statistics)
+Probability
 Probability theory
-Bayes' theorem
+Bayes%27 theorem
 Central limit theorem
 Expected value
 Law of large numbers
@@ -159,20 +195,21 @@ Discrete uniform distribution
 Random variable
 Stochastic process
 Variance
-For topics in applied computer science, see Technology: Computing and information technology
-
 Discrete mathematics
 Mathematical logic
+Mathematical proof
 Axiom
 Computability theory
 Computable function
 First-order logic
-Gödel's incompleteness theorems
+G%C3%B6del%27s incompleteness theorems
 Mathematical induction
 Propositional calculus
+Combinatorics
 Combination
 Permutation
 Theoretical computer science
+Algorithm
 Abstract machine
 Numerical integration
 Coding theory
@@ -184,15 +221,22 @@ Data structure
 Formal language
 Theory of computation
 Set theory
+Set (mathematics)
 Empty set
 Subset
 Axiom of choice
-Cantor's theorem
+Cantor%27s theorem
 Equivalence relation
+Intersection (set theory)
 Naive set theory
-Russell's paradox
+Russell%27s paradox
+Union (set theory)
 Venn diagram
 Graph theory
+Graph (discrete mathematics)
+Calculus
+Limit (mathematics)
+Infinity
 Limit of a function
 Limit of a sequence
 Sequence
@@ -208,17 +252,18 @@ Laplace transform
 Multivariable calculus
 Multiple integral
 Partial derivative
-Laplace's equation
+Laplace%27s equation
 Partial differential equation
 Vector calculus
 Del
 Taylor series
+Mathematical analysis
 Approximation theory
 Numerical analysis
 Complex analysis
-Cauchy's integral formula
-Euler's formula
-Euler's identity
+Cauchy%27s integral formula
+Euler%27s formula
+Euler%27s identity
 Holomorphic function
 Riemann surface
 Functional analysis
@@ -229,8 +274,10 @@ Fourier series
 Fourier transform
 Real analysis
 Calculus of variations
+Number theory
+Prime number
 Prime number theorem
-Euclid's theorem
+Euclid%27s theorem
 Fundamental theorem of arithmetic
 Algebraic number theory
 Algebraic number field
@@ -238,7 +285,7 @@ Class field theory
 Analytic number theory
 Riemann hypothesis
 Diophantine equation
-Fermat's Last Theorem
+Fermat%27s Last Theorem
 Applied mathematics
 Mathematical optimization
 Linear programming
@@ -252,7 +299,3 @@ Control theory
 Chaos theory
 Category theory
 Pure mathematics
-Field (mathematics)
-Intersection (set theory)
-Union (set theory)
-Graph (discrete mathematics)

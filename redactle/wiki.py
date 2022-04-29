@@ -3,6 +3,7 @@ import sys
 import os
 import time
 import re
+import urllib
 
 
 def lookup_all(titles):
@@ -17,6 +18,7 @@ LAST_LOOKUP_TIME = None
 
 
 def wiki_lookup(title):
+  title = urllib.parse.unquote(title)
   print("Looking up wikipedia article (live!):", title)
   global LAST_LOOKUP_TIME
   if LAST_LOOKUP_TIME is not None:

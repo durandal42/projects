@@ -1,0 +1,1 @@
+cat TXT.rtf | grep -o "\"file:///wiki/[^/\"]*\"" | grep -o "/[^/\"]*\"" | grep -v ".svg" | grep -v -i "vital_articles" | sed 's/_/ /g' | pbcopy

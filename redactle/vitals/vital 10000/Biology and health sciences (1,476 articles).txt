@@ -1,17 +1,29 @@
+Life
+Death
+Suicide
+Abiogenesis
+Organism
 Model organism
+Biology
 Microbiology
 Mycology
 Biomechanics
+Genetics
+Gene
 Genetic code
 Gene expression
+Heredity
 Epigenetics
 Human genome
 Hybrid (biology)
 Mendelian inheritance
+Evolution
+Natural selection
 Adaptation
 Genetic drift
 History of life
 Mutation
+Human evolution
 Australopithecus
 Homo habilis
 Homo erectus
@@ -20,11 +32,16 @@ Denisovan
 Neanderthal
 Paranthropus
 Neuroscience
+Sense
+Paleontology
 Fossil
 Phylogenetics
 Binomial nomenclature
+Taxonomy (biology)
 Domain (biology)
 Kingdom (biology)
+Species
+Anatomy
 Dissection
 Organ (biology)
 Tissue (biology)
@@ -32,15 +49,19 @@ Sexual dimorphism
 Endocrine system
 Adrenal gland
 Thyroid
+Immune system
 Antibody
 Abdomen
 Head
 Thorax
 Venom
+Circulatory system
 Artery
+Blood
 Red blood cell
 White blood cell
 Capillary
+Heart
 Lymphatic system
 Spleen
 Vein
@@ -49,12 +70,16 @@ Esophagus
 Stomach
 Small intestine
 Large intestine
+Liver
 Pancreas
 Muscular system
 Muscle cell
 Sarcomere
+Skeletal muscle
+Nervous system
 Central nervous system
 Peripheral nervous system
+Brain
 Brainstem
 Cerebellum
 Cerebral cortex
@@ -63,6 +88,7 @@ Neuron
 Spinal cord
 Sensory nervous system
 Auditory system
+Ear
 Hearing
 Taste
 Tongue
@@ -72,6 +98,7 @@ Sense of smell
 Somatosensory system
 Pain
 Visual system
+Eye
 Visual perception
 Color vision
 Integumentary system
@@ -80,6 +107,9 @@ Feather
 Fingerprint
 Fur
 Hair
+Nail (anatomy)
+Scale (anatomy)
+Skin
 Reproductive system
 Female reproductive system
 Male reproductive system
@@ -93,6 +123,9 @@ Uterus
 Vagina
 Respiratory system
 Gill
+Lung
+Skeleton
+Bone
 Jaw
 Joint
 Pelvis
@@ -109,23 +142,29 @@ Muscle tissue
 Nervous tissue
 Plant anatomy
 Plant morphology
-Berry
+Flower
+Fruit
+Berry (botany)
 Nut (fruit)
 Leaf
 Root
 Stoma
+Seed
 Shrub
+Tree
 Plant stem
 Bark (botany)
 Trunk (botany)
-Epidermis
+Epidermis (botany)
 Ground tissue
 Meristem
 Vascular tissue
 Vascular cambium
 Hypha
 Mycelium
+Biochemistry
 Chemical biology
+Molecular biology
 Biomolecule
 Alkaloid
 Caffeine
@@ -137,6 +176,7 @@ Carotenoid
 Chlorophyll
 Melanin
 Carbohydrate
+Sugar
 Fructose
 Glucose
 Lactose
@@ -144,6 +184,7 @@ Cellulose
 Chitin
 Glycogen
 Starch
+Hormone
 Dopamine
 Adrenaline
 Estrogen
@@ -156,19 +197,28 @@ Cholesterol
 Fat
 Fatty acid
 Nucleic acid
+DNA
+RNA
+Protein
 Amino acid
 Enzyme
 Hemoglobin
+Protein (nutrient)
 Steroid
 Blood sugar level
 Circadian rhythm
+Digestion
 Excretion
+Metabolism
 Muscle contraction
+Photosynthesis
 Respiration (physiology)
 Thermoregulation
 Transpiration
+Reproduction
 Asexual reproduction
 Sexual reproduction
+Sex
 Female
 Male
 Microbial cyst
@@ -177,6 +227,7 @@ Birth
 Egg
 Menstrual cycle
 Menopause
+Pregnancy
 Semen
 Sperm
 Plant reproduction
@@ -196,11 +247,13 @@ Larva
 Longevity
 Metamorphosis
 Moulting
-Nymph
+Nymph (biology)
 Ontogeny
 Puberty
 Pupa
 Tadpole
+Botany
+Plant
 Carnivorous plant
 Flowering plant
 Weed
@@ -214,11 +267,13 @@ Fermentation
 Programmed cell death
 Stem cell
 Transcription (biology)
+Translation (biology)
 Cell cycle
 Fission (biology)
 Meiosis
 Mitosis
 Plasmid
+Cell (biology)
 Cell membrane
 Cytoplasm
 Cytoskeleton
@@ -238,10 +293,15 @@ Plant cell
 Cell wall
 Chloroplast
 Plastid
+Ecology
+Biodiversity
 Biome
 Biosphere
+Competition (biology)
 Ecological niche
+Ecosystem
 Endangered species
+Extinction
 Extremophile
 Habitat
 Invasive species
@@ -250,9 +310,13 @@ Population
 Sustainability
 Symbiosis
 Wildlife conservation
+Zoology
+Animal
 Animal coloration
 Camouflage
 Ethology
+Intelligence
+Sleep
 Hibernation
 Animal locomotion
 Bipedalism
@@ -264,6 +328,7 @@ Herbivore
 Grazing
 Instinct
 Sociality
+Arthropod
 Bilateria
 Chordate
 Craniate
@@ -278,6 +343,7 @@ Echinoderm
 Sea cucumber
 Sea urchin
 Starfish
+Mollusca
 Clam
 Mussel
 Oyster
@@ -295,6 +361,7 @@ Scorpion
 Spider
 Tarantula
 Tick
+Crustacean
 Astacus astacus
 Crab
 Decapoda
@@ -304,6 +371,7 @@ Malacostraca
 Ostracod
 Shrimp
 Woodlouse
+Insect
 Pterygota
 Cockroach
 Earwig
@@ -313,15 +381,13 @@ Body louse
 Mantis
 Phasmatodea
 Termite
-
 Beetle
 Coccinellidae
 Dung beetle
 Firefly
 Weevil
-
 Fly
-Common fruit fly
+Drosophila melanogaster
 Black fly
 Botfly
 Crane fly
@@ -330,7 +396,6 @@ Horse-fly
 Housefly
 Mosquito
 Tsetse fly
-
 Hemiptera
 Cicada
 Bed bug
@@ -360,6 +425,7 @@ Odonata
 Damselfly
 Dragonfly
 Orthoptera
+Cricket (insect)
 Grasshopper
 Mole cricket
 Locust
@@ -387,6 +453,7 @@ Agnatha
 Hagfish
 Lamprey
 Ostracoderm
+Fish
 Coral reef fish
 Deep-sea fish
 Chondrichthyes
@@ -474,6 +541,7 @@ Loricariidae
 Seahorse
 Ocean sunfish
 Tetraodontidae
+Amphibian
 Caecilian
 Salamander
 Newt
@@ -483,6 +551,7 @@ Leptodactylidae
 True toad
 True frog
 American bullfrog
+Reptile
 Crocodilia
 Alligator
 Caiman
@@ -515,7 +584,8 @@ Painted turtle
 Red-eared slider
 Sea turtle
 Tortoise
-Galápagos tortoise
+Gal%C3%A1pagos tortoise
+Dinosaur
 Allosaurus
 Apatosaurus
 Diplodocus
@@ -528,6 +598,7 @@ Plesiosaur
 Pterosaur
 Synapsid
 Dimetrodon
+Bird
 Seabird
 Bird of prey
 Palaeognathae
@@ -567,6 +638,7 @@ Cuckoo
 Hoatzin
 Turaco
 Galliformes
+Chicken
 Grouse
 Guineafowl
 Peafowl
@@ -575,6 +647,7 @@ Common quail
 Domestic turkey
 Loon
 Gruiformes
+Crane (bird)
 Bustard
 Rail (bird)
 Passerine
@@ -611,6 +684,7 @@ Thrush (bird)
 American robin
 Wren
 Antbird
+Ovenbird (family)
 Tyrant flycatcher
 Cormorant
 Darter
@@ -641,6 +715,7 @@ Barn owl
 Tinamou
 Trogon
 Resplendent quetzal
+Mammal
 Aardvark
 Armadillo
 Hyrax
@@ -657,12 +732,14 @@ Brown bear
 Giant panda
 Polar bear
 Canidae
+Dog
 Dingo
 Coyote
 Fox
 Jackal
 Wolf
 Felidae
+Cat
 Cheetah
 Cougar
 Jaguar
@@ -702,11 +779,13 @@ American bison
 Antelope
 Aurochs
 Capra (genus)
+Cattle
 Gazelle
 Gaur
 Goat
 Impala
 Muskox
+Sheep
 Water buffalo
 Wildebeest
 European bison
@@ -725,8 +804,10 @@ Guanaco
 Hippopotamus
 Peccary
 Pronghorn
+Sus (genus)
+Pig
 Wild boar
-Vicuña
+Vicu%C3%B1a
 Lagomorpha
 Hare
 Rabbit
@@ -744,6 +825,7 @@ Platypus
 Odd-toed ungulate
 Donkey
 Equidae
+Horse
 Rhinoceros
 Tapir
 Zebra
@@ -753,13 +835,16 @@ Pinniped
 Eared seal
 Earless seal
 Walrus
+Primate
 Monkey
 Ape
+Pan (genus)
 Chimpanzee
 Bonobo
 Gibbon
 Gorilla
 Orangutan
+Human
 New World monkey
 Capuchin monkey
 Spider monkey
@@ -775,6 +860,7 @@ Tarsier
 Proboscidea
 Elephant
 Mammoth
+Rodent
 Capybara
 Nutria
 Beaver
@@ -790,6 +876,7 @@ Rat
 Brown rat
 Squirrel
 Shrew
+Mole (animal)
 Siamese cat
 Domestic short-haired cat
 American Brahman
@@ -824,7 +911,6 @@ Lycophyte
 Gymnosperm
 Cycad
 Ginkgo biloba
-
 Conifer
 Cedrus
 Cupressus
@@ -916,7 +1002,7 @@ Euphorbiaceae
 Flax
 Hypericum
 Poinsettia
-Viola
+Viola (plant)
 Willow
 Malvaceae
 Adansonia
@@ -987,11 +1073,14 @@ Green bean
 Okra
 Tomato
 Barley
+Maize
 Millet
 Oat
+Rice
 Oryza sativa
 Rye
 Sorghum
+Wheat
 Common wheat
 Amaranth
 Buckwheat
@@ -1007,6 +1096,7 @@ Walnut
 Bean
 Vicia faba
 Lima bean
+Soybean
 Phaseolus vulgaris
 Chickpea
 Lentil
@@ -1016,6 +1106,7 @@ Eruca vesicaria
 Cabbage
 Chard
 Chinese cabbage
+Collard (plant)
 Kale
 Lettuce
 Rapeseed
@@ -1027,6 +1118,7 @@ Cassava
 Daikon
 Onion
 Parsnip
+Potato
 Radish
 Rutabaga
 Sugar beet
@@ -1063,6 +1155,7 @@ Parsley
 Saffron
 Thyme
 Vanilla
+Fungus
 Mushroom
 Yeast
 Saccharomyces cerevisiae
@@ -1077,10 +1170,13 @@ Shiitake
 Truffle
 Amanita muscaria
 Amanita phalloides
+Eukaryote
 Plankton
 Protist
 Paramecium
 Prokaryote
+Archaea
+Bacteria
 Cyanobacteria
 Escherichia coli
 Salmonella
@@ -1088,6 +1184,7 @@ Staphylococcus aureus
 Rhizaria
 Excavata
 Euglenozoa
+Algae
 Red algae
 Seaweed
 Chromalveolata
@@ -1102,38 +1199,55 @@ Dinoflagellate
 Lichen
 Amoebozoa
 Slime mold
+Health
+Mental health
+Nutrition
 Diet (nutrition)
 Dietary supplement
 Food group
 Hunger
 Malnutrition
 Vitamin
+Hygiene
 Bathing
 Feminine hygiene
 Oral hygiene
 Shaving
 Physical fitness
 Body mass index
+Exercise
+Obesity
 Weight loss
+Ageing
 Breastfeeding
 Fertilisation
 Infertility
 Occupational safety and health
+Stress (biology)
+Medication
+Vaccine
 Vaccination
 Smallpox vaccine
 Polio vaccine
 Prescription drug
 Amphetamine
 Analgesic
+Anesthesia
+Antibiotic
 Penicillin
 Aspirin
 Benzodiazepine
 Quinine
+Drug
+Alcohol (drug)
 Alcohol intoxication
 Tobacco
-Cannabis
+Cannabis (drug)
 Opium
 Substance use disorder
+Addiction
+Alcoholism
+Smoking
 Cigarette
 Substance dependence
 Pharmacology
@@ -1141,14 +1255,18 @@ Pharmacokinetics
 Placebo
 Pharmacy
 Pharmacist
+Medicine
 Emergency medical services
 First aid
 Health care
 Veterinary medicine
 Medical ethics
+Hospital
 Emergency department
 Psychiatric hospital
 Physician
+Nursing
+Human body
 Arm
 Face
 Foot
@@ -1161,6 +1279,7 @@ Human leg
 Human skeleton
 Human tooth
 Human voice
+Dentistry
 Dental restoration
 Dentures
 Root canal
@@ -1196,6 +1315,7 @@ Toxicology
 Traditional medicine
 Ayurveda
 Urology
+Surgery
 Amputation
 Organ transplantation
 Plastic surgery
@@ -1219,17 +1339,22 @@ Chemotherapy
 Physical therapy
 Radiation therapy
 Symptomatic treatment
+Disease
 Acne
-Alzheimer's disease
+Allergy
+Alzheimer%27s disease
 Anemia
 Arthritis
+Asthma
 Autoimmune disease
 Bronchitis
+Cardiovascular disease
 Hypertension
 Myocardial infarction
 Chronic obstructive pulmonary disease
 Cirrhosis
 Dementia
+Diabetes
 Diarrhea
 Epilepsy
 Gout
@@ -1237,7 +1362,8 @@ Hepatitis
 Meningitis
 Migraine
 Multiple sclerosis
-Parkinson's disease
+Parkinson%27s disease
+Injury
 Blunt trauma
 Bone fracture
 Bruise
@@ -1255,11 +1381,14 @@ Hypoxia (medical)
 Inflammation
 Respiratory failure
 Shock (circulatory)
+Stroke
 Foodborne illness
 Botulism
 Mushroom poisoning
 Typhoid fever
+Infection
 Pathogen
+Virus
 Coronavirus
 Human papillomavirus infection
 HIV
@@ -1269,28 +1398,36 @@ Anthrax
 Bubonic plague
 Chickenpox
 Cholera
+Common cold
 Dengue fever
 Diphtheria
 Ebola
 Encephalitis
 Gangrene
+Gastroenteritis
 Dysentery
 Hand, foot, and mouth disease
+Influenza
 Leprosy
 Lyme disease
+Malaria
 Measles
 Mumps
 Fungal infection
+Pneumonia
 Polio
 Rabies
 Scabies
 Scarlet fever
 SARS
+Sexually transmitted infection
 Chlamydia
 Gonorrhea
 Herpes simplex
 Syphilis
+Smallpox
 Tetanus
+Tuberculosis
 Typhus
 West Nile fever
 Whooping cough
@@ -1303,6 +1440,7 @@ Dyslexia
 Hearing loss
 Intellectual disability
 Physical disability
+Cancer
 Brain tumor
 Carcinogen
 Breast cancer
@@ -1314,6 +1452,7 @@ Neoplasm
 Prostate cancer
 Skin cancer
 Melanoma
+Mental disorder
 Anxiety disorder
 Phobia
 Post-traumatic stress disorder
@@ -1335,17 +1474,3 @@ Persistent vegetative state
 Poison
 Toxicity
 Syndrome
-Nail (anatomy)
-Scale (anatomy)
-Protein (nutrient)
-Translation (biology)
-Competition (biology)
-Cricket (insect)
-Crane (bird)
-Ovenbird (family)
-Sus (genus)
-Pan (genus)
-Mole (animal)
-Collard (plant)
-Stress (biology)
-Alcohol (drug)

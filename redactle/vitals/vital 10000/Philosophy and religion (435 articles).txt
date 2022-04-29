@@ -1,14 +1,19 @@
-For philosophers, see People: Philosophers. For religious figures, see People: Religious figures
+Philosophy
+Western philosophy
 Ancient Greek philosophy
 Medieval philosophy
 Renaissance philosophy
 Modern philosophy
 Contemporary philosophy
+Eastern philosophy
 Chinese philosophy
 Indian philosophy
 Ancient philosophy
 Analytic philosophy
+Confucianism
+Legalism (Chinese philosophy)
 Philosophical Taoism
+Phenomenology (philosophy)
 Positivism
 Pragmatism
 Sophist
@@ -17,12 +22,16 @@ Thomism
 Buddhist philosophy
 Christian philosophy
 Islamic philosophy
+Ethics
+Free will
+Good and evil
 Conscience
 Golden Rule
-Is–ought problem
+Is%E2%80%93ought problem
 Morality
 Plagiarism
 Principle
+Value (ethics and social sciences)
 Virtue
 Wisdom
 Consequentialism
@@ -31,6 +40,7 @@ Humanism
 Nihilism
 Relativism
 Utilitarianism
+Logic
 Argument
 A priori and a posteriori
 Critical thinking
@@ -41,17 +51,27 @@ Deductive reasoning
 Inductive reasoning
 Paradox
 Thought experiment
+Epistemology
+Knowledge
+Truth
+Reason
+Belief
 Common sense
 Concept
 Experience
-Occam's razor
+Occam%27s razor
 Opinion
 Superstition
 Worldview
 Empiricism
+Naturalism (philosophy)
 Rationalism
 Skepticism
+Metaphysics
+Ontology
+Absolute (philosophy)
 Abstraction
+Causality (physics)
 Existence
 Mental representation
 Nothing
@@ -59,11 +79,13 @@ Reality
 Determinism
 Idealism
 Materialism
-Mind–body dualism
+Mind%E2%80%93body dualism
 Monism
 Platonic realism
+Aesthetics
 Beauty
 Perfection
+Philosophy of science
 Fact
 Hypothesis
 Natural philosophy
@@ -73,17 +95,24 @@ Parapsychology
 Reductionism
 Theory
 Philosophy of language
+Meaning (philosophy)
 Philosophy of mathematics
 Philosophy of mind
 Philosophy of religion
 Political philosophy
+Religion
 Comparative religion
 Folk religion
 Freedom of religion
 Mysticism
 Theology
+Deity
+God
 Goddess
+Ritual
 Fertility rite
+Prayer
+Meditation
 Apologetics
 Apostasy
 Celibacy
@@ -101,6 +130,7 @@ Sacrifice
 Saint
 Veneration of the dead
 Worship
+Spirituality
 Animism
 Astrology
 Creation myth
@@ -108,6 +138,7 @@ Curse
 Divination
 Eschatology
 Faith
+Magic (supernatural)
 Witchcraft
 Origin myth
 Religious experience
@@ -119,10 +150,13 @@ Cemetery
 Cremation
 Funeral
 Mummy
+Afterlife
 Heaven
 Hell
 Reincarnation
 Resurrection
+Soul
+Spirit (animating force)
 Altar
 Anti-clericalism
 Creed
@@ -143,12 +177,18 @@ Panentheism
 Pantheism
 Polytheism
 Syncretism
+Atheism
 Agnosticism
 Freethought
-Baháʼí Faith
+Secularism
+Christianity
+Islam
+Judaism
+Bah%C3%A1%CA%BC%C3%AD Faith
 Druze
 Gnosticism
 Rastafari
+Bible
 Old Testament
 New Testament
 Holy Spirit
@@ -157,6 +197,7 @@ Predestination
 Salvation
 Sin
 Ten Commandments
+Talmud
 Torah
 Halakha
 Kashrut
@@ -166,17 +207,20 @@ Synagogue
 Conservative Judaism
 Orthodox Judaism
 Reform Judaism
+Catholic Church
 Eastern Catholic Churches
 Eastern Christianity
+Eastern Orthodox Church
 Greek Orthodox Church
 Russian Orthodox Church
 Oriental Orthodox Churches
 Coptic Orthodox Church
 Ethiopian Orthodox Tewahedo Church
 Nontrinitarianism
-Jehovah's Witnesses
+Jehovah%27s Witnesses
 Mormonism
 Unitarianism
+Protestantism
 Anglicanism
 Arminianism
 Baptists
@@ -190,12 +234,17 @@ Seventh-day Adventist Church
 Catholicity
 Pope
 Purgatory
+Church (congregation)
+Church (building)
 Ecumenism
-Grace
+Grace in Christianity
 Second Coming
 Trinity
 Islamic schools and branches
+Sunni Islam
+Shia Islam
 Sufism
+Quran
 Allah
 Five Pillars of Islam
 Hajj
@@ -206,6 +255,12 @@ Haram
 Imam
 Mosque
 Sharia
+Hinduism
+Buddhism
+Jainism
+Sikhism
+Taoism
+Shinto
 Manichaeism
 Dharma
 Karma
@@ -216,6 +271,8 @@ Swastika
 Tantra
 Yin and yang
 Yoga
+Bhagavad Gita
+Vedas
 Avatar
 Brahman
 Kumbh Mela
@@ -225,9 +282,11 @@ Shaktism
 Upanishads
 Vaishnavism
 Vedanta
-Avalokiteśvara
+Mahayana
+Avalokite%C5%9Bvara
 Diamond Sutra
-Pāli Canon
+Theravada
+P%C4%81li Canon
 Vajrayana
 Four Noble Truths
 Nirvana
@@ -235,10 +294,14 @@ Zen
 Guru Granth Sahib
 Golden Temple
 Tao Te Ching
+Zhuangzi (book)
 Kojiki
+Shamanism
 Zoroastrianism
 Avesta
+Chinese folk religion
 Haitian Vodou
+Traditional African religions
 Yoruba religion
 Prehistoric religion
 Ancient Celtic religion
@@ -252,21 +315,23 @@ Old Norse religion
 Religion in ancient Rome
 Religion in pre-Islamic Arabia
 Slavic paganism
-For heroes and characters, see under "Mythical and fictional people", for creatures, see under "Literature: Fictional worlds"
-
 Western esotericism
 Freemasonry
 Rosicrucianism
 New Age
+New religious movement
 Falun Gong
 Modern Paganism
 Wicca
 Satanism
 Spiritualism
+Folklore
+Myth
 Comparative mythology
 Australian Aboriginal religion and mythology
 Chinese mythology
 Egyptian mythology
+Greek mythology
 Hindu mythology
 Japanese mythology
 Korean mythology
@@ -274,9 +339,11 @@ Mythologies of the indigenous peoples of the Americas
 Norse mythology
 Persian mythology
 Roman mythology
+Abraham
 Adam and Eve
 Cain and Abel
 Lilith
+Daniel (biblical figure)
 David
 Elijah
 Ezra
@@ -284,6 +351,8 @@ Isaac
 Isaiah
 Ishmael
 Jacob
+Joseph (Genesis)
+Moses
 Noah
 Satan
 Solomon
@@ -316,7 +385,10 @@ Hephaestus
 Poseidon
 Titans
 Zeus
+Jupiter (mythology)
+Mars (mythology)
 Minerva
+Venus (mythology)
 Brahma
 Ganesha
 Kali
@@ -327,6 +399,7 @@ Vishnu
 Enki
 Enlil
 Inanna
+Coyote (mythology)
 Great Spirit
 Quetzalcoatl
 Odin
@@ -338,6 +411,7 @@ Amaterasu
 Legendary creature
 Angel
 Centaur
+Death (personification)
 Demon
 Devil
 Dragon
@@ -348,6 +422,8 @@ Jinn
 Leprechaun
 Mermaid
 Pegasus
+Phoenix (mythology)
+Siren (mythology)
 Sphinx
 Unicorn
 Vampire
@@ -358,24 +434,3 @@ El Dorado
 Paradise
 Utopia
 Holy Grail
-Legalism (Chinese philosophy)
-Phenomenology (philosophy)
-Value (ethics and social sciences)
-Naturalism (philosophy)
-Absolute (philosophy)
-Causality (physics)
-Meaning (philosophy)
-Magic (supernatural)
-Spirit (animating force)
-Church (congregation)
-Church (building)
-Zhuangzi (book)
-Daniel (biblical figure)
-Joseph (Genesis)
-Jupiter (mythology)
-Mars (mythology)
-Venus (mythology)
-Coyote (mythology)
-Death (personification)
-Phoenix (mythology)
-Siren (mythology)

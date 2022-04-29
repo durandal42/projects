@@ -43,7 +43,7 @@ Marilyn Monroe
 Jeanne Moreau
 Jack Nicholson
 Laurence Olivier
-Peter O'Toole
+Peter O%27Toole
 Gregory Peck
 Mary Pickford
 Sidney Poitier
@@ -77,7 +77,7 @@ Lucille Ball
 Carol Burnett
 George Carlin
 Bill Cosby
-Louis de Funès
+Louis de Fun%C3%A8s
 Laurel and Hardy
 Marx Brothers
 Monty Python
@@ -93,46 +93,50 @@ Hieronymus Bosch
 Pieter Bruegel the Elder
 Caravaggio
 Jacques-Louis David
-Albrecht Dürer
+Albrecht D%C3%BCrer
 Artemisia Gentileschi
 El Greco
 Francisco Goya
 William Hogarth
 Hans Holbein the Younger
+Leonardo da Vinci
 Masaccio
 Nicolas Poussin
 Raphael
+Rembrandt
 Peter Paul Rubens
 Titian
 Jan van Eyck
-Diego Velázquez
+Diego Vel%C3%A1zquez
 Johannes Vermeer
 Antoine Watteau
-Paul Cézanne
+Paul C%C3%A9zanne
 Marc Chagall
 John Constable
 Gustave Courbet
-Salvador Dalí
+Salvador Dal%C3%AD
 Edgar Degas
-Eugène Delacroix
+Eug%C3%A8ne Delacroix
 Max Ernst
 Caspar David Friedrich
 Paul Gauguin
 Vincent van Gogh
 Edward Hopper
 Jean-Auguste-Dominique Ingres
+Frida Kahlo
 Wassily Kandinsky
 Paul Klee
-René Magritte
+Ren%C3%A9 Magritte
 Kazimir Malevich
-Édouard Manet
+%C3%89douard Manet
 Franz Marc
 Henri Matisse
-Joan Miró
+Joan Mir%C3%B3
 Piet Mondrian
 Claude Monet
 Edvard Munch
-Georgia O'Keeffe
+Georgia O%27Keeffe
+Pablo Picasso
 Camille Pissarro
 Jackson Pollock
 Pierre-Auguste Renoir
@@ -149,16 +153,17 @@ James Abbott McNeill Whistler
 Aubrey Beardsley
 M. C. Escher
 Will Eisner
-Hergé
+Herg%C3%A9
 Jack Kirby
 Winsor McCay
 Norman Rockwell
 Dr. Seuss
 Osamu Tezuka
 Gian Lorenzo Bernini
-Constantin Brâncuși
+Constantin Br%C3%A2ncu%C8%99i
 Donatello
 Alberto Giacometti
+Michelangelo
 Henry Moore
 Phidias
 Auguste Rodin
@@ -167,7 +172,7 @@ Leon Battista Alberti
 Filippo Brunelleschi
 Le Corbusier
 Buckminster Fuller
-Antoni Gaudí
+Antoni Gaud%C3%AD
 Frank Gehry
 Walter Gropius
 Zaha Hadid
@@ -187,6 +192,7 @@ Frank Lloyd Wright
 Joseph Beuys
 Marcel Duchamp
 Coco Chanel
+Yves Saint Laurent (designer)
 Raymond Loewy
 Ansel Adams
 Henri Cartier-Bresson
@@ -195,13 +201,14 @@ Sergey Prokudin-Gorsky
 Man Ray
 Edward Weston
 Antonio Stradivari
-Georges-Eugène Haussmann
+Georges-Eug%C3%A8ne Haussmann
 Jane Jacobs
 Robert Moses
 Frederick Law Olmsted
+Hokusai
 Hiroshige
-Kanō Masanobu
-Sesshū Tōyō
+Kan%C5%8D Masanobu
+Sessh%C5%AB T%C5%8Dy%C5%8D
 Shitao
 Wang Xizhi
 Kalidasa
@@ -211,6 +218,7 @@ Aristophanes
 Catullus
 Euripides
 Hesiod
+Homer
 Horace
 Lucian
 Menander
@@ -219,6 +227,7 @@ Plautus
 Sappho
 Sophocles
 Terence
+Virgil
 Bai Juyi
 Bhavabhuti
 Du Fu
@@ -229,28 +238,35 @@ Jami
 Kabir
 Omar Khayyam
 Amir Khusrau
+Li Bai
 Mirabai
+Murasaki Shikibu
 Nizami Ganjavi
 Abu Nuwas
 Ouyang Xiu
 Rudaki
+Rumi
 Saadi Shirazi
 Su Shi
 Tao Yuanming
+Wang Wei (Tang dynasty)
+Dante Alighieri
 Giovanni Boccaccio
 Geoffrey Chaucer
-Chrétien de Troyes
+Chr%C3%A9tien de Troyes
 Christine de Pizan
 Petrarch
-François Villon
-Matsuo Bashō
+Fran%C3%A7ois Villon
+Fuzuli (writer)
+Matsuo Bash%C5%8D
 Mir Taqi Mir
 Tukaram
 Tulsidas
-Pedro Calderón de la Barca
+Pedro Calder%C3%B3n de la Barca
 Robert Burns
-Luís de Camões
+Lu%C3%ADs de Cam%C3%B5es
 Giacomo Casanova
+Miguel de Cervantes
 Pierre Corneille
 Daniel Defoe
 John Donne
@@ -262,21 +278,23 @@ Christopher Marlowe
 John Milton
 Michel de Montaigne
 Thomas More
-Molière
+Moli%C3%A8re
 Nostradamus
 Charles Perrault
 Alexander Pope
-François Rabelais
+Fran%C3%A7ois Rabelais
 Jean Racine
 Marquis de Sade
+William Shakespeare
 Edmund Spenser
 Jonathan Swift
 Lope de Vega
+Voltaire
 Chinua Achebe
 Ben Okri
 Naguib Mahfouz
 Wole Soyinka
-Ngũgĩ wa Thiong'o
+Ng%C5%A9g%C4%A9 wa Thiong%27o
 J. M. Coetzee
 Nadine Gordimer
 Maya Angelou
@@ -323,16 +341,16 @@ Jorge Amado
 Jorge Luis Borges
 Alejo Carpentier
 Carlos Fuentes
-Gabriel García Márquez
+Gabriel Garc%C3%ADa M%C3%A1rquez
 Machado de Assis
-José Martí
+Jos%C3%A9 Mart%C3%AD
 Pablo Neruda
 Mario Vargas Llosa
 Constantine P. Cavafy
 Adam Mickiewicz
 Ismail Kadare
 Joseph Conrad
-Sándor Petőfi
+S%C3%A1ndor Pet%C5%91fi
 Henryk Sienkiewicz
 Taras Shevchenko
 Elie Wiesel
@@ -350,10 +368,11 @@ Boris Pasternak
 Alexander Pushkin
 Mikhail Sholokhov
 Aleksandr Solzhenitsyn
+Leo Tolstoy
 Ivan Turgenev
 Hans Christian Andersen
 Antonin Artaud
-Honoré de Balzac
+Honor%C3%A9 de Balzac
 Charles Baudelaire
 Karen Blixen
 Bertolt Brecht
@@ -362,8 +381,8 @@ Alexandre Dumas
 Umberto Eco
 Gustave Flaubert
 Anne Frank
-Federico García Lorca
-André Gide
+Federico Garc%C3%ADa Lorca
+Andr%C3%A9 Gide
 Johann Wolfgang von Goethe
 Brothers Grimm
 Knut Hamsun
@@ -371,31 +390,31 @@ Heinrich Heine
 Hermann Hesse
 Victor Hugo
 Henrik Ibsen
-Eugène Ionesco
+Eug%C3%A8ne Ionesco
 Franz Kafka
-Selma Lagerlöf
-Halldór Laxness
+Selma Lagerl%C3%B6f
+Halld%C3%B3r Laxness
 Astrid Lindgren
 Thomas Mann
-Stéphane Mallarmé
+St%C3%A9phane Mallarm%C3%A9
 Guy de Maupassant
 Fernando Pessoa
 Luigi Pirandello
 Marcel Proust
 Arthur Rimbaud
 Rainer Maria Rilke
-José Saramago
+Jos%C3%A9 Saramago
 Friedrich Schiller
 Stendhal
 August Strindberg
 Tristan Tzara
 Jules Verne
-Émile Zola
+%C3%89mile Zola
 Jane Austen
 Samuel Beckett
 William Blake
 Enid Blyton
-Brontë family
+Bront%C3%AB family
 Lord Byron
 Lewis Carroll
 Agatha Christie
@@ -429,7 +448,7 @@ William Wordsworth
 Virginia Woolf
 W. B. Yeats
 Chinghiz Aitmatov
-Ryūnosuke Akutagawa
+Ry%C5%ABnosuke Akutagawa
 Ghalib
 Kahlil Gibran
 Muhammad Iqbal
@@ -440,10 +459,11 @@ Lao She
 Lu Xun
 Yukio Mishima
 Haruki Murakami
-Natsume Sōseki
-Kenzaburō Ōe
+Natsume S%C5%8Dseki
+Kenzabur%C5%8D %C5%8Ce
 Orhan Pamuk
 Premchand
+Rabindranath Tagore
 Banjo Paterson
 Patrick White
 Svetlana Alexievich
@@ -465,16 +485,19 @@ Guillaume de Machaut
 Josquin des Prez
 Guillaume Du Fay
 Giovanni Pierluigi da Palestrina
+Johann Sebastian Bach
 George Frideric Handel
 Claudio Monteverdi
 Henry Purcell
 Antonio Vivaldi
+Ludwig van Beethoven
 Joseph Haydn
+Wolfgang Amadeus Mozart
 Hector Berlioz
 Johannes Brahms
 Anton Bruckner
-Frédéric Chopin
-Antonín Dvořák
+Fr%C3%A9d%C3%A9ric Chopin
+Anton%C3%ADn Dvo%C5%99%C3%A1k
 Edward Elgar
 Gilbert and Sullivan
 Franz Liszt
@@ -491,11 +514,11 @@ Richard Strauss
 Pyotr Ilyich Tchaikovsky
 Giuseppe Verdi
 Richard Wagner
-Béla Bartók
+B%C3%A9la Bart%C3%B3k
 Benjamin Britten
 Aaron Copland
 Claude Debussy
-Gabriel Fauré
+Gabriel Faur%C3%A9
 Giacomo Puccini
 Sergei Prokofiev
 Sergei Rachmaninoff
@@ -508,7 +531,7 @@ Ralph Vaughan Williams
 Pierre Boulez
 John Cage
 Philip Glass
-György Ligeti
+Gy%C3%B6rgy Ligeti
 Karlheinz Stockhausen
 Nadia Boulanger
 Pablo Casals
@@ -522,12 +545,12 @@ Sviatoslav Richter
 Arthur Rubinstein
 Maria Callas
 Enrico Caruso
-Plácido Domingo
+Pl%C3%A1cido Domingo
 Dietrich Fischer-Dieskau
 Kirsten Flagstad
 Luciano Pavarotti
 Joan Sutherland
-Niccolò Paganini
+Niccol%C3%B2 Paganini
 Muthuswami Dikshitar
 Shyama Shastri
 Tyagaraja
@@ -535,19 +558,21 @@ Ali Akbar Khan
 Ravi Shankar
 Nusrat Fateh Ali Khan
 Mohammad-Reza Shajarian
+Louis Armstrong
 Miles Davis
 Duke Ellington
 Ella Fitzgerald
 George Gershwin
 Benny Goodman
 Billie Holiday
-Antônio Carlos Jobim
+Ant%C3%B4nio Carlos Jobim
 Scott Joplin
 Charlie Parker
 Django Reinhardt
 ABBA
 Bing Crosby
 Stephen Foster
+Michael Jackson
 Madonna
 Miriam Makeba
 Bob Marley
@@ -557,7 +582,7 @@ Charles Aznavour
 Serge Gainsbourg
 Umm Kulthum
 Lata Mangeshkar
-Édith Piaf
+%C3%89dith Piaf
 Teresa Teng
 Vladimir Vysotsky
 Fela Kuti
@@ -576,15 +601,17 @@ Joni Mitchell
 Dolly Parton
 Hank Williams
 James Brown
+Prince (musician)
 Tupac Shakur
 Celia Cruz
 Julio Iglesias
 Astor Piazzolla
 Selena
-Paco de Lucía
+Paco de Luc%C3%ADa
 Irving Berlin
 Rodgers and Hammerstein
 Andrew Lloyd Webber
+The Beatles
 John Lennon
 The Beach Boys
 Black Sabbath
@@ -599,17 +626,20 @@ Led Zeppelin
 Little Richard
 Pink Floyd
 Elvis Presley
+Queen (band)
 The Rolling Stones
 The Velvet Underground
+Walt Disney
 Hayao Miyazaki
 Jim Henson
 Woody Allen
 Michelangelo Antonioni
 Ingmar Bergman
 Robert Bresson
-Luis Buñuel
+Luis Bu%C3%B1uel
 James Cameron
 Frank Capra
+Charlie Chaplin
 Jean Cocteau
 Francis Ford Coppola
 Cecil B. DeMille
@@ -619,7 +649,7 @@ Guru Dutt
 Sergei Eisenstein
 Federico Fellini
 John Ford
-Miloš Forman
+Milo%C5%A1 Forman
 Jean-Luc Godard
 D. W. Griffith
 Howard Hawks
@@ -635,21 +665,21 @@ Fritz Lang
 David Lean
 Ang Lee
 George Lucas
-Auguste and Louis Lumière
+Auguste and Louis Lumi%C3%A8re
 Ida Lupino
 David Lynch
-Georges Méliès
-Yasujirō Ozu
+Georges M%C3%A9li%C3%A8s
+Yasujir%C5%8D Ozu
 Roman Polanski
 Satyajit Ray
 Jean Renoir
 Leni Riefenstahl
 Martin Scorsese
-Ousmane Sembène
+Ousmane Semb%C3%A8ne
 Steven Spielberg
 Quentin Tarantino
 Andrei Tarkovsky
-François Truffaut
+Fran%C3%A7ois Truffaut
 Orson Welles
 Billy Wilder
 Wong Kar-wai
@@ -666,10 +696,12 @@ Al Capone
 Andrew Carnegie
 Marcus Licinius Crassus
 Pablo Escobar
+Henry Ford
 Jakob Fugger
 Bill Gates
 Howard Hughes
 Steve Jobs
+Est%C3%A9e Lauder (businesswoman)
 Li Ka-shing
 Andrew Mellon
 Shigeru Miyamoto
@@ -689,15 +721,22 @@ Hanno the Navigator
 Zhang Qian
 Ibn Battuta
 Leif Erikson
+Marco Polo
 Xuanzang
+Zheng He
 Vitus Bering
-Pedro Álvares Cabral
+Pedro %C3%81lvares Cabral
 Jacques Cartier
-Juan Ponce de León
+Christopher Columbus
+James Cook
+Vasco da Gama
+Ferdinand Magellan
+Juan Ponce de Le%C3%B3n
 Hernando de Soto
 Abel Tasman
 Amerigo Vespucci
 Willem Barentsz
+Roald Amundsen
 Neil Armstrong
 Amelia Earhart
 Yuri Gagarin
@@ -707,24 +746,33 @@ David Livingstone
 Fridtjof Nansen
 Ernest Shackleton
 Valentina Tereshkova
+David Thompson (explorer)
+Aristotle
 Augustine of Hippo
+Cicero
+Confucius
 Democritus
 Diogenes
 Epicurus
 Han Fei
 Heraclitus
+Ka%E1%B9%87%C4%81da (philosopher)
+Laozi
 Li Si
 Lucretius
 Mencius
+Plato
 Plotinus
 Seneca the Younger
 Shang Yang
+Socrates
 Thales of Miletus
 Xun Kuang
 Peter Abelard
 Averroes
 Duns Scotus
 Al-Farabi
+Thomas Aquinas
 Wang Yangming
 William of Ockham
 Zhu Xi
@@ -732,10 +780,12 @@ Francis Bacon
 Jeremy Bentham
 George Berkeley
 Giordano Bruno
+Ren%C3%A9 Descartes
 Denis Diderot
 Erasmus
 Johann Gottlieb Fichte
 David Hume
+Immanuel Kant
 Jean-Jacques Rousseau
 Baruch Spinoza
 Hannah Arendt
@@ -747,14 +797,15 @@ Jacques Derrida
 John Dewey
 Frantz Fanon
 Michel Foucault
-Jürgen Habermas
+J%C3%BCrgen Habermas
 Georg Wilhelm Friedrich Hegel
 Martin Heidegger
 Edmund Husserl
 William James
-Søren Kierkegaard
+S%C3%B8ren Kierkegaard
 Marshall McLuhan
 John Stuart Mill
+Friedrich Nietzsche
 Charles Sanders Peirce
 Karl Popper
 John Rawls
@@ -766,6 +817,7 @@ Henry David Thoreau
 Alfred North Whitehead
 Ludwig Wittgenstein
 Eusebius
+Herodotus
 Josephus
 Plutarch
 Sima Qian
@@ -775,6 +827,7 @@ Xenophon
 Bede
 Jean Froissart
 Geoffrey of Monmouth
+Ibn Khaldun
 Edward Gibbon
 Nikolay Karamzin
 Giorgio Vasari
@@ -786,14 +839,18 @@ Leopold von Ranke
 A. J. P. Taylor
 Frederick Jackson Turner
 Chanakya
-Pāṇini
+P%C4%81%E1%B9%87ini
+Niccol%C3%B2 Machiavelli
 Cesare Beccaria
 Edmund Burke
 Hugo Grotius
 Thomas Hobbes
 Gotthold Ephraim Lessing
+John Locke
 Montesquieu
 Thomas Paine
+Adam Smith
+Mary Wollstonecraft
 Theodor W. Adorno
 Mikhail Bakunin
 Edward Bernays
@@ -803,7 +860,7 @@ Pierre Bourdieu
 Louis Braille
 Noam Chomsky
 W. E. B. Du Bois
-Émile Durkheim
+%C3%89mile Durkheim
 Friedrich Engels
 Milton Friedman
 John Kenneth Galbraith
@@ -812,9 +869,10 @@ Antonio Gramsci
 Friedrich Hayek
 John Maynard Keynes
 Peter Kropotkin
-Claude Lévi-Strauss
+Claude L%C3%A9vi-Strauss
+Karl Marx
 Marcel Mauss
-Bronisław Malinowski
+Bronis%C5%82aw Malinowski
 Thomas Robert Malthus
 Margaret Mead
 Maria Montessori
@@ -838,6 +896,7 @@ Albert Ellis
 Erik Erikson
 Leon Festinger
 Anna Freud
+Sigmund Freud
 Carl Jung
 Kurt Lewin
 Abraham Maslow
@@ -854,9 +913,10 @@ Kapila
 Patanjali
 Valmiki
 Vyasa
+Adi Shankara
 Basava
 Gaudapada
-Kumārila Bhaṭṭa
+Kum%C4%81rila Bha%E1%B9%AD%E1%B9%ADa
 Madhvacharya
 Ramanuja
 A. C. Bhaktivedanta Swami Prabhupada
@@ -866,29 +926,33 @@ Ramakrishna
 Ramana Maharshi
 Sri Aurobindo
 Swami Vivekananda
+Gautama Buddha
 14th Dalai Lama
 Nagarjuna
-Padmasambhāva
+Padmasambh%C4%81va
 Bodhidharma
-Kumārajīva
+Kum%C4%81raj%C4%ABva
+Huiyuan (Buddhist)
 Zhiyi
 Huineng
-Ānanda
+%C4%80nanda
 Maudgalyayana
-Śāriputra
+%C5%9A%C4%81riputra
 Vasubandhu
-Dōgen
-Kūkai
+D%C5%8Dgen
+K%C5%ABkai
 Baal Shem Tov
 Rabbi Akiva
 Judah Loew ben Bezalel
 Maimonides
 Rashi
 Vilna Gaon
+Jesus
 Mary, mother of Jesus
 Mary Magdalene
 John the Baptist
 Judas Iscariot
+Paul the Apostle
 Saint Peter
 John the Apostle
 Ambrose
@@ -919,11 +983,12 @@ Jan Hus
 Ignatius of Loyola
 John of the Cross
 Mother Teresa
-Teresa of Ávila
-Tomás de Torquemada
+Teresa of %C3%81vila
+Tom%C3%A1s de Torquemada
 John Wycliffe
 Francis Xavier
 Pope John XXIII
+Pope John Paul II
 Pope Pius IX
 Patriarch Nikon of Moscow
 Grigori Rasputin
@@ -932,26 +997,29 @@ Karl Barth
 Dietrich Bonhoeffer
 John Calvin
 Thomas Cranmer
+Jonathan Edwards (theologian)
 Billy Graham
 John Knox
+Martin Luther
 Philip Melanchthon
 Desmond Tutu
 John Wesley
 Huldrych Zwingli
 Mary Baker Eddy
 Joseph Smith
+Muhammad
 Aisha
 Fatimah
 Khadija bint Khuwaylid
 Ali
 Husayn ibn Ali
-Ja'far al-Sadiq
+Ja%27far al-Sadiq
 Ahmad ibn Hanbal
 Abu Hanifa
 Malik ibn Anas
 Muhammad al-Bukhari
 Muslim ibn al-Hajjaj
-Al-Shafi'i
+Al-Shafi%27i
 Ibn Taymiyyah
 Al-Nawawi
 Muhammad ibn Abd al-Wahhab
@@ -959,7 +1027,7 @@ Al-Ghazali
 Ibn Arabi
 Mulla Sadra
 Mahavira
-Baháʼu'lláh
+Bah%C3%A1%CA%BCu%27ll%C3%A1h
 Helena Blavatsky
 Aleister Crowley
 Guru Gobind Singh
@@ -969,10 +1037,12 @@ Ezana of Axum
 Gaiseric
 Narmer
 Thutmose I
+Hatshepsut
 Thutmose III
 Akhenaten
 Nefertiti
 Tutankhamun
+Ramesses II
 Ramesses III
 Ptolemy I Soter
 Cleopatra
@@ -980,19 +1050,23 @@ Cao Cao
 Emperor Gaozu of Han
 Gwanggaeto the Great
 Modu Chanyu
+Qin Shi Huang
 Emperor Wu of Han
 Yu the Great
 Ajatashatru
+Ashoka
 Chandragupta II
 Chandragupta Maurya
 Kanishka
 Menander I
 Samudragupta
 Ashurbanipal
+Cyrus the Great
 Darius the Great
+Hammurabi
 Mithridates VI Eupator
 Nebuchadnezzar II
-Puduḫepa
+Pudu%E1%B8%ABepa
 Sargon of Akkad
 Tigranes the Great
 Xerxes I
@@ -1005,15 +1079,20 @@ Decebalus
 Pyrrhus of Epirus
 Alcibiades
 Demosthenes
+Draco (lawgiver)
+Lycurgus (lawgiver)
 Pericles
 Solon
 Themistocles
 Philip II of Macedon
+Alexander the Great
 Alaric I
 Arminius
 Boudica
 Theodoric I
 Vercingetorix
+Augustus
+Julius Caesar
 Caligula
 Cato the Elder
 Constantine the Great
@@ -1029,6 +1108,7 @@ Trajan
 Amda Seyon I
 Baibars
 Al-Hakim bi-Amr Allah
+Mansa Musa
 Abdallah al-Mahdi Billah
 Al-Nasir Muhammad
 Batu Khan
@@ -1045,7 +1125,8 @@ Timur
 Tokhtamysh
 Tughril
 Ulugh Beg
-Ögedei Khan
+Genghis Khan
+%C3%96gedei Khan
 Sejong the Great
 Taejo of Goryeo
 Taejo of Joseon
@@ -1061,9 +1142,9 @@ Ram Khamhaeng
 Gajah Mada
 Jayavarman VII
 Suryavarman II
-Lê Lợi
-Lê Thánh Tông
-Trần Thánh Tông
+L%C3%AA L%E1%BB%A3i
+L%C3%AA Th%C3%A1nh T%C3%B4ng
+Tr%E1%BA%A7n Th%C3%A1nh T%C3%B4ng
 Prithviraj Chauhan
 Harsha
 Alauddin Khalji
@@ -1073,10 +1154,10 @@ Osman I
 Abd al-Malik ibn Marwan
 Abu Bakr
 Harun al-Rashid
-Mu'awiya I
+Mu%27awiya I
 Umar
 Uthman
-Stefan Dušan
+Stefan Du%C5%A1an
 Stephen the Great
 Svatopluk I of Moravia
 Vlad the Impaler
@@ -1088,14 +1169,15 @@ Heraclius
 Basil II
 Leo III the Isaurian
 Manuel I Komnenos
+Theodora (wife of Justinian I)
 Stephen I of Hungary
-Béla IV of Hungary
+B%C3%A9la IV of Hungary
 Louis I of Hungary
 Matthias Corvinus
-Bolesław I the Brave
+Boles%C5%82aw I the Brave
 Casimir III the Great
 Gediminas
-Władysław II Jagiełło
+W%C5%82adys%C5%82aw II Jagie%C5%82%C5%82o
 Mieszko I
 Vytautas
 Alexander Nevsky
@@ -1106,7 +1188,7 @@ Sviatoslav I
 Yaroslav the Wise
 Cnut
 Margaret I of Denmark
-Æthelstan
+%C3%86thelstan
 Alfred the Great
 Edward I of England
 Edward III of England
@@ -1116,6 +1198,7 @@ Richard I of England
 Robert the Bruce
 William the Conqueror
 Clovis I
+Charlemagne
 Charles Martel
 Louis the Pious
 Eleanor of Aquitaine
@@ -1130,8 +1213,8 @@ Frederick II, Holy Roman Emperor
 Henry IV, Holy Roman Emperor
 Otto the Great
 Sigismund, Holy Roman Emperor
-Cosimo de' Medici
-Lorenzo de' Medici
+Cosimo de%27 Medici
+Lorenzo de%27 Medici
 Robert Guiscard
 Roger II of Sicily
 Girolamo Savonarola
@@ -1158,9 +1241,10 @@ Moctezuma I
 Moctezuma II
 Pachacuti
 Tecumseh
-Túpac Amaru
-Túpac Amaru II
+T%C3%BApac Amaru
+T%C3%BApac Amaru II
 Benjamin Franklin
+George Washington
 John Adams
 Thomas Jefferson
 Alexander Hamilton
@@ -1183,6 +1267,7 @@ Wanli Emperor
 Toyotomi Hideyoshi
 Tokugawa Ieyasu
 Oda Nobunaga
+Akbar
 Aurangzeb
 Robert Clive
 Hyder Ali
@@ -1205,22 +1290,26 @@ Mehmed IV
 Hurrem Sultan
 Selim I
 Selim III
+Suleiman the Magnificent
 Bohdan Khmelnytsky
 Augustus II the Strong
 John III Sobieski
-Stephen Báthory
+Stephen B%C3%A1thory
 Sigismund III Vasa
 Ivan III of Russia
 Ivan the Terrible
 Alexis of Russia
 Peter the Great
 Elizabeth of Russia
+Catherine the Great
 Frederick the Great
 Frederick William I of Prussia
 William the Silent
 Charles I of England
+Elizabeth I
 George III
 Henry V of England
+Henry VIII
 James VI and I
 Oliver Cromwell
 Mary I of England
@@ -1230,7 +1319,7 @@ William Blackstone
 William Murray, 1st Earl of Mansfield
 William Pitt the Younger
 Robert Walpole
-Catherine de' Medici
+Catherine de%27 Medici
 Francis I of France
 Henry IV of France
 Louis XI
@@ -1239,6 +1328,7 @@ Louis XV
 Louis XVI
 Marie Antoinette
 Cardinal Mazarin
+Napoleon
 Madame de Pompadour
 Cardinal Richelieu
 Charles V, Holy Roman Emperor
@@ -1254,7 +1344,7 @@ Cesare Borgia
 Pope Julius II
 Philip II of Spain
 Philip V of Spain
-Sebastião José de Carvalho e Melo, 1st Marquis of Pombal
+Sebasti%C3%A3o Jos%C3%A9 de Carvalho e Melo, 1st Marquis of Pombal
 Kamehameha I
 Idi Amin
 Haile Selassie
@@ -1266,7 +1356,7 @@ Rainilaiarivony
 Tewodros II
 Yohannes IV
 Muammar Gaddafi
-Isma'il Pasha
+Isma%27il Pasha
 Muhammad Ahmad
 Muhammad Ali of Egypt
 Gamal Abdel Nasser
@@ -1275,6 +1365,7 @@ Anwar Sadat
 Hastings Banda
 F. W. de Klerk
 Patrice Lumumba
+Nelson Mandela
 Mobutu Sese Seko
 Robert Mugabe
 Cecil Rhodes
@@ -1284,26 +1375,27 @@ Nnamdi Azikiwe
 Kwame Nkrumah
 Olusegun Obasanjo
 Thomas Sankara
-Léopold Sédar Senghor
+L%C3%A9opold S%C3%A9dar Senghor
 Ellen Johnson Sirleaf
 Salvador Allende
-Hugo Chávez
-José de San Martín
-Juan Perón
+Sim%C3%B3n Bol%C3%ADvar
+Hugo Ch%C3%A1vez
+Jos%C3%A9 de San Mart%C3%ADn
+Juan Per%C3%B3n
 Augusto Pinochet
-Antonio José de Sucre
+Antonio Jos%C3%A9 de Sucre
 Alfredo Stroessner
 Pedro I of Brazil
 Pedro II of Brazil
-Getúlio Vargas
+Get%C3%BAlio Vargas
 Fidel Castro
-François Duvalier
+Fran%C3%A7ois Duvalier
 Toussaint Louverture
-Francisco Morazán
+Francisco Moraz%C3%A1n
 Rafael Trujillo
-Porfirio Díaz
-Benito Juárez
-Antonio López de Santa Anna
+Porfirio D%C3%ADaz
+Benito Ju%C3%A1rez
+Antonio L%C3%B3pez de Santa Anna
 George W. Bush
 John C. Calhoun
 Henry Clay
@@ -1312,6 +1404,7 @@ J. Edgar Hoover
 Andrew Jackson
 Lyndon B. Johnson
 John F. Kennedy
+Abraham Lincoln
 John Marshall
 Richard Nixon
 Barack Obama
@@ -1331,17 +1424,17 @@ Mohammad Mosaddegh
 Mohammad Reza Pahlavi
 Mohammed Zahir Shah
 Eduard Shevardnadze
-Eastern Asia
 Chiang Kai-shek
 Empress Dowager Cixi
 Deng Xiaoping
 Jiang Qing
+Mao Zedong
 Puyi
 Xi Jinping
 Zhou Enlai
 Hirohito
 Emperor Meiji
-Eisaku Satō
+Eisaku Sat%C5%8D
 Hideki Tojo
 Kim Il-sung
 Park Chung-hee
@@ -1368,25 +1461,25 @@ Manmohan Singh
 Atal Bihari Vajpayee
 Abdul Hamid II
 Yasser Arafat
-Mustafa Kemal Atatürk
+Mustafa Kemal Atat%C3%BCrk
 David Ben-Gurion
 Saddam Hussein
 Ibn Saud
 Mahmud II
 Golda Meir
-Alexander Dubček
+Alexander Dub%C4%8Dek
 Francis II, Holy Roman Emperor
-Václav Havel
+V%C3%A1clav Havel
 Franz Joseph I of Austria
 Klemens von Metternich
 Symon Petliura
-Józef Piłsudski
-Lech Wałęsa
+J%C3%B3zef Pi%C5%82sudski
+Lech Wa%C5%82%C4%99sa
 Ion Antonescu
-Nicolae Ceaușescu
+Nicolae Ceau%C8%99escu
 Enver Hoxha
-Slobodan Milošević
-Ante Pavelić
+Slobodan Milo%C5%A1evi%C4%87
+Ante Paveli%C4%87
 Josip Broz Tito
 Alexander I of Russia
 Alexander II of Russia
@@ -1397,16 +1490,17 @@ Vladimir Lenin
 Nicholas I of Russia
 Nicholas II of Russia
 Vladimir Putin
+Joseph Stalin
 Leon Trotsky
 Boris Yeltsin
 Gro Harlem Brundtland
 Charles XIV John
 Carl Gustaf Emil Mannerheim
-Dag Hammarskjöld
+Dag Hammarskj%C3%B6ld
 Leopold II of Belgium
 Georges Clemenceau
 Charles de Gaulle
-François Mitterrand
+Fran%C3%A7ois Mitterrand
 Louis Philippe I
 Napoleon III
 Adolphe Thiers
@@ -1414,6 +1508,7 @@ Konrad Adenauer
 Otto von Bismarck
 Willy Brandt
 Joseph Goebbels
+Adolf Hitler
 Heinrich Himmler
 Erich Honecker
 Helmut Kohl
@@ -1422,9 +1517,10 @@ William I, German Emperor
 Wilhelm II, German Emperor
 Francisco Franco
 Juan Carlos I
-António de Oliveira Salazar
+Ant%C3%B3nio de Oliveira Salazar
+Michael Collins (Irish leader)
 Charles Stewart Parnell
-Éamon de Valera
+%C3%89amon de Valera
 Camillo Benso, Count of Cavour
 Benito Mussolini
 Robert Peel
@@ -1449,17 +1545,18 @@ Sun Tzu
 Amr ibn al-As
 El Cid
 Godfrey of Bouillon
+Joan of Arc
 John Hunyadi
 Subutai
-Trần Hưng Đạo
+Tr%E1%BA%A7n H%C6%B0ng %C4%90%E1%BA%A1o
 William Wallace
-Jan Žižka
+Jan %C5%BDi%C5%BEka
 Khalid ibn al-Walid
 Afonso de Albuquerque
-Fernando Álvarez de Toledo, 3rd Duke of Alba
+Fernando %C3%81lvarez de Toledo, 3rd Duke of Alba
 Hayreddin Barbarossa
 John Churchill, 1st Duke of Marlborough
-Hernán Cortés
+Hern%C3%A1n Cort%C3%A9s
 Michiel de Ruyter
 Francis Drake
 Miyamoto Musashi
@@ -1471,7 +1568,7 @@ Robert Baden-Powell, 1st Baron Baden-Powell
 Carl von Clausewitz
 Enver Pasha
 Giuseppe Garibaldi
-Hermann Göring
+Hermann G%C3%B6ring
 Ulysses S. Grant
 Paul von Hindenburg
 T. E. Lawrence
@@ -1484,7 +1581,7 @@ Helmuth von Moltke the Elder
 Bernard Montgomery
 Horatio Nelson, 1st Viscount Nelson
 Erwin Rommel
-Võ Nguyên Giáp
+V%C3%B5 Nguy%C3%AAn Gi%C3%A1p
 Arthur Wellesley, 1st Duke of Wellington
 Isoroku Yamamoto
 Georgy Zhukov
@@ -1493,8 +1590,8 @@ Abu Muslim
 Babak Khorramdin
 Huang Chao
 Blackbeard
-Bartolomé de las Casas
-Thomas Müntzer
+Bartolom%C3%A9 de las Casas
+Thomas M%C3%BCntzer
 Yemelyan Pugachev
 William Wilberforce
 Georges Danton
@@ -1530,8 +1627,9 @@ Aung San Suu Kyi
 Osama bin Laden
 Subhas Chandra Bose
 Diponegoro
+Mahatma Gandhi
 Hong Xiuquan
-José Rizal
+Jos%C3%A9 Rizal
 Rani of Jhansi
 Sun Yat-sen
 Bal Gangadhar Tilak
@@ -1542,44 +1640,55 @@ Rosa Luxemburg
 Nestor Makhno
 Emmeline Pankhurst
 Apollonius of Perga
+Archimedes
 Diophantus
 Eratosthenes
+Euclid
 Galen
 Hipparchus
 Hypatia
+Hippocrates
 Pliny the Elder
 Ptolemy
 Pythagoras
 Zhang Heng
-Abu al-Qasim al-Zahrawi
+Al-Zahrawi
 Al-Biruni
 Ibn al-Haytham
 Aryabhata
+Avicenna
 Brahmagupta
 Fibonacci
 Jabir ibn Hayyan
+Muhammad ibn Musa al-Khwarizmi
 Abu Bakr al-Razi
 Nasir al-Din al-Tusi
+Shen Kuo
+William Gilbert (physician)
 Robert Hooke
 Christiaan Huygens
 Mikhail Lomonosov
+Isaac Newton
 Amedeo Avogadro
-André-Marie Ampère
+Andr%C3%A9-Marie Amp%C3%A8re
 Henri Becquerel
 Hans Bethe
 Niels Bohr
 Ludwig Boltzmann
 Max Born
 William Henry Bragg
-Nicolas Léonard Sadi Carnot
+Nicolas L%C3%A9onard Sadi Carnot
 Henry Cavendish
 James Chadwick
+Marie Curie
 Pierre Curie
 John Dalton
 Paul Dirac
+Albert Einstein
+Michael Faraday
 Enrico Fermi
 Richard Feynman
-Léon Foucault
+L%C3%A9on Foucault
 Augustin-Jean Fresnel
 Murray Gell-Mann
 Stephen Hawking
@@ -1593,32 +1702,36 @@ Ernest Lawrence
 Tsung-Dao Lee
 Hendrik Lorentz
 Ernst Mach
+James Clerk Maxwell
 Lise Meitner
 Albert A. Michelson
 Robert Andrews Millikan
 Georg Ohm
 J. Robert Oppenheimer
-Hans Christian Ørsted
+Hans Christian %C3%98rsted
 Wolfgang Pauli
 Max Planck
 C. V. Raman
-Wilhelm Röntgen
+Wilhelm R%C3%B6ntgen
 Andrei Sakharov
-Erwin Schrödinger
+Erwin Schr%C3%B6dinger
 Edward Teller
 J. J. Thomson
 William Thomson, 1st Baron Kelvin
 Johannes Diderik van der Waals
+Thomas Young (scientist)
 Tycho Brahe
+Nicolaus Copernicus
+Galileo Galilei
 Edmond Halley
 Caroline Herschel
 William Herschel
 Edwin Hubble
 Johannes Kepler
-Georges Lemaître
+Georges Lema%C3%AEtre
 Carl Sagan
 Svante Arrhenius
-Jöns Jacob Berzelius
+J%C3%B6ns Jacob Berzelius
 Robert Boyle
 Humphry Davy
 Peter Debye
@@ -1626,17 +1739,19 @@ Joseph Louis Gay-Lussac
 Josiah Willard Gibbs
 Fritz Haber
 Otto Hahn
-Jacobus Henricus van 't Hoff
+Jacobus Henricus van %27t Hoff
 Dorothy Hodgkin
 Irving Langmuir
+Antoine Lavoisier
 Gilbert N. Lewis
 Justus von Liebig
+Dmitri Mendeleev
 Linus Pauling
 Joseph Priestley
 Ernest Rutherford
 Frederick Sanger
 Harold Urey
-Friedrich Wöhler
+Friedrich W%C3%B6hler
 Robert Burns Woodward
 Louis Agassiz
 John James Audubon
@@ -1647,6 +1762,7 @@ George Washington Carver
 Edward Drinker Cope
 Francis Crick
 Georges Cuvier
+Charles Darwin
 Rosalind Franklin
 Jane Goodall
 Stephen Jay Gould
@@ -1655,12 +1771,14 @@ W. D. Hamilton
 Joseph Dalton Hooker
 Thomas Henry Huxley
 Alfred Kinsey
+Hans Krebs (biochemist)
 Jean-Baptiste Lamarck
 Antonie van Leeuwenhoek
+Carl Linnaeus
 Konrad Lorenz
 Barbara McClintock
 Gregor Mendel
-Santiago Ramón y Cajal
+Santiago Ram%C3%B3n y Cajal
 Alfred Russel Wallace
 Eugenius Warming
 James Watson
@@ -1670,7 +1788,9 @@ Edward Jenner
 Robert Koch
 Li Shizhen
 Joseph Lister
+Florence Nightingale
 Paracelsus
+Louis Pasteur
 Jonas Salk
 Ignaz Semmelweis
 Andreas Vesalius
@@ -1693,31 +1813,35 @@ Louis Daguerre
 Rudolf Diesel
 Lee de Forest
 George Eastman
+Thomas Edison
 Gustave Eiffel
 Philo Farnsworth
 Robert Fulton
 Robert H. Goddard
+Johannes Gutenberg
 Jack Kilby
 Sergei Korolev
 Guglielmo Marconi
 Cyrus McCormick
 Montgolfier brothers
 Samuel Morse
-Nicéphore Niépce
+Nic%C3%A9phore Ni%C3%A9pce
 Alfred Nobel
 Charles Algernon Parsons
 William Shockley
 George Stephenson
+Nikola Tesla
 Alessandro Volta
 James Watt
 Eli Whitney
 Steve Wozniak
 Wright brothers
-Jean le Rond d'Alembert
+Jean le Rond d%27Alembert
 Daniel Bernoulli
 Jacob Bernoulli
 Johann Bernoulli
 Gerolamo Cardano
+Leonhard Euler
 Pierre de Fermat
 Gottfried Wilhelm Leibniz
 Blaise Pascal
@@ -1731,8 +1855,10 @@ Peter Gustav Lejeune Dirichlet
 Ronald Fisher
 Joseph Fourier
 Gottlob Frege
-Évariste Galois
+%C3%89variste Galois
 Francis Galton
+Carl Friedrich Gauss
+Kurt G%C3%B6del
 Alexander Grothendieck
 William Rowan Hamilton
 Charles Hermite
@@ -1745,9 +1871,10 @@ Nikolai Lobachevsky
 Benoit Mandelbrot
 Gaspard Monge
 John von Neumann
+Emmy Noether
 Karl Pearson
-Henri Poincaré
-Siméon Denis Poisson
+Henri Poincar%C3%A9
+Sim%C3%A9on Denis Poisson
 Srinivasa Ramanujan
 Bernhard Riemann
 Claude Shannon
@@ -1764,6 +1891,7 @@ Donald Knuth
 Ada Lovelace
 Dennis Ritchie
 Linus Torvalds
+Alan Turing
 Konrad Zuse
 Fanny Blankers-Koen
 Usain Bolt
@@ -1778,12 +1906,12 @@ Edwin Moses
 Paavo Nurmi
 Jesse Owens
 Wilma Rudolph
-Emil Zátopek
+Emil Z%C3%A1topek
 Juan Manuel Fangio
 A. J. Foyt
 Michael Schumacher
 Ayrton Senna
-Ole Einar Bjørndalen
+Ole Einar Bj%C3%B8rndalen
 Muhammad Ali
 Joe Louis
 Sugar Ray Robinson
@@ -1795,12 +1923,12 @@ Tenzing Norgay
 Eddy Merckx
 Sonja Henie
 Jack Nicklaus
-Annika Sörenstam
+Annika S%C3%B6renstam
 Tiger Woods
-Nadia Comăneci
+Nadia Com%C4%83neci
 Larisa Latynina
 Bruce Lee
-Marit Bjørgen
+Marit Bj%C3%B8rgen
 Ingemar Stenmark
 Bonnie Blair
 Eric Heiden
@@ -1823,14 +1951,15 @@ Jerry Rice
 Vince Lombardi
 Franz Beckenbauer
 Johan Cruyff
-Alfredo Di Stéfano
-Eusébio
+Alfredo Di St%C3%A9fano
+Eus%C3%A9bio
 Mia Hamm
 Diego Maradona
 Lionel Messi
-Pelé
+Pel%C3%A9
 Michel Platini
-Ferenc Puskás
+Ferenc Pusk%C3%A1s
+Ronaldo (Brazilian footballer)
 Cristiano Ronaldo
 Lev Yashin
 Zinedine Zidane
@@ -1860,21 +1989,3 @@ Dhyan Chand
 Wayne Gretzky
 Gordie Howe
 Steve Redgrave
-Yves Saint Laurent (designer)
-Wang Wei (Tang dynasty)
-Fuzuli (writer)
-Prince (musician)
-Queen (band)
-Estée Lauder (businesswoman)
-David Thompson (explorer)
-Kaṇāda (philosopher)
-Huiyuan (Buddhist)
-Jonathan Edwards (theologian)
-Draco (lawgiver)
-Lycurgus (lawgiver)
-Theodora (wife of Justinian I)
-Michael Collins (Irish leader)
-William Gilbert (physician)
-Thomas Young (scientist)
-Hans Krebs (biochemist)
-Ronaldo (Brazilian footballer)

@@ -1,3 +1,5 @@
+Clothing
+Jewellery
 Belt (clothing)
 Button
 Cloak
@@ -32,7 +34,10 @@ Uniform
 Veil
 Wallet
 Zipper
+Food
 Eating
+Vegetable
+Drink
 Drinking
 Meal
 Breakfast
@@ -72,18 +77,22 @@ Hamburger
 Soup
 Stew
 Sushi
+Cooking
 Baking
 Cooking oil
 Vegetable oil
 Frying
 Grilling
 Steaming
+Food preservation
 Canning
 Fruit preserves
 Pickling
+Smoking (cooking)
 Brewing
 Bar (establishment)
 Restaurant
+Meat
 Beef
 Veal
 Lamb and mutton
@@ -99,15 +108,21 @@ Seafood
 Fish as food
 Egg as food
 Honey
+Milk
 Butter
 Cream
 Margarine
+Cheese
 Ice cream
 Soy milk
 Tofu
 Yogurt
+Bread
 Flatbread
+Cereal
 Flour
+Salt
+Spice
 Condiment
 Ketchup
 Mayonnaise
@@ -117,10 +132,14 @@ Chutney
 Soy sauce
 Herb
 Vinegar
+Coffee
+Tea
+Drinking water
 Hot chocolate
 Juice
 Soft drink
 Coca-Cola
+Alcoholic drink
 Beer
 Wine
 Cider
@@ -134,29 +153,32 @@ Sake
 Tequila
 Vodka
 Whisky
+Family
 Household
 Nuclear family
 Extended family
 Stepfamily
 Kinship
-Affinity
+Affinity (law)
 Clan
 Consanguinity
-Lineage
+Lineage (anthropology)
 Matrilineality
 Patrilineality
 Interpersonal relationship
+Friendship
 Intimate relationship
 Breakup
 Cohabitation
 Concubinage
 Infidelity
 Same-sex relationship
+Marriage
 Arranged marriage
 Civil union
 Courtship
 Dating
-Romance
+Romance (love)
 Wedding
 Divorce
 Polygamy
@@ -164,6 +186,7 @@ Monogamy
 Bigamy
 Endogamy
 Exogamy
+Parenting
 Childbirth
 Family planning
 Adoption
@@ -179,8 +202,7 @@ Grandparent
 Cousin
 Godparent
 Pet
-For appliances, see Household appliances
-
+Furniture
 Bathtub
 Bed
 Cabinetry
@@ -190,7 +212,7 @@ Couch
 Fireplace
 Pillow
 Shower
-Table
+Table (furniture)
 Chopsticks
 Cookware and bakeware
 Cutlery
@@ -198,14 +220,20 @@ Fork
 Spoon
 Tableware
 Cup
-Plate
+Plate (dishware)
+Human sexuality
+Gender
+Man
+Woman
 Transgender
 Intersex
+Sexual orientation
 Heterosexuality
 Homosexuality
 Bisexuality
 Asexuality
 Human sexual activity
+Sexual intercourse
 Foreplay
 Kiss
 Oral sex
@@ -216,6 +244,7 @@ Masturbation
 Orgasm
 Promiscuity
 Prostitution
+Birth control
 Combined oral contraceptive pill
 Condom
 Fertility
@@ -225,12 +254,17 @@ Pornography
 Sexual attraction
 Sexual fetishism
 Virginity
+Infant
+Child
 Boy
 Girl
 Preadolescence
+Adolescence
+Adult
 Young adult
 Middle age
-
+Old age
+Entertainment
 Leisure
 Aquarium
 Beauty pageant
@@ -245,43 +279,52 @@ Riddle
 Professional wrestling
 Quiz
 Recreation
+Tourism
+Play (activity)
 Playground
 Amusement park
 Camping
 Hiking
 Zoo
+Toy
 Action figure
 Doll
 Barbie
 Frisbee
 Kite
 Lego
-Rubik's Cube
+Marble (toy)
+Rubik%27s Cube
 Scale model
 Stuffed toy
 Yo-yo
+Game
+Board game
 Backgammon
 Chaturanga
 Chess
 Checkers
-Go
+Go (game)
 Mancala
-Monopoly
+Monopoly (game)
 Pachisi
 Scrabble
 Shogi
 Xiangqi
+Card game
 Tarot
 Blackjack
 Contract bridge
 Poker
+Gambling
 Casino
 Dice
 Lottery
 Roulette
 Slot machine
+Video game
 Video game console
-Pokémon
+Pok%C3%A9mon
 Tetris
 Arcade game
 Dominoes
@@ -289,12 +332,14 @@ Hide-and-seek
 Hopscotch
 Mahjong
 Pinball
-Tag
+Tag (game)
+Sport
 Doping in sport
 Extreme sport
 Sports equipment
 Ball
-Women's sports
+Women%27s sports
+Olympic Games
 Ancient Olympic Games
 Paralympic Games
 Summer Olympic Games
@@ -305,6 +350,7 @@ Stadium
 American football
 National Football League
 Super Bowl
+Association football
 FIFA World Cup
 La Liga
 Premier League
@@ -337,6 +383,7 @@ Sepak takraw
 Tug of war
 Volleyball
 Beach volleyball
+Sport of athletics
 Running
 Track and field
 100 metres
@@ -356,12 +403,16 @@ Speed skating
 Roller skating
 Skateboarding
 Canoeing
-Diving
-Rowing
+Diving (sport)
+Rowing (sport)
+Sailing (sport)
 Underwater diving
 Scuba diving
+Swimming
 Swimming pool
+Swimming (sport)
 Water polo
+Martial arts
 Boxing
 Capoeira
 Judo
@@ -375,7 +426,7 @@ Wrestling
 Freestyle wrestling
 Greco-Roman wrestling
 Sumo
-Wushu
+Wushu (sport)
 Angling
 Archery
 Arm wrestling
@@ -391,7 +442,7 @@ Bullfighting
 Croquet
 Cue sports
 Carom billiards
-Pool
+Pool (cue sports)
 Snooker
 Cycle sport
 Mountain biking
@@ -418,13 +469,8 @@ Sled
 Bobsleigh
 Luge
 Snowboarding
-Squash
+Squash (sport)
 Surfing
 Table tennis
 Tennis
 Olympic weightlifting
-Smoking (cooking)
-
-Marble (toy)
-Sailing (sport)
-Swimming (sport)

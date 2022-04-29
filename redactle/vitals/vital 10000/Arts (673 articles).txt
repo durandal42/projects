@@ -1,4 +1,7 @@
+The arts
+Art
 Artist
+Architecture
 Sacral architecture
 Architectural drawing
 Architectural theory
@@ -34,6 +37,7 @@ Fallingwater
 Florence Cathedral
 Forbidden City
 Great Sphinx of Giza
+Great Wall of China
 Guggenheim Museum Bilbao
 Hagia Sophia
 Kaaba
@@ -46,8 +50,8 @@ Palace of Versailles
 Palace of Westminster
 Pantheon, Rome
 Parthenon
-Sagrada Família
-St. Peter's Basilica
+Sagrada Fam%C3%ADlia
+St. Peter%27s Basilica
 Statue of Liberty
 Stonehenge
 Sydney Opera House
@@ -55,6 +59,8 @@ Taj Mahal
 Temple Mount
 Ziggurat of Ur
 Seven Wonders of the Ancient World
+Great Pyramid of Giza
+Museum
 Movie theater
 Opera house
 American Museum of Natural History
@@ -67,7 +73,7 @@ National Palace Museum
 British Museum
 Hermitage Museum
 Louvre
-Musée National d'Art Moderne
+Mus%C3%A9e National d%27Art Moderne
 Museo del Prado
 National Gallery
 Natural History Museum, London
@@ -75,23 +81,28 @@ Rijksmuseum
 Tate Modern
 Uffizi
 Vatican Museums
+Literature
 Character (arts)
 Literary criticism
 Narrative
 Prose
 Saga
-Children's literature
+Fiction
+Children%27s literature
 Detective fiction
 Fable
+Fairy tale
 Fantasy
 Fictional universe
 Horror fiction
 Legend
+Novel
 Romance novel
 Satire
 Black comedy
 Science fiction
 Time travel
+Short story
 Nonfiction
 Biography
 Diary
@@ -99,6 +110,8 @@ Dictionary
 Encyclopedia
 Essay
 Thesaurus
+Poetry
+Epic poetry
 Ghazal
 Haiku
 Ode
@@ -111,6 +124,7 @@ Ancient Egyptian literature
 Ancient Greek literature
 Arabic literature
 Chinese literature
+English literature
 French literature
 German literature
 Indian literature
@@ -123,15 +137,15 @@ Persian literature
 Russian literature
 Scandinavian literature
 Spanish literature
-Aesop's Fables
+Aesop%27s Fables
 The Bacchae
 The Golden Ass
 Investiture of the Gods
 Journey to the West
-Kādambari
+K%C4%81dambari
 Kathasaritsagara
 Lysistrata
-Medea
+Medea (play)
 Oresteia
 Oedipus Rex
 One Thousand and One Nights
@@ -142,21 +156,21 @@ Water Margin
 Candide
 Don Quixote
 Dream of the Red Chamber
-Goethe's Faust
-Gulliver's Travels
+Goethe%27s Faust
+Gulliver%27s Travels
 Hamlet
 King Lear
 Macbeth
-A Midsummer Night's Dream
+A Midsummer Night%27s Dream
 Othello
-La Princesse de Clèves
+La Princesse de Cl%C3%A8ves
 Robinson Crusoe
 Romeo and Juliet
 Tartuffe
 The Tempest
-Utopia
+Utopia (book)
 Adventures of Huckleberry Finn
-Alice's Adventures in Wonderland
+Alice%27s Adventures in Wonderland
 Anna Karenina
 Brave New World
 The Brothers Karamazov
@@ -167,21 +181,21 @@ The Chronicles of Narnia
 The Color Purple
 Crime and Punishment
 The Crucible
-A Doll's House
+A Doll%27s House
 Dracula
 Eugene Onegin
 Frankenstein
 The Grapes of Wrath
-Gravity's Rainbow
+Gravity%27s Rainbow
 The Great Gatsby
-Grimms' Fairy Tales
+Grimms%27 Fairy Tales
 Harry Potter
 Heart of Darkness
 The Hunchback of Notre-Dame
 The Importance of Being Earnest
 In Search of Lost Time
 Jane Eyre
-Les Misérables
+Les Mis%C3%A9rables
 The Little Prince
 Little Women
 Lolita
@@ -189,7 +203,7 @@ The Lord of the Rings
 Madame Bovary
 The Metamorphosis
 Middlemarch
-Midnight's Children
+Midnight%27s Children
 Moby-Dick
 Nineteen Eighty-Four
 On the Road
@@ -204,7 +218,7 @@ The Three Musketeers
 To Kill a Mockingbird
 To the Lighthouse
 Ulysses (novel)
-Uncle Tom's Cabin
+Uncle Tom%27s Cabin
 Waiting for Godot
 War and Peace
 The War of the Worlds
@@ -213,21 +227,26 @@ Wuthering Heights
 The Adventures of Tintin
 Asterix
 Peanuts
+Anabasis (Xenophon)
 Analects
+Apology (Plato)
 The Art of War
 The Book of Healing
 The Consolation of Philosophy
 Dead Sea Scrolls
-Euclid's Elements
+Euclid%27s Elements
 Hippocratic Corpus
+Histories (Herodotus)
 History of the Peloponnesian War
 I Ching
 The Incoherence of the Philosophers
+Metaphysics (Aristotle)
 Muqaddimah
 Nicomachean Ethics
 Organon
 Poetic Edda
 Popol Vuh
+Republic (Plato)
 Septuagint
 Summa Theologica
 Vulgate
@@ -235,20 +254,20 @@ Critique of Pure Reason
 De revolutionibus orbium coelestium
 A Dictionary of the English Language
 Discourse on the Method
-Encyclopædia Britannica
+Encyclop%C3%A6dia Britannica
 Gutenberg Bible
 The History of the Decline and Fall of the Roman Empire
 King James Version
-Leviathan
+Leviathan (Hobbes book)
 Ninety-five Theses
-Philosophiæ Naturalis Principia Mathematica
+Philosophi%C3%A6 Naturalis Principia Mathematica
 The Prince
 The Communist Manifesto
 Das Kapital
 The Descent of Man, and Selection in Relation to Sex
 The General Theory of Employment, Interest and Money
 The Golden Bough
-Night
+Night (book)
 On the Origin of Species
 Oxford English Dictionary
 Principia Mathematica
@@ -270,7 +289,7 @@ Nibelungenlied
 Odyssey
 Shahnameh
 The Song of Roland
-Shakespeare's sonnets
+Shakespeare%27s sonnets
 Paradise Lost
 Rubaiyat of Omar Khayyam
 Oku no Hosomichi
@@ -280,6 +299,7 @@ Leaves of Grass
 The Raven
 The Rime of the Ancient Mariner
 The Waste Land
+Music
 Choir
 Concert
 Counterpoint
@@ -289,7 +309,10 @@ Melody
 Music theory
 Music video
 Musical notation
+Orchestra
 Rhythm
+Scale (music)
+Singing
 Song
 Ballad
 Christmas carol
@@ -297,9 +320,11 @@ Hymn
 Lullaby
 National anthem
 Protest song
+Classical music
 Fugue
 Aria
 Concerto
+Opera
 Sonata
 Symphony
 Medieval music
@@ -319,24 +344,30 @@ Blues
 Country music
 Disco
 Electronic music
+Folk music
 Funk
 Hip hop music
 Rapping
+Jazz
 Bossa nova
 Ragtime
+Pop music
 Reggae
 Rhythm and blues
 Soul music
+Rock music
 Heavy metal music
 Punk rock
 Rock and roll
 Salsa music
 Samba
+Musical instrument
 Electronic musical instrument
 Synthesizer
 Keyboard instrument
 Accordion
 Harpsichord
+Piano
 Pipe organ
 Percussion instrument
 Bell
@@ -374,9 +405,18 @@ Western concert flute
 Oboe
 Saxophone
 Brandenburg Concertos
+The Four Seasons (Vivaldi)
 Mass in B minor
+Messiah (Handel)
 The Well-Tempered Clavier
-La bohème
+Nocturnes (Chopin)
+Piano sonatas (Beethoven)
+Symphony No. 3 (Beethoven)
+Symphony No. 5 (Beethoven)
+Symphony No. 2 (Mahler)
+Symphony No. 9 (Beethoven)
+Symphony No. 41 (Mozart)
+La boh%C3%A8me
 Carmen
 Don Giovanni
 The Magic Flute
@@ -386,14 +426,17 @@ Tristan und Isolde
 The Nutcracker
 The Rite of Spring
 Swan Lake
-The Phantom of the Opera
+The Phantom of the Opera (1986 musical)
 West Side Story
 Heartbreak Hotel
 Johnny B. Goode
 Kind of Blue
 Like a Rolling Stone
+Respect (song)
 Rhapsody in Blue
-Sgt. Pepper's Lonely Hearts Club Band
+Sgt. Pepper%27s Lonely Hearts Club Band
+Thriller (album)
+Performing arts
 Audience
 Costume
 Stage (theatre)
@@ -401,10 +444,12 @@ Acrobatics
 Burlesque
 Circus
 Clown
+Magic (illusion)
 Mime artist
 Performance art
 Performance poetry
 Puppetry
+Dance
 Choreography
 Ballet
 Ballroom dance
@@ -418,10 +463,11 @@ Folk dance
 Hip hop dance
 Jazz dance
 Modern dance
+Theatre
 Acting
 Stagecraft
 Comedy
-Commedia dell'arte
+Commedia dell%27arte
 Improvisational theatre
 Joke
 Parody
@@ -442,15 +488,18 @@ Dutch Golden Age painting
 Empire style
 Gothic art
 Hellenistic art
+Prehistoric art
 Cave painting
 Rock art
 Renaissance art
+Realism (arts)
 Classicism
 Mannerism
 Rococo
 Roman art
 Romanesque art
 Modern art
+Abstract art
 Abstract expressionism
 Art Deco
 Art Nouveau
@@ -461,10 +510,12 @@ Dada
 Expressionism
 Futurism
 Impressionism
+Modernism
 Neoclassicism
 Post-Impressionism
 Postmodernism
 Pre-Raphaelite Brotherhood
+Romanticism
 Surrealism
 Symbolism (arts)
 Contemporary art
@@ -481,10 +532,15 @@ Japanese art
 Ukiyo-e
 Persian art
 Visual arts by indigenous peoples of the Americas
+Visual arts
+Calligraphy
 Ceramic art
 Collage
+Comics
 Manga
 Decorative arts
+Drawing
+Fashion
 Folk art
 Graffiti
 Handicraft
@@ -493,13 +549,16 @@ Mosaic
 Mural
 Optical illusion
 Origami
+Painting
 Landscape painting
 Oil painting
 Watercolor painting
+Perspective (graphical)
 Portrait
 Printmaking
 Engraving
 Religious art
+Sculpture
 Taxidermy
 Textile arts
 Wood carving
@@ -507,11 +566,11 @@ A Sunday Afternoon on the Island of La Grande Jatte
 Along the River During the Qingming Festival
 Arnolfini Portrait
 The Birth of Venus
-Campbell's Soup Cans
-Les Demoiselles d'Avignon
+Campbell%27s Soup Cans
+Les Demoiselles d%27Avignon
 The Garden of Earthly Delights
-Guernica
-The Last Supper
+Guernica (Picasso)
+The Last Supper (Leonardo)
 Las Meninas
 Mona Lisa
 The Night Watch
@@ -519,11 +578,11 @@ The Persistence of Memory
 The Scream
 Sistine Chapel
 The Starry Night
-Water Lilies
-David
-Fountain
+Water Lilies (Monet series)
+David (Michelangelo)
+Fountain (Duchamp)
 Olmec colossal heads
-Pietà
+Piet%C3%A0 (Michelangelo)
 Terracotta Army
 The Thinker
 Venus de Milo
@@ -531,6 +590,7 @@ Venus of Willendorf
 Bayeux Tapestry
 Book of Kells
 The Great Wave off Kanagawa
+Design
 Graphic design
 Typography
 Interior design
@@ -538,6 +598,8 @@ Industrial design
 Web design
 Digital art
 Computer graphics
+Film
+Animation
 Anime
 Silent film
 Filmmaking
@@ -555,40 +617,39 @@ Cinema of Nigeria
 Film festival
 Cannes Film Festival
 Academy Awards
-Snow White and the Seven Dwarfs
-Mirror
+Snow White and the Seven Dwarfs (1937 film)
+Mirror (1975 film)
 City Lights
 Dr. Strangelove
 Triumph of the Will
-8½
+8%C2%BD
 Bicycle Thieves
 Breathless (1960 film)
 Children of Paradise
 Citizen Kane
 The Godfather
-L'Atalante
+L%27Atalante
 La Dolce Vita
 The Rules of the Game
 Tokyo Story
 The Apu Trilogy
 Battleship Potemkin
 The Birth of a Nation
-Lawrence of Arabia
+Lawrence of Arabia (film)
 Seven Samurai
 The Seventh Seal
 Psycho (1960 film)
-Vertigo
+Vertigo (film)
 The Jazz Singer
-Singin' in the Rain
-The Sound of Music
-Casablanca
-Gone With the Wind (film)
-2001: A Space Odyssey
-Metropolis
+Singin%27 in the Rain
+The Sound of Music (film)
+Casablanca (film)
+Gone with the Wind (film)
+2001: A Space Odyssey (film)
+Metropolis (1927 film)
 Star Wars
 The Wizard of Oz (1939 film)
-Stagecoach
-
+Stagecoach (1939 film)
 King Arthur
 Baba Yaga
 Cinderella
@@ -597,7 +658,7 @@ Robin Hood
 Santa Claus
 Aladdin
 Hua Mulan
-James Bond
+James Bond (literary character)
 Sherlock Holmes
 Peter Pan
 Tarzan
@@ -610,22 +671,3 @@ Superman
 Batman
 Wonder Woman
 Spider-Man
-Anabasis (Xenophon)
-Apology (Plato)
-Histories (Herodotus)
-Metaphysics (Aristotle)
-Republic (Plato)
-Scale (music)
-The Four Seasons (Vivaldi)
-Messiah (Handel)
-Nocturnes (Chopin)
-Piano sonatas (Beethoven)
-Symphony No. 3 (Beethoven)
-Symphony No. 5 (Beethoven)
-Symphony No. 2 (Mahler)
-Symphony No. 9 (Beethoven)
-Symphony No. 41 (Mozart)
-Respect (song)
-Thriller (Michael Jackson album)
-Magic (illusion)
-Perspective (graphical)
