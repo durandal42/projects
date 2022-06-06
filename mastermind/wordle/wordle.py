@@ -16,6 +16,7 @@ MULTIPLEX = 1
 WORD_LENGTH = 5
 DICTIONARY = 'wordle'  # also supported: 'primel'
 HARD_MODE = False
+DONT_MODE = False
 
 LEGAL_TARGETS = []
 LEGAL_GUESSES = []
@@ -289,7 +290,7 @@ def conservative_restricted_choice(
     remaining_targets_lists = restrict_multiplex(
         [LEGAL_TARGETS] * MULTIPLEX, prev_guesses, prev_scores)
   remaining_targets_sets = [set(rt) for rt in remaining_targets_lists]
-  cache = guess_cache.cache(DICTIONARY, HARD_MODE)
+  cache = guess_cache.cache(DICTIONARY, HARD_MODE, DONT_MODE)
   if legal_guesses is None:
     if HARD_MODE:
       assert MULTIPLEX == 1
@@ -356,7 +357,7 @@ def conservative_restricted_choice(
       #       worst_cases_by_guess[guess])
 
   best_guesses = sorted(worst_cases_by_guess.items(),
-                        key=lambda x: tuple_prod(x[1]))
+                        key=lambda x: tuple_prod(x[1]), reverse=DONT_MODE)
   best_guess, best_worst_cases = best_guesses[0]
   n = 10
   print(f'Top {n} guesses:', best_guesses[:n])
@@ -365,9 +366,10 @@ def conservative_restricted_choice(
   # possibilities')
 
   if cache_key not in cache:
-    # print('updating cache: %s:%s' % (cache_key, (best_guess,
-    # best_worst_case)))
-    cache[cache_key] = (best_guess, best_worst_cases)
+    cache_value = (best_guess, best_worst_cases)
+    if sum(len(rt) for rt in remaining_targets_lists) > 100:
+      print('high-value cache:\n\t%s: %s,' % (cache_key, cache_value))
+    cache[cache_key] = cache_value
 
   return best_guess, tuple_sum(best_worst_cases)[0]
 
@@ -730,6 +732,8 @@ def solve_everything2(targets=None, prev_guesses=None, prev_scores=None,
     prev_scores = []
   if prev_bucket_sizes is None:
     prev_bucket_sizes = []
+  if DONT_MODE and len(prev_scores) >= 6:
+    return
   next_guess, _ = conservative_restricted_choice(
       prev_guesses, prev_scores, remaining_targets_lists=[targets])
   partitions_by_score = collections.defaultdict(list)
@@ -755,7 +759,7 @@ def solve_everything2(targets=None, prev_guesses=None, prev_scores=None,
 
 def dump_cache():
   print("High-value cache items:")
-  for k, v in sorted(guess_cache.cache(DICTIONARY, HARD_MODE).items()):
+  for k, v in sorted(guess_cache.cache(DICTIONARY, HARD_MODE, DONT_MODE).items()):
     if len(k) < 2:
       print(f'  {k}: {v},')
 
@@ -886,9 +890,16 @@ def main():
   global HARD_MODE
   global DICTIONARY
   global MULTIPLEX
+  global DONT_MODE
+  global LEGAL_TARGETS
   for arg in sys.argv[1:]:
     if arg == '-h':  # enable hard mode
       HARD_MODE = True
+      continue
+    elif arg == '-d':  # Don't Wordle
+      HARD_MODE = True
+      DONT_MODE = True
+      LEGAL_TARGETS = sorted(set(LEGAL_TARGETS + LEGAL_GUESSES))
       continue
     elif arg == '-p':  # primel
       DICTIONARY = 'primel'
