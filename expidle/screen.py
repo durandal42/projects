@@ -4,6 +4,7 @@ import PIL
 import collections
 import time
 import random
+import itertools
 
 
 def show_entire_screen():
@@ -151,7 +152,7 @@ def solve_grid(grid, expert=False):
     # Tap a the number of times you would need to solve D.
     for _ in range(7-grid[big_d]):
         click(grid, clicks, a)
-    # If B + D is odd, tap c three times (once in Hard). Otherwise, skip this step.
+    # If B + D is odd, tap c three times (once in Hard).
     if (grid[big_b] + grid[big_d]) % 2 == 1:
         for _ in range(3):
             click(grid, clicks, c)
@@ -174,7 +175,7 @@ def deploy_solution_into_window(clicks, w):
         row, col = c
         x, y = grid_to_xy(row, col)
         pyautogui.click(x=x+w.left, y=y+w.top)
-    # time.sleep(3)
+    time.sleep(0.2)
     pyautogui.click(x=305+w.left, y=1020+w.top)
     return len(clicks)
 
@@ -217,7 +218,7 @@ def sorted_clicks(clicks, method=None):
 def main():
     w = get_unique_window_named("BlueStacks")
     solves = collections.Counter()
-    for i in range(10):
+    for i in itertools.count():  # range(10):
         print("Grid", i, "...", end='')
         print(" capturing...", end='')
         try:
@@ -230,7 +231,7 @@ def main():
         # img.show()
         # print(grid)
         print(" solving...", end='')
-        solution = solve_grid(grid, expert=True)
+        solution = solve_grid(grid, expert=False)
         solution = sorted_clicks(solution, method='random')
         # print(solution)
         print(" clicking...", end='')
