@@ -169,14 +169,15 @@ def solve_grid(grid, expert=False):
 
 def deploy_solution_into_window(clicks, w):
     w.activate()
-    pyautogui.PAUSE = 0.05
+    pyautogui.PAUSE = 0.00
     num_clicks = 0
     for c in clicks:
         row, col = c
         x, y = grid_to_xy(row, col)
         pyautogui.click(x=x+w.left, y=y+w.top)
-    time.sleep(0.2)
+    time.sleep(0.4)
     pyautogui.click(x=305+w.left, y=1020+w.top)
+    time.sleep(0.2)
     return len(clicks)
 
 
@@ -221,13 +222,12 @@ def main():
     for i in itertools.count():  # range(10):
         print("Grid", i, "...", end='')
         print(" capturing...", end='')
+        img = capture_window(w)
         try:
-            img = capture_window(w)
             grid = read_grid(img)
         except:
-            time.sleep(1)
-            img = capture_window(w)
-            grid = read_grid(img)
+            img.show()
+            return
         # img.show()
         # print(grid)
         print(" solving...", end='')
