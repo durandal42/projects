@@ -1,22 +1,5 @@
 import collections
-
-Talent = collections.namedtuple("Talent", "name points parents row col")
-
-TALENTS = [
-  # ("Talent Name"), #points, [dependency talent names], row (0-indexed), column (0-indexed)),
-  Talent("Lay on Hands", 1, [], 0, 1),
-  Talent("Blessing of Freedom", 1, [], 0, 3),
-  Talent("Hammer of Wrath", 1, [], 0, 5),
-  Talent("Auras of the Resolute", 1, ["Lay on Hands", "Blessing of Freedom"], 1, 2),
-  Talent("Auras of Swift Vengeance", 1, ["Blessing of Freedom", "Hammer of Wrath"], 1, 4),
-  Talent("Repentance / Blinding Light", 1, ["Lay on Hands", "Auras of the Resolute"], 2, 1),
-  Talent("Divine Steed", 1, ["Blessing of Freedom", "Auras of the Resolute", "Auras of Swift Vengeance"], 2, 3),
-  Talent("Fist of Justice", 2, ["Hammer of Wrath", "Auras of Swift Vengeance"], 2, 5),
-  Talent("Cleanse Toxins", 1, ["Repentance / Blinding Light"], 3, 0),
-  Talent("Cavalier", 1, ["Divine Steed"], 3, 2),
-  Talent("Seasoned Warhorse / Seal of the Templar", 1, ["Divine Steed"], 3, 4),
-  Talent("Greater Judgment", 1, ["Fist of Justice"], 3, 6),
-]
+import talent_data
 
 def get_talents_by_name(talents):
   talents_by_name = {}
@@ -24,8 +7,35 @@ def get_talents_by_name(talents):
     talents_by_name[t.name] = t
   return talents_by_name
 
-# print(get_talents_by_name(TALENTS))
+TALENTS = talent_data.get_talents("Paladin")
 
+print("Loaded %d talents:" % len(TALENTS), TALENTS)
+print(get_talents_by_name(TALENTS))
+
+def singularize_talent_name(name, i, max):
+  return name + " (%d of %d)" % (i+1, t.points)
+
+# def singularize_talent_tree(talents):
+#   talents_by_name = get_talents_by_name(TALENTS)
+#   parents = collections.defaultdict(list)
+#   children = collections.defaultdict(list)
+#   for t1 in talents:
+#     for t2_name in t1.parents:
+#       parents[t1.name].append(t2_name)
+#       children[t2_name].append(t1.name)
+
+#   parent_corrections = {}
+#   for t in talents:
+#     if t.points > 1:
+#       chain = []
+#       parent_corrections[t.name] = singularize_talent_name(t.name, t.points-1, t.points)
+#       for i in range(t.points):
+#         name = singularize_talent_name(t.name, i, t.points)
+#         if i = 0:
+#           parents = t.parents
+#         else: 
+#           parents = [singularize_talent_name(t.name, i-1, t.points)]
+#         chain.append(Talent(name=name, points=1, row=t.row, col=t.col, parents=parents)
 
 def data_validate_talents(talents):
   talents_by_name = get_talents_by_name(talents)
@@ -111,7 +121,7 @@ def choices(talents, free_talents, partial_loadout):
 
 print(choices(TALENTS, FREE_TALENTS, LOADOUT))
 
-def valid_builds(talents, free_talents, points_to_spend=8, partial_loadout=None):
+def valid_builds(talents, free_talents, points_to_spend, partial_loadout=None):
   assert points_to_spend >= 0
 
   if partial_loadout == None: partial_loadout = free_talents
@@ -130,10 +140,10 @@ def valid_builds(talents, free_talents, points_to_spend=8, partial_loadout=None)
   return list(loadout_frontier)
 
 def exercise_valid_builds():
-  vbs = valid_builds(TALENTS, FREE_TALENTS)
+  vbs = valid_builds(TALENTS, FREE_TALENTS, 26)
   print("Found %d valid builds." % len(vbs))
-  for vb in vbs:
-    print("\t", sorted_build(vb, get_talents_by_name(TALENTS)))
+  # for vb in vbs:
+  #   print("\t", sorted_build(vb, get_talents_by_name(TALENTS)))
 
 def sorted_build(b, talents_by_name):
   return sorted(b, key=lambda t: (talents_by_name[t].row, talents_by_name[t].col))
