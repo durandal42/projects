@@ -1,5 +1,8 @@
 import collections
 import functools
+import pickle
+import os
+import sys
 
 import talent_data
 
@@ -13,7 +16,6 @@ TALENTS = talent_data.get_talents("Paladin")
 
 print("Loaded %d talents:" % len(TALENTS))
 print("\n".join("\t" + t.name for t in TALENTS))
-# print(get_talents_by_name(TALENTS))
 
 SingularTalent = collections.namedtuple("SingularTalent", "name parents row col tier")
 
@@ -63,9 +65,8 @@ def singularize_talent_tree(talents):
   
 
 TALENTS = singularize_talent_tree(TALENTS)
-print("Singularized talent tree:")
+print("Singularized talents into %d distinct nodes." % len(TALENTS))
 print("\n".join("\t" + t.name for t in TALENTS))
-
 
 def get_talent_indices_by_name(talents):
   result = {}
@@ -254,14 +255,99 @@ def valid_builds(talents, free_talents_bits, points_to_spend, partial_loadout_bi
 
   return list(loadout_frontier)
 
-def exercise_valid_builds():
-  vbs = valid_builds(TALENTS, FREE_TALENTS_BITS, 26)
-  print("Found %d valid builds." % len(vbs))
+def exercise_valid_builds(points_to_spend):
+  vbs = valid_builds(TALENTS, FREE_TALENTS_BITS, points_to_spend)
   # for vb in vbs:
   #   print("\t", sorted_build(loadout_bits_to_tuple(TALENTS, vb), get_talents_by_name(TALENTS)))
+  return vbs
 
 def sorted_build(b, talents_by_name):
   return sorted(b, key=lambda t: (talents_by_name[t].row, talents_by_name[t].col))
 
-import cProfile
-cProfile.run('exercise_valid_builds()')
+def filter_builds(builds, required_talent_bits):
+  return list(filter(lambda b: b & required_talent_bits == required_talent_bits,
+                     builds))
+
+def format_talent_index(i):
+  return "[%s] %s" % ('{:2d}'.format(i), TALENTS[i].name)
+  
+def index_list_to_bits(indices):
+  bits = 0
+  for i in indices:
+    bits |= 1 << i
+  return bits
+
+def show_common_talents(builds):
+  print("In %d valid builds..." % len(builds))
+  all_talents = range(len(TALENTS))
+  talent_appearances = [0] * len(TALENTS)
+
+  for ti in all_talents:
+    t_bit = 1 << ti
+    for b in builds:
+      if b & t_bit > 0:
+        talent_appearances[ti] += 1
+  #  for b in builds:
+  #    for ti in set_bit_indices(b):
+  #      talent_appearances[ti] += 1
+  
+  required_talents = list(filter(lambda t: talent_appearances[t] == len(builds), all_talents))
+  unreachable_talents = list(filter(lambda t: talent_appearances[t] == 0, all_talents))
+  selectable_talents = list(filter(lambda t: talent_appearances[t] > 0 and talent_appearances[t] < len(builds), all_talents))
+
+  selectable_talents.sort(key=lambda ti: talent_appearances[ti], reverse=True)
+  #  print("Unreachable talents:")
+  #  print("\n".join("\t%s" % format_talent_index(i) for i in unreachable_talents))
+  #  print("Required talents:")
+  #  print("\n".join("\t%s" % format_talent_index(i) for i in required_talents))
+  print("Selectable talents, sorted by appearance rate:")
+  print("\n".join("\t%s:\t%s" % ('{:5d}'.format(talent_appearances[i]),format_talent_index(i))
+                  for i in selectable_talents))
+  return (
+    index_list_to_bits(selectable_talents),
+    index_list_to_bits(required_talents),
+    index_list_to_bits(unreachable_talents),
+  )
+
+def interactive_filter(builds):
+  selectable, required, unreachable = None, None, None
+  while len(builds) > 1:
+    now_selectable, now_required, now_unreachable = show_common_talents(builds)
+    return
+    if selectable is not None and selectable != now_selectable:
+      pass
+    if required is not None and required != now_required:
+      print("Newly required talent(s):")
+      print("\n".join("\t%s" % format_talent_index(i)
+                      for i in set_bit_indices(now_required & ~required)))
+    if unreachable is not None and unreachable != now_unreachable:
+      print("Newly unreachable talent(s):")
+      print("\n".join("\t%s" % format_talent_index(i)
+                      for i in set_bit_indices(now_unreachable & ~unreachable)))
+    selectable, required, unreachable = now_selectable, now_required, now_unreachable
+    print("Pick mandatory talent(s): ")
+    mandatory_talents_indices = [int(s.strip()) for s in sys.stdin.readline().strip().split(',')]
+    builds = filter_builds(builds, index_list_to_bits(mandatory_talents_indices))
+  if not builds:
+    print("No valid builds remain.")
+  else:
+    print("One remaining build:", bin(builds[0]))
+  
+def main():
+  points_to_spend = 26
+  
+  builds_pickle_file = 'pickled_builds/paladin-protection-generic-%d.pickle' % points_to_spend
+  if os.path.exists(builds_pickle_file):
+    print("Loading pickled builds...")
+    builds = pickle.load(open(builds_pickle_file, "rb"))
+  else:
+    builds = exercise_valid_builds(points_to_spend)
+    print("Pickling builds...")
+    pickle.dump(builds, open(builds_pickle_file, "wb"))
+  print("Found %d valid builds." % len(builds))
+
+  interactive_filter(builds)
+
+if __name__ == '__main__':
+  import cProfile
+  cProfile.run('main()')
