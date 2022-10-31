@@ -342,7 +342,7 @@ def main():
 
   assert data_validate_talents(talents)
 
-  points_to_spend = 15
+  points_to_spend = 26
 
   builds_pickle_file = ('pickled_builds/paladin-protection-generic-%d.pickle'
                         % points_to_spend)
