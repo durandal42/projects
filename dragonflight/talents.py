@@ -1,12 +1,11 @@
-import collections
-import functools
-import pickle
-import os
-import sys
-import multiprocessing
-
 import talent_data
-import talent_util
+import multiprocessing
+import sys
+import os
+import pickle
+import functools
+import collections
+
 
 def get_talents_by_name(talents):
   talents_by_name = {}
@@ -14,10 +13,14 @@ def get_talents_by_name(talents):
     talents_by_name[t.name] = t
   return talents_by_name
 
-SingularTalent = collections.namedtuple("SingularTalent", "name i parents row col tier")
+
+SingularTalent = collections.namedtuple(
+    "SingularTalent", "name i parents row col tier")
+
 
 def singularize_talent_name(name, i, max_points):
   return name + " (%d of %d)" % (i+1, max_points)
+
 
 def singularize_talent_tree(talents):
   talents_by_name = get_talents_by_name(talents)
@@ -34,12 +37,13 @@ def singularize_talent_tree(talents):
   for t in talents:
     if t.points > 1:
       talent_names_to_remove.add(t.name)
-      parent_corrections[t.name] = singularize_talent_name(t.name, t.points-1, t.points)
+      parent_corrections[t.name] = singularize_talent_name(
+          t.name, t.points-1, t.points)
       for i in range(t.points):
         name = singularize_talent_name(t.name, i, t.points)
         if i == 0:
           parents = t.parents
-        else: 
+        else:
           parents = [singularize_talent_name(t.name, i-1, t.points)]
         new_talents.append(SingularTalent(name=name, i=len(new_talents),
                                           parents=parents, row=t.row+i/10, col=t.col,
@@ -53,7 +57,8 @@ def singularize_talent_tree(talents):
 
   new_talents = []
   for t in talents:
-    if t.name in talent_names_to_remove: continue
+    if t.name in talent_names_to_remove:
+      continue
     new_parents = []
     for p in t.parents:
       if p in parent_corrections:
@@ -64,7 +69,8 @@ def singularize_talent_tree(talents):
 
   return new_talents
 #  return sorted(new_talents, key=lambda t: (t.row, t.col))
-  
+
+
 def intify_talent_tree_parents(talents):
   talent_indices_by_name = {}
   for t in talents:
@@ -77,23 +83,28 @@ def intify_talent_tree_parents(talents):
     for p in new_parents:
       t.parents.append(p)
 
+
 def data_validate_talents(talents):
-  for i,t1 in enumerate(talents):
+  for i, t1 in enumerate(talents):
     assert t1.i == i
     for t2i in t1.parents:
       t2 = talents[t2i]
-      if not data_validate_dependency(t1, t2): return False
+      if not data_validate_dependency(t1, t2):
+        return False
   return True
 
 # Determine whether a dependency of t1 on t2 is valid.
+
+
 def data_validate_dependency(t1, t2):
   if t1.row <= t2.row:
     print("Talent depends on another talent at the same or higher row:", t1, t2)
     return False
   if t1.i <= t2.i:
     print("Talent depends on another talent which appears later in the talent list:", t1, t2)
-    return False    
+    return False
   return True
+
 
 def indices_to_bits(indices):
   result = 0
@@ -103,11 +114,14 @@ def indices_to_bits(indices):
 
 # cribbed from https://stackoverflow.com/questions/8898807/pythonic-way-to-iterate-over-bits-of-integer
 # and https://stackoverflow.com/questions/40608220/pythonic-way-to-count-the-number-of-trailing-zeros-in-base-2
+
+
 def set_bit_indices(n):
   while n:
     b = n & (~n+1)
     yield b.bit_length() - 1
     n ^= b
+
 
 def loadout_bits_to_tuple(talents, loadout_bits):
   result = []
@@ -118,15 +132,18 @@ def loadout_bits_to_tuple(talents, loadout_bits):
 
 def validate_talent_loadout(talents, free_talents_bits, loadout_bits, new_talent_index=None):
   # print("Validating talent loadout:", loadout_bits_to_tuple(talents, loadout_bits))
-  if new_talent_index is None and not validate_point_thresholds(talents, free_talents_bits, loadout_bits): return False
-  if not validate_dependencies(talents, free_talents_bits, loadout_bits, new_talent_index): return False
+  if new_talent_index is None and not validate_point_thresholds(talents, free_talents_bits, loadout_bits):
+    return False
+  if not validate_dependencies(talents, free_talents_bits, loadout_bits, new_talent_index):
+    return False
   return True
+
 
 def count_spent_points(talents, free_talents_bits, loadout_bits):
   points_spent_by_tier = collections.defaultdict(int)
 
   for t1_i in set_bit_indices(loadout_bits):
-    if (1<<t1_i) & free_talents_bits > 0:
+    if (1 << t1_i) & free_talents_bits > 0:
       tier = 0
     else:
       tier = talents[t1_i].tier
@@ -134,8 +151,10 @@ def count_spent_points(talents, free_talents_bits, loadout_bits):
 
   return points_spent_by_tier
 
+
 def validate_point_thresholds(talents, free_talents_bits, loadout_bits):
-  points_spent_by_tier = count_spent_points(talents, free_talents_bits, loadout_bits)
+  points_spent_by_tier = count_spent_points(
+      talents, free_talents_bits, loadout_bits)
   # print(points_spent_by_tier)
   if points_spent_by_tier[2] > 0 and points_spent_by_tier[1] < 8:
     # print("Must spend 8 points on tier1 talents to unlock tier2 talents.")
@@ -146,6 +165,7 @@ def validate_point_thresholds(talents, free_talents_bits, loadout_bits):
   # TODO(dsloan): check that total number of talent points spent is within budget
   return True
 
+
 def validate_dependencies(talents, free_talents_bits, loadout_bits, new_talent_index=None):
   if new_talent_index is not None:
     return validate_dependency(talents[new_talent_index], loadout_bits)
@@ -155,71 +175,101 @@ def validate_dependencies(talents, free_talents_bits, loadout_bits, new_talent_i
         return False
     return True
 
+
 def validate_dependency(t1, loadout_bits):
-  if not t1.parents: return True
+  if not t1.parents:
+    return True
   for t2_i in t1.parents:
-    if (1<<t2_i) & loadout_bits:
+    if (1 << t2_i) & loadout_bits:
       return True
   # print("Talent selected without fully selecting at least one dependency: %s" % (t1.name))
   return False
 
+
 def choices(talents, free_talents_bits, partial_loadout_bits, enforce_choice_ordering=False):
   # print("Generating options for partial loadout:", bin(partial_loadout_bits), loadout_bits_to_tuple(talents, partial_loadout_bits))
-  points_spent_by_tier = count_spent_points(talents, free_talents_bits, partial_loadout_bits)
+  points_spent_by_tier = count_spent_points(
+      talents, free_talents_bits, partial_loadout_bits)
   tier_permitted = {
-    1: True,
-    2: points_spent_by_tier[1] >= 8,
-    3: points_spent_by_tier[1]+points_spent_by_tier[2] >= 20,
+      1: True,
+      2: points_spent_by_tier[1] >= 8,
+      3: points_spent_by_tier[1]+points_spent_by_tier[2] >= 20,
   }
   spent_points_bits = partial_loadout_bits & ~free_talents_bits
   # print("Bit length of current loadout:", partial_loadout_bits.bit_length())
   return [i for i in range(len(talents))
-          if True 
-             and (1<<i) & partial_loadout_bits == 0
-             and (not enforce_choice_ordering or i >= spent_points_bits.bit_length())
-             and tier_permitted[talents[i].tier]
-             and validate_talent_loadout(talents, free_talents_bits, partial_loadout_bits | (1<<i), new_talent_index=i)]
+          if True
+          and (1 << i) & partial_loadout_bits == 0
+          and (not enforce_choice_ordering or i >= spent_points_bits.bit_length())
+          and tier_permitted[talents[i].tier]
+          and validate_talent_loadout(talents, free_talents_bits, partial_loadout_bits | (1 << i), new_talent_index=i)]
+
 
 def valid_builds(talents, free_talents_bits, points_to_spend, partial_loadout_bits=0):
   assert points_to_spend >= 0
 
   if partial_loadout_bits == 0:
-    print("no partial loadout provided; giving you only the free talents:", bin(free_talents_bits))
+    print("no partial loadout provided; giving you only the free talents:",
+          bin(free_talents_bits))
     partial_loadout_bits = free_talents_bits
 
   partial_loadouts_bits = [partial_loadout_bits]
 
   while points_to_spend > 0:
-    print("With %d points remaining, %d valid builds so far..." % (points_to_spend, len(partial_loadouts_bits)))
+    print("With %d points remaining, %d valid builds so far..." %
+          (points_to_spend, len(partial_loadouts_bits)))
     # print("valid builds:", [bin(plb) for plb in partial_loadouts_bits])
     # if points_to_spend < 15: return list(loadout_frontier)
     loadout_frontier = set()
     for partial_loadout_bits in partial_loadouts_bits:
       for t in choices(talents, free_talents_bits, partial_loadout_bits, enforce_choice_ordering=True):
-        loadout_frontier.add(partial_loadout_bits | (1<<t))
+        loadout_frontier.add(partial_loadout_bits | (1 << t))
     points_to_spend -= 1
     partial_loadouts_bits = loadout_frontier
 
   return list(loadout_frontier)
 
+
 def sorted_build(b, talents_by_name):
   return sorted(b, key=lambda t: (talents_by_name[t].row, talents_by_name[t].col))
+
 
 def filter_builds(builds, required_talent_bits):
   return list(filter(lambda b: b & required_talent_bits == required_talent_bits,
                      builds))
 
+
 def format_talent_index(talents, i):
   return "[%s] %s" % ('{:2d}'.format(i), talents[i].name)
-  
+
+
+def how_many_builds_pick_this_talent(ti, builds):
+  result = 0
+  t_bit = 1 << ti
+  for b in builds:
+    if b & t_bit > 0:
+      result += 1
+  return result
+
+
+def count_talent_appearances(talents, builds):
+  with multiprocessing.Pool(5) as p:
+    return p.map(functools.partial(how_many_builds_pick_this_talent,
+                                   builds=builds),
+                 talents)
+
+
 def show_common_talents(builds, talents):
   print("In %d valid builds..." % len(builds))
   all_talents = range(len(talents))
-  talent_appearances = talent_util.talent_appearances(all_talents, builds)
+  talent_appearances = count_talent_appearances(all_talents, builds)
 
-  required_talents = list(filter(lambda t: talent_appearances[t] == len(builds), all_talents))
-  unreachable_talents = list(filter(lambda t: talent_appearances[t] == 0, all_talents))
-  selectable_talents = list(filter(lambda t: talent_appearances[t] > 0 and talent_appearances[t] < len(builds), all_talents))
+  required_talents = list(
+      filter(lambda t: talent_appearances[t] == len(builds), all_talents))
+  unreachable_talents = list(
+      filter(lambda t: talent_appearances[t] == 0, all_talents))
+  selectable_talents = list(filter(
+      lambda t: talent_appearances[t] > 0 and talent_appearances[t] < len(builds), all_talents))
 
   selectable_talents.sort(key=lambda ti: talent_appearances[ti], reverse=True)
   #  print("Unreachable talents:")
@@ -231,15 +281,17 @@ def show_common_talents(builds, talents):
                                  format_talent_index(talents, i))
                   for i in selectable_talents))
   return (
-    indices_to_bits(selectable_talents),
-    indices_to_bits(required_talents),
-    indices_to_bits(unreachable_talents),
+      indices_to_bits(selectable_talents),
+      indices_to_bits(required_talents),
+      indices_to_bits(unreachable_talents),
   )
+
 
 def interactive_filter(builds, talents):
   selectable, required, unreachable = None, None, None
   while len(builds) > 1:
-    now_selectable, now_required, now_unreachable = show_common_talents(builds, talents)
+    now_selectable, now_required, now_unreachable = show_common_talents(
+        builds, talents)
     if selectable is not None and selectable != now_selectable:
       pass
     if required is not None and required != now_required:
@@ -252,13 +304,15 @@ def interactive_filter(builds, talents):
                       for i in set_bit_indices(now_unreachable & ~unreachable)))
     selectable, required, unreachable = now_selectable, now_required, now_unreachable
     print("Pick mandatory talent(s): ")
-    mandatory_talents_indices = [int(s.strip()) for s in sys.stdin.readline().strip().split(',')]
+    mandatory_talents_indices = [int(s.strip())
+                                 for s in sys.stdin.readline().strip().split(',')]
     builds = filter_builds(builds, indices_to_bits(mandatory_talents_indices))
   if not builds:
     print("No valid builds remain.")
   else:
     print("One remaining build:", bin(builds[0]))
-  
+
+
 def main():
   talents = talent_data.get_talents("Paladin")
   print("Loaded %d talents:" % len(talents))
@@ -270,30 +324,32 @@ def main():
 
   intify_talent_tree_parents(talents)
   print("Intified talent tree parents:")
-  print("\n".join("\t[%d] %s: %s" % (i, t.name, t.parents) for (i,t) in enumerate(talents)))
+  print("\n".join("\t[%d] %s: %s" % (i, t.name, t.parents)
+                  for (i, t) in enumerate(talents)))
 
   assert data_validate_talents(talents)
 
-
   points_to_spend = 26
-  
+
   builds_pickle_file = 'pickled_builds/paladin-protection-generic-%d.pickle' % points_to_spend
   if os.path.exists(builds_pickle_file):
     print("Loading pickled builds...")
     builds = pickle.load(open(builds_pickle_file, "rb"))
   else:
     free_talents_indices = [t.i for t in filter(lambda t: t.name in [
-      "Lay on Hands",
-      "Auras of the Resolute",
+        "Lay on Hands",
+        "Auras of the Resolute",
     ], talents)]
-    builds = valid_builds(talents, indices_to_bits(free_talents_indices), points_to_spend)
+    builds = valid_builds(talents, indices_to_bits(
+        free_talents_indices), points_to_spend)
     print("Pickling builds...")
     pickle.dump(builds, open(builds_pickle_file, "wb"))
   print("Found %d valid builds." % len(builds))
 
   interactive_filter(builds, talents)
 
+
 if __name__ == '__main__':
   #import cProfile
-  #cProfile.run('main()')
+  # cProfile.run('main()')
   main()
