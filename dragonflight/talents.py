@@ -195,12 +195,13 @@ def choices(talents, free_talents_bits, partial_loadout_bits, enforce_choice_ord
       2: points_spent_by_tier[1] >= 8,
       3: points_spent_by_tier[1]+points_spent_by_tier[2] >= 20,
   }
-  spent_points_bits = partial_loadout_bits & ~free_talents_bits
+  highest_index_spent_point = (
+      partial_loadout_bits & ~free_talents_bits).bit_length()
   # print("Bit length of current loadout:", partial_loadout_bits.bit_length())
   return [i for i in range(len(talents))
           if True
           and (1 << i) & partial_loadout_bits == 0
-          and (not enforce_choice_ordering or i >= spent_points_bits.bit_length())
+          and (not enforce_choice_ordering or i >= highest_index_spent_point)
           and tier_permitted[talents[i].tier]
           and validate_talent_loadout(talents, free_talents_bits, partial_loadout_bits | (1 << i), new_talent_index=i)]
 
