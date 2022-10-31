@@ -22,7 +22,7 @@ TALENT_TREES = {
     Talent("Greater Judgment", 1, ["Fist of Justice"], 3, 6),
 
     # tier 2
-    Talent("Holy Aegis", 2, ["Repentance / Blinding Light", "Cleanse Toxins"], 4, 1),
+    Talent("Holy Aegis", 2, ["Repentance / Blinding Light", "Cleanse Toxins", "Cavalier"], 4, 1),
     Talent("Avenging Wrath", 1, ["Divine Steed", "Cavalier", "Seasoned Warhorse / Seal of the Templar"], 4, 3),
     Talent("Turn Evil", 1, ["Fist of Justice", "Seasoned Warhorse / Seal of the Templar", "Greater Judgment"], 4, 5),
     Talent("Rebuke", 1, ["Greater Judgment"], 4, 6),
