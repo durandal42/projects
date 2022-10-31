@@ -2,7 +2,7 @@ import collections
 
 
 def load_words(length=5):
-  target_file = '../TWL06.txt'
+  target_file = 'wordlists/legal-words.txt'
   print('loading words...')
   return list(filter(lambda w: (len(w) == length) and len(set(w)) == length,
                      [word.strip().upper()
