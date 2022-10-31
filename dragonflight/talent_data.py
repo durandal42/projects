@@ -58,6 +58,5 @@ TALENT_TREES = {
   ],
 }
 
-
 def get_talents(tree):
     return TALENT_TREES[tree]
