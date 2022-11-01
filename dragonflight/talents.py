@@ -6,7 +6,6 @@ import pickle
 import functools
 import collections
 
-
 def get_talents_by_name(talents):
   talents_by_name = {}
   for t in talents:
@@ -15,7 +14,7 @@ def get_talents_by_name(talents):
 
 
 SingularTalent = collections.namedtuple(
-    "SingularTalent", "name i parents row col tier")
+    "SingularTalent", "name i parents tier")
 
 
 def singularize_talent_name(name, i, max_points):
@@ -32,11 +31,9 @@ def singularize_talent_tree(talents):
       children[t2_name].append(t1.name)
 
   parent_corrections = {}
-  talent_names_to_remove = set()
   new_talents = []
   for t in talents:
     if t.points > 1:
-      talent_names_to_remove.add(t.name)
       parent_corrections[t.name] = singularize_talent_name(
           t.name, t.points-1, t.points)
       for i in range(t.points):
@@ -47,30 +44,25 @@ def singularize_talent_tree(talents):
           parents = [singularize_talent_name(t.name, i-1, t.points)]
         new_talents.append(SingularTalent(
             name=name, i=len(new_talents),
-            parents=parents, row=t.row+i/10, col=t.col,
-            tier=max(1, (t.row + 2)//3)))
+            parents=parents, 
+            tier={0:1, 8:2, 20:3}[t.required_points]))
     else:
       new_talents.append(SingularTalent(
           name=t.name, i=len(new_talents),
-          parents=t.parents, row=t.row, col=t.col,
-          tier=max(1, (t.row + 2)//3)))
+          parents=t.parents,
+          tier={0:1, 8:2, 20:3}[t.required_points]))
 
-  talents = new_talents
-
-  new_talents = []
-  for t in talents:
-    if t.name in talent_names_to_remove:
-      continue
+  corrected_parent_talents = []
+  for t in new_talents:
     new_parents = []
     for p in t.parents:
       if p in parent_corrections:
         new_parents.append(parent_corrections[p])
       else:
         new_parents.append(p)
-    new_talents.append(t._replace(parents=new_parents))
+    corrected_parent_talents.append(t._replace(parents=new_parents))
 
-  return new_talents
-#  return sorted(new_talents, key=lambda t: (t.row, t.col))
+  return corrected_parent_talents
 
 
 def intify_talent_tree_parents(talents):
@@ -99,9 +91,9 @@ def data_validate_talents(talents):
 
 
 def data_validate_dependency(t1, t2):
-  if t1.row <= t2.row:
-    print("Talent depends on another talent at the same or higher row:", t1, t2)
-    return False
+  # if t1.row <= t2.row:
+  #   print("Talent depends on another talent at the same or higher row:", t1, t2)
+  #   return False
   if t1.i <= t2.i:
     print("Talent depends on a higher-indexed talent:", t1, t2)
     return False
@@ -327,7 +319,8 @@ def interactive_filter(builds, talents):
 
 
 def main():
-  talents = talent_data.get_talents("Paladin")
+  tree_name = "Paladin - Protection"
+  talents = talent_data.get_talents(tree_name)
   print("Loaded %d talents:" % len(talents))
   print("\n".join("\t" + t.name for t in talents))
 
@@ -342,18 +335,21 @@ def main():
 
   assert data_validate_talents(talents)
 
-  points_to_spend = 26
+  points_to_spend = 25
 
-  builds_pickle_file = ('pickled_builds/paladin-protection-generic-%d.pickle'
-                        % points_to_spend)
+  # TODO(dsloan): compute the pickle filename from the class/spec used to generate it
+  builds_pickle_file = ('pickled_builds/%s-%d.pickle'
+                        % (tree_name.lower().replace(" ", ""), points_to_spend))
+
   if os.path.exists(builds_pickle_file):
     print("Loading pickled builds...")
     builds = pickle.load(open(builds_pickle_file, "rb"))
   else:
-    free_talents_indices = [t.i for t in filter(lambda t: t.name in [
-        "Lay on Hands",
-        "Auras of the Resolute",
-    ], talents)]
+    # free_talents_indices = [t.i for t in filter(lambda t: t.name in [
+    #     "Lay on Hands",
+    #     "Auras of the Resolute",
+    # ], talents)]
+    free_talents_indices = []  # TODO(dsloan): get this out of the trees as well
     builds = valid_builds(talents, indices_to_bits(
         free_talents_indices), points_to_spend)
     print("Pickling builds...")

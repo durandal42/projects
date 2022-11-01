@@ -52,7 +52,6 @@ for tree_id, cells in trees.items():
 # print(types)
 
 import pprint
-
 pp = pprint.PrettyPrinter(indent=2)
 # pp.pprint(trees)
 
@@ -116,4 +115,3 @@ def get_tree(tree_id=None, tree_name=None):
   if tree_name is not None and tree_id is None:
     tree_id = TREE_IDS_BY_NAME[tree_name]
   return trees[tree_id]
-  pass
