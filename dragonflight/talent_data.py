@@ -7,7 +7,7 @@ def choice_node_name(cell_variant):
   return " / ".join(s['name'] for s in cell_variant['spells'])
 
 def convert_wh_tree(wht):
-  print(wht)
+  # print(wht)
   tree = []
   for cell_id, cell_variants in wht.items():
     tree.append(Talent(

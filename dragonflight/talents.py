@@ -247,20 +247,18 @@ def format_talent_index(talents, i):
 
 
 def how_many_builds_pick_this_talent(ti, builds):
-  result = 0
   t_bit = 1 << ti
+  result = 0
   for b in builds:
-    if b & t_bit > 0:
+    if b & t_bit:
       result += 1
   return result
 
-
 def count_talent_appearances(talents, builds):
-  with multiprocessing.Pool(5) as p:
-    return p.map(functools.partial(how_many_builds_pick_this_talent,
-                                   builds=builds),
-                 talents)
-
+  f = functools.partial(how_many_builds_pick_this_talent, builds=builds)
+  with multiprocessing.Pool(4) as p:
+    return p.map(f, talents)
+  # return list(map(f, talents))
 
 def show_common_talents(builds, talents):
   print("In %d valid builds..." % len(builds))
@@ -283,16 +281,19 @@ def show_common_talents(builds, talents):
   )
 
 
-def interactive_filter(builds, talents):
+def interactive_filter(all_builds, talents):
+  # TODO(dsloan): undo button / remove talent
   selectable, required, unreachable = [], 0, 0
-  while len(builds) > 1:
+  builds = all_builds
+  while True:
     now_selectable, now_required, now_unreachable = show_common_talents(
         builds, talents)
 
-    if required is not None and required != now_required:
-      print("Newly required talent(s):")
-      print("\n".join("\t%s" % format_talent_index(talents, i)
-                      for i in set_bit_indices(now_required & ~required)))
+    print("Required talent(s):")
+    print("\n".join("%s\t%s" % ((1<<i)&required and " " or "*",
+                                format_talent_index(talents, i))
+                    for i in range(len(talents))
+                    if (1<<i) & now_required))
     required = now_required
 
     if unreachable is not None and unreachable != now_unreachable:
@@ -301,25 +302,40 @@ def interactive_filter(builds, talents):
                       for i in set_bit_indices(now_unreachable & ~unreachable)))
     unreachable = now_unreachable
 
+    if not now_selectable:
+      print("No further choices to make.")
+      return
+
     print("Selectable talents, sorted by appearance rate:")
     print("\n".join("\t%s:\t%s" % ('{:10d}'.format(c),
                                    format_talent_index(talents, ti))
                     for ti, c in now_selectable))
     selectable = now_selectable
 
-    print("Pick talent(s) to include: ")
-    mandatory_talents_indices = [
-        int(s.strip())
-        for s in sys.stdin.readline().strip().split(',')]
-    builds = filter_builds(builds, indices_to_bits(mandatory_talents_indices))
-  if not builds:
-    print("No valid builds remain.")
-  else:
-    print("One remaining build:", bin(builds[0]))
+    print("Pick talent(s) to include (or prefix with - to remove): ")
+    user_input = sys.stdin.readline().strip()
+    exclude = False
+    if user_input[0] == '-':
+      exclude = True
+      user_input = user_input[1:]
 
+    talent_indices = [
+        int(s.strip())
+        for s in user_input.split(',')]
+    talent_bits = indices_to_bits(talent_indices)
+
+    if exclude:
+      builds = filter_builds(all_builds, now_required & ~talent_bits)
+      selectable, required, unreachable = [], 0, 0
+    else:
+      builds = filter_builds(builds, talent_bits)
+
+    if not builds:
+      print("No valid builds remain.")
+      return
 
 def main():
-  tree_name = "Paladin - Protection"
+  tree_name = "Paladin - Holy"
   talents = talent_data.get_talents(tree_name)
   print("Loaded %d talents:" % len(talents))
   print("\n".join("\t" + t.name for t in talents))
@@ -360,6 +376,6 @@ def main():
 
 
 if __name__ == '__main__':
-  # import cProfile
-  # cProfile.run('main()')
-  main()
+  import cProfile
+  cProfile.run('main()')
+  # main()
