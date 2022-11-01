@@ -234,6 +234,57 @@ def parse_blizzard_import_string(s, expected_spec_id=None):
   print("nodes_not_selected:", nodes_not_selected)
   print("Points spent:", points_spent)
 
+def generate_blizzard_import_string(loadout, tree_id, wht):
+  data = []
+
+  # header
+  # -- HEADER (fixed-size)
+  # --  Serialization Version, 8 bits. 
+  # --  The version of the serialization method.
+  #  If the client updates the export algorithm, the version will be incremented,
+  #    and loadouts exported with older serialization version will fail to import and need to be re-exported.
+  #  Currently set to 1, as defined in the constant LOADOUT_SERIALIZATION_VERSION.
+  data.append((1,8))
+
+  # --  Specialization ID, 16 bits.  
+  # --  The class specialization for this loadout.
+  #  Uses the player's currently assigned specialization.
+  #  Attempting to import a loadout for a different class specialization will result in a failure.
+  data.append((tree_id,16))
+
+  # --  Tree Hash, 128 bits, optional.  
+  # --  A hash of the content of the tree to compare against the current tree when importing a loadout.
+  #  For third-party sites that want to generate loadout strings, this can be ommitted and zero-filled,
+  #    which will ignore the extra validation on import.
+  #  If the tree has changed and treehash is zero-filled, it will attempt to import the loadout
+  #    but may result in incomplete or incorrect nodes getting selected.
+  data.append((0,128))
+
+  for cv in sorted(cell_variants for cell_id, cell_variants in wht.items(),
+                             key=lambda cv: cv['node_id']):
+    # TODO(dsloan): flesh this out
+    # -- FILE CONTENT (variable-size)
+    # --  Is Node Selected, 1 bit
+    # --    Is Partially Ranked, 1 bit
+    # --      Ranks Purchased, 6 bits
+    # --    Is Choice Node, 1 bit
+    # --      Choice Entry Index, 2 bits
+    if not cv.selected:
+      data.append((0, 1))
+    else:
+      data.append((1, 1))
+      if not cv.partially_ranked:
+        data.append((0, 1))
+      else:
+        data.append((1, 1))
+        data.append((cv.ranks_purchased, 6))
+      if not cv.choice_node:
+        data.append((0,1))
+      else:
+        data.append((1, 1))
+        data.append((cv.choice_index, 2))
+  return blizzard_convert_to_base64(data)
+
 blizzard_string = 'BIEAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAkkkEJJIRLlAIEA'
 
 # find spec id in-game via:

@@ -284,7 +284,7 @@ def show_common_talents(builds, talents):
 
 
 def interactive_filter(builds, talents):
-  selectable, required, unreachable = [], None, None
+  selectable, required, unreachable = [], 0, 0
   while len(builds) > 1:
     now_selectable, now_required, now_unreachable = show_common_talents(
         builds, talents)
