@@ -115,3 +115,6 @@ def get_tree(tree_id=None, tree_name=None):
   if tree_name is not None and tree_id is None:
     tree_id = TREE_IDS_BY_NAME[tree_name]
   return trees[tree_id]
+
+def get_class_name(tree_name):
+  return tree_name.split(" - ")[0]
