@@ -309,13 +309,13 @@ def get_spells_in_node_order(tree_id):
 
   nodes = whnodes.NODES[class_id]
   # print("found %d nodes." % len(nodes))
-  assert len(sts_list) == len(nodes)
 
   spells_in_node_order = [spells_by_node_id.get(n) for n in nodes]
   return spells_in_node_order  
 
 def get_selected_talent_names(sts_list, tree_id):
   spells_in_node_order = get_spells_in_node_order(tree_id)
+  assert len(sts_list) == len(spells_in_node_order)
   result = []
   for sts, spells in zip(sts_list, spells_in_node_order):
     if sts.selected:
@@ -404,25 +404,29 @@ blizzard_strings = [
   'BIEAAAAAAAAAAAAAAAAAAAAAA0kWSSIKISQBJSSABAAAAAAAAAAAAAAkkkEJJIRLlAIkC',
 ]
 
-for blizzard_string in blizzard_strings[-1:]:
-  print("Here's a blizzard export string, which they claim has been base64 encoded:\n", blizzard_string)
-  sts_list, tree_id = parse_blizzard_import_string(blizzard_string)
-  print("Deserialized %d talents." % len(sts_list))
+def main():
+  for blizzard_string in blizzard_strings[-1:]:
+    print("Here's a blizzard export string, which they claim has been base64 encoded:\n", blizzard_string)
+    sts_list, tree_id = parse_blizzard_import_string(blizzard_string)
+    print("Deserialized %d talents." % len(sts_list))
 
-  talent_names = get_selected_talent_names(sts_list, tree_id)
-  print("Selected talent names:", talent_names)
+    talent_names = get_selected_talent_names(sts_list, tree_id)
+    print("Selected talent names:", talent_names)
 
-  sts_list_again = serialize_talent_names(talent_names, tree_id)
-  print("Prepared to re-serialize %d talents." % len(sts_list_again))
-  for old,new in zip(sts_list, sts_list_again):
-    if old != new:
-      print(old, new)
-      print()
-  assert sts_list == sts_list_again
+    sts_list_again = serialize_talent_names(talent_names, tree_id)
+    print("Prepared to re-serialize %d talents." % len(sts_list_again))
+    for old,new in zip(sts_list, sts_list_again):
+      if old != new:
+        print(old, new)
+        print()
+    assert sts_list == sts_list_again
 
-  s = generate_blizzard_import_string(sts_list_again, tree_id)
-  print("Roundtrip through parse/generate:", s)
-  # this can't succeed with strings exported from the main game, because tree hash fails
-  # It's expected to work on third party (e.g. wowhead) strings.
-  if s != blizzard_string:
-    assert s == zero_tree_hash(blizzard_string)
+    s = generate_blizzard_import_string(sts_list_again, tree_id)
+    print("Roundtrip through parse/generate:", s)
+    # this can't succeed with strings exported from the main game, because tree hash fails
+    # It's expected to work on third party (e.g. wowhead) strings.
+    if s != blizzard_string:
+      assert s == zero_tree_hash(blizzard_string)
+
+if __name__ == '__main__':
+  main()
