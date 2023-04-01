@@ -1,4 +1,6 @@
 import talent_data
+import talent_serialization
+import whtrees
 import multiprocessing
 import sys
 import os
@@ -10,6 +12,8 @@ def get_talents_by_name(talents):
   talents_by_name = {}
   for t in talents:
     talents_by_name[t.name] = t
+    for name in t.name.split(" / "):
+      talents_by_name[name] = t
   return talents_by_name
 
 
@@ -209,16 +213,10 @@ def choices(
   ]
 
 
-def valid_builds(
-        talents, free_talents_bits, points_to_spend, partial_loadout_bits=0):
+def valid_builds(talents, free_talents_bits, points_to_spend):
   assert points_to_spend >= 0
 
-  if partial_loadout_bits == 0:
-    print("no partial loadout provided; giving you only the free talents:",
-          bin(free_talents_bits))
-    partial_loadout_bits = free_talents_bits
-
-  partial_loadouts_bits = [partial_loadout_bits]
+  partial_loadouts_bits = [free_talents_bits]
 
   while points_to_spend > 0:
     print("With %d points remaining, %d valid builds so far..." %
@@ -247,20 +245,18 @@ def format_talent_index(talents, i):
 
 
 def how_many_builds_pick_this_talent(ti, builds):
-  result = 0
   t_bit = 1 << ti
+  result = 0
   for b in builds:
-    if b & t_bit > 0:
+    if b & t_bit:
       result += 1
   return result
 
-
 def count_talent_appearances(talents, builds):
-  with multiprocessing.Pool(5) as p:
-    return p.map(functools.partial(how_many_builds_pick_this_talent,
-                                   builds=builds),
-                 talents)
-
+  f = functools.partial(how_many_builds_pick_this_talent, builds=builds)
+  with multiprocessing.Pool(4) as p:
+    return p.map(f, talents)
+  # return list(map(f, talents))
 
 def show_common_talents(builds, talents):
   print("In %d valid builds..." % len(builds))
@@ -283,16 +279,19 @@ def show_common_talents(builds, talents):
   )
 
 
-def interactive_filter(builds, talents):
+def interactive_filter(all_builds, talents, initial_filter=0):
+  builds = filter_builds(all_builds, initial_filter)
+  # TODO(dsloan): undo button / remove talent
   selectable, required, unreachable = [], 0, 0
-  while len(builds) > 1:
+  while True:
     now_selectable, now_required, now_unreachable = show_common_talents(
         builds, talents)
 
-    if required is not None and required != now_required:
-      print("Newly required talent(s):")
-      print("\n".join("\t%s" % format_talent_index(talents, i)
-                      for i in set_bit_indices(now_required & ~required)))
+    print("Required talent(s):")
+    print("\n".join("%s\t%s" % ((1<<i)&required and " " or "*",
+                                format_talent_index(talents, i))
+                    for i in range(len(talents))
+                    if (1<<i) & now_required))
     required = now_required
 
     if unreachable is not None and unreachable != now_unreachable:
@@ -301,25 +300,53 @@ def interactive_filter(builds, talents):
                       for i in set_bit_indices(now_unreachable & ~unreachable)))
     unreachable = now_unreachable
 
-    print("Selectable talents, sorted by appearance rate:")
-    print("\n".join("\t%s:\t%s" % ('{:10d}'.format(c),
-                                   format_talent_index(talents, ti))
-                    for ti, c in now_selectable))
+    if not now_selectable:
+      print("No further talents can be spent.")
+    else:
+      print("Selectable talents, sorted by appearance rate:")
+      print("\n".join("\t%s:\t%s" % ('{:10d}'.format(c),
+                                     format_talent_index(talents, ti))
+                      for ti, c in now_selectable))
     selectable = now_selectable
 
-    print("Pick talent(s) to include: ")
-    mandatory_talents_indices = [
+    print("Pick talent(s) to include (or prefix with - to remove)(hit enter to break and print export string): ")
+    user_input = sys.stdin.readline().strip()
+    if user_input == "": return now_required
+    exclude = False
+    if user_input[0] == '-':
+      exclude = True
+      user_input = user_input[1:]
+
+    talent_indices = [
         int(s.strip())
-        for s in sys.stdin.readline().strip().split(',')]
-    builds = filter_builds(builds, indices_to_bits(mandatory_talents_indices))
-  if not builds:
-    print("No valid builds remain.")
+        for s in user_input.split(',')]
+    talent_bits = indices_to_bits(talent_indices)
+
+    if exclude:
+      builds = filter_builds(all_builds, now_required & ~talent_bits)
+      selectable, required, unreachable = [], 0, 0
+    else:
+      builds = filter_builds(builds, talent_bits)
+
+    if not builds:
+      print("No valid builds remain.")
+      return
+
+def export_string(talents, spec_name, loadout_bits):
+  talent_names = [t.name for t in talents if (1<<t.i) & loadout_bits]
+  tree_id = whtrees.TREE_IDS_BY_NAME[spec_name]
+  return talent_serialization.generate_blizzard_import_string(
+    talent_serialization.serialize_talent_names(talent_names, tree_id), tree_id)
+
+def session(arg):
+  if arg in whtrees.TREE_IDS_BY_NAME:
+    tree_name = arg
+    initial_talent_names = []
   else:
-    print("One remaining build:", bin(builds[0]))
+    sts, spec_id = talent_serialization.parse_blizzard_import_string(arg)
+    tree_name = whtrees.TREE_NAMES_BY_ID[spec_id]
+    initial_talent_names = talent_serialization.get_selected_talent_names(sts, spec_id)
 
-
-def main():
-  tree_name = "Paladin - Protection"
   talents = talent_data.get_talents(tree_name)
   print("Loaded %d talents:" % len(talents))
   print("\n".join("\t" + t.name for t in talents))
@@ -335,9 +362,16 @@ def main():
 
   assert data_validate_talents(talents)
 
+  print("Import string has %d talents selected." % len(initial_talent_names))
+  print(initial_talent_names)
+  talents_by_name = get_talents_by_name(talents)
+  initial_talent_indices = [talents_by_name[name].i for name in initial_talent_names
+                            if name in talents_by_name]
+  print("Import string has %d talents selected in this tree." % len(initial_talent_indices))
+  initial_talent_loadout = indices_to_bits(initial_talent_indices)
+
   points_to_spend = 25
 
-  # TODO(dsloan): compute the pickle filename from the class/spec used to generate it
   builds_pickle_file = ('pickled_builds/%s-%d.pickle'
                         % (tree_name.lower().replace(" ", ""), points_to_spend))
 
@@ -345,18 +379,24 @@ def main():
     print("Loading pickled builds...")
     builds = pickle.load(open(builds_pickle_file, "rb"))
   else:
-    # free_talents_indices = [t.i for t in filter(lambda t: t.name in [
-    #     "Lay on Hands",
-    #     "Auras of the Resolute",
-    # ], talents)]
-    free_talents_indices = []  # TODO(dsloan): get this out of the trees as well
-    builds = valid_builds(talents, indices_to_bits(
-        free_talents_indices), points_to_spend)
+    builds = valid_builds(talents,
+                          free_talents_bits=0,  # TODO(dsloan): get this from the tree
+                          points_to_spend=points_to_spend)
     print("Pickling builds...")
     pickle.dump(builds, open(builds_pickle_file, "wb"))
   print("Found %d valid builds." % len(builds))
 
-  interactive_filter(builds, talents)
+  build = interactive_filter(builds, talents, initial_talent_loadout)
+
+  print("Export string:")
+  print("\t", export_string(talents, tree_name, build))
+
+
+def main():
+  if len(sys.argv) == 2:
+    session(sys.argv[1])
+  else:
+    session("Paladin - Holy")
 
 
 if __name__ == '__main__':
