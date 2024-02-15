@@ -71,7 +71,7 @@ def parse(lines):
 def csv(parsed):
   return '\t'.join(str(x) for x in parsed)
 
-# print csv(parse(EXAMPLE.splitlines()))
+# print(csv(parse(EXAMPLE.splitlines())))
 
 
 def parse_many(lines):
@@ -80,11 +80,11 @@ def parse_many(lines):
     line = line.strip()
     if re.match("\w+$", line):  # this is a new name
       if buffer:
-        print csv(parse(buffer))
+        print(csv(parse(buffer)))
       buffer = []
     buffer.append(line)
   if buffer:
-    print csv(parse(buffer))
+    print(csv(parse(buffer)))
 
 import sys
 parse_many(sys.stdin.readlines())
