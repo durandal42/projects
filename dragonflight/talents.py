@@ -1,7 +1,7 @@
 import talent_data
 import talent_serialization
 import whtrees
-import multiprocessing
+import numpy
 import sys
 import os
 import pickle
@@ -236,27 +236,19 @@ def valid_builds(talents, free_talents_bits, points_to_spend):
 
 
 def filter_builds(builds, required_talent_bits):
-  return list(filter(lambda b: b & required_talent_bits == required_talent_bits,
-                     builds))
+  return builds[builds & required_talent_bits == required_talent_bits]
+  # return list(filter(lambda b: b & required_talent_bits == required_talent_bits,
+  #                    builds))
 
 
 def format_talent_index(talents, i):
   return "[%s] %s" % ('{:2d}'.format(i), talents[i].name)
 
-
-def how_many_builds_pick_this_talent(ti, builds):
-  t_bit = 1 << ti
-  result = 0
-  for b in builds:
-    if b & t_bit:
-      result += 1
-  return result
+import numpy
 
 def count_talent_appearances(talents, builds):
-  f = functools.partial(how_many_builds_pick_this_talent, builds=builds)
-  with multiprocessing.Pool(4) as p:
-    return p.map(f, talents)
-  # return list(map(f, talents))
+  return list(map(lambda t: numpy.count_nonzero(builds & (1<<t)),
+                  talents))
 
 def show_common_talents(builds, talents):
   print("In %d valid builds..." % len(builds))
@@ -386,7 +378,7 @@ def session(arg):
     pickle.dump(builds, open(builds_pickle_file, "wb"))
   print("Found %d valid builds." % len(builds))
 
-  build = interactive_filter(builds, talents, initial_talent_loadout)
+  build = interactive_filter(numpy.array(builds), talents, initial_talent_loadout)
 
   print("Export string:")
   print("\t", export_string(talents, tree_name, build))
@@ -396,10 +388,17 @@ def main():
   if len(sys.argv) == 2:
     session(sys.argv[1])
   else:
-    session("Paladin - Holy")
+    session("Paladin-Holy")
 
 
 if __name__ == '__main__':
-  # import cProfile
-  # cProfile.run('main()')
+  import cProfile
+  import pstats
+  pr = cProfile.Profile()
+  pr.enable()
+
   main()
+
+  pr.disable()
+  stats = pstats.Stats(pr)
+  stats.sort_stats('tottime').print_stats(20)
