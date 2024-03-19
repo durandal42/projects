@@ -97,3 +97,5 @@ if __name__ == "__main__":
   col_runs, row_runs = fetch_nonograms_org_by_idx(idx)
   solve_grid(col_runs, row_runs)
   print(f"solved nonograms.org puzzle #{idx}.")
+
+# TODO(durandal): cache html lookups by idx
