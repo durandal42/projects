@@ -141,7 +141,7 @@ if __name__ == "__main__":
                     .filter(lambda a: array_pointbuy_cost(a) == 27))
   print(pointbuy_legal)
   print("utility distribution of pointbuy-legal arrays:")
-  summarize(pointbuy_legal.map(lambda a: array_utility(a)))
+  summarize(pointbuy_legal.map(array_utility))
   print()
 
   print("highest-utility pointbuy-legal array:")
@@ -155,9 +155,9 @@ if __name__ == "__main__":
       ("4d6 drop lowest", a_4d6_drop_lowest),
       # ("4d6 drop lowest, reroll if total < 70",
       #  a_4d6_drop_lowest.filter(lambda t: sum(t) >= 70)),
-      # ("4d6 drop lowest, reroll if total < 70, reroll unless two 15+'s",
-      #  a_4d6_drop_lowest.filter(lambda t: sum(
-      #     t) >= 70).filter(lambda t: t[1] >= 15)),
+       ("4d6 drop lowest, reroll if total < 70, reroll unless two 15+'s",
+        a_4d6_drop_lowest.filter(lambda t: sum(
+           t) >= 70).filter(lambda t: t[1] >= 15)),
       # ("4d6 drop lowest, fall back to standard array",
       # a_4d6_drop_lowest.map(lambda a: a if array_utility(a) >=
       # array_utility(STANDARD_ARRAY) else STANDARD_ARRAY))
@@ -178,3 +178,6 @@ if __name__ == "__main__":
     # print("pointbuy cost (cumulative):")
     # print(pointbuy_cost.cum())
     # summarize_nth_best(allocation)
+
+    print("utility:")
+    summarize(allocation.map(array_utility))

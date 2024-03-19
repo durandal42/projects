@@ -30,7 +30,8 @@ STAT_WEIGHTS_BY_CLASS = {
     "Fighter (STR EK)": (8, 1, 4, 3, 2, 0),
     "Fighter (STR)": (8, 1, 3, 0, 2, 0),
     "Monk ": (0, 8, 3, 1, 6, 0),
-    "Paladin": (8, 1, 4, 0, 2, 5),
+    "Paladin (STR)": (8, 1, 4, 0, 2, 5),
+    "Paladin (DEX)": (0, 8, 4, 0, 2, 5),
     "Ranger (DEX)": (0, 8, 3, 1, 5, 1),
     "Ranger (STR)": (8, 2, 4, 1, 5, 1),
     "Rogue (AT)": (0, 9, 3, 4, 2, 1),
@@ -44,7 +45,7 @@ RACIAL_BONUS_INDICES = distribution.cartesian_product(
     [distribution.die(6),
      # distribution.die(6),
      distribution.die(6)]).filter(lambda x: x[0] != x[1])
-print(RACIAL_BONUS_INDICES)
+# print(RACIAL_BONUS_INDICES)
 
 
 def pick_racials(stats, weights):
@@ -64,35 +65,40 @@ def pick_racials(stats, weights):
 
 
 def score_array(stats, weights):
-  return sum((math.floor(stat/2)-5) * weight
+  return sum((math.floor(stat / 2) - 5) * weight
              for stat, weight in zip(stats, weights))
 
 
-BUCKET_BOUNDARIES_BY_CLASS = {}
-for c, weights in STAT_WEIGHTS_BY_CLASS.items():
-  print()
-  print(c)
+def notable_statlines_by_class():
+  BUCKET_BOUNDARIES_BY_CLASS = {}
+  for c, weights in STAT_WEIGHTS_BY_CLASS.items():
+    print()
+    print(c)
 
-  # print("score distribution:")
-  # distribution.summarize(pointbuy_legal
-  #                        .map(lambda x: pick_racials(x, weights))
-  #                        .map(lambda x: score_array(x, weights)))
+    # print("score distribution:")
+    # distribution.summarize(pointbuy_legal
+    #                        .map(lambda x: pick_racials(x, weights))
+    #                        .map(lambda x: score_array(x, weights)))
 
-  stats_and_scores = []
-  for stats, p in pointbuy_legal.items():
-    post_racials = pick_racials(stats, weights)
-    stats_and_scores.append(
-        (score_array(post_racials, weights), stats, post_racials))
-  stats_and_scores.sort()
+    stats_and_scores = []
+    for stats, p in pointbuy_legal.items():
+      post_racials = pick_racials(stats, weights)
+      stats_and_scores.append(
+          (score_array(post_racials, weights), stats, post_racials))
+    stats_and_scores.sort()
 
-  print("best statline: ", stats_and_scores[-1])
-  print("worst statline:", stats_and_scores[0])
-  n = len(stats_and_scores)
-  NUM_BUCKETS = 100
-  bucket_boundaries = [stats_and_scores[math.floor(n * p / NUM_BUCKETS)][0]
-                       for p in range(NUM_BUCKETS)]
-  # print("percentile boundaries:", bucket_boundaries)
-  BUCKET_BOUNDARIES_BY_CLASS[c] = bucket_boundaries
+    print("best statline: ", stats_and_scores[-1])
+    print("worst statline:", stats_and_scores[0])
+    n = len(stats_and_scores)
+    NUM_BUCKETS = 100
+    bucket_boundaries = [stats_and_scores[math.floor(n * p / NUM_BUCKETS)][0]
+                         for p in range(NUM_BUCKETS)]
+    # print("percentile boundaries:", bucket_boundaries)
+    BUCKET_BOUNDARIES_BY_CLASS[c] = bucket_boundaries
+    print("consider instead playing a:",
+          evaluate(stats_and_scores[0][1],
+                   percentile_f=lambda s, c: assign_percentile(s, bucket_boundaries))[0][1:])
+  return BUCKET_BOUNDARIES_BY_CLASS
 
 
 def assign_percentile(value, bucket_boundaries):
@@ -101,25 +107,27 @@ def assign_percentile(value, bucket_boundaries):
       return i
   return len(bucket_boundaries)
 
-def evaluate(stats):
+
+def evaluate(stats, percentile_f=lambda s, c: s):
   evaluation = []
   for c, weights in STAT_WEIGHTS_BY_CLASS.items():
     post_racials = pick_racials(stats, weights)
     score = score_array(post_racials, weights)
-    evaluation.append((assign_percentile(score, BUCKET_BOUNDARIES_BY_CLASS[c]),
-                       c, post_racials))
+    evaluation.append((percentile_f(score, c), c, post_racials))
   evaluation.sort(reverse=True)
   return evaluation
+
+BUCKET_BOUNDARIES_BY_CLASS = notable_statlines_by_class()
 
 print("\n16 random pointbuy-legal statlines:")
 for stats in sample(pointbuy_legal, 16):
   print(stats)
-  for e in evaluate(stats):
+  for e in evaluate(stats, percentile_f=lambda s, c: assign_percentile(s, BUCKET_BOUNDARIES_BY_CLASS[c])):
     print("\t", e)
 
 best_class_count = collections.Counter()
 worst_class_count = collections.Counter()
-for stats,p in pointbuy_legal.items():
+for stats, p in pointbuy_legal.items():
   e = evaluate(stats)
   best_class_count[e[0][1]] += 1
   worst_class_count[e[-1][1]] += 1
