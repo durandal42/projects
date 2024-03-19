@@ -301,6 +301,16 @@ def black(rng):
     return 0
 
 
+def death(rng, threshold=10):
+  passes, fails = 0, 0
+  while passes < 3 and fails < 3:
+    d = rng.die(20)
+    if d == 20: return "+1 hp!"
+    if d >= threshold: passes += 1
+    else: fails += 1
+  if passes >= 3: return "stable"
+  if fails >= 3: return "death"
+
 functions = [
     #  vanilla_2d6,
     #  sicherman_2d6,
@@ -313,11 +323,13 @@ functions = [
     #  lambda r: cardchoose(r, 8, 3),
     #  lambda r: krs_choose(r, 8, 3),
     #  black,
-    lambda r: okimhere(r, 2),
-    lambda r: okimhere(r, 4),
-    lambda r: okimhere(r, 8),
-    lambda r: okimhere(r, 16),
-    lambda r: okimhere(r, 32),
+#    lambda r: okimhere(r, 2),
+#    lambda r: okimhere(r, 4),
+#    lambda r: okimhere(r, 8),
+#    lambda r: okimhere(r, 16),
+#    lambda r: okimhere(r, 32),
+  death,
+  lambda r: death(r, 15),
 ]
 
 if __name__ == "__main__":

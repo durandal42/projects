@@ -1,6 +1,6 @@
 *~
 *.class
-#*#
+*#
 *.pyc
 
 maze/images/*
@@ -9,3 +9,4 @@ cannonade/images/*
 
 .DS_Store
 redactle/wiki-cache/*
+*.pickle
