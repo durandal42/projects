@@ -1,4 +1,5 @@
 from picross import solve_grid
+import parser
 
 # $ pip install requests
 from requests_html import HTMLSession
@@ -7,9 +8,27 @@ from requests_html import HTMLSession
 from bs4 import BeautifulSoup
 
 import time
+import os
+import pathlib
+
+
+LAST_LOOKUP_TIME = None
+MIN_SECONDS_PER_QUERY = 2
+
+
+def rate_limit():
+  global LAST_LOOKUP_TIME
+  if LAST_LOOKUP_TIME is not None:
+    now = time.time()
+    must_wait = (LAST_LOOKUP_TIME + MIN_SECONDS_PER_QUERY) - now
+    if must_wait > 0:
+      print(f"Sleeping {must_wait} seconds to respect rate limit of {MIN_SECONDS_PER_QUERY} seconds per query.")
+      time.sleep(must_wait)
+  LAST_LOOKUP_TIME = time.time()
 
 
 def get_nonogram_table(url):
+  rate_limit()
   fetch_start = time.time()
 
   session = HTMLSession()
@@ -83,6 +102,24 @@ def fetch_nonograms_org_by_idx(idx):
   return extract_runs(get_nonogram_table(
       "https://www.nonograms.org/nonograms/i/%d" % idx))
 
+
+def lookup_by_idx(idx):
+  cache_dir = "nonogram.org-cache"
+  pathlib.Path(cache_dir).mkdir(parents=True, exist_ok=True)
+  filename = f'{cache_dir}/{idx}.txt'
+  if os.path.exists(filename):
+    print("reading cached nonogram:", filename)
+    f = open(filename, "r").readlines()
+    col_runs, row_runs = parser.parse(f[0]), parser.parse(f[1])
+    return col_runs, row_runs
+  col_runs, row_runs = fetch_nonograms_org_by_idx(idx)
+  print("writing text to cache:", filename)
+  f = open(filename, "w")
+  f.write(parser.unparse(col_runs) + "\n")
+  f.write(parser.unparse(row_runs) + "\n")
+  return col_runs, row_runs
+
+
 # solve_nonograms_org_by_idx(2162)
 # solve_nonograms_org_by_idx(21072)
 
@@ -94,7 +131,7 @@ if __name__ == "__main__":
   if len(sys.argv) > 1:
     idx = int(sys.argv[1])
 
-  col_runs, row_runs = fetch_nonograms_org_by_idx(idx)
+  col_runs, row_runs = lookup_by_idx(idx)
   solve_grid(col_runs, row_runs)
   print(f"solved nonograms.org puzzle #{idx}.")
 
