@@ -135,9 +135,9 @@ RECURSION_LIMIT_REACHED = False
 
 def possible_cells_runwise(cells, runs, recursion_weight=None):
   global RECURSION_LIMIT_REACHED
-  # print(f"possible_cells_runwise({cells}, {runs})")
   if not cells and not runs:
     return [[]]
+  # print(f"possible_cells_runwise({cells}, {runs})")
   num_unknowns = len([c for c in cells if c == UNKNOWN])
   if num_unknowns == 0:
     if compute_runs(cells) == runs:
@@ -167,6 +167,11 @@ def possible_cells_runwise(cells, runs, recursion_weight=None):
 
   # print(f"slack: {slack}")
   if slack < 0:
+    return []
+
+  num_empty = len([c for c in cells if c == EMPTY])
+  if slack < (num_empty - (len(runs) - 1)):
+    # we thought we had enough slack, but there are too many empties
     return []
 
   possibilities = []
@@ -300,7 +305,7 @@ def solve_grid_recursion_limited(grid, column_runs, row_runs):
 
 def solve_grid(column_runs, row_runs):
   global RECURSION_LIMIT, RECURSION_LIMIT_REACHED
-  RECURSION_LIMIT = 10
+  RECURSION_LIMIT = 1
   RECURSION_LIMIT_REACHED = True
 
   solve_start = time.time()
@@ -313,12 +318,13 @@ def solve_grid(column_runs, row_runs):
       print("could not make progress, and recursion limit wasn't reached.")
       break
     RECURSION_LIMIT_REACHED = False
-    RECURSION_LIMIT *= 2
+    RECURSION_LIMIT *= 4
     print(f"attempting to make progress with recursion limit {RECURSION_LIMIT}")
     grid = solve_grid_recursion_limited(grid, column_runs, row_runs)
 
   solve_end = time.time()
   print(f"finished solving in {solve_end - solve_start:.2f} seconds")
+  print(f"recursion limit was: {RECURSION_LIMIT}")
   return grid
 
 assert solve_grid([], []) == []
