@@ -160,10 +160,9 @@ def possible_cells_runwise(cells, runs, recursion_weight=None):
     #   return []  # hack hack hack
     # print(" going for it!.")
 
-  # TODO(durandal): grow runs from the ends?
   # TODO(durandal): more aggressively prune possibilities
   # TOOD(durandal): if slack < max(runs)
-  # TODO(durandal): extract info from possibility prefixes/suffixes
+  # TODO(durandal): prune completed prefixes/suffixes before thinking too hard
 
   # print(f"slack: {slack}")
   if slack < 0:
