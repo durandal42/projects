@@ -7,3 +7,9 @@ try:
   assert False
 except AssertionError:
   pass
+
+
+def submit(answer, expected=None):
+  if expected is not None:
+    assertEqual(expected, answer)
+  print(answer)

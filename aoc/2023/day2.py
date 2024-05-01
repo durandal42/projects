@@ -1,4 +1,5 @@
 from common import assertEqual
+from common import submit
 import collections
 import functools
 import operator
@@ -89,6 +90,32 @@ assertEqual(test_output,
             day2(test_input, parse_reveal('12 red, 13 green, 14 blue')))
 
 
-print('day2 answer:', day2(open('day2_input.txt', 'r').read(),
-                           parse_reveal('12 red, 13 green, 14 blue')))
+print('day2 answer:')
+submit(day2(open('day2_input.txt', 'r').read(),
+            parse_reveal('12 red, 13 green, 14 blue')),
+       expected=2369)
+print()
+
+
+# part 2 complication:
+test_output = 2286
+
+
+def day2(input):
+  result = 0
+  for line in input.splitlines():
+    i, balls_shown = parse_line(line)
+    max_balls = max_counters(balls_shown)
+
+    power = max_balls['red'] * max_balls['green'] * max_balls['blue']
+
+    result += power
+  return result
+
+
+assertEqual(test_output, day2(test_input))
+
+print('day2 part2 answer:')
+submit(day2(open('day2_input.txt', 'r').read()),
+       expected=66363)
 print()

@@ -1,4 +1,5 @@
 from common import assertEqual
+from common import submit
 
 
 def first_digit(line):
@@ -39,7 +40,9 @@ test_output = 142
 assertEqual(test_output, day1(test_input))
 
 
-print('day1 answer:', day1(open('day1_input.txt', 'r').read()))
+print('day1 answer:')
+submit(day1(open('day1_input.txt', 'r').read()),
+       expected=54953)
 print()
 
 # part 2 complication:
@@ -94,4 +97,6 @@ assertEqual(18, calibration('oneight'))  # the sneaky one!
 
 assertEqual(test_output_2, day1(test_input_2))
 
-print('day1 answer, part 2:', day1(open('day1_input.txt', 'r').read()))
+print('day1 answer, part 2:')
+submit(day1(open('day1_input.txt', 'r').read()),
+       expected=53868)
