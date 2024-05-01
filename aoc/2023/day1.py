@@ -1,9 +1,4 @@
-test_input = '''1abc2
-pqr3stu8vwx
-a1b2c3d4e5f
-treb7uchet
-'''
-test_output = 142
+from common import assertEqual
 
 
 def first_digit(line):
@@ -20,10 +15,10 @@ def calibration(line):
   return int(first_digit(line) + last_digit(line))
 
 
-assert calibration('1abc2') == 12
-assert calibration('pqr3stu8vwx') == 38
-assert calibration('a1b2c3d4e5f') == 15
-assert calibration('treb7uchet') == 77
+assertEqual(calibration('1abc2'),  12)
+assertEqual(calibration('pqr3stu8vwx'),  38)
+assertEqual(calibration('a1b2c3d4e5f'),  15)
+assertEqual(calibration('treb7uchet'),  77)
 
 
 def day1(input):
@@ -33,9 +28,18 @@ def day1(input):
     result += calibration(line)
   return result
 
-assert day1(test_input) == test_output
 
-print('day1 answer:', day1(open('input.txt', 'r').read()))
+test_input = '''1abc2
+pqr3stu8vwx
+a1b2c3d4e5f
+treb7uchet
+'''
+test_output = 142
+
+assertEqual(day1(test_input), test_output)
+
+
+print('day1 answer:', day1(open('day1_input.txt', 'r').read()))
 print()
 
 # part 2 complication:
@@ -78,16 +82,16 @@ def last_digit(line):
     else:
       line = line[:-1]
 
-assert calibration('two1nine') == 29
-assert calibration('eightwothree') == 83
-assert calibration('abcone2threexyz') == 13
-assert calibration('xtwone3four') == 24
-assert calibration('4nineeightseven2') == 42
-assert calibration('zoneight234') == 14
-assert calibration('7pqrstsixteen') == 76
-assert calibration('oneight') == 18  # the sneaky one!
+assertEqual(calibration('two1nine'), 29)
+assertEqual(calibration('eightwothree'), 83)
+assertEqual(calibration('abcone2threexyz'), 13)
+assertEqual(calibration('xtwone3four'), 24)
+assertEqual(calibration('4nineeightseven2'), 42)
+assertEqual(calibration('zoneight234'), 14)
+assertEqual(calibration('7pqrstsixteen'), 76)
+assertEqual(calibration('oneight'), 18)  # the sneaky one!
 
 
-assert day1(test_input_2) == test_output_2
+assertEqual(day1(test_input_2), test_output_2)
 
-print('day1 answer, part 2:', day1(open('input.txt', 'r').read()))
+print('day1 answer, part 2:', day1(open('day1_input.txt', 'r').read()))
