@@ -15,10 +15,10 @@ def calibration(line):
   return int(first_digit(line) + last_digit(line))
 
 
-assertEqual(calibration('1abc2'),  12)
-assertEqual(calibration('pqr3stu8vwx'),  38)
-assertEqual(calibration('a1b2c3d4e5f'),  15)
-assertEqual(calibration('treb7uchet'),  77)
+assertEqual(12, calibration('1abc2'))
+assertEqual(38, calibration('pqr3stu8vwx'))
+assertEqual(15, calibration('a1b2c3d4e5f'))
+assertEqual(77, calibration('treb7uchet'))
 
 
 def day1(input):
@@ -36,7 +36,7 @@ treb7uchet
 '''
 test_output = 142
 
-assertEqual(day1(test_input), test_output)
+assertEqual(test_output, day1(test_input))
 
 
 print('day1 answer:', day1(open('day1_input.txt', 'r').read()))
@@ -82,16 +82,16 @@ def last_digit(line):
     else:
       line = line[:-1]
 
-assertEqual(calibration('two1nine'), 29)
-assertEqual(calibration('eightwothree'), 83)
-assertEqual(calibration('abcone2threexyz'), 13)
-assertEqual(calibration('xtwone3four'), 24)
-assertEqual(calibration('4nineeightseven2'), 42)
-assertEqual(calibration('zoneight234'), 14)
-assertEqual(calibration('7pqrstsixteen'), 76)
-assertEqual(calibration('oneight'), 18)  # the sneaky one!
+assertEqual(29, calibration('two1nine'))
+assertEqual(83, calibration('eightwothree'))
+assertEqual(13, calibration('abcone2threexyz'))
+assertEqual(24, calibration('xtwone3four'))
+assertEqual(42, calibration('4nineeightseven2'))
+assertEqual(14, calibration('zoneight234'))
+assertEqual(76, calibration('7pqrstsixteen'))
+assertEqual(18, calibration('oneight'))  # the sneaky one!
 
 
-assertEqual(day1(test_input_2), test_output_2)
+assertEqual(test_output_2, day1(test_input_2))
 
 print('day1 answer, part 2:', day1(open('day1_input.txt', 'r').read()))
