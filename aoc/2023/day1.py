@@ -2,18 +2,15 @@ from common import assertEqual
 from common import submit
 
 
-def first_digit(line):
+def digits(line):
   for c in line:
     if c.isdigit():
-      return c
-
-
-def last_digit(line):
-  return first_digit(line[::-1])
+      yield c
 
 
 def calibration(line):
-  return int(first_digit(line) + last_digit(line))
+  d = list(digits(line))
+  return int(d[0] + d[-1])
 
 
 assertEqual(12, calibration('1abc2'))
@@ -68,22 +65,12 @@ for i in range(1, 10):
 # print(RECOGNIZED_DIGITS)
 
 
-def first_digit(line):
-  while line:
+def digits(line):
+  for i in range(len(line)):
     for k, v in RECOGNIZED_DIGITS.items():
-      if line.startswith(k):
-        return v
-    else:
-      line = line[1:]
+      if line[i:].startswith(k):
+        yield v
 
-
-def last_digit(line):
-  while line:
-    for k, v in RECOGNIZED_DIGITS.items():
-      if line.endswith(k):
-        return v
-    else:
-      line = line[:-1]
 
 assertEqual(29, calibration('two1nine'))
 assertEqual(83, calibration('eightwothree'))
