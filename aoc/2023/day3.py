@@ -16,6 +16,7 @@ def is_symbol(c):
 
 def find_part_numbers(input):
   lines = input.splitlines()
+  lines = ['.' * len(lines[0])] + [f'.{line}.' for line in lines] + ['.' * len(lines[0])]
   for r, row in enumerate(lines):
     adjacent_symbols = set()
     current_number = ''
@@ -23,9 +24,7 @@ def find_part_numbers(input):
       if col.isdigit():
         current_number += col
         for dr, dc in enumerate_deltas():
-          if (r + dr in range(0, len(lines)) and
-              c + dc in range(0, len(lines[r])) and
-                  is_symbol(lines[r + dr][c + dc])):
+          if is_symbol(lines[r + dr][c + dc]):
             adjacent_symbols.add((r + dr, c + dc, lines[r + dr][c + dc]))
 
       if not col.isdigit() or c == len(lines[r]) - 1:
