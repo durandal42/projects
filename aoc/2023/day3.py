@@ -6,7 +6,8 @@ import collections
 def enumerate_deltas():
   for dx in [-1, 0, 1]:
     for dy in [-1, 0, 1]:
-      yield dx, dy
+      if dx or dy:
+        yield dx, dy
 
 
 def is_symbol(c):
@@ -21,15 +22,16 @@ def find_part_numbers(input):
     for c, col in enumerate(row):
       if col.isdigit():
         current_number += col
-        for dx, dy in enumerate_deltas():
-          if (r + dx in range(0, len(lines)) and
-              c + dy in range(0, len(lines[r])) and
-                  is_symbol(lines[r + dx][c + dy])):
-            adjacent_symbols.add((r + dx, c + dy, lines[r + dx][c + dy]))
+        for dr, dc in enumerate_deltas():
+          if (r + dr in range(0, len(lines)) and
+              c + dc in range(0, len(lines[r])) and
+                  is_symbol(lines[r + dr][c + dc])):
+            adjacent_symbols.add((r + dr, c + dc, lines[r + dr][c + dc]))
 
       if not col.isdigit() or c == len(lines[r]) - 1:
         if current_number and adjacent_symbols:
-          print(f'found part number {current_number} adjacent to symbols {adjacent_symbols}')
+          # print(f'found part number {current_number} adjacent to symbols
+          # {adjacent_symbols}')
           yield int(current_number), adjacent_symbols
         adjacent_symbols = set()
         current_number = ''
