@@ -1,5 +1,6 @@
 from common import assertEqual
 from common import submit
+import collections
 
 
 def match_score(num_matches):
@@ -7,9 +8,13 @@ def match_score(num_matches):
     return 0
   return 2**(num_matches - 1)
 
+assertEqual(0, match_score(0))
+assertEqual(1, match_score(1))
+assertEqual(2, match_score(2))
+assertEqual(8, match_score(4))
 
-def card_score(line):
-  # print(line)
+
+def num_matches(line):
   tokens = line.split(': ')
   assertEqual(2, len(tokens))
   label, numbers = tokens[0], tokens[1]
@@ -18,11 +23,13 @@ def card_score(line):
   have, winners = tokens[0], tokens[1]
   have = set(int(n) for n in have.split())
   winners = set(int(n) for n in winners.split())
-  return match_score(sum(1 for n in have if n in winners))
+  return sum(1 for n in have if n in winners)
+
+assertEqual(4, num_matches('Card 1: 41 48 83 86 17 | 83 86  6 31 17  9 48 53'))
 
 
 def day4(input):
-  return sum(card_score(line) for line in input.splitlines())
+  return sum(match_score(num_matches(line)) for line in input.splitlines())
 
 
 test_input = '''Card 1: 41 48 83 86 17 | 83 86  6 31 17  9 48 53
@@ -39,5 +46,25 @@ assertEqual(test_output, day4(test_input))
 
 print('day4 answer:')
 submit(day4(open('day4_input.txt', 'r').read()),
-       expected=None)
+       expected=23678)
+print()
+
+# part2 complication
+test_output = 30
+
+
+def day4(input):
+  cards = collections.defaultdict(int)
+  for i, line in enumerate(input.splitlines()):
+    cards[i] += 1
+    nm = num_matches(line)
+    for j in range(nm):
+      cards[i + j + 1] += cards[i]
+  return sum(cards.values())
+
+assertEqual(test_output, day4(test_input))
+
+print('day4 part2 answer:')
+submit(day4(open('day4_input.txt', 'r').read()),
+       expected=15455663)
 print()
