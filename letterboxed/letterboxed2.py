@@ -78,25 +78,17 @@ def find_solutions(letters):
         q.put((len(new_words), new_words))
 
 
-def print_best_solutions(letters):
-  for solution in sorted(find_solutions(letters),
+def print_best_solutions(puzzle):
+  for solution in sorted(find_solutions(puzzle.split('-')),
                          key=lambda s: -sum(len(w) for w in s))[-10:]:
     print(solution)
 
 
-LETTERS = [  # 2024-04-29
-    'NLO',
-    'DAR',
-    'PHI',
-    'UWT',
+PUZZLES = [
+    'NLO-DAR-PHI-UWT',  # 2024-04-29
+    'RPI-GXF-UET-VLA',  # 2024-04-30
+    'RPJ-CIT-OWL-AKS',  # 2024-05-01
+    'NPR-OCI-DYS-ATB',  # 2024-05-02
 ]
 
-LETTERS = [  # 2024-04-30
-    'RPI',
-    'GXF',
-    'UET',
-    'VLA',
-]
-
-
-print_best_solutions(LETTERS)
+print_best_solutions(PUZZLES[-1])
