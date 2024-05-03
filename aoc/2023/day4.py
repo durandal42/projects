@@ -20,10 +20,9 @@ def num_matches(line):
   label, numbers = tokens[0], tokens[1]
   tokens = numbers.split(' | ')
   assertEqual(2, len(tokens))
-  have, winners = tokens[0], tokens[1]
-  have = set(int(n) for n in have.split())
-  winners = set(int(n) for n in winners.split())
-  return sum(1 for n in have if n in winners)
+  have = set(int(n) for n in tokens[0].split())
+  winners = set(int(n) for n in tokens[1].split())
+  return len(have.intersection(winners))
 
 assertEqual(4, num_matches('Card 1: 41 48 83 86 17 | 83 86  6 31 17  9 48 53'))
 
