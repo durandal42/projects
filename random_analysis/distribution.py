@@ -34,6 +34,9 @@ class Distribution:
   def __len__(self):
     return len(self._dist)
 
+  def weight(self):
+    return float(sum(v.denominator for k, v in self._dist.items()))
+
   def equivalent(left, right):
     if isinstance(left, Distribution):
       left = left._dist
@@ -49,11 +52,15 @@ class Distribution:
 
   def combine(self, other, operator):
     result = collections.defaultdict(fractions.Fraction)
-    for x, px in self._dist.items():
-      if isinstance(other, self.__class__):
+    if isinstance(other, self.__class__):
+      # print(f'combining distributions of sizes {len(self)} * {len(other)},
+      # with max weight {max(self.weight(), other.weight())}...')
+      for x, px in self._dist.items():
         for y, py in other._dist.items():
           result[operator(x, y)] += px * py
-      else:
+    else:
+      # print(f'combining distribution of size {len(self)} with a constant...')
+      for x, px in self._dist.items():
         result[operator(x, other)] += px
     return self.__class__(result)
 
@@ -90,6 +97,20 @@ class Distribution:
       cp += px
       result[x] = cp
     return self.__class__(result)
+
+  def atmost(self, v):
+    c = self.cum()
+    if v in c._dist:
+      return c._dist[v]
+    else:
+      assert False  # TODO: find next-highest element
+
+  def atleast(self, v):
+    c = self.cum()
+    if v in c._dist:
+      return 1 - c._dist[v] + self._dist[v]
+    else:
+      return False
 
   def choice(self, p):
     cp = 0
@@ -165,6 +186,20 @@ def cartesian_product(dists):
   return sum((d.map(lambda x: (x,)) for d in dists), ())
 
 
+def pow(d, n, operator=operator.__add__):
+  result = constant(0)
+  while n > 0:
+    # print(f'remaining power: {n}, d.size: {len(d._dist)}, result.size:
+    # {len(result._dist)}')
+    if n % 2 == 0:
+      d = d.combine(d, operator)
+      n //= 2
+    else:
+      result = result.combine(d, operator)
+      n -= 1
+  return result
+
+
 def die(size):
   return Distribution(dict((i + 1, fractions.Fraction(1, size))
                            for i in range(size)))
@@ -172,7 +207,8 @@ def die(size):
 
 def dice(num, size):
   # print(f"dice({num},{size})")
-  return sum(die(size) for _ in range(num))
+  # return sum(die(size) for _ in range(num))
+  return pow(die(size), num)
 
 
 def ifthenelse(condition, iftrue, iffalse):
@@ -223,5 +259,24 @@ assert Distribution.equivalent(
     })
 
 
-def summarize(d):
-  print(d, "mean:", float(d.ev()), "stddev:", d.stddev())
+def summarize(d, exact=False):
+  ev = d.ev()
+  if not exact:
+    ev = float(ev)
+  print(d, "mean:", ev, "stddev:", d.stddev())
+
+
+# atleast/atmost:
+assert die(6).atleast(4) == fractions.Fraction(1, 2)
+assert die(6).atmost(4) == fractions.Fraction(2, 3)
+
+
+def plausibility(d, v, exact=True):
+  atl = d.atleast(v)
+  atm = d.atmost(v)
+  exa = d._dist[v]
+  if not exact:
+    atl, atm, exa = float(atl), float(atm), float(exa)
+  print(f'odds of at least {v}: {atl}')
+  print(f'odds of at most {v}: {atm}')
+  print(f'odds of exactly {v}: {exa}')
