@@ -75,12 +75,12 @@ def propagate_seeds(seed_ranges, range_map_stages):
 
 
 def propagate(input_ranges, range_maps):
-  print(f'propagate({input_ranges}, {range_maps}')
+  # print(f'propagate({input_ranges}, {range_maps}')
   input_ranges = sorted(input_ranges, key=lambda r: r.start)
   assertNonOverlapping(input_ranges)
   range_maps = sorted(range_maps, key=lambda rm: rm.src_range.start)
   assertNonOverlapping([rm.src_range for rm in range_maps])
-  print(f'propagate(after sorting)({input_ranges}, {range_maps}')
+  # print(f'propagate(after sorting)({input_ranges}, {range_maps}')
 
   input_range_idx, range_map_idx = 0, 0
   while input_range_idx < len(input_ranges) and range_map_idx < len(range_maps):
@@ -209,5 +209,5 @@ assertEqual(test_output, day5(test_input))
 
 print('day5 part2 answer:')
 submit(day5(open('day5_input.txt', 'r').read()),
-       expected=None)
+       expected=47909639)
 print()
