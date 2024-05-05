@@ -52,10 +52,6 @@ def parse_input(input):
   return seeds, [ms for _, _, ms in maps]
 
 
-def intersect_ranges(r1, r2):
-  return range(max(r1.start, r2.start), min(r1.stop, r2.stop))
-
-
 def range_contains(needle, haystack):
   return needle.start >= haystack.start and needle.stop <= haystack.stop
 
@@ -63,9 +59,9 @@ def range_contains(needle, haystack):
 
 
 def assertNonOverlapping(ranges):
-  ranges = sorted(ranges, key=lambda r: r.start)
+  # assume ranges are sorted already
   for r1, r2 in zip(ranges[:-1], ranges[1:]):
-    assertEqual(0, len(intersect_ranges(r1, r2)))
+    assert r1.stop <= r2.start
 
 
 def propagate_seeds(seed_ranges, range_map_stages):
@@ -122,19 +118,6 @@ def propagate(input_ranges, range_maps):
   # any remaining input ranges are passed along as is
   for ir in input_ranges[input_range_idx:]:
     yield ir
-
-  # for range_map in range_maps:
-  #   if v in range(range_map.src_range_start,
-  #                 range_map.src_range_start + range_map.range_length):
-  #     print(f'found {v} within range {range_map}')
-  #     v = range_map.dst_range_start + (v - range_map.src_range_start)
-  #     break
-  # else:
-  #   # "Any source numbers that aren't mapped correspond to the same
-  #   # destination number."
-  #   # no-op, then!
-  #   print(f"didn't find {v} among any ranges: {range_maps}")
-  #   pass
 
 
 def interpret_seed_specification(seed_specification):
