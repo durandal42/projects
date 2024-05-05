@@ -1,5 +1,6 @@
 from common import assertEqual
 from common import submit
+import math
 
 test_input = '''Time:      7  15   30
 Distance:  9  40  200'''
@@ -16,13 +17,18 @@ assertEqual([(7, 9), (15, 40), (30, 200)], parse_input(test_input))
 
 
 def ways_to_win(time, distance):
-  # TODO(durandal): quadratic formula, if this is too slow.
-  result = 0
-  for t in range(0, time + 1):
-    if t * (time - t) > distance:
-      # print(f'wait {t}, travel {time - t}, total distance {t * (time - t)}')
-      result += 1
-  return result
+  # solve: t * (time - t) > distance
+  # -t**2 + time*t - distance > 0
+  # -t**2 + time*t - distance - 1 = 0 (and then round appropriately)
+  a = -1
+  b = time
+  c = -distance - 1
+  discrim = b**2 - 4 * a * c
+  sqrt_discrim = math.sqrt(discrim)
+  s1 = (-b + sqrt_discrim) / (2 * a)
+  s2 = (-b - sqrt_discrim) / (2 * a)
+  # print(s1, s2)
+  return math.floor(s2) - math.ceil(s1) + 1
 
 assertEqual(4, ways_to_win(7, 9))
 assertEqual(8, ways_to_win(15, 40))
