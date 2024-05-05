@@ -16,6 +16,7 @@ assertEqual([(7, 9), (15, 40), (30, 200)], parse_input(test_input))
 
 
 def ways_to_win(time, distance):
+  # TODO(durandal): quadratic formula, if this is too slow.
   result = 0
   for t in range(0, time + 1):
     if t * (time - t) > distance:
@@ -42,4 +43,22 @@ assertEqual(test_output, day6(test_input))
 print('day6 answer:')
 submit(day6(open('day6_input.txt', 'r').read()),
        expected=449550)
+print()
+
+# part 2 complication
+test_output = 71503
+
+
+def parse_input(input):
+  lines = input.splitlines()
+  times = [int(''.join(lines[0].split(':')[1].split()))]
+  distances = [int(''.join(lines[1].split(':')[1].split()))]
+  return list(zip(times, distances))
+
+
+assertEqual(test_output, day6(test_input))
+
+print('day6 part2 answer:')
+submit(day6(open('day6_input.txt', 'r').read()),
+       expected=28360140)
 print()
