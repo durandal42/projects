@@ -3,9 +3,14 @@ from common import submit
 import collections
 
 
+CARD_RANKS = [
+    'A', 'K', 'Q', 'J', 'T', '9', '8', '7', '6', '5', '4', '3', '2',
+]
+
+
 def rank_card(c):
   # TODO(durandal): map lookup if this bottlenecks
-  return -['A', 'K', 'Q', 'J', 'T', '9', '8', '7', '6', '5', '4', '3', '2'].index(c)
+  return -CARD_RANKS.index(c)
 
 
 def tiebreaker(hand):
@@ -62,4 +67,27 @@ assertEqual(test_output, day7(test_input))
 print('day7 answer:')
 submit(day7(open('day7_input.txt', 'r').read()),
        expected=251136060)
+print()
+
+# part 2 complication
+test_output = 5905
+
+CARD_RANKS = [
+    'A', 'K', 'Q', 'T', '9', '8', '7', '6', '5', '4', '3', '2', 'J',
+]
+
+
+def rank_hand(hand):
+  # TODO(durandal): be more clever if this is somehow too slow, but I think it's
+  # worst case 2**5 times slower than part 1, if the whole hand is J's.
+  if 'J' in hand:
+    i = hand.index('J')
+    return max(rank_hand(hand[0:i] + r + hand[i + 1:]) for r in CARD_RANKS[:-1])
+  return tuple(sorted(collections.Counter(hand).values(), reverse=True))
+
+assertEqual(test_output, day7(test_input))
+
+print('day7 part2 answer:')
+submit(day7(open('day7_input.txt', 'r').read()),
+       expected=249400220)
 print()
