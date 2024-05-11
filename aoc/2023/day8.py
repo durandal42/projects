@@ -12,20 +12,15 @@ def day8(input):
 def parse_input(input):
   lines = input.splitlines()
   instructions = lines[0]
-  _ = lines[1]
-  nodes = {}
-  for line in lines[2:]:
-    k, v = parse_node(line)
-    nodes[k] = v
-
+  assert not lines[1]
+  nodes = dict([parse_node(line) for line in lines[2:]])
   return instructions, nodes
 
 
-def follow_instructions(src, dst_criteria, nodes, instructions):
-  location = src
+def follow_instructions(label, dst_criteria, nodes, instructions):
   steps = 0
-  while not dst_criteria(location):
-    location = nodes[location][instructions[steps % len(instructions)]]
+  while not dst_criteria(label):
+    label = nodes[label][instructions[steps % len(instructions)]]
     steps += 1
   return steps
 
@@ -84,7 +79,7 @@ test_output = 6
 
 def day8(input):
   instructions, nodes = parse_input(input)
-  srcs = [k for k in nodes.keys() if k.endswith('A')]
+  srcs = filter(lambda l: l.endswith('A'), nodes.keys())
 
   steps = [follow_instructions(src, lambda l: l.endswith('Z'),
                                nodes, instructions) for src in srcs]
