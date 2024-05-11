@@ -13,19 +13,23 @@ def find_combinations(input, tiles, max_tiles_used=1):
   result = collections.defaultdict(set)
   for word in input:
     # print(word)
-    for tiles_used in range(1, max_tiles_used + 1):
+    for tiles_used in range(1, min(max_tiles_used + 1, len(word))):
       for c in itertools.combinations(tiles, tiles_used):
         # print('\tc:', c)
-        for p in set(itertools.permutations(c + ('',) * (len(word) + 1 - tiles_used))):
+        for p in set(itertools.permutations(c + ('',) * (len(word) - tiles_used - 1))):
           # print('\t\tp:', p)
-          maybe_word = ''.join(itertools.chain(*zip(list(word) + [''], p)))
+          maybe_word = ''.join(itertools.chain(*zip(list(word), p + ('',))))
           # print('\t\t\tw:', maybe_word)
           if maybe_word in ALL_WORDS:
             used_tiles = tuple([t for t in p if t])
-            pretty_word = ''.join(itertools.chain(*zip(list(word) + [''], [f'({t})' if t else '' for t in p])))
+            pretty_word = ''.join(itertools.chain(*zip(list(word), [f'({t})' if t else '' for t in p + ('',)])))
             print(f'{word} + {c} = {pretty_word}')
             result[word].add((used_tiles, pretty_word))
   return result
+
+# print(find_combinations(['BUT'], ['S', 'T']))
+# print(find_combinations(['HAD'], ['O', 'R'], 2))
+# exit()
 
 
 def print_possible(possible):
@@ -80,9 +84,16 @@ def backsolve(tiles):
     if ''.join(p) in ALL_WORDS:
       print('backsolved:', ','.join(p))
 
-squeezy('METIER,FILLY,PEAL,SEER,MISSING,GANDER',
-        'A,U,H,N,R,R,T')
-squeezy('BANS,INSETS,MOSSES,DEFIES,INDIES,RATED,SPLIT',
-        'EL,OT,C,LA,N,R,RO,SI')
-squeezy('FED,SIRES,PURSE,MALE,FRETS',
-        'AT,E,ER,CHA,M,N,NT,THE,TI', multitile=True)
+# squeezy('METIER,FILLY,PEAL,SEER,MISSING,GANDER',
+#         'A,U,H,N,R,R,T')
+# squeezy('BANS,INSETS,MOSSES,DEFIES,INDIES,RATED,SPLIT',
+#         'EL,OT,C,LA,N,R,RO,SI')
+# squeezy('FED,SIRES,PURSE,MALE,FRETS',
+#         'AT,E,ER,CHA,M,N,NT,THE,TI', multitile=True)
+
+# squeezy('BUS,RODS,GARAGE,TOGGED,DEVOTES',
+#         'A,E,I,B,L,T')
+# squeezy('BILE,DING,THRONED,LOGE,BINS,MOPES',
+#         'OL,UN,UR,B,D,G,Y')
+squeezy('SCARED,HAD,SASS,CARES',
+        'O,D,F,FIE,HE,R,TI', multitile=True)
