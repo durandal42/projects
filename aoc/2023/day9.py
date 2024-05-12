@@ -1,9 +1,10 @@
 from common import assertEqual
 from common import submit
+import math
 
 
 def day9(input):
-  return sum(extrapolate(parse_line(line)) for line in input.splitlines())
+  return sum(extrapolate(find_pattern(parse_line(line))) for line in input.splitlines())
 
 
 def parse_line(line):
@@ -23,22 +24,22 @@ def find_pattern(values):
     grid.append([second - first
                  for first, second
                  in zip(grid[-1][:-1], grid[-1][1:])])
+  # pretty_print_grid(grid)
   return grid
 
 
-def extrapolate_forward(grid):
-  pretty_print_grid(grid)
-  print("->")
-  grid[-1].append(0)
-  for i in range(len(grid) - 2, -1, -1):
-    grid[i].append(grid[i][-1] + grid[i + 1][-1])
-  pretty_print_grid(grid)
-  print()
-  return grid[0][-1]
+def choose(n, k):
+  # Like math.comb(n, k), but works with negative n.
+  return math.prod(range(n, n - k, -1)) // math.factorial(k)
 
 
-def extrapolate(values):
-  return extrapolate_forward(find_pattern(values))
+def extrapolate_anywhere(grid, n):
+  # https://www.youtube.com/watch?v=4AuV93LOPcE#t=16m03s
+  return sum(values[0] * choose(n, i) for i, values in enumerate(grid))
+
+
+def extrapolate(grid):
+  return extrapolate_anywhere(grid, len(grid[0]))
 
 test_input = '''0 3 6 9 12 15
 1 3 6 10 15 21
@@ -58,19 +59,9 @@ print()
 test_output = 2
 
 
-def extrapolate_backward(grid):
-  pretty_print_grid(grid)
-  print("->")
-  grid[-1].insert(0, 0)
-  for i in range(len(grid) - 2, -1, -1):
-    grid[i].insert(0, grid[i][0] - grid[i + 1][0])
-  pretty_print_grid(grid)
-  print()
-  return grid[0][0]
+def extrapolate(grid):
+  return extrapolate_anywhere(grid, -1)
 
-
-def extrapolate(values):
-  return extrapolate_backward(find_pattern(values))
 
 assertEqual(test_output, day9(test_input))
 
