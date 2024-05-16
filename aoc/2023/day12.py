@@ -1,49 +1,59 @@
 from common import assertEqual
 from common import submit
-import itertools
+import functools
 
 
-def day12(input):
-  return sum(possible_arrangements(line) for line in input.splitlines())
+def day12(input, blowup=1):
+  return sum(possible_arrangements(line, blowup)
+             for line in input.splitlines())
 
 
-def possible_arrangements(line):
+def possible_arrangements(line, blowup=1):
+  # print(line)
   tokens = line.split()
-  conditions = list(tokens[0])
-  runs = [int(t) for t in tokens[1].split(',')]
+  conditions = '?'.join([tokens[0]] * blowup)
+  runs = [int(t) for t in tokens[1].split(',')] * blowup
+  # print(conditions, runs)
+
+  return possible_arrangements_recursive(conditions, tuple(runs), 0)
+
+
+@functools.cache
+def possible_arrangements_recursive(conditions, runs, leading_broken=0):
+  if not runs:
+    if leading_broken == 0 and '#' not in conditions:
+      # print('out of runs, no unaccounted-for broken parts')
+      return 1
+    else:
+      # print('out of runs, but some unaccounted-for broken parts')
+      return 0
+  if not conditions:
+    if (leading_broken == 0 and not runs) or runs == (leading_broken,):
+      # print('out of conditions, final run satisfied')
+      return 1
+    else:
+      # print('out of conditions, final run not satisfied')
+      return 0
+  if sum(runs) > (conditions.count('?') +
+                  conditions.count('#') +
+                  leading_broken):
+    # print('remaining runs unsatisfiable - not enough places to put broken parts')
+    return 0
+  if sum(runs) + len(runs) - 1 > len(conditions) + leading_broken:
+    # print('remaining runs unsatisfiable - not enough space left')
+    return 0
 
   result = 0
-  num_unknowns = sum(1 for c in conditions if c == '?')
-  # print(f'checking 2**{num_unknowns} possibilities')
-  for values_for_unknowns in itertools.product('.#', repeat=num_unknowns):
-    arrangement = conditions[:]
-    j = 0
-    for i, c in enumerate(arrangement):
-      if c == '?':
-        arrangement[i] = values_for_unknowns[j]
-        j += 1
-    if valid_arrangement(arrangement, runs):
-      result += 1
-  return result
-
-
-def valid_arrangement(arrangement, runs):
-  return compute_runs(arrangement) == runs
-
-
-def compute_runs(arrangement):
-  result = []
-  current_run = 0
-  for c in arrangement:
-    if c == '#':
-      current_run += 1
-    else:
-      if current_run > 0:
-        result.append(current_run)
-        current_run = 0
-  if current_run > 0:
-    result.append(current_run)
-    current_run = 0
+  if conditions[0] in '.?':
+    # treat as '.'
+    if leading_broken == 0:
+      result += possible_arrangements_recursive(conditions[1:], runs, 0)
+    elif leading_broken == runs[0]:
+      result += possible_arrangements_recursive(conditions[1:], runs[1:], 0)
+  if conditions[0] in '#?' and leading_broken < runs[0]:
+    # treat as '#
+    result += possible_arrangements_recursive(
+        conditions[1:], runs, leading_broken + 1)
   return result
 
 
@@ -68,4 +78,20 @@ assertEqual(test_output, day12(test_input))
 print('day12 answer:')
 submit(day12(open('day12_input.txt', 'r').read()),
        expected=7622)
+print()
+
+# part2 complication
+test_output = 525152
+
+assertEqual(1, possible_arrangements("???.### 1,1,3", 5))
+assertEqual(16384, possible_arrangements(".??..??...?##. 1,1,3", 5))
+assertEqual(1, possible_arrangements("?#?#?#?#?#?#?#? 1,3,1,6", 5))
+assertEqual(16, possible_arrangements("????.#...#... 4,1,1", 5))
+assertEqual(2500, possible_arrangements("????.######..#####. 1,6,5", 5))
+assertEqual(506250, possible_arrangements("?###???????? 3,2,1", 5))
+assertEqual(test_output, day12(test_input, 5))
+
+print('day12, part2 answer:')
+submit(day12(open('day12_input.txt', 'r').read(), blowup=5),
+       expected=4964259839627)
 print()
