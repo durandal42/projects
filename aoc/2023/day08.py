@@ -4,7 +4,7 @@ import re
 import math
 
 
-def day8(input):
+def day08(input):
   instructions, nodes = parse_input(input)
   return follow_instructions('AAA', lambda l: l == 'ZZZ', nodes, instructions)
 
@@ -43,7 +43,7 @@ ZZZ = (ZZZ, ZZZ)
 '''
 test_output = 2
 
-assertEqual(test_output, day8(test_input))
+assertEqual(test_output, day08(test_input))
 
 
 test_input = '''LLR
@@ -54,11 +54,11 @@ ZZZ = (ZZZ, ZZZ)
 '''
 test_output = 6
 
-assertEqual(test_output, day8(test_input))
+assertEqual(test_output, day08(test_input))
 
 
-print('day8 answer:')
-submit(day8(open('day8_input.txt', 'r').read()),
+print('day08 answer:')
+submit(day08(open('day08_input.txt', 'r').read()),
        expected=12169)
 print()
 
@@ -77,18 +77,18 @@ XXX = (XXX, XXX)
 test_output = 6
 
 
-def day8(input):
+def day08(input):
   instructions, nodes = parse_input(input)
   srcs = filter(lambda l: l.endswith('A'), nodes.keys())
 
   steps = [follow_instructions(src, lambda l: l.endswith('Z'),
                                nodes, instructions) for src in srcs]
-  print(steps)
   return math.lcm(*steps)
 
-assertEqual(test_output, day8(test_input))
 
-print('day8, part2 answer:')
-submit(day8(open('day8_input.txt', 'r').read()),
+assertEqual(test_output, day08(test_input))
+
+print('day08, part2 answer:')
+submit(day08(open('day08_input.txt', 'r').read()),
        expected=12030780859469)
 print()

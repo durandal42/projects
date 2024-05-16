@@ -13,6 +13,7 @@ def parse_input(input):
   distances = [int(d) for d in lines[1].split(':')[1].split()]
   return list(zip(times, distances))
 
+
 assertEqual([(7, 9), (15, 40), (30, 200)], parse_input(test_input))
 
 
@@ -30,12 +31,13 @@ def ways_to_win(time, distance):
   # print(s1, s2)
   return math.floor(s2) - math.ceil(s1) + 1
 
+
 assertEqual(4, ways_to_win(7, 9))
 assertEqual(8, ways_to_win(15, 40))
 assertEqual(9, ways_to_win(30, 200))
 
 
-def day6(input):
+def day06(input):
   races = parse_input(input)
   result = 1
   for time, distance in races:
@@ -43,11 +45,11 @@ def day6(input):
   return result
 
 
-assertEqual(test_output, day6(test_input))
+assertEqual(test_output, day06(test_input))
 
 
-print('day6 answer:')
-submit(day6(open('day6_input.txt', 'r').read()),
+print('day06 answer:')
+submit(day06(open('day06_input.txt', 'r').read()),
        expected=449550)
 print()
 
@@ -62,9 +64,9 @@ def parse_input(input):
   return list(zip(times, distances))
 
 
-assertEqual(test_output, day6(test_input))
+assertEqual(test_output, day06(test_input))
 
-print('day6 part2 answer:')
-submit(day6(open('day6_input.txt', 'r').read()),
+print('day06 part2 answer:')
+submit(day06(open('day06_input.txt', 'r').read()),
        expected=28360140)
 print()

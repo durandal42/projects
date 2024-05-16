@@ -8,6 +8,7 @@ def match_score(num_matches):
     return 0
   return 2**(num_matches - 1)
 
+
 assertEqual(0, match_score(0))
 assertEqual(1, match_score(1))
 assertEqual(2, match_score(2))
@@ -24,10 +25,11 @@ def num_matches(line):
   winners = set(int(n) for n in tokens[1].split())
   return len(have.intersection(winners))
 
+
 assertEqual(4, num_matches('Card 1: 41 48 83 86 17 | 83 86  6 31 17  9 48 53'))
 
 
-def day4(input):
+def day04(input):
   return sum(match_score(num_matches(line)) for line in input.splitlines())
 
 
@@ -40,11 +42,11 @@ Card 6: 31 18 13 56 72 | 74 77 10 23 35 67 36 11
 '''
 test_output = 13
 
-assertEqual(test_output, day4(test_input))
+assertEqual(test_output, day04(test_input))
 
 
-print('day4 answer:')
-submit(day4(open('day4_input.txt', 'r').read()),
+print('day04 answer:')
+submit(day04(open('day04_input.txt', 'r').read()),
        expected=23678)
 print()
 
@@ -52,7 +54,7 @@ print()
 test_output = 30
 
 
-def day4(input):
+def day04(input):
   cards = collections.defaultdict(int)
   for i, line in enumerate(input.splitlines()):
     cards[i] += 1
@@ -61,9 +63,10 @@ def day4(input):
       cards[i + j + 1] += cards[i]
   return sum(cards.values())
 
-assertEqual(test_output, day4(test_input))
 
-print('day4 part2 answer:')
-submit(day4(open('day4_input.txt', 'r').read()),
+assertEqual(test_output, day04(test_input))
+
+print('day04 part2 answer:')
+submit(day04(open('day04_input.txt', 'r').read()),
        expected=15455663)
 print()

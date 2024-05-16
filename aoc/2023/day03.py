@@ -16,7 +16,9 @@ def is_symbol(c):
 
 def find_part_numbers(input):
   lines = input.splitlines()
-  lines = ['.' * len(lines[0])] + [f'.{line}.' for line in lines] + ['.' * len(lines[0])]
+  lines = (['.' * len(lines[0])] +
+           [f'.{line}.' for line in lines] +
+           ['.' * len(lines[0])])
   for r, row in enumerate(lines):
     adjacent_symbols = set()
     current_number = ''
@@ -36,7 +38,7 @@ def find_part_numbers(input):
         current_number = ''
 
 
-def day3(input):
+def day03(input):
   return sum(n for n, _ in find_part_numbers(input))
 
 
@@ -53,11 +55,11 @@ test_input = '''467..114..
 '''
 test_output = 4361
 
-assertEqual(test_output, day3(test_input))
+assertEqual(test_output, day03(test_input))
 
 
-print('day3 answer:')
-submit(day3(open('day3_input.txt', 'r').read()),
+print('day03 answer:')
+submit(day03(open('day03_input.txt', 'r').read()),
        expected=560670)
 print()
 
@@ -76,14 +78,14 @@ def find_gears(part_numbers):
       yield s, part_numbers
 
 
-def day3(input):
+def day03(input):
   return sum(pn[0] * pn[1] for s, pn in find_gears(find_part_numbers(input)))
 
 
-assertEqual(test_output, day3(test_input))
+assertEqual(test_output, day03(test_input))
 
 
-print('day3 part2 answer:')
-submit(day3(open('day3_input.txt', 'r').read()),
+print('day03 part2 answer:')
+submit(day03(open('day03_input.txt', 'r').read()),
        expected=91622824)
 print()

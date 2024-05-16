@@ -3,12 +3,13 @@ from common import submit
 import math
 
 
-def day9(input):
+def day09(input):
   return sum(extrapolate(find_pattern(parse_line(line))) for line in input.splitlines())
 
 
 def parse_line(line):
   return [int(n) for n in line.split()]
+
 
 assertEqual([0, 3, 6, 9, 12, 15], parse_line('0 3 6 9 12 15'))
 
@@ -41,17 +42,18 @@ def extrapolate_anywhere(grid, n):
 def extrapolate(grid):
   return extrapolate_anywhere(grid, len(grid[0]))
 
+
 test_input = '''0 3 6 9 12 15
 1 3 6 10 15 21
 10 13 16 21 30 45
 '''
 test_output = 114
 
-assertEqual(test_output, day9(test_input))
+assertEqual(test_output, day09(test_input))
 
 
-print('day9 answer:')
-submit(day9(open('day9_input.txt', 'r').read()),
+print('day09 answer:')
+submit(day09(open('day09_input.txt', 'r').read()),
        expected=1762065988)
 print()
 
@@ -63,9 +65,9 @@ def extrapolate(grid):
   return extrapolate_anywhere(grid, -1)
 
 
-assertEqual(test_output, day9(test_input))
+assertEqual(test_output, day09(test_input))
 
-print('day9, part2 answer:')
-submit(day9(open('day9_input.txt', 'r').read()),
+print('day09, part2 answer:')
+submit(day09(open('day09_input.txt', 'r').read()),
        expected=1066)
 print()

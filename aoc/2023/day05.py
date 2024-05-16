@@ -125,7 +125,7 @@ def interpret_seed_specification(seed_specification):
           for s in seed_specification]
 
 
-def day5(input):
+def day05(input):
   seed_specification, range_map_stages = parse_input(input)
   final_ranges = propagate_seeds(
       interpret_seed_specification(seed_specification), range_map_stages)
@@ -167,11 +167,11 @@ humidity-to-location map:
 56 93 4'''
 test_output = 35
 
-assertEqual(test_output, day5(test_input))
+assertEqual(test_output, day05(test_input))
 
 
-print('day5 answer:')
-submit(day5(open('day5_input.txt', 'r').read()),
+print('day05 answer:')
+submit(day05(open('day05_input.txt', 'r').read()),
        expected=226172555)
 print()
 
@@ -184,13 +184,14 @@ def interpret_seed_specification(seed_specification):
           for start, length in zip(seed_specification[::2],
                                    seed_specification[1::2])]
 
+
 assertEqual([range(79, 93), range(55, 68)],
             list(interpret_seed_specification([79, 14, 55, 13])))
 
 
-assertEqual(test_output, day5(test_input))
+assertEqual(test_output, day05(test_input))
 
-print('day5 part2 answer:')
-submit(day5(open('day5_input.txt', 'r').read()),
+print('day05 part2 answer:')
+submit(day05(open('day05_input.txt', 'r').read()),
        expected=47909639)
 print()

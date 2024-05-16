@@ -20,6 +20,7 @@ def tiebreaker(hand):
 def rank_hand(hand):
   return tuple(sorted(collections.Counter(hand).values(), reverse=True))
 
+
 assertEqual((1, 1, 1, 1, 1), rank_hand('23456'))
 assertEqual((2, 1, 1, 1), rank_hand('32T3K'))
 assertEqual((2, 2, 1), rank_hand('KTJJT'))
@@ -46,13 +47,14 @@ def parse_input(input):
   return hands_and_bids
 
 
-def day7(input):
+def day07(input):
   result = 0
   for i, score_and_bid in enumerate(score_and_rank_hands(parse_input(input))):
     bid = score_and_bid[2]
     # print(i + 1, score_and_bid, "->", (i + 1) * bid)
     result += (i + 1) * bid
   return result
+
 
 test_input = '''32T3K 765
 T55J5 684
@@ -62,10 +64,10 @@ QQQJA 483
 '''
 test_output = 6440
 
-assertEqual(test_output, day7(test_input))
+assertEqual(test_output, day07(test_input))
 
-print('day7 answer:')
-submit(day7(open('day7_input.txt', 'r').read()),
+print('day07 answer:')
+submit(day07(open('day07_input.txt', 'r').read()),
        expected=251136060)
 print()
 
@@ -79,15 +81,16 @@ CARD_RANKS = [
 
 def rank_hand(hand):
   # TODO(durandal): be more clever if this is somehow too slow, but I think it's
-  # worst case 2**5 times slower than part 1, if the whole hand is J's.
+  # worst case 12**5 times slower than part 1, if the whole hand is J's.
   if 'J' in hand:
     i = hand.index('J')
     return max(rank_hand(hand[0:i] + r + hand[i + 1:]) for r in CARD_RANKS[:-1])
   return tuple(sorted(collections.Counter(hand).values(), reverse=True))
 
-assertEqual(test_output, day7(test_input))
 
-print('day7 part2 answer:')
-submit(day7(open('day7_input.txt', 'r').read()),
+assertEqual(test_output, day07(test_input))
+
+print('day07 part2 answer:')
+submit(day07(open('day07_input.txt', 'r').read()),
        expected=249400220)
 print()

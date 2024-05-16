@@ -19,7 +19,7 @@ assertEqual(15, calibration('a1b2c3d4e5f'))
 assertEqual(77, calibration('treb7uchet'))
 
 
-def day1(input):
+def day01(input):
   result = 0
   for line in input.splitlines():
     # print(line)
@@ -34,11 +34,11 @@ treb7uchet
 '''
 test_output = 142
 
-assertEqual(test_output, day1(test_input))
+assertEqual(test_output, day01(test_input))
 
 
-print('day1 answer:')
-submit(day1(open('day1_input.txt', 'r').read()),
+print('day01 answer:')
+submit(day01(open('day01_input.txt', 'r').read()),
        expected=54953)
 print()
 
@@ -82,8 +82,8 @@ assertEqual(76, calibration('7pqrstsixteen'))
 assertEqual(18, calibration('oneight'))  # the sneaky one!
 
 
-assertEqual(test_output_2, day1(test_input_2))
+assertEqual(test_output_2, day01(test_input_2))
 
-print('day1 answer, part 2:')
-submit(day1(open('day1_input.txt', 'r').read()),
+print('day01 answer, part 2:')
+submit(day01(open('day01_input.txt', 'r').read()),
        expected=53868)

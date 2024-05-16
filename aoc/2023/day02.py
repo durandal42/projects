@@ -24,6 +24,7 @@ assertEqual(
 def parse_reveals(reveals_str):
   return [parse_reveal(r) for r in reveals_str.split('; ')]
 
+
 assertEqual(
     [
         parse_reveal("3 blue, 4 red"),
@@ -40,6 +41,7 @@ def parse_game(game_str):
   assertEqual(tokens[0], 'Game')
   return int(tokens[1])
 
+
 assertEqual(1, parse_game('Game 1'))
 
 
@@ -47,6 +49,7 @@ def parse_line(line):
   tokens = line.split(': ')
   assertEqual(len(tokens), 2)
   return int(parse_game(tokens[0])), parse_reveals(tokens[1])
+
 
 assertEqual(
     (parse_game("Game 1"),
@@ -58,6 +61,7 @@ assertEqual(
 def max_counters(counters):
   return functools.reduce(operator.or_, counters)
 
+
 assertEqual(
     {'a': 2, 'b': 2, 'c': 3},
     max_counters([collections.Counter({'a': 1, 'b': 2}),
@@ -66,7 +70,7 @@ assertEqual(
 )
 
 
-def day2(input, threshold):
+def day02(input, threshold):
   result = 0
   # print(f'threshold: {threshold}')
   for line in input.splitlines():
@@ -87,12 +91,12 @@ Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green
 test_output = 8
 
 assertEqual(test_output,
-            day2(test_input, parse_reveal('12 red, 13 green, 14 blue')))
+            day02(test_input, parse_reveal('12 red, 13 green, 14 blue')))
 
 
-print('day2 answer:')
-submit(day2(open('day2_input.txt', 'r').read(),
-            parse_reveal('12 red, 13 green, 14 blue')),
+print('day02 answer:')
+submit(day02(open('day02_input.txt', 'r').read(),
+             parse_reveal('12 red, 13 green, 14 blue')),
        expected=2369)
 print()
 
@@ -101,7 +105,7 @@ print()
 test_output = 2286
 
 
-def day2(input):
+def day02(input):
   result = 0
   for line in input.splitlines():
     i, balls_shown = parse_line(line)
@@ -113,9 +117,9 @@ def day2(input):
   return result
 
 
-assertEqual(test_output, day2(test_input))
+assertEqual(test_output, day02(test_input))
 
-print('day2 part2 answer:')
-submit(day2(open('day2_input.txt', 'r').read()),
+print('day02 part2 answer:')
+submit(day02(open('day02_input.txt', 'r').read()),
        expected=66363)
 print()
