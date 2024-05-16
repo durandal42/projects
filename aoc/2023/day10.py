@@ -64,6 +64,7 @@ def find_main_loop(grid):
 
   return max_steps, seen
 
+
 test_input = '''.....
 .S-7.
 .|.|.
@@ -204,6 +205,7 @@ def day10(input):
   collapsed = collapse_grid(exploded)
   # print_grid(collapsed)
   return sum(''.join(row).count('.') for row in collapsed)
+
 
 assertEqual(4, day10(
     '''...........
