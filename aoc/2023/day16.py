@@ -13,12 +13,11 @@ def day16(input):
   return illuminate(grid)
 
 
-def illuminate(grid):
-  illuminated_grid = [[' '] * len(grid[0]) for _ in range(len(grid))]
+def illuminate(grid, r=0, c=0, dr=0, dc=1):
   seen = set()
   illuminated = set()
   frontier = collections.deque()
-  frontier.append((0, 0, 0, 1))
+  frontier.append((r, c, dr, dc))
   while frontier:
     next = frontier.pop()
     if next in seen:  # previously seen
@@ -30,7 +29,6 @@ def illuminate(grid):
       continue
     illuminated.add((r, c))
     tile = grid[r][c]
-    illuminated_grid[r][c] = 'X'
 
     if tile == '.' or (tile == '|' and dr) or (tile == '-' and dc):
       # pass through
@@ -57,9 +55,6 @@ def illuminate(grid):
     else:
       assert False
 
-  print('\n'.join(''.join(r) for r in illuminated_grid))
-  print('-' * len(grid[0]))
-
   return len(illuminated)
 
 
@@ -83,4 +78,27 @@ assertEqual(test_output, day16(test_input))
 print('day16 answer:')
 submit(day16(open('day16_input.txt', 'r').read()),
        expected=7996)
+print()
+
+# part2 complication
+test_output = 51
+
+
+def day16(input):
+  grid = input.splitlines()
+
+  entry_points = []
+  for r in range(len(grid)):
+    entry_points.append((r, 0, 0, 1))
+    entry_points.append((r, len(grid[r])-1, 0, -1))
+  for c in range(len(grid[0])):
+    entry_points.append((0, c, 1, 0))
+    entry_points.append((len(grid)-1, c, -1, 0))
+
+  return max(illuminate(grid, r, c, dr, dc) for r, c, dr, dc in entry_points)
+
+
+print('day16, part2 answer:')
+submit(day16(open('day16_input.txt', 'r').read()),
+       expected=8239)
 print()
