@@ -42,7 +42,8 @@ def day03(input):
   return sum(n for n, _ in find_part_numbers(input))
 
 
-test_input = '''467..114..
+test_input = '''\
+467..114..
 ...*......
 ..35..633.
 ......#...

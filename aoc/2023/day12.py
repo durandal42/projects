@@ -57,7 +57,8 @@ def possible_arrangements_recursive(conditions, runs, leading_broken=0):
   return result
 
 
-test_input = '''???.### 1,1,3
+test_input = '''\
+???.### 1,1,3
 .??..??...?##. 1,1,3
 ?#?#?#?#?#?#?#? 1,3,1,6
 ????.#...#... 4,1,1

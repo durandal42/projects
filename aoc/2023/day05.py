@@ -132,7 +132,8 @@ def day05(input):
   return min(r.start for r in final_ranges)
 
 
-test_input = '''seeds: 79 14 55 13
+test_input = '''\
+seeds: 79 14 55 13
 
 seed-to-soil map:
 50 98 2

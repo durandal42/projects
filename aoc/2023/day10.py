@@ -207,8 +207,8 @@ def day10(input):
   return sum(''.join(row).count('.') for row in collapsed)
 
 
-assertEqual(4, day10(
-    '''...........
+assertEqual(4, day10('''\
+...........
 .S-------7.
 .|F-----7|.
 .||.....||.
@@ -219,8 +219,8 @@ assertEqual(4, day10(
 ...........
 '''))
 
-assertEqual(8, day10(
-    '''.F----7F7F7F7F-7....
+assertEqual(8, day10('''\
+.F----7F7F7F7F-7....
 .|F--7||||||||FJ....
 .||.FJ||||||||L7....
 FJL7L7LJLJ||LJ.L-7..
@@ -233,8 +233,8 @@ L--J.L7...LJS7F-7L7.
 '''))
 
 
-assertEqual(10, day10(
-    '''FF7FSF7F7F7F7F7F---7
+assertEqual(10, day10('''\
+FF7FSF7F7F7F7F7F---7
 L|LJ||||||||||||F--J
 FL-7LJLJ||||||LJL-77
 F--JF--7||LJLJ7F7FJ-

@@ -6,7 +6,7 @@ def day00(input):
   pass
 
 
-test_input = '''
+test_input = '''\
 '''
 test_output = None
 

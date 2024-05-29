@@ -45,7 +45,8 @@ def find_mirror(pattern, error_target):
       return r
 
 
-test_input = '''#.##..##.
+test_input = '''\
+#.##..##.
 ..#.##.#.
 ##......#
 ##......#
@@ -73,7 +74,8 @@ print()
 # part2 complication
 
 
-test_input = '''#.##..##.
+test_input = '''\
+#.##..##.
 ..#.##.#.
 ##......#
 ##......#
