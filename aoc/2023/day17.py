@@ -3,7 +3,7 @@ from common import submit
 import heapq
 
 
-def day17(input):
+def day17(input, min_streak=0, max_streak=3):
   grid = input.splitlines()
   # print('\n'.join(grid))
   num_rows = len(grid)
@@ -18,18 +18,20 @@ def day17(input):
     least_heat = heapq.heappop(q)
     if least_heat[1:] in seen:
       continue
-    # print(f'newly seen: {least_heatst_heat}')
     seen.add(least_heat[1:])
     heat_so_far, r, c, streak_dr, streak_dc, streak_len = least_heat
-    if r == len(grid) - 1 and c == len(grid[r]) - 1:
+    if r == len(grid) - 1 and c == len(grid[r]) - 1 and streak_len >= min_streak:
       print(f'found a solution; len(q) = {len(q)}, len(seen) = {len(seen)}')
       return heat_so_far
 
     for dr, dc in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
       if dr == -streak_dr and dc == -streak_dc:
         continue  # can't u-turn
-      if streak_len >= 3 and dr == streak_dr and dc == streak_dc:
-        continue  # can't go >3 spaces in a row in the same direction
+      if dr == streak_dr and dc == streak_dc:
+        if streak_len >= max_streak:
+          continue  # can't go >max spaces in a row in the same direction
+      elif (streak_dr or streak_dc) and streak_len < min_streak:
+        continue  # must go at least min spaces in a row in the same direction
 
       new_r = r+dr
       if new_r not in range(num_rows):
@@ -67,4 +69,22 @@ assertEqual(test_output, day17(test_input))
 print('day17 answer:')
 submit(day17(open('day17_input.txt', 'r').read()),
        expected=814)
+print()
+
+# part2 complication
+assertEqual(71, day17('''\
+111111111111
+999999999991
+999999999991
+999999999991
+999999999991
+''', min_streak=4, max_streak=10))
+
+test_output = 94
+
+assertEqual(test_output, day17(test_input, min_streak=4, max_streak=10))
+
+print('day17, part2 answer:')
+submit(day17(open('day17_input.txt', 'r').read(), min_streak=4, max_streak=10),
+       expected=974)
 print()
