@@ -1,5 +1,6 @@
 from common import assertEqual
 from common import submit
+from common import fill
 import collections
 
 
@@ -149,35 +150,6 @@ def explode_grid(grid):
   return exploded_grid
 
 
-def fill(grid, start):
-  frontier = collections.deque()
-  seen = set()
-  frontier.appendleft(start)
-  seen.add(start)
-  while frontier:
-    # print('len(frontier) =', len(frontier))
-    loc = frontier.pop()
-    r, c = loc
-    # print(loc)
-    grid[r][c] = 'X'
-    for dr in [-1, 0, 1]:
-      for dc in [-1, 0, 1]:
-        nr, nc = r + dr, c + dc
-        if (nr, nc) in seen:
-          continue
-        if nr not in range(len(grid)):
-          continue
-        if nc not in range(len(grid[0])):
-          continue
-        if grid[nr][nc] != '.':
-          continue
-
-        frontier.appendleft((nr, nc))
-        seen.add((nr, nc))
-
-  return len(seen)
-
-
 def collapse_grid(grid):
   collapsed_grid = [[None] * (len(grid[0]) // 3) for _ in range(len(grid) // 3)]
   for r, row in enumerate(grid):
@@ -200,7 +172,7 @@ def day10(input):
   exploded = explode_grid(grid)
   # print_grid(exploded)
   # print("filling...")
-  fill(exploded, (0, 0))
+  fill(exploded, 0, 0)
   # print_grid(grid)
   collapsed = collapse_grid(exploded)
   # print_grid(collapsed)
