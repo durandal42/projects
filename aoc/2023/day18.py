@@ -24,126 +24,68 @@ DIRECTIONS = {
 
 
 def dig(instructions):
-  h_lines, v_lines = collections.defaultdict(list), collections.defaultdict(list)
   r, c = 0, 0
+  corners = []
   for inst in instructions:
     direction, distance, color = inst
     dr, dc = DIRECTIONS[direction]
-    dr *= distance
-    dc *= distance
-    if dr:
-      v_lines[c].append(range(min(r, r+dr), max(r, r+dr)+1))
-    if dc:
-      h_lines[r].append(range(min(c, c+dc), max(c, c+dc)+1))
-    r += dr
-    c += dc
-  return collections.deque(sorted(h_lines.items())), collections.deque(sorted(v_lines.items()))
+    r += dr * distance
+    c += dc * distance
+    corners.append((r, c))
+  return corners
 
 
-def bounding_box(h_lines, v_lines):
-  min_r = min(r for r, spans in h_lines)
-  min_c = min(c for c, spans in v_lines)
-  max_r = max(r for r, spans in h_lines)
-  max_c = max(c for c, spans in v_lines)
-  return (min_r, min_c, max_r+1, max_c+1)
+def shoelace(coords):
+  if coords[-1] != coords[0]:  # close loop as needed
+    coords = coords + [coords[0]]
+  result = 0
+  for coord1, coord2 in zip(coords[:-1], coords[1:]):
+    r1, c1 = coord1
+    r2, c2 = coord2
+    result += r1 * c2 - r2 * c1
+  return result
 
 
-def pretty_print_grid(grid):
-  return '\n'.join(''.join(row) for row in grid)
+def sign(x):
+  return bool(x > 0) - bool(x < 0)
+
+
+def fix_corners(corners):
+  # nudge corners so we can treat them as spatial coordinates instead of grid cells.
+  assert corners[-1] != corners[0]  # we *don't* want the loop closed
+  fixed_corners = []
+  for i in range(0, len(corners)):
+    r1, c1 = corners[i-1]
+    r2, c2 = corners[i]
+    r3, c3 = corners[(i+1) % len(corners)]
+    dr1, dc1 = sign(r2 - r1), sign(c2 - c1)
+    dr2, dc2 = sign(r3 - r2), sign(c3 - c2)
+    if dc1 > 0 or dc2 > 0:  # in or out rightward
+      r2 += 1
+    if dr1 < 0 or dr2 < 0:  # in or out upward
+      c2 += 1
+    fixed_corners.append((r2, c2))
+
+  return fixed_corners
+
+
+assertEqual([(0, 0), (2, 0), (2, 2), (0, 2)],
+            fix_corners([(0, 0), (1, 0), (1, 1), (0, 1)]))
+assertEqual([(1, 1), (1, 1), (1, 1), (1, 1)],
+            fix_corners([(0, 0), (0, 1), (1, 1), (1, 0)]))
 
 
 def day18(input, fix=False):
   instructions = parse_instructions(input)
   if fix:
     instructions = [fix_instruction(inst) for inst in instructions]
-  # print(instructions)
 
-  h_lines, v_lines = dig(instructions)
-  # print(f'h_lines: {h_lines}')
-  # print(f'v_lines: {v_lines}')
-  bb = bounding_box(h_lines, v_lines)
-  # print(bb)
+  corners = dig(instructions)
+  if shoelace(corners) < 0:
+    # ensure that polygon is positively oriented (counter-clockwise)
+    corners = corners[::-1]
 
-  total = 0
-  no_h_lines_on_prev_row = True
-  r = bb[0]-1  # manual for loop so we can skip ahead
-  while r < bb[2]:
-    r += 1
-    h_lines_on_this_row = h_lines.popleft()[1] if h_lines and h_lines[0][0] == r else []
-    if not h_lines_on_this_row:
-      if no_h_lines_on_prev_row:
-        # print(f'no h lines on row {r}, should contribute the same as previous row')
-        # how *many* rows in a row have no h lines?
-        next_row_with_h_lines = h_lines[0][0]
-        total += total_this_row * (next_row_with_h_lines - r)
-        r = next_row_with_h_lines - 1
-        continue
-      else:
-        no_h_lines_on_prev_row = True
-    else:
-      no_h_lines_on_prev_row = False
-    # print(f'scanning row {r}')
-    inside = False
-    total_this_row = 0
-    v_lines_this_row = collections.deque(v_lines)
-    prev_v_line_direction = 0
-    no_v_lines_on_prev_col = True
-    c = bb[1]-1  # manual for loop so we can skip ahead
-    while c < bb[3]:
-      c += 1
-      # print(f'looking at col {c}')
-      v_lines_on_this_col = v_lines_this_row.popleft()[1] if v_lines_this_row and v_lines_this_row[0][0] == c else []
-      if not v_lines_on_this_col:
-        if no_v_lines_on_prev_col:
-          # how *many* cols in a row have no v lines?
-          # TODO: this is the hot spot, binary search or merge lists or something
-          # print(v_lines_this_row)
-          next_col_with_v_lines = v_lines_this_row[0][0]
-          total_this_row += total_this_col * (next_col_with_v_lines - c)
-          c = next_col_with_v_lines - 1
-          continue
-        else:
-          no_v_lines_on_prev_col = True
-      else:
-        no_v_lines_on_prev_col = False
-
-      total_this_col = 0
-      # print(v_lines_on_this_col)
-      on_a_v_line = any(r in v_line for v_line in v_lines_on_this_col)
-      on_a_h_line = any(c in h_line for h_line in h_lines_on_this_row)
-      # print(f'on_a_v_line: {on_a_v_line}')
-      # print(f'on_a_h_line: {on_a_h_line}')
-      if on_a_v_line and not on_a_h_line:
-        # easy case, crossing a vertical line
-        inside = not inside
-      if on_a_h_line and not on_a_v_line:
-        # nothing to do, but sanity check our corner-handling
-        assert prev_v_line_direction
-      if on_a_v_line and on_a_h_line:
-        # print("found a corner!")
-        # on a corner!
-        on_bot_of_v_line = not any(r+1 in v_line for v_line in v_lines_on_this_col)
-        on_top_of_v_line = not any(r-1 in v_line for v_line in v_lines_on_this_col)
-        # print(f'on_top_of_v_line: {on_top_of_v_line}')
-        # print(f'on_bot_of_v_line: {on_bot_of_v_line}')
-        assert on_bot_of_v_line != on_top_of_v_line
-        if not prev_v_line_direction:
-          prev_v_line_direction = -1 if on_bot_of_v_line else 1
-        else:
-          if (prev_v_line_direction < 0) == on_top_of_v_line:
-            inside = not inside
-            # print('toggled inside due to pair of opposed corners')
-          prev_v_line_direction = 0
-        # print(f'prev_line_direction: {prev_v_line_direction}')
-      if (on_a_h_line or on_a_v_line):
-        total_this_col += 1
-      elif inside:
-        total_this_col += 1
-      total_this_row += total_this_col
-    # print(f'interior_total on row {r}: {interior_total_this_row}')
-    total += total_this_row
-
-  return total
+  return shoelace(fix_corners(corners))//2
 
 
 test_input = '''\
