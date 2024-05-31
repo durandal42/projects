@@ -2,6 +2,7 @@ from common import assertEqual
 from common import submit
 import re
 import operator
+import math
 
 
 def parse_workflow(line):
@@ -30,24 +31,46 @@ def parse_part(part_str):
 
 def parse_rating(rating_str):
   m = re.match('([xmas])=(\\d+)', rating_str)
-  return m.group(1), int(m.group(2))
-
-
-SUPPORTED_OPS = {'<': operator.lt, '>': operator.gt}
-FINAL_WORKFLOWS = {'A': True, 'R': False}
+  score = int(m.group(2))
+  return m.group(1), range(score, score+1)
 
 
 def apply_workflow(label, part, workflows):
-  if label in FINAL_WORKFLOWS:
-    return FINAL_WORKFLOWS[label]
+  # print(f'apply_workflow({label}, {part})')
+  if label == 'R':
+    return 0
+  if label == 'A':
+    return math.prod(len(score) for score in part.values())
+  total = 0
+  # print(workflows[label])
   for criteria, sendto in workflows[label]:
     if not criteria:
-      return apply_workflow(sendto, part, workflows)
-    category, condition, threshold = criteria
-    op = SUPPORTED_OPS[condition]
-    if op(part[category], threshold):
-      return apply_workflow(sendto, part, workflows)
-  assert False
+      return total + apply_workflow(sendto, part, workflows)
+    category, op, threshold = criteria
+    part_score = part[category]
+
+    yes = dict(part)
+    no = dict(part)
+    if op == '<':
+      yes[category] = range(part_score.start, min(part_score.stop, threshold))
+      no[category] = range(max(part_score.start, threshold), part_score.stop)
+    elif op == '>':
+      yes[category] = range(max(part_score.start, threshold+1), part_score.stop)
+      no[category] = range(part_score.start, min(part_score.stop, threshold+1))
+    else:
+      assert False
+    if len(yes[category]) > 0:
+      total += apply_workflow(sendto, yes, workflows)
+    if len(no[category]) == 0:
+      break
+    part = no
+
+  return total
+
+
+def business_logic(workflows, parts):
+  return sum(sum(s.start for s in p.values()) for p in parts
+             if apply_workflow('in', p, workflows) > 0)
 
 
 def day19(input):
@@ -60,7 +83,7 @@ def day19(input):
   parts = [parse_part(line) for line in input_parts.splitlines()]
   # print(parts)
 
-  return sum(sum(p.values()) for p in parts if apply_workflow('in', p, workflows))
+  return business_logic(workflows, parts)
 
 
 test_input = '''\
@@ -90,4 +113,21 @@ assertEqual(test_output, day19(test_input))
 print('day19 answer:')
 submit(day19(open('day19_input.txt', 'r').read()),
        expected=397643)
+print()
+
+# part2 complication
+test_output = 167409079868000
+
+
+def business_logic(workflows, parts):
+  all_parts = dict((category, range(1, 4000+1)) for category in 'xmas')
+  return apply_workflow('in', all_parts, workflows)
+
+
+assertEqual(test_output, day19(test_input))
+
+
+print('day19, part2 answer:')
+submit(day19(open('day19_input.txt', 'r').read()),
+       expected=132392981697081)
 print()
