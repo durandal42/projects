@@ -127,6 +127,10 @@ def day20(input):
   flipflop_states = collections.defaultdict(bool)
   conjunction_states = init_conjunction_states(modules)
 
+  return business_logic(modules, flipflop_states, conjunction_states)
+
+
+def business_logic(modules, flipflop_states, conjunction_states):
   pulses_sent = []
   for _ in range(1000):
     pulses_sent += press_button(modules, flipflop_states, conjunction_states)
@@ -145,4 +149,32 @@ assertEqual(test_output2, day20(test_input2))
 print('day20 answer:')
 submit(day20(open('day20_input.txt', 'r').read()),
        expected=730797576)
+print()
+
+# part2 complication
+
+
+def business_logic(modules, flipflop_states, conjunction_states):
+  button_presses = 0
+  next_report = 1
+  first_high_pulses_to_gh = {}
+  while True:
+    button_presses += 1
+    for p in press_button(modules, flipflop_states, conjunction_states):
+      if p[1:] == ('high', 'gh'):
+        if p[0] not in first_high_pulses_to_gh:
+          first_high_pulses_to_gh[p[0]] = button_presses
+          print(button_presses, p)
+          if len(first_high_pulses_to_gh) == 4:
+            return math.lcm(*first_high_pulses_to_gh.values())
+      if p[1:] == ('low', 'rx'):
+        return button_presses
+    if button_presses >= next_report:
+      print('button presses so far:', button_presses)
+      next_report *= 2
+
+
+print('day20, part2 answer:')
+submit(day20(open('day20_input.txt', 'r').read()),
+       expected=None)
 print()
