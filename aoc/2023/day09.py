@@ -36,7 +36,7 @@ def choose(n, k):
 
 def extrapolate_anywhere(grid, n):
   # https://www.youtube.com/watch?v=4AuV93LOPcE#t=16m03s
-  return sum(values[0] * choose(n, i) for i, values in enumerate(grid))
+  return sum(values[0] * choose(n, i) for i, values in enumerate(grid) if values)
 
 
 def extrapolate(grid):
