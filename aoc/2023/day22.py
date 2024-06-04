@@ -1,6 +1,7 @@
 from common import assertEqual
 from common import submit
 import collections
+import copy
 
 
 def parse_brick(line):
@@ -58,14 +59,14 @@ def collapse(bricks):
 
 
 def supported_by(bricks):
-  result = collections.defaultdict(list)
+  result = collections.defaultdict(set)
   for i, b1 in enumerate(bricks):
     if grounded(b1):
-      result[i].append('G')
+      result[i].add('G')
       continue
     for j, b2 in enumerate(bricks):
       if does_support(b2, b1):
-        result[i].append(j)
+        result[i].add(j)
   return result
 
 
@@ -73,7 +74,7 @@ def sole_supports(supported_by_map):
   result = set()
   for above, below in supported_by_map.items():
     if len(below) == 1:
-      result.add(below[0])
+      result.add(min(below))
   return result
 
 
@@ -101,4 +102,51 @@ assertEqual(test_output, day22(test_input))
 print('day22 answer:')
 submit(day22(open('day22_input.txt', 'r').read()),
        expected=386)
+print()
+
+
+# part2 complication
+test_output = 7
+
+
+def invert_multimap(m):
+  result = collections.defaultdict(set)
+  for k, vs in m.items():
+    for v in vs:
+      result[v].add(k)
+  return result
+
+
+def count_fallers(i, supported_by_map, supports_map):
+  # print(supported_by_map)
+  # print(supports_map)
+  to_remove = [i]
+  result = 0
+  while to_remove:
+    i = to_remove.pop()
+    for j in supports_map[i]:
+      supported_by_map[j].remove(i)
+      if not supported_by_map[j]:
+        to_remove.append(j)
+        result += 1
+
+  return result
+
+
+def day22(input):
+  bricks = [parse_brick(line) for line in input.splitlines()]
+  collapse(bricks)
+
+  supported_by_map = supported_by(bricks)
+  supports_map = invert_multimap(supported_by_map)
+
+  return sum(count_fallers(i, copy.deepcopy(supported_by_map), copy.deepcopy(supports_map))
+             for i, b in enumerate(bricks))
+
+
+assertEqual(test_output, day22(test_input))
+
+print('day22, part2 answer:')
+submit(day22(open('day22_input.txt', 'r').read()),
+       expected=39933)
 print()
