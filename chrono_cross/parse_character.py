@@ -63,7 +63,7 @@ def parse(lines):
       if match:
         stats[stat] = int(match.group(1))
 
-  grid_size = [sum(1 for g in grid if g[i] != '') for i in range(8)]
+  grid_size = [sum(1 for g in grid if g[i] != '' and int(g[i]) <= 16) for i in range(8)]
 
   return [name, color, stamina] + [stats[stat] for stat in STAT_NAMES] + grid_size
 
@@ -87,4 +87,5 @@ def parse_many(lines):
     print(csv(parse(buffer)))
 
 import sys
-parse_many(sys.stdin.readlines())
+# parse_many(sys.stdin.readlines())
+parse_many(open('characters.txt'))
