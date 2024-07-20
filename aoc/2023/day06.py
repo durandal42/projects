@@ -2,7 +2,8 @@ from common import assertEqual
 from common import submit
 import math
 
-test_input = '''Time:      7  15   30
+test_input = '''\
+Time:      7  15   30
 Distance:  9  40  200'''
 test_output = 288
 

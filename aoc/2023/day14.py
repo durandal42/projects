@@ -37,7 +37,8 @@ def score(grid):
   return result
 
 
-test_input = '''O....#....
+test_input = '''\
+O....#....
 O.OO#....#
 .....##...
 OO.#O....O
@@ -48,7 +49,8 @@ O.#..O.#.#
 #....###..
 #OO..#....
 '''
-tilted = parse('''OOOO.#.O..
+tilted = parse('''\
+OOOO.#.O..
 OO..#....#
 OO..O##..O
 O..#.OO...

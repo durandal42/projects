@@ -31,7 +31,8 @@ def parse_node(line):
   return (label, {'L': left, 'R': right})
 
 
-test_input = '''RL
+test_input = '''\
+RL
 
 AAA = (BBB, CCC)
 BBB = (DDD, EEE)
@@ -46,7 +47,8 @@ test_output = 2
 assertEqual(test_output, day08(test_input))
 
 
-test_input = '''LLR
+test_input = '''\
+LLR
 
 AAA = (BBB, BBB)
 BBB = (AAA, ZZZ)
@@ -63,7 +65,8 @@ submit(day08(open('day08_input.txt', 'r').read()),
 print()
 
 # part 2 complication
-test_input = '''LR
+test_input = '''\
+LR
 
 11A = (11B, XXX)
 11B = (XXX, 11Z)

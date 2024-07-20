@@ -36,14 +36,15 @@ def choose(n, k):
 
 def extrapolate_anywhere(grid, n):
   # https://www.youtube.com/watch?v=4AuV93LOPcE#t=16m03s
-  return sum(values[0] * choose(n, i) for i, values in enumerate(grid))
+  return sum(values[0] * choose(n, i) for i, values in enumerate(grid) if values)
 
 
 def extrapolate(grid):
   return extrapolate_anywhere(grid, len(grid[0]))
 
 
-test_input = '''0 3 6 9 12 15
+test_input = '''\
+0 3 6 9 12 15
 1 3 6 10 15 21
 10 13 16 21 30 45
 '''

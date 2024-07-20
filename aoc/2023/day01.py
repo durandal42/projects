@@ -27,7 +27,8 @@ def day01(input):
   return result
 
 
-test_input = '''1abc2
+test_input = '''\
+1abc2
 pqr3stu8vwx
 a1b2c3d4e5f
 treb7uchet
@@ -43,7 +44,8 @@ submit(day01(open('day01_input.txt', 'r').read()),
 print()
 
 # part 2 complication:
-test_input_2 = '''two1nine
+test_input_2 = '''\
+two1nine
 eightwothree
 abcone2threexyz
 xtwone3four
