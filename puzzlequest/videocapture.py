@@ -1,4 +1,5 @@
 import pq
+
 import cv2 as cv
 import numpy as np
 import re
@@ -399,13 +400,13 @@ def analyze(game_state):
 
   moves_and_yields = pq.consider_moves(
       board, cascade=True,
-      spells_known=[('convert', lambda b: [(pq.Gem.BLUE, pq.Gem.YELLOW)])])
+      spells_known=["Evaporate"])
   print('available moves (cascade, no spells):',
         pq.pretty_print_dict(moves_and_yields))
   chosen_move = pq.pick_highest_yield(moves_and_yields)
   print('chosen move:', chosen_move)
-  print('yields from chosen move:', moves_and_yields[chosen_move][0])
-  print('chosen move triggers a free turn:', moves_and_yields[chosen_move][1])
+  print('yields from chosen move:', moves_and_yields[chosen_move])
+  # print('chosen move triggers a free turn:', moves_and_yields[chosen_move])
 
   # TODO(durandal): penalize moves that give enemy a strong move
 

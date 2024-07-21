@@ -1,23 +1,10 @@
-from enum import Enum
 import random
 import collections
+from enum import Enum
 
-
-class Gem(Enum):
-  EMPTY = '⬛'
-  GREEN = '🟩'
-  RED = '🟥'
-  YELLOW = '🟨'
-  BLUE = '🟦'
-  SKULL = '💀'
-  STAR = '🔯'
-  COIN = '💰'
-  BIG_SKULL = '☠️'
-  WILD2 = '🍭2'
-  WILD3 = '🍭3'
-  WILD4 = '🍭4'
-  WILD5 = '🍭5'
-  WILD6 = '🍭6'  # TODO(durandal): more wilds
+from common import Gem
+import common
+import spells
 
 
 MANA_GEMS = [Gem.GREEN, Gem.RED, Gem.YELLOW, Gem.BLUE]
@@ -96,15 +83,9 @@ def gem_from_pool():
   pass
 
 
-def all_coordinates():
-  for r in range(8):
-    for c in range(8):
-      yield r, c
-
-
 def fill_missing(b, gem_source):
   assert isinstance(b, list)
-  for r, c in all_coordinates():
+  for r, c in common.all_coordinates():
     if b[r][c] == Gem.EMPTY:
       b[r][c] = gem_source()
   return b
@@ -138,11 +119,12 @@ def run_yield(gs):
       # Wilds can match other wilds, but there does need to be
       # a mana gem somewhere in the run
       return None
-    return {actual_g: mana_seen * total_mult}
+    return (common.convert_gem_to_resource(actual_g), mana_seen * total_mult)
   if gs[0] in (Gem.BIG_SKULL, Gem.SKULL):
     # TODO(durandal): big skulls explode
-    return {Gem.SKULL: len(gs) + sum(4 for g in gs if g == Gem.BIG_SKULL)}
-  return {gs[0]: len(gs)}
+    return (common.convert_gem_to_resource(Gem.SKULL),
+            len(gs) + sum(4 for g in gs if g == Gem.BIG_SKULL))
+  return (common.convert_gem_to_resource(gs[0]), len(gs))
 
 
 def assemble_run(run, board):
@@ -192,7 +174,6 @@ def neighbors(r, c):
 
 
 def purge_matches(b, matches):
-  total_yields = collections.Counter()
   already_destroyed = set()
   to_destroy = set()
   for y, coords_cleared in matches:
@@ -203,30 +184,7 @@ def purge_matches(b, matches):
         for r2, c2 in neighbors(r, c):
           to_destroy.add((r2, c2))
       b[r][c] = Gem.EMPTY
-  return destroy_gems(b, to_destroy - already_destroyed)
-
-
-def destroy_gems(b, to_destroy, benefit=True):
-  assert isinstance(b, list)
-
-  to_destroy = collections.deque(to_destroy)
-  total_yields = collections.Counter()
-  while len(to_destroy) > 0:
-    r, c = to_destroy.pop()
-    g = b[r][c]
-    if g == Gem.EMPTY:
-      continue
-    if benefit:
-      if g == Gem.BIG_SKULL:
-        for r2, c2 in neighbors(r, c):
-          to_destroy.append((r2, c2))
-        total_yields[Gem.SKULL] += 5
-      else:
-        total_yields[g] += 1
-
-    b[r][c] = Gem.EMPTY
-
-  return total_yields
+  return spells.destroy_gems(b, to_destroy - already_destroyed)
 
 
 def gravity(b):
@@ -243,8 +201,7 @@ def gravity(b):
 
 def resolve_matches(b, gem_source, cascade=True, display=False):
   assert isinstance(b, list)
-  yields = collections.Counter()
-  free_move = False
+  yields = []
   cascade_len = 0
   while True:
     matches = find_matches(b)
@@ -253,15 +210,15 @@ def resolve_matches(b, gem_source, cascade=True, display=False):
       break
     for y, coords in matches:
       if len(coords) >= 4:
-        free_move = True
-      yields += y
+        yields.append(("free move", 1))
+        if display:
+          print('FREE MOVE!')
+      yields.append(y)
 
     cascade_len += 1
     yields += purge_matches(b, matches)
     if display:
       print('matches purged:', pretty_print_board(b), sep='\n')
-    if display and free_move:
-      print('FREE MOVE!')
     gravity(b)
     if display:
       print('gravity applied:', pretty_print_board(b), sep='\n')
@@ -274,8 +231,8 @@ def resolve_matches(b, gem_source, cascade=True, display=False):
     print(f'board settled after {cascade_len} iteration(s).')
     if cascade_len >= 5:
       print("HEROIC EFFORT!")
-    print('Actual yields:', yields)
-  return yields, free_move
+    print('match resolution yields:', yields)
+  return yields
 
 
 def random_board_no_matches():
@@ -295,13 +252,16 @@ class Swap(Enum):
 
 
 def possible_moves(b, spells_known=[]):
-  for r, c in all_coordinates():
+  for r, c in common.all_coordinates():
     if r < 7:
       yield (Move.SWAP, Swap.VERTICAL, (r, c))
     if c < 7:
       yield (Move.SWAP, Swap.HORIZONTAL, (r, c))
-  for spell_name, arg_generator in spells_known:
-    for spell_args in arg_generator(b):
+  for spell_name in spells_known:
+    print(spell_name)
+    spell = spells.SPELLS_BY_NAME[spell_name]
+    for spell_args in spell.arg_generator(b, None):
+      # TODO(durandal): pass game state in
       yield (Move.SPELL, spell_name, spell_args)
 
 
@@ -310,9 +270,9 @@ def consider_moves(b, gem_source=no_gem, cascade=True, spells_known=[]):
   possible_yields = {}
   for move in possible_moves(b, spells_known=spells_known):
     # print("Considering the results of move:", move)
-    yields, free_move = try_move(mutable_board(b), move, gem_source, cascade)
+    yields = try_move(mutable_board(b), move, gem_source, cascade)
     if yields or move[0] == Move.SPELL:
-      possible_yields[move] = yields, free_move
+      possible_yields[move] = yields
   return possible_yields
 
 
@@ -327,12 +287,17 @@ def try_move(b, move, gem_source, cascade, display=False):
       b[r][c], b[r+1][c] = b[r+1][c], b[r][c]
     else:
       assert False
+    yields = []
   elif move[0] == Move.SPELL:
     name, args = move[1:]
-    cast_spell(b, name, args)
+    yields = spells.SPELLS_BY_NAME[name].effect(b, None, args)
+    if display:
+      print("spell yields:", yields)
+    gravity(b)
+    fill_missing(b, gem_source)
   if display:
     print('after move:', pretty_print_board(b), sep='\n')
-  return resolve_matches(b, gem_source, cascade, display)
+  return yields + resolve_matches(b, gem_source, cascade, display)
 
 
 def pick_first_move(moves_and_yields):
@@ -352,32 +317,19 @@ def pick_highest_yield(moves_and_yields):
   mys = list(moves_and_yields.items())
 
   # pick up a free move whenever possible:
-  mys_freemove = list(filter(lambda my: my[1][1], mys))
+  mys_freemove = list(filter(lambda my: ("free move", 1) in my[1], mys))
   if len(mys_freemove) > 0:
     mys = mys_freemove
 
-  return max(mys, key=lambda my: sum(y for g, y in my[1][0].items()))[0]
-
-
-def cast_spell(b, name, args):
-  if name == 'convert':
-    src, dst = args
-    for r, c in all_coordinates():
-      if b[r][c] == src:
-        b[r][c] = dst
-  else:
-    assert False
+  return max(mys, key=lambda my: sum(gy[1] for gy in my[1]))[0]
 
 
 def spells_known():
-  for src in MANA_GEMS:
-    for dst in MANA_GEMS:
-      if src != dst:
-        yield 'convert', lambda b: [(src, dst)]
+  return spells.SPELLS_BY_NAME.keys()
 
 
 def play(b, move_picker=pick_first_move):
-  total_yields = collections.Counter()
+  total_yields = []
   for turn in range(10):
     basic_moves_and_yields = consider_moves(
         b, cascade=False)
@@ -394,7 +346,7 @@ def play(b, move_picker=pick_first_move):
     print('available moves (cascade):', pretty_print_dict(moves_and_yields))
     move = move_picker(moves_and_yields)
     print('moving:', move)
-    yields, free_move = try_move(
+    yields = try_move(
         b, move, random_gem, cascade=True, display=True)
     assert len(yields) > 0
     total_yields += yields
@@ -406,7 +358,8 @@ def play(b, move_picker=pick_first_move):
 def main():
   b = random_board_no_matches()
   print(pretty_print_board(b))
-  final_yields = play(b, move_picker=pick_highest_yield)
+  final_yields = common.sum_yields(
+      play(b, move_picker=pick_highest_yield))
   print('final yields:', final_yields)
 
 
