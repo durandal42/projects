@@ -1,8 +1,13 @@
+import pq
 import cv2 as cv
 import numpy as np
+
+from pytesseract import pytesseract
+# needs: https://github.com/UB-Mannheim/tesseract/wiki
+pytesseract.tesseract_cmd = 'C:\\Program Files\\Tesseract-OCR\\tesseract.exe'
+
 # import collections
 
-import pq
 
 FRAME_WIDTH = 1920
 FRAME_HEIGHT = 1080
@@ -47,7 +52,10 @@ def loop(cap):
     # Our operations on the frame come here
     gem_names = inspect(frame)
 
-    if gem_names != most_recent_gem_names:
+    if gem_names is None:
+      most_recent_gem_names = None
+      most_recent_analysis = None
+    elif gem_names != most_recent_gem_names:
       most_recent_gem_names = gem_names
       most_recent_analysis = analyze(gem_names)
 
@@ -67,61 +75,43 @@ def cleanup(cap):
   cv.destroyAllWindows()
 
 
-# cribbed from https://fossies.org/linux/opencv/samples/python/hist.py
-bins = np.arange(256).reshape(256, 1)
-
-
-def hist_curve_image(hists):
-  # cribbed from https://fossies.org/linux/opencv/samples/python/hist.py
-  h = np.zeros((300, 256, 3))
-  colors = [(255, 0, 0), (0, 255, 0), (0, 0, 255)]
-  for col, hist in zip(colors, hists):
-    pts = np.int32(np.column_stack((bins, hist)))
-    cv.polylines(h, [pts], False, col)
-    y = np.flipud(h)
-  return y
-
-
-def hist_curves(im, mask=None):
-  result = []
-  for ch in range(3):
-    hist = cv.calcHist([im], [ch], mask, [256], [0, 256])
-    cv.normalize(hist, hist, 0, 255, cv.NORM_MINMAX)
-    result.append(hist)
-  return result
-
-
 SPRITE_NAMES = [
     "mana_green", "mana_red", "mana_yellow", "mana_blue",
     "skull", "purple_star", "gold_coin", "big_skull",
+    "wild2", "wild3", "wild6"
 ]
 GEM_SPRITES = [
     cv.imread(f"sprites/{name}.png") for name in SPRITE_NAMES
 ]
-
+# for name, sprite in zip(SPRITE_NAMES, GEM_SPRITES):
+#   print(f"loaded sprite with name {name} and size {sprite.shape}")
 
 PLAY_X_BEGIN, PLAY_Y_BEGIN = 499, 122
 PLAY_X_LIMIT, PLAY_Y_LIMIT = 1419, 1042
 PLAY_GRID_SCALE = 115
 
-GEM_HISTS = [hist_curves(im[PLAY_GRID_SCALE//3:
-                            - PLAY_GRID_SCALE//3,
-                            PLAY_GRID_SCALE//3:
-                            - PLAY_GRID_SCALE//3]) for im in GEM_SPRITES]
-
 
 def inspect(img):
-  # TODO(durandal): if the play area isn't ringed by a white border, it's not our turn!
+  # TODO(durandal): if the play area isn't ringed
+  # by a white border, it's not our turn!
+  turn_test_pixel = img[1047, 512]
+  # print("turn_test_pixel:", turn_test_pixel)
+  if min(turn_test_pixel) < 127:
+    # print("bailing out of inspect() because it's not our turn!")
+    return None
 
-  # histogram play pieces
-  hists = get_grid_hists(img)
+  sprites = get_grid_sprites(img)
 
-  gem_names = identify_gems(hists)
+  gem_names, gem_probs = identify_gems(sprites)
+  if not gem_names:
+    return
+
   save_unknown_sprites(gem_names, img)
 
   # inspection debug visualizations:
-  # render_hists(hists, img)
-  # render_hist_similarity_grid(hists, img)
+  # render_reference_grid(img)
+  # render_play_grid(img)
+  render_gem_identities(img, gem_names, gem_probs)
 
   return gem_names
 
@@ -134,12 +124,19 @@ def render_reference_grid(img):
     cv.line(img, (0, y), (FRAME_WIDTH, y), COLOR_GRAY, 1)
 
 
-def match_target(img, x_begin, y_begin, x_limit, y_limit):
+def match_target(img, x_begin=0, y_begin=0, x_limit=None, y_limit=None):
+  # print("getting match target for image of shape", img.shape)
+  if x_limit is None:
+    x_limit = img.shape[0]
+  if y_limit is None:
+    y_limit = img.shape[1]
   # only match on inner 9th of the sprite, to avoid borders and reticles.
-  return img[y_begin + PLAY_GRID_SCALE//3:
-             y_limit - PLAY_GRID_SCALE//3,
-             x_begin + PLAY_GRID_SCALE//3:
-             x_limit - PLAY_GRID_SCALE//3]
+  result = img[y_begin + PLAY_GRID_SCALE//3:
+               y_limit - PLAY_GRID_SCALE//3,
+               x_begin + PLAY_GRID_SCALE//3:
+               x_limit - PLAY_GRID_SCALE//3]
+  # print("result has shape", result.shape)
+  return result
 
 
 def enumerate_grid(x_origin=PLAY_X_BEGIN, y_origin=PLAY_Y_BEGIN,
@@ -153,39 +150,58 @@ def enumerate_grid(x_origin=PLAY_X_BEGIN, y_origin=PLAY_Y_BEGIN,
       yield r, c, x_begin, y_begin, x_limit, y_limit
 
 
-def get_grid_hists(img):
-  hists = {}
+def get_grid_sprites(img):
+  sprites = {}
   for r, c, x_begin, y_begin, x_limit, y_limit in enumerate_grid():
-    # only match on inner 9th of the sprite, to avoid borders and reticles.
-    hist = hist_curves(
-        match_target(img, x_begin, y_begin, x_limit, y_limit))
-    hists[(r, c)] = hist
-  return hists
+    sprite = img[y_begin:y_limit, x_begin:x_limit]
+    if (dragging
+        and mouse_x in range(x_begin, x_limit)
+        and mouse_y in range(y_begin, y_limit)
+        ):
+      cv.imwrite(f"{r}x{c}.png", sprite)
+    sprites[(r, c)] = sprite
+  return sprites
 
 
 unknown_sprites = 0
 
 
-def identify_gems(hists):
-  result = {}
-  for coords, hist in hists.items():
-    for i, known_hist in enumerate(GEM_HISTS):
-      if compare_rbg_hists(hist, known_hist) > 0.5:
-        result[coords] = SPRITE_NAMES[i]
-        break
+def match_image(needle, haystack):
+  match = cv.matchTemplate(
+      needle, haystack, cv.TM_CCOEFF_NORMED)
+  return np.max(match)
+  # return (256 - np.mean((needle.flatten() - haystack.flatten())**2)) / 256
+
+
+def identify_gems(sprites):
+  gem_names = {}
+  gem_probs = {}
+  for coords, sprite in sprites.items():
+    probs = []
+    for template_sprite_name, template_sprite in zip(
+            SPRITE_NAMES, GEM_SPRITES):
+      probs.append(
+          (match_image(match_target(sprite),
+                       match_target(template_sprite)),
+           template_sprite_name))
+    max_prob, max_name = max(probs)
+    gem_probs[coords] = max_prob
+    if max_prob > 0.5:
+      gem_names[coords] = max_name
     else:
       global unknown_sprites
+      cv.imshow('debug', sprite)
       new_name = f"unknown_{unknown_sprites}"
-      result[coords] = new_name
-      GEM_HISTS.append(hist)
+      gem_names[coords] = new_name
+      GEM_SPRITES.append(sprite)
       SPRITE_NAMES.append(new_name)
       # print("encountered unknown sprite!")
       unknown_sprites += 1
-  return result
+  return gem_names, gem_probs
 
 
 saved_unknown_sprites = set()
-UNKNOWN_SPRITE_SAVE_LIMIT = 10
+UNKNOWN_SPRITE_SAVE_LIMIT = 100
 
 
 def save_unknown_sprites(gem_names, img):
@@ -198,12 +214,14 @@ def save_unknown_sprites(gem_names, img):
       continue
     if not gem_name.startswith("unknown"):
       continue
-    cv.imwrite(f"{gem_name}.png",
+    cv.imwrite(f"unknown_sprites/{gem_name}.png",
                img[y_begin:y_limit, x_begin:x_limit, :])
     saved_unknown_sprites.add(gem_name)
 
 
-def render_gem_identities(img, gems):
+def render_gem_identities(img, gems, probs):
+  if not gems:
+    return
   for r, c, x_begin, y_begin, x_limit, y_limit in enumerate_grid():
     gem_name = gems[(r, c)]
     cv.putText(img=img, text=gem_name,
@@ -211,29 +229,12 @@ def render_gem_identities(img, gems):
                fontFace=cv.FONT_HERSHEY_SIMPLEX, fontScale=0.5,
                color=COLOR_WHITE,
                thickness=2, lineType=cv.LINE_AA)
-
-
-def render_hists(hists, img):
-  for r, c, x_begin, y_begin, x_limit, y_limit in enumerate_grid():
-    hist = hists[(r, c)]
-    hist_img = hist_curve_image(hist)
-    hist_img = cv.resize(hist_img, (PLAY_GRID_SCALE, PLAY_GRID_SCALE))
-    img[y_begin:y_limit, x_begin:x_limit, :] = hist_img
-
-
-def render_hist_similarity_grid(hists, img):
-  for r1, c1, x1_begin, y1_begin, x1_limit, y1_limit in enumerate_grid():
-    for r2, c2, x2_begin, y2_begin, x2_limit, y2_limit in enumerate_grid(
-            x1_begin, y1_begin, PLAY_GRID_SCALE//8):
-
-      value = int(compare_rbg_hists(
-          hists[(r1, c1)], hists[(r2, c2)]) * 256)
-      color = (value, value, value)
-
-      cv.rectangle(img,
-                   (x2_begin, y2_begin),
-                   (x2_limit, y2_limit),
-                   color, -1)
+    gem_prob = "%.2f" % probs[(r, c)]
+    cv.putText(img=img, text=gem_prob,
+               org=(x_begin + 50, (y_begin + y_limit)//2 + 50),
+               fontFace=cv.FONT_HERSHEY_SIMPLEX, fontScale=0.5,
+               color=COLOR_WHITE,
+               thickness=2, lineType=cv.LINE_AA)
 
 
 def render_play_grid(img):
@@ -280,22 +281,11 @@ def render_moves_and_yields(moves_and_yields, img, chosen=None):
 
 
 def decorate(img, gem_names, analysis):
-  # render_reference_grid(img)
-  # render_play_grid(img)
-  # render_gem_identities(img, gem_names)
-
   if not analysis:
     return
 
   moves_and_yields, chosen_move = analysis
   render_moves_and_yields(moves_and_yields, img, chosen=chosen_move)
-
-
-def compare_rbg_hists(hists1, hists2):
-  similarity = 1.0
-  for h1, h2 in zip(hists1, hists2):
-    similarity *= cv.compareHist(h1, h2, 0)
-  return similarity
 
 
 SPRITE_NAME_TO_SOLVER_GEM_NAME = {
@@ -306,7 +296,12 @@ SPRITE_NAME_TO_SOLVER_GEM_NAME = {
     "skull": "SKULL",
     "purple_star": "STAR",
     "gold_coin": "COIN",
-    "big_skull": "SKULL",  # TODO(durandal): support big skulls in solver
+    "big_skull": "BIG_SKULL",
+    "wild2": "WILD2",
+    "wild3": "WILD3",
+    "wild4": "WILD4",
+    "wild5": "WILD5",
+    "wild6": "WILD6",
 }
 
 
@@ -332,23 +327,29 @@ def analyze(gem_names):
         pq.pretty_print_dict(moves_and_yields))
   chosen_move = pq.pick_highest_yield(moves_and_yields)
   print('chosen move:', chosen_move)
+  print('yields from chosen move:', moves_and_yields[chosen_move][0])
+  print('chosen move triggers a free turn:', moves_and_yields[chosen_move][1])
 
   return moves_and_yields, chosen_move
 
 
 dragging = False
+mouse_x = None
+mouse_y = None
 
 
 def mouse_listener(event, x, y, flags, param):
-  global dragging
+  global dragging, mouse_x, mouse_y
   if event == cv.EVENT_MOUSEMOVE:
     return
   if event == cv.EVENT_LBUTTONDOWN:
     print(f"mouse down at {x},{y}")
     dragging = True
+    mouse_x, mouse_y = x, y
   elif event == cv.EVENT_LBUTTONUP:
     print(f"mouse up at {x},{y}")
     dragging = False
+    mouse_x, mouse_y = None, None
     # TODO(durandal): as needed, draw a rect around the dragged area:
     # https://pyimagesearch.com/2015/03/09/capturing-mouse-click-events-with-python-and-opencv/
   else:
