@@ -412,6 +412,12 @@ display_tree(create_state(serge_base_hits, remaining_stamina=6),
                      utility_elemental_power(cap=5)))
 print("TL;DR: spam 2 unconditionally")
 
+print("\nserge optimizing for elemental charge > damage, leaving 1 stamina free to cast")
+display_tree(create_state(serge_base_hits, remaining_stamina=6),
+             compose(utility_elemental_power(cap=5),
+                     utility_damage))
+print("TL;DR: spam 1 unconditionally")
+
 print("\nserge optimizing for dps")
 sustained_dps(serge_base_hits)
 print("TL;DR: 223, but abort if the first 2 misses.")
