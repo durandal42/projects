@@ -1,6 +1,8 @@
 import pq
 import cv2 as cv
 import numpy as np
+import re
+from collections import namedtuple
 
 from pytesseract import pytesseract
 # needs: https://github.com/UB-Mannheim/tesseract/wiki
@@ -15,6 +17,8 @@ FRAME_HEIGHT = 1080
 COLOR_WHITE = (255, 255, 255)
 COLOR_GRAY = (127, 127, 127)
 COLOR_GREEN = (0, 255, 0)
+COLOR_RED = (255, 0, 0)
+COLOR_BLUE = (0, 0, 255)
 
 
 def open_stream():
@@ -37,9 +41,13 @@ def open_stream():
   return cap
 
 
+GameState = namedtuple("GameState", ["gem_names", "mana"])
+
+
 def loop(cap):
-  most_recent_gem_names = None
+  most_recent_game_state = None
   most_recent_analysis = None
+  most_recent_turn_status = None
   while True:
     # Capture frame-by-frame
     ret, frame = cap.read()
@@ -50,18 +58,35 @@ def loop(cap):
       break
 
     # Our operations on the frame come here
-    gem_names = inspect(frame)
 
-    if gem_names is None:
-      most_recent_gem_names = None
-      most_recent_analysis = None
-    elif gem_names != most_recent_gem_names:
-      most_recent_gem_names = gem_names
-      most_recent_analysis = analyze(gem_names)
+    turn_test_pixel = frame[1047, 512]
+    turn_status = min(turn_test_pixel) >= 127
 
-    # TODO(durandal): plug into the solver
+    if turn_status != most_recent_turn_status or dragging:
+      most_recent_turn_status = turn_status
+      if turn_status or dragging:
+        game_state = inspect(frame)
+        print(game_state)
+
+        if game_state is None:
+          most_recent_gem_names = None
+          most_recent_analysis = None
+        elif game_state != most_recent_game_state:
+          most_recent_game_state = game_state
+          most_recent_analysis = analyze(game_state)
+          if most_recent_analysis is None:
+            # something went wrong; try again next frame.
+            most_recent_turn_status = None
+            most_recent_game_state = None
+      else:
+        most_recent_game_state = None
+        most_recent_analysis = None
+
     if not dragging:
-      decorate(frame, most_recent_gem_names, most_recent_analysis)
+      decorate(
+          frame,
+          most_recent_game_state,
+          most_recent_analysis)
 
     # Display the resulting frame
     cv.imshow('frame', frame)
@@ -78,7 +103,7 @@ def cleanup(cap):
 SPRITE_NAMES = [
     "mana_green", "mana_red", "mana_yellow", "mana_blue",
     "skull", "purple_star", "gold_coin", "big_skull",
-    "wild2", "wild3", "wild6"
+    "wild2", "wild3", "wild4", "wild5", "wild6"
 ]
 GEM_SPRITES = [
     cv.imread(f"sprites/{name}.png") for name in SPRITE_NAMES
@@ -92,28 +117,25 @@ PLAY_GRID_SCALE = 115
 
 
 def inspect(img):
-  # TODO(durandal): if the play area isn't ringed
-  # by a white border, it's not our turn!
-  turn_test_pixel = img[1047, 512]
-  # print("turn_test_pixel:", turn_test_pixel)
-  if min(turn_test_pixel) < 127:
-    # print("bailing out of inspect() because it's not our turn!")
-    return None
-
   sprites = get_grid_sprites(img)
 
   gem_names, gem_probs = identify_gems(sprites)
   if not gem_names:
     return
 
+  mana_str = pytesseract.image_to_string(
+      img[MANA_Y_BEGIN:MANA_Y_LIMIT,
+          MANA_X_BEGIN:MANA_X_LIMIT])
+  mana = [int(m) for m in re.findall("(\\d+)", mana_str)]
+  if len(mana) < 4:
+    return
+
   save_unknown_sprites(gem_names, img)
 
   # inspection debug visualizations:
-  # render_reference_grid(img)
-  # render_play_grid(img)
   render_gem_identities(img, gem_names, gem_probs)
 
-  return gem_names
+  return GameState(gem_names=gem_names, mana=mana)
 
 
 def render_reference_grid(img):
@@ -155,9 +177,9 @@ def get_grid_sprites(img):
   for r, c, x_begin, y_begin, x_limit, y_limit in enumerate_grid():
     sprite = img[y_begin:y_limit, x_begin:x_limit]
     if (dragging
-        and mouse_x in range(x_begin, x_limit)
-        and mouse_y in range(y_begin, y_limit)
-        ):
+                and mouse_x in range(x_begin, x_limit)
+                and mouse_y in range(y_begin, y_limit)
+            ):
       cv.imwrite(f"{r}x{c}.png", sprite)
     sprites[(r, c)] = sprite
   return sprites
@@ -253,9 +275,55 @@ def render_play_grid(img):
             COLOR_GREEN, 1)
 
 
+SPELL_X_BEGIN, SPELL_Y_BEGIN = 55, 613
+SPELL_X_LIMIT, SPELL_Y_LIMIT = 460, 1043
+SPELL_GRID_Y_SCALE = 61.5
+SPELL_COUNT = 7
+
+
+def render_spell_grid(img):
+  cv.rectangle(img,
+               (SPELL_X_BEGIN, SPELL_Y_BEGIN),
+               (SPELL_X_LIMIT, SPELL_Y_LIMIT),
+               COLOR_RED, 2)
+
+  # grid lines
+  for r in range(0, SPELL_COUNT):
+    y = int(SPELL_Y_BEGIN + r*(SPELL_GRID_Y_SCALE))
+    cv.line(img, (SPELL_X_BEGIN, y), (SPELL_X_LIMIT, y),
+            COLOR_RED, 1)
+
+  spell_grid_midpoint_offset = 278-55
+  cv.line(img,
+          (SPELL_X_BEGIN+spell_grid_midpoint_offset, SPELL_Y_BEGIN),
+          (SPELL_X_BEGIN+spell_grid_midpoint_offset, SPELL_Y_LIMIT),
+          COLOR_RED, 1)
+
+
+MANA_X_BEGIN, MANA_Y_BEGIN = 290, 298
+MANA_X_LIMIT, MANA_Y_LIMIT = 450, 324
+
+
+def render_mana_grid(img, game_state):
+  cv.rectangle(img,
+               (MANA_X_BEGIN, MANA_Y_BEGIN),
+               (MANA_X_LIMIT, MANA_Y_LIMIT),
+               COLOR_BLUE, 2)
+  if game_state is not None:
+    mana_str = " ".join(str(m) for m in game_state.mana)
+    cv.putText(img=img, text=mana_str,
+               org=(MANA_X_BEGIN, MANA_Y_LIMIT),
+               fontFace=cv.FONT_HERSHEY_SIMPLEX, fontScale=0.5,
+               color=COLOR_WHITE,
+               thickness=1, lineType=cv.LINE_AA)
+
+
 def render_moves_and_yields(moves_and_yields, img, chosen=None):
   for move, yields in moves_and_yields.items():
-    assert move[0] == pq.Move.SWAP
+    if move[0] != pq.Move.SWAP:
+      # TODO(durandal): render spell hints
+      continue
+
     swap_direction = move[1]
     swap_origin = move[2]
 
@@ -274,18 +342,25 @@ def render_moves_and_yields(moves_and_yields, img, chosen=None):
     color = COLOR_WHITE
     if move == chosen:
       color = COLOR_GREEN
+    hint_size = 20
     cv.rectangle(img,
-                 (render_center_x-5, render_center_y-5),
-                 (render_center_x+5, render_center_y+5),
+                 (render_center_x-hint_size//2, render_center_y-hint_size//2),
+                 (render_center_x+hint_size//2, render_center_y+hint_size//2),
                  color, -1)
 
 
-def decorate(img, gem_names, analysis):
+def decorate(img, game_state, analysis):
+  # render_reference_grid(img)
+  render_play_grid(img)
+  render_spell_grid(img)
+  render_mana_grid(img, game_state)
+
   if not analysis:
     return
 
   moves_and_yields, chosen_move = analysis
-  render_moves_and_yields(moves_and_yields, img, chosen=chosen_move)
+  render_moves_and_yields(
+      moves_and_yields, img, chosen=chosen_move)
 
 
 SPRITE_NAME_TO_SOLVER_GEM_NAME = {
@@ -305,8 +380,9 @@ SPRITE_NAME_TO_SOLVER_GEM_NAME = {
 }
 
 
-def analyze(gem_names):
+def analyze(game_state):
   print("analyze called!")
+  gem_names = game_state.gem_names
   grid = []
   for r in range(8):
     grid.append([])
@@ -322,13 +398,16 @@ def analyze(gem_names):
   print(pq.pretty_print_board(board))
 
   moves_and_yields = pq.consider_moves(
-      board, cascade=True, permit_spells=False)
+      board, cascade=True,
+      spells_known=[('convert', lambda b: [(pq.Gem.BLUE, pq.Gem.YELLOW)])])
   print('available moves (cascade, no spells):',
         pq.pretty_print_dict(moves_and_yields))
   chosen_move = pq.pick_highest_yield(moves_and_yields)
   print('chosen move:', chosen_move)
   print('yields from chosen move:', moves_and_yields[chosen_move][0])
   print('chosen move triggers a free turn:', moves_and_yields[chosen_move][1])
+
+  # TODO(durandal): penalize moves that give enemy a strong move
 
   return moves_and_yields, chosen_move
 

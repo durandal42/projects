@@ -10,3 +10,4 @@ cannonade/images/*
 .DS_Store
 redactle/wiki-cache/*
 *.pickle
+/puzzlequest/unknown_sprites

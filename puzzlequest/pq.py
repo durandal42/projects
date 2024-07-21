@@ -294,23 +294,21 @@ class Swap(Enum):
   HORIZONTAL = 2
 
 
-def possible_moves(permit_spells=False):
+def possible_moves(b, spells_known=[]):
   for r, c in all_coordinates():
     if r < 7:
       yield (Move.SWAP, Swap.VERTICAL, (r, c))
     if c < 7:
       yield (Move.SWAP, Swap.HORIZONTAL, (r, c))
-  if permit_spells:
-    for src in MANA_GEMS:
-      for dst in MANA_GEMS:
-        if src != dst:
-          yield (Move.SPELL, 'convert', (src, dst))
+  for spell_name, arg_generator in spells_known:
+    for spell_args in arg_generator(b):
+      yield (Move.SPELL, spell_name, spell_args)
 
 
-def consider_moves(b, gem_source=no_gem, cascade=True, permit_spells=False):
+def consider_moves(b, gem_source=no_gem, cascade=True, spells_known=[]):
   b = immutable_board(b)
   possible_yields = {}
-  for move in possible_moves(permit_spells=permit_spells):
+  for move in possible_moves(b, spells_known=spells_known):
     # print("Considering the results of move:", move)
     yields, free_move = try_move(mutable_board(b), move, gem_source, cascade)
     if yields or move[0] == Move.SPELL:
@@ -372,24 +370,27 @@ def cast_spell(b, name, args):
 
 
 def spells_known():
-  return ['red to blue']
+  for src in MANA_GEMS:
+    for dst in MANA_GEMS:
+      if src != dst:
+        yield 'convert', lambda b: [(src, dst)]
 
 
 def play(b, move_picker=pick_first_move):
   total_yields = collections.Counter()
   for turn in range(10):
     basic_moves_and_yields = consider_moves(
-        b, cascade=False, permit_spells=False)
+        b, cascade=False)
     while len(basic_moves_and_yields) == 0:
       print("NO MOVES AVAILABLE")
       # TODO(durandal) mana drain!
       b = random_board_no_matches()
       # TODO(durandal): random_board_no_matches_some_moves()?
       basic_moves_and_yields = consider_moves(
-          b, cascade=False, permit_spells=False)
+          b, cascade=False)
 
     moves_and_yields = consider_moves(
-        b, cascade=True, permit_spells=True)
+        b, cascade=True, spells_known=spells_known())
     print('available moves (cascade):', pretty_print_dict(moves_and_yields))
     move = move_picker(moves_and_yields)
     print('moving:', move)
