@@ -30,6 +30,9 @@ class Resource(Enum):
   LIFE = '❤️'
   TURN = '♻️'
 
+  def __repr__(self):
+    return str(self.value)
+
 
 def all_coordinates():
   for r in range(8):
@@ -37,23 +40,37 @@ def all_coordinates():
       yield r, c
 
 
-def convert_gem_to_resource(g):
-  # TODO(durandal): skill scaling happens here?
-  return {
-      Gem.GREEN: Resource.GREEN,
-      Gem.RED: Resource.RED,
-      Gem.YELLOW: Resource.YELLOW,
-      Gem.BLUE: Resource.BLUE,
-      Gem.SKULL: Resource.DAMAGE,
-      Gem.STAR: Resource.EXP,
-      Gem.COIN: Resource.GOLD,
-  }[g]
+GEM_TO_RESOURCE = {
+    Gem.GREEN: Resource.GREEN,
+    Gem.RED: Resource.RED,
+    Gem.YELLOW: Resource.YELLOW,
+    Gem.BLUE: Resource.BLUE,
+    Gem.SKULL: Resource.DAMAGE,
+    Gem.STAR: Resource.EXP,
+    Gem.COIN: Resource.GOLD,
+}
 
 
 def convert_gem_yields_to_resource_yields(gy):
+  return [(GEM_TO_RESOURCE.get(gem, gem), amount) for gem, amount in gy]
+
+
+def apply_buffs(resource_yields):
   result = []
-  for gem, amount in gy:
-    result.append((convert_gem_to_resource(gem), amount))
+  for resource, amount in resource_yields:
+    # TODO(durandal): handle items/effects in a more systematic way
+
+    # Item: Helm of the Ram
+    if resource == Resource.DAMAGE and amount >= 3:
+      amount += 2
+
+    # Item: Elven Bow
+    if resource == Resource.DAMAGE and amount >= 2:
+      # TODO(durandal): these might trigger more effects; loop it back around!
+      result.append((Resource.GREEN, 2))
+      result.append((Resource.YELLOW, 2))
+
+    result.append((resource, amount))
   return result
 
 

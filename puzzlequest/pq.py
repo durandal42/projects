@@ -3,6 +3,7 @@ import collections
 from enum import Enum
 
 from common import Gem
+from common import Resource
 import common
 import spells
 
@@ -119,12 +120,12 @@ def run_yield(gs):
       # Wilds can match other wilds, but there does need to be
       # a mana gem somewhere in the run
       return None
-    return (common.convert_gem_to_resource(actual_g), mana_seen * total_mult)
+    return (actual_g, mana_seen * total_mult)
   if gs[0] in (Gem.BIG_SKULL, Gem.SKULL):
     # TODO(durandal): big skulls explode
-    return (common.convert_gem_to_resource(Gem.SKULL),
+    return (Gem.SKULL,
             len(gs) + sum(4 for g in gs if g == Gem.BIG_SKULL))
-  return (common.convert_gem_to_resource(gs[0]), len(gs))
+  return (gs[0], len(gs))
 
 
 def assemble_run(run, board):
@@ -210,7 +211,7 @@ def resolve_matches(b, gem_source, cascade=True, display=False):
       break
     for y, coords in matches:
       if len(coords) >= 4:
-        yields.append(("free move", 1))
+        yields.append((Resource.TURN, 1))
         if display:
           print('FREE MOVE!')
       yields.append(y)
@@ -232,7 +233,7 @@ def resolve_matches(b, gem_source, cascade=True, display=False):
     if cascade_len >= 5:
       print("HEROIC EFFORT!")
     print('match resolution yields:', yields)
-  return yields
+  return common.convert_gem_yields_to_resource_yields(yields)
 
 
 def random_board_no_matches():
@@ -258,8 +259,10 @@ def possible_moves(b, spells_known=[]):
     if c < 7:
       yield (Move.SWAP, Swap.HORIZONTAL, (r, c))
   for spell_name in spells_known:
-    print(spell_name)
-    spell = spells.SPELLS_BY_NAME[spell_name]
+    print("possible_moves considering spell:", spell_name)
+    spell = spells.SPELLS_BY_NAME.get(spell_name)
+    if not spell:
+      continue
     for spell_args in spell.arg_generator(b, None):
       # TODO(durandal): pass game state in
       yield (Move.SPELL, spell_name, spell_args)
@@ -290,14 +293,20 @@ def try_move(b, move, gem_source, cascade, display=False):
     yields = []
   elif move[0] == Move.SPELL:
     name, args = move[1:]
-    yields = spells.SPELLS_BY_NAME[name].effect(b, None, args)
+    spell = spells.SPELLS_BY_NAME[name]
+    cost = [(r, -y) for r, y in spells.parse_cost(spell.cost).items()]
+    yields = cost + spell.effect(b, None, args)
     if display:
       print("spell yields:", yields)
     gravity(b)
     fill_missing(b, gem_source)
+  else:
+    print("move:", move)
+    assert False
   if display:
     print('after move:', pretty_print_board(b), sep='\n')
-  return yields + resolve_matches(b, gem_source, cascade, display)
+  return common.sum_yields(common.apply_buffs(
+      yields + resolve_matches(b, gem_source, cascade, display)))
 
 
 def pick_first_move(moves_and_yields):
@@ -306,30 +315,49 @@ def pick_first_move(moves_and_yields):
 
 
 def pick_highest_move(moves_and_yields):
-  return min(moves_and_yields.items(), key=lambda sy: sy[0][0])[0]
+  return top_by(moves_and_yields, move_priority_highest)[0]
 
 
 def pick_lowest_move(moves_and_yields):
-  return max(moves_and_yields.items(), key=lambda sy: sy[0][0])[0]
+  return top_by(moves_and_yields, move_priority_lowest)[0]
 
 
 def pick_highest_yield(moves_and_yields):
-  mys = list(moves_and_yields.items())
+  return top_by(moves_and_yields, move_priority_greatest_yield)[0]
 
-  # pick up a free move whenever possible:
-  mys_freemove = list(filter(lambda my: ("free move", 1) in my[1], mys))
-  if len(mys_freemove) > 0:
-    mys = mys_freemove
 
-  return max(mys, key=lambda my: sum(gy[1] for gy in my[1]))[0]
+def order_by(moves_and_yields, key_f):
+  return sorted(moves_and_yields.items(), key=key_f)
+
+
+def top_by(moves_and_yields, key_f):
+  return max(moves_and_yields.items(), key=key_f)
+
+
+def move_priority_highest(may):
+  m, y = may
+  return -m[1][0]
+
+
+def move_priority_lowest(may):
+  m, y = may
+  return -m[1][0]
+
+
+def move_priority_greatest_yield(may):
+  m, y = may
+  return (Resource.TURN in y,
+          sum(q for r, q in y.items()),
+          )
 
 
 def spells_known():
-  return spells.SPELLS_BY_NAME.keys()
+  # return spells.SPELLS_BY_NAME.keys()
+  return ["Evaporate"]
 
 
 def play(b, move_picker=pick_first_move):
-  total_yields = []
+  total_yields = collections.Counter()
   for turn in range(10):
     basic_moves_and_yields = consider_moves(
         b, cascade=False)
@@ -351,15 +379,14 @@ def play(b, move_picker=pick_first_move):
     assert len(yields) > 0
     total_yields += yields
   print(f'simulation ended after turn {turn}')
-  print(pretty_print_board(b))
+  print('board looks like:', pretty_print_board(b))
   return total_yields
 
 
 def main():
   b = random_board_no_matches()
-  print(pretty_print_board(b))
-  final_yields = common.sum_yields(
-      play(b, move_picker=pick_highest_yield))
+  print('board looks like:', pretty_print_board(b))
+  final_yields = play(b, move_picker=pick_highest_yield)
   print('final yields:', final_yields)
 
 

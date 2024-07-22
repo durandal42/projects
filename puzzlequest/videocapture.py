@@ -1,4 +1,5 @@
 import pq
+import common
 
 import cv2 as cv
 import numpy as np
@@ -42,7 +43,7 @@ def open_stream():
   return cap
 
 
-GameState = namedtuple("GameState", ["gem_names", "mana"])
+GameState = namedtuple("GameState", ["gem_names", "mana", "castable_spells"])
 
 
 def loop(cap):
@@ -67,11 +68,13 @@ def loop(cap):
       most_recent_turn_status = turn_status
       if turn_status or dragging:
         game_state = inspect(frame)
-        print(game_state)
+        # print("game_state:", game_state)
 
         if game_state is None:
-          most_recent_gem_names = None
+          # something went wrong; try again next frame
+          most_recent_game_state = None
           most_recent_analysis = None
+          most_recent_turn_status = None
         elif game_state != most_recent_game_state:
           most_recent_game_state = game_state
           most_recent_analysis = analyze(game_state)
@@ -124,19 +127,58 @@ def inspect(img):
   if not gem_names:
     return
 
-  mana_str = pytesseract.image_to_string(
-      img[MANA_Y_BEGIN:MANA_Y_LIMIT,
-          MANA_X_BEGIN:MANA_X_LIMIT])
-  mana = [int(m) for m in re.findall("(\\d+)", mana_str)]
-  if len(mana) < 4:
+  mana = parse_player_mana(img)
+  if not mana:
     return
+
+  castable_spells = parse_spells(img)
 
   save_unknown_sprites(gem_names, img)
 
   # inspection debug visualizations:
   render_gem_identities(img, gem_names, gem_probs)
 
-  return GameState(gem_names=gem_names, mana=mana)
+  return GameState(gem_names=gem_names,
+                   mana=mana,
+                   castable_spells=castable_spells)
+
+
+def parse_player_mana(img):
+  mana_img = img[MANA_Y_BEGIN:MANA_Y_LIMIT,
+                 MANA_X_BEGIN:MANA_X_LIMIT]
+  # cv.imshow("player_mana", mana_img)
+  mana_str = pytesseract.image_to_string(mana_img, config="--psm 7")
+  # print("mana_str:", mana_str)
+  mana = [int(m) for m in re.findall("(\\d+)", mana_str)]
+  # print("mana:", mana)
+  if len(mana) < 4:
+    return None
+  return mana
+
+
+def parse_spells(img):
+  # TODO(durandal): this doesn't change very often
+  print("parse_spells called")
+  result = []
+  for i in range(SPELL_COUNT):
+    x_begin = SPELL_X_BEGIN
+    y_begin = SPELL_Y_BEGIN + int(i*SPELL_GRID_Y_SCALE)
+    x_limit = SPELL_X_BEGIN + SPELL_GRID_MIDPOINT_OFFSET
+    y_limit = SPELL_Y_BEGIN + int((i+1)*SPELL_GRID_Y_SCALE)
+    spell_img = img[y_begin:y_limit, x_begin:x_limit]
+    # cv.imshow(f"spell{i}", spell_img)
+    move_test_pixel = img[(y_begin+y_limit)//2, SPELL_X_LIMIT-5]
+    print("move_test_pixel:", move_test_pixel)
+    if move_test_pixel[0] < 50:
+      # this isn't lit up, don't parse or return it
+      result.append("(uncastable)")
+    else:
+      spell_name = pytesseract.image_to_string(
+          spell_img, config="--psm 7").strip()
+      print(f"parsed spell{i} name:", spell_name)
+      result.append(spell_name)
+
+  return result
 
 
 def render_reference_grid(img):
@@ -178,9 +220,9 @@ def get_grid_sprites(img):
   for r, c, x_begin, y_begin, x_limit, y_limit in enumerate_grid():
     sprite = img[y_begin:y_limit, x_begin:x_limit]
     if (dragging
-                and mouse_x in range(x_begin, x_limit)
-                and mouse_y in range(y_begin, y_limit)
-            ):
+        and mouse_x in range(x_begin, x_limit)
+        and mouse_y in range(y_begin, y_limit)
+        ):
       cv.imwrite(f"{r}x{c}.png", sprite)
     sprites[(r, c)] = sprite
   return sprites
@@ -279,10 +321,11 @@ def render_play_grid(img):
 SPELL_X_BEGIN, SPELL_Y_BEGIN = 55, 613
 SPELL_X_LIMIT, SPELL_Y_LIMIT = 460, 1043
 SPELL_GRID_Y_SCALE = 61.5
+SPELL_GRID_MIDPOINT_OFFSET = 278-55
 SPELL_COUNT = 7
 
 
-def render_spell_grid(img):
+def render_spell_grid(img, gs):
   cv.rectangle(img,
                (SPELL_X_BEGIN, SPELL_Y_BEGIN),
                (SPELL_X_LIMIT, SPELL_Y_LIMIT),
@@ -294,11 +337,20 @@ def render_spell_grid(img):
     cv.line(img, (SPELL_X_BEGIN, y), (SPELL_X_LIMIT, y),
             COLOR_RED, 1)
 
-  spell_grid_midpoint_offset = 278-55
   cv.line(img,
-          (SPELL_X_BEGIN+spell_grid_midpoint_offset, SPELL_Y_BEGIN),
-          (SPELL_X_BEGIN+spell_grid_midpoint_offset, SPELL_Y_LIMIT),
+          (SPELL_X_BEGIN+SPELL_GRID_MIDPOINT_OFFSET, SPELL_Y_BEGIN),
+          (SPELL_X_BEGIN+SPELL_GRID_MIDPOINT_OFFSET, SPELL_Y_LIMIT),
           COLOR_RED, 1)
+
+  if gs is not None:
+    for i in range(SPELL_COUNT):
+      spell_name = gs.castable_spells[i]
+      cv.putText(img=img, text=spell_name,
+                 org=(SPELL_X_BEGIN,
+                      SPELL_Y_BEGIN + int((i+1)*SPELL_GRID_Y_SCALE)),
+                 fontFace=cv.FONT_HERSHEY_SIMPLEX, fontScale=0.5,
+                 color=COLOR_WHITE,
+                 thickness=1, lineType=cv.LINE_AA)
 
 
 MANA_X_BEGIN, MANA_Y_BEGIN = 290, 298
@@ -353,7 +405,7 @@ def render_moves_and_yields(moves_and_yields, img, chosen=None):
 def decorate(img, game_state, analysis):
   # render_reference_grid(img)
   render_play_grid(img)
-  render_spell_grid(img)
+  render_spell_grid(img, game_state)
   render_mana_grid(img, game_state)
 
   if not analysis:
@@ -400,9 +452,10 @@ def analyze(game_state):
 
   moves_and_yields = pq.consider_moves(
       board, cascade=True,
-      spells_known=["Evaporate"])
-  print('available moves (cascade, no spells):',
-        pq.pretty_print_dict(moves_and_yields))
+      spells_known=game_state.castable_spells)
+  sorted_mays = pq.order_by(moves_and_yields, pq.move_priority_greatest_yield)
+  print('available moves (including castable spells):\n',
+        "\n".join(f"\t{m}: {y}" for m, y in sorted_mays))
   chosen_move = pq.pick_highest_yield(moves_and_yields)
   print('chosen move:', chosen_move)
   print('yields from chosen move:', moves_and_yields[chosen_move])
@@ -434,7 +487,7 @@ def mouse_listener(event, x, y, flags, param):
     # https://pyimagesearch.com/2015/03/09/capturing-mouse-click-events-with-python-and-opencv/
   else:
     # https://docs.opencv.org/3.4/d0/d90/group__highgui__window__flags.html
-    print(event, x, y, flags, param)
+    print("unknown mouse event:", event, x, y, flags, param)
 
 
 def main():

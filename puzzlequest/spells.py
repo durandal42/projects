@@ -41,7 +41,7 @@ COST_STR_TO_RESOURCE = {
 
 
 def parse_cost(cost_str):
-  result = {}
+  result = collections.Counter()
   tokens = cost_str.split()
   for t in tokens:
     mana_color_str = t[-1]
@@ -138,8 +138,10 @@ SPELLS = [
           "Destroy a column of gems."),
     Spell('Evaporate', '5R 3B', 1,
           lambda b, gs: [(Gem.BLUE, Gem.YELLOW)], convert,
-          "Convert Blue gems into Yellow."
-          )
+          "Convert Blue gems into Yellow."),
+    Spell('Wall of Thorns', '6G 9B', 1,
+          no_args, no_op,
+          "Applies damage to Green Mana instead of Life Points."),
 ]
 for s in SPELLS:
   assert parse_cost(s.cost) is not None
