@@ -38,7 +38,7 @@ CRIT = 2
 def monsterAC(cr):
   chart = [(4, 13),  (5, 14),  (8, 15),  (10, 16),
            (13, 17),  (17, 18), (99, 19)]
-  return next(x for x in chart if cr < x[1])[1]
+  return next(x for x in chart if cr < x[0])[1]
 
 
 def attack(roll, modifier, ac):
