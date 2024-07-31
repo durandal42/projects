@@ -230,6 +230,9 @@ public class Maze {
     // Solve the maze and find the depth of the exit.
     solve(cells.get(0));
     int solutionLength = cells.get(cells.size() - 1).depth - cells.get(0).depth;
+    for (Cell c : cells) {
+      solutionLength = Math.max(solutionLength, c.depth - cells.get(0).depth);
+    }
     int stepsPerColorSpin = solutionLength * 1;  // TODO: tune for aesthetics, or add a flag
 
     List<Callable<Void>> renderThreads = new LinkedList<>();
@@ -334,8 +337,8 @@ public class Maze {
       }
     }
 
-    int xSize = hideWalls ? xRes : xRes / 2;
-    int ySize = hideWalls ? yRes : yRes / 2;
+    int xSize = hideWalls ? xRes : (xRes - 1) / 2;
+    int ySize = hideWalls ? yRes : (yRes - 1) / 2;
     Maze m = new Maze();
     m.initRect(xSize, ySize);
     m.create(algorithm);

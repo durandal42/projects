@@ -25,6 +25,16 @@ public interface ColorWheel {
     };
   }
 
+  public static ColorWheel gradientNoLoop(final Color[] colors) {
+    final int N = colors.length - 1;
+    return (f) -> {
+      int firstIndex = ((int) Math.floor(f * N) + N) % N;
+      int secondIndex = firstIndex + 1;
+      float gradient = (f * (colors.length - 1)) % 1.0f;
+      return ColorWheel.interpolate(colors[firstIndex], colors[secondIndex], gradient);
+    };
+  }
+
   public static Color interpolate(Color c1, Color c2, float gradient) {
     float[] c1rgb = c1.getRGBColorComponents(null);
     float[] c2rgb = c2.getRGBColorComponents(null);
@@ -49,10 +59,11 @@ public interface ColorWheel {
   public static Color KHAKI = new Color(0xC3B091);
   public static Color TEAL = new Color(0x008080);
   public static Color PURPLE = new Color(0x800080);
+  public static Color MINT = new Color(0xCFFFE5);
 
 
   public static ColorWheel fromName(String name) {
-    if (name == null) return white();
+    if (name == null || name.equals("white")) return white();
     if (name.equals("rainbow")) return rainbow();
     if (name.equals("nafi")) return nafi();
     if (name.equals("tertiary")) return tertiary();
@@ -80,6 +91,14 @@ public interface ColorWheel {
                                                 Color.blue,
                                                 PURPLE,
                                                 new Color(255, 0, 255),  // magenta
+                                              });
+    if (name.equals("chel")) return gradientNoLoop(new Color[] {
+                                                new Color(102,190,178),  // oceanic teal
+                                                new Color(138,214,204),  // cool mint
+                                                new Color(178,238,230),  // bright mint
+                                                new Color(249,145,146),  // light coral
+                                                new Color(249,113,113),  // coral pink
+                                                Color.red,
                                               });
 
     return white();
