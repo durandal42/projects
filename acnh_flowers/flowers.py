@@ -46,37 +46,97 @@ def format_genotype(g):
   return format(g, '#010b')[2:]
 
 
+assert format_genotype(0) == '00000000'
+assert format_genotype(31) == '00011111'
+assert format_genotype(255) == '11111111'
+
+
+def nth_bit(i, n):
+  return (i >> n) & 1
+
+
+assert nth_bit(1, 0) == 1
+assert nth_bit(0, 0) == 0
+assert nth_bit(255, 7) == 1
+assert nth_bit(127, 7) == 0
+
+
+def gene_bit_index(group_index, bit_index):
+  # Genes have four groups of two bits.
+  # Given a group index [0..4] and a bit index [0,1], get the overall bit index.
+  # Read bits left to right, so display stuff lines up.
+  return 7 - (2*group_index + bit_index)
+
+
+assert gene_bit_index(0, 0) == 7
+assert gene_bit_index(0, 1) == 6
+assert gene_bit_index(1, 0) == 5
+assert gene_bit_index(1, 1) == 4
+assert gene_bit_index(2, 0) == 3
+assert gene_bit_index(2, 1) == 2
+assert gene_bit_index(3, 0) == 1
+assert gene_bit_index(3, 1) == 0
+
+
 def genes_offered(f, choices):
-  return "".join((f.genotype & (1 << (7 - 2*i - choices[i])) and "1" or "0" for i in range(4)))
+  return [nth_bit(f.genotype, gene_bit_index(i, choices[i])) for i in range(4)]
 
 
-assert(genes_offered(Flower(genotype=255, phenotype=''), [0, 0, 0, 0]) == '1111')
-assert(genes_offered(Flower(genotype=255, phenotype=''), [1, 1, 1, 1]) == '1111')
-assert(genes_offered(Flower(genotype=0, phenotype=''), [0, 0, 0, 0]) == '0000')
-assert(genes_offered(Flower(genotype=0, phenotype=''), [1, 1, 1, 1]) == '0000')
+assert(genes_offered(Flower(genotype=0b11111111, phenotype=''), [0, 0, 0, 0]) == [1, 1, 1, 1])
+assert(genes_offered(Flower(genotype=0b11111111, phenotype=''), [1, 1, 1, 1]) == [1, 1, 1, 1])
+assert(genes_offered(Flower(genotype=0b00000000, phenotype=''), [0, 0, 0, 0]) == [0, 0, 0, 0])
+assert(genes_offered(Flower(genotype=0b00000000, phenotype=''), [1, 1, 1, 1]) == [0, 0, 0, 0])
+assert(genes_offered(Flower(genotype=0b10101010, phenotype=''), [1, 1, 1, 1]) == [0, 0, 0, 0])
+assert(genes_offered(Flower(genotype=0b10101010, phenotype=''), [0, 0, 0, 0]) == [1, 1, 1, 1])
+assert(genes_offered(Flower(genotype=0b11110000, phenotype=''), [0, 0, 0, 0]) == [1, 1, 0, 0])
+assert(genes_offered(Flower(genotype=0b11110000, phenotype=''), [1, 1, 1, 1]) == [1, 1, 0, 0])
+
+
+def bitlist_to_integer(bitlist):
+  out = 0
+  for bit in bitlist:
+    out = (out << 1) | bit
+  return out
+
+
+assert bitlist_to_integer([1, 1, 1]) == 7
+assert bitlist_to_integer([1, 0, 0]) == 4
+
+
+def sort_gene_pair(g1, g2):
+  if g1 == 1 and g2 == 0:
+    return 0, 1
+  return g1, g2
+
+
+def splice(half_genes1, half_genes2):
+  # Given two parent half-genotypes, produce one child genotype
+  child_gene_pairs = [
+      sort_gene_pair(g1, g2)
+      for g1, g2 in zip(half_genes1, half_genes2)]
+  return bitlist_to_integer(itertools.chain.from_iterable(child_gene_pairs))
+
+
+# print(splice((1, 1, 1, 1), (0, 0, 0, 0)))
+assert splice((1, 1, 1, 1), (0, 0, 0, 0)) == 0b01010101
+assert splice((0, 0, 0, 0), (1, 1, 1, 1)) == 0b01010101
+assert splice((0, 0, 1, 1), (0, 1, 0, 1)) == 0b00010111
 
 
 def breed(f1, f2):
+  # Given a pair of flowers, return a distribution of all possible children they could spawn.
   result = collections.Counter()
 
   print("breeding", f1, "x", f2)
   # print("parent genotypes:", format_genotype(f1.genotype), format_genotype(f2.genotype))
   for f1_gene_choices in itertools.product(range(2), repeat=4):
-    # print("f1 choices:", f1_gene_choices)
     f1_genes_offered = genes_offered(f1, f1_gene_choices)
-    # print("f1 offered:", f1_genes_offered)
+
     for f2_gene_choices in itertools.product(range(2), repeat=4):
-      # print("\tf2 choices:", f2_gene_choices)
       f2_genes_offered = genes_offered(f2, f2_gene_choices)
-      # print("\tf2 offered:", f2_genes_offered)
 
-      child_gene_pairs = ["".join(sorted([f1g, f2g]))
-                          for f1g, f2g in zip(f1_genes_offered, f2_genes_offered)]
-      # print("\tchild gene pairs:", child_gene_pairs)
-      child_genotype = int("".join(child_gene_pairs), 2)
-      # print("\tchild genotype:", format_genotype(child_genotype))
+      child_genotype = splice(f1_genes_offered, f2_genes_offered)
 
-      # print()
       result[child_genotype] += 1
 
   # print(result)
@@ -84,14 +144,16 @@ def breed(f1, f2):
 
 
 def find_reachable_colors(all_colors, starting_genotypes):
+  # Given a starting set of genotypes, find everything reachable via breeding.
+  # Also detmerine the family tree depth required to get to each possible target.
   reachable = {}
   for g in starting_genotypes:
     reachable[g] = 0
-  num_reachable = 0
   pairs_tried = set()
+  making_progress = True
 
-  while len(reachable) > num_reachable:
-    num_reachable = len(reachable)
+  while making_progress:
+    making_progress = False
     for g1, g2 in itertools.combinations_with_replacement(reachable.keys(), 2):
       if (g1, g2) in pairs_tried:
         continue
@@ -103,6 +165,7 @@ def find_reachable_colors(all_colors, starting_genotypes):
         newly_reached = child_genotype not in reachable
         if newly_reached:
           reachable[child_genotype] = 1 + max(reachable[g1], reachable[g2])
+          making_progress = True
         print(f'\t{all_colors[child_genotype]}: {byte_prob} / 256{newly_reached and " new!" or ""}')
     print("reachable genotypes:", len(reachable), reachable)
 
