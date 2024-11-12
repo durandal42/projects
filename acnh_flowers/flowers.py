@@ -1,10 +1,16 @@
+import sys
 import csv
 import re
 import collections
 import itertools
 from pprint import pprint
+from fractions import Fraction
 
 Flower = collections.namedtuple('Flower', ['genotype', 'phenotype'])
+
+
+def shortname(f):
+  return f'{f.phenotype}{f.genotype}'
 
 
 def parse_color_data(family):
@@ -16,11 +22,12 @@ def parse_color_data(family):
     for row in reader:
       # print(', '.join(row))
 
-      if row[0] == 'Hex':
-        continue  # header
+      if row[0] == 'Hex':  # header
+        color_column = row.index("Color")
+        continue
       index = int(row[0], 16)
 
-      color = row[8]
+      color = row[color_column]
 
       m = re.fullmatch(r'(\w+)( \(seed\))?', color)
       if not m:
@@ -143,12 +150,20 @@ def breed(f1, f2):
   return result
 
 
+Lineage = collections.namedtuple('Lineage', ['generation', 'tree', 'duration'])
+Pairing = collections.namedtuple('Pairing', ['generation', 'child', 'instruction', 'probability'])
+
+
 def find_reachable_colors(all_colors, starting_genotypes):
   # Given a starting set of genotypes, find everything reachable via breeding.
   # Also detmerine the family tree depth required to get to each possible target.
   reachable = {}
   for g in starting_genotypes:
-    reachable[g] = 0
+    reachable[g] = Lineage(generation=0, duration=0,
+                           tree=set([Pairing(generation=0,
+                                             child=shortname(all_colors[g]),
+                                             instruction="seed",
+                                             probability=1)]))
   pairs_tried = set()
   making_progress = True
 
@@ -161,29 +176,61 @@ def find_reachable_colors(all_colors, starting_genotypes):
 
       child_possibilities = breed(all_colors[g1], all_colors[g2])
       # TODO(durandal): complexity penalty when child genotype can't be determined from phenotype
+      genotypes_per_phenotype = collections.Counter(all_colors[g].phenotype for g in child_possibilities.keys())
+      # print(genotypes_per_phenotype)
       for child_genotype, byte_prob in child_possibilities.items():
-        newly_reached = child_genotype not in reachable
-        if newly_reached:
-          reachable[child_genotype] = 1 + max(reachable[g1], reachable[g2])
-          making_progress = True
-        print(f'\t{all_colors[child_genotype]}: {byte_prob} / 256{newly_reached and " new!" or ""}')
-    print("reachable genotypes:", len(reachable), reachable)
+        suffix = ""
+        probability = Fraction(byte_prob, 256)
+        lineage1 = reachable[g1]
+        lineage2 = reachable[g2]
+        duration = 1 / probability + max(lineage1.duration, lineage2.duration)
+        if genotypes_per_phenotype[all_colors[child_genotype].phenotype] > 1:
+          suffix += " ambiguous :("
+        elif child_genotype not in reachable or reachable[child_genotype].duration > duration:
+          generation = 1 + max(lineage1[0], lineage2[0])
+          target_name = shortname(all_colors[child_genotype])
+          p1_name = shortname(all_colors[g1])
+          p2_name = shortname(all_colors[g2])
 
-  generations = collections.defaultdict(list)
-  for genotype, generation in reachable.items():
-    generations[generation].append(genotype)
-  print("reachable flowers, by min generations from store seeds:")
-  for generation, genotypes in generations.items():
-    print(generation)
-    pprint([all_colors[g] for g in sorted(genotypes)])
+          tree = set()
+          tree.add(Pairing(generation=generation,
+                           child=target_name,
+                           instruction=f'{p1_name} + {p2_name}',
+                           probability=probability))
+          tree = tree.union(lineage1[1], lineage2[1])
+          reachable[child_genotype] = Lineage(generation, tree, duration)
+          suffix += " new!"
+          making_progress = True
+        print(f'\t{all_colors[child_genotype]}: {byte_prob} / 256{suffix}')
+    # print("reachable genotypes:", len(reachable), reachable)
+
+  print()
+  print()
+  print("reachable flowers, by duration, earliest per phenotype only:")
+  print()
+  seen_phenotypes = set()
+  for g, lineage in sorted(reachable.items(), key=lambda gl: gl[1].duration):
+    f = all_colors[g]
+    if f.phenotype in seen_phenotypes:
+      continue
+    seen_phenotypes.add(f.phenotype)
+    print(shortname(f))
+    print("\tgeneration:", lineage.generation)
+    print("\tduration:", lineage.duration)
+    print("\ttree:")
+    for p in sorted(lineage.tree, key=lambda p: p.generation):
+      print(f'\t\t{p.generation}: {p.child}: {p.instruction} ({p.probability})')
     print()
 
-  print("unreachable flowers:")
-  pprint([all_colors[g] for g in sorted(set(all_colors.keys()) - set(reachable.keys()))])
+  # print("unreachable flowers:")
+  # pprint([shortname(all_colors[g]) for g in sorted(set(all_colors.keys()) - set(reachable.keys()))])
+  print("unreachable phenotypes:")
+  pprint(set(f.phenotype for f in all_colors.values()) -
+         set(all_colors[g].phenotype for g in reachable.keys()))
 
 
 if __name__ == '__main__':
-  colors, buyables = parse_color_data('roses')
+  colors, buyables = parse_color_data(sys.argv[1])
   print('loaded color data:')
   pprint(list(colors.values()))
   print()
