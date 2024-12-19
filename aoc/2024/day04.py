@@ -43,3 +43,31 @@ print('day04 answer:')
 submit(day04(open('day04_input.txt', 'r').read()),
        expected=None)
 print()
+
+# part 2 complication
+
+
+def day04(input):
+  grid = input.splitlines()
+
+  matches = 0
+  for r in range(1, len(grid) - 1):
+    for c in range(1, len(grid[r]) - 1):
+      if grid[r][c] != "A":
+        continue
+      if all(sorted([grid[r-1][c-d], grid[r+1][c+d]]) == ["M", "S"]
+             for d in [-1, 1]):
+        matches += 1
+
+  return matches
+
+
+test_output = 9
+
+assertEqual(test_output, day04(test_input))
+
+
+print('day04, part2 answer:')
+submit(day04(open('day04_input.txt', 'r').read()),
+       expected=None)
+print()
