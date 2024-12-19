@@ -51,3 +51,25 @@ print('day02 answer:')
 submit(day02(open('day02_input.txt', 'r').read()),
        expected=442)
 print()
+
+
+# Part 2 complication:
+
+test_output = 4
+
+
+def is_safe_dampened(report):
+  return is_safe(report) or any(is_safe(report[:i]+report[i+1:]) for i in range(len(report)))
+
+
+def day02(input):
+  return sum(1 for report in parse_input(input) if is_safe_dampened(report))
+
+
+assertEqual(test_output, day02(test_input))
+
+
+print('day02, part 2 answer:')
+submit(day02(open('day02_input.txt', 'r').read()),
+       expected=493)
+print()
