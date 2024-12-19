@@ -9,6 +9,8 @@ def day04(input):
   matches = 0
   for r in range(len(grid)):
     for c in range(len(grid[r])):
+      if grid[r][c] != target[0]:
+        continue
       for dr in [-1, 0, 1]:
         if r + (len(target)-1) * dr not in range(len(grid)):
           continue
@@ -41,7 +43,7 @@ assertEqual(test_output, day04(test_input))
 
 print('day04 answer:')
 submit(day04(open('day04_input.txt', 'r').read()),
-       expected=None)
+       expected=2401)
 print()
 
 # part 2 complication
@@ -69,5 +71,5 @@ assertEqual(test_output, day04(test_input))
 
 print('day04, part2 answer:')
 submit(day04(open('day04_input.txt', 'r').read()),
-       expected=None)
+       expected=1822)
 print()
