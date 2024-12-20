@@ -14,23 +14,25 @@ def parse_line(line):
   return (tokens[0], tokens[1:])
 
 
-def can_produce(target, inputs):
-  for operators in itertools.product("*+", repeat=len(inputs)-1):
+def can_produce(target, inputs, supported_ops):
+  for operators in itertools.product(supported_ops, repeat=len(inputs)-1):
     result = inputs[0]
     for op, value in zip(operators, inputs[1:]):
       if op == "+":
         result += value
       if op == "*":
         result *= value
+      if op == "|":
+        result = int(str(result) + str(value))
     if result == target:
       return True
   return False
 
 
-def day07(input):
+def day07(input, supported_ops="+*"):
   return sum(target
              for target, inputs in parse_input(input)
-             if can_produce(target, inputs)
+             if can_produce(target, inputs, supported_ops)
              )
 
 
@@ -53,4 +55,16 @@ assertEqual(test_output, day07(test_input))
 print('day07 answer:')
 submit(day07(open('day07_input.txt', 'r').read()),
        expected=1038838357795)
+print()
+
+# part 2 complication
+
+test_output = 11387
+
+assertEqual(test_output, day07(test_input, "*+|"))
+
+
+print('day07, part 2 answer:')
+submit(day07(open('day07_input.txt', 'r').read(), "*+|"),
+       expected=254136560217241)
 print()
