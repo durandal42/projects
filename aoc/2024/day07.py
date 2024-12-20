@@ -15,18 +15,26 @@ def parse_line(line):
 
 
 def can_produce(target, inputs, supported_ops):
-  for operators in itertools.product(supported_ops, repeat=len(inputs)-1):
-    result = inputs[0]
-    for op, value in zip(operators, inputs[1:]):
-      if op == "+":
-        result += value
-      if op == "*":
-        result *= value
-      if op == "|":
-        result = int(str(result) + str(value))
-    if result == target:
-      return True
-  return False
+  targets = set([target])
+  while len(inputs) > 1:
+    i = inputs.pop()
+    new_targets = set()
+    for t in targets:
+      if "+" in supported_ops:
+        nt = t - i
+        if nt > 0:
+          new_targets.add(nt)
+      if "*" in supported_ops:
+        if t % i == 0:
+          new_targets.add(t // i)
+      if "|" in supported_ops:
+        si = str(i)
+        st = str(t)
+        split_left, split_right = st[:-len(si)], st[-len(si):]
+        if split_right == si and len(split_left) > 0:
+          new_targets.add(int(split_left))
+    targets = new_targets
+  return inputs[0] in targets
 
 
 def day07(input, supported_ops="+*"):
