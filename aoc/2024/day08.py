@@ -3,6 +3,7 @@ from common import submit
 
 import collections
 import itertools
+import math
 
 
 def tuple_add(t1, t2):
@@ -80,12 +81,6 @@ print()
 test_output = 34
 
 
-def gcd(a, b):
-  while b > 0:
-    a, b = b, a % b
-  return a
-
-
 def antinodes_from_antennae(loc1, loc2, num_rows, num_cols):
   delta = tuple_add(loc2, tuple_scale(loc1, -1))
   if delta[0] == 0:
@@ -93,7 +88,7 @@ def antinodes_from_antennae(loc1, loc2, num_rows, num_cols):
   elif delta[1] == 0:
     delta = (0, 1)
   else:
-    delta = tuple_scale(delta, 1/gcd(abs(delta[0]), abs(delta[1])))
+    delta = tuple_scale(delta, 1 / math.gcd(abs(delta[0]), abs(delta[1])))
 
   t = loc1
   while in_range(t, (num_rows, num_cols)):
