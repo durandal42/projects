@@ -140,5 +140,5 @@ assertEqual(test_output, day09(test_input))
 
 print('day09, part 2 answer:')
 submit(day09(open('day09_input.txt', 'r').read()),
-       expected=None)
+       expected=6359491814941)
 print()
