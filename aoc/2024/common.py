@@ -14,3 +14,11 @@ def submit(answer, expected=None):
   if expected is not None:
     assertEqual(expected, answer)
   print(answer)
+
+
+def sign(x):
+  if x < 0:
+    return -1
+  if x > 0:
+    return 1
+  return 0

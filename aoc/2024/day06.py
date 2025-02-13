@@ -1,5 +1,6 @@
 from common import assertEqual
 from common import submit
+from common import sign
 
 import bisect
 
@@ -69,14 +70,6 @@ def patrol(obstacles_by_row, obstacles_by_col, gr, gc):
     dr, dc = dc, -dr
 
   return turns
-
-
-def sign(x):
-  if x < 0:
-    return -1
-  if x > 0:
-    return 1
-  return 0
 
 
 def visited(turns):
