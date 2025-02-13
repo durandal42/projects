@@ -3,38 +3,49 @@ from common import submit
 from common import sign
 import re
 import math
+import numpy
 
 
 def parse_input(input):
   return [((int(ax), int(ay)), (int(bx), int(by)), (int(px), int(py)))
           for ax, ay, bx, by, px, py in re.findall('''\
-Button A: X\+(\d+), Y\+(\d+)
-Button B: X\+(\d+), Y\+(\d+)
-Prize: X=(\d+), Y=(\d+)\
+Button A: X\\+(\\d+), Y\\+(\\d+)
+Button B: X\\+(\\d+), Y\\+(\\d+)
+Prize: X=(\\d+), Y=(\\d+)\
 ''', input)]
 
 
-def cost_to_win(machine):
+def cost_to_win(machine, prize_offset):
   a, b, p = machine
   ax, ay = a
   bx, by = b
-  px, py = p
+  px, py = p[0] + prize_offset, p[1] + prize_offset
 
-  # brute force:
-  solutions = []
-  for a in range(100 + 1):
-    for b in range(100 + 1):
-      if (a*ax + b*bx == px and a*ay + b*by == py):
-        solutions.append(3*a + b)
+  # solve:
+  # a*ax + b*bx = px
+  # a*ay + b*by = py
+  lhs = numpy.array([[ax, bx], [ay, by]])
+  rhs = numpy.array([px, py])
+  soln = numpy.linalg.solve(lhs, rhs)
+  print(soln)
+  a, b = soln[0], soln[1]
+  print(a, b)
+  a, b = round(a), round(b)
 
-  if not solutions:
+  print(a*ax + b*bx, "==", px)
+  print(a*ay + b*by, "==", py)
+  if (a*ax + b*bx != px) or (a*ay + b*by != py):
+    print("non-integer solution")
     return 0
-  return min(solutions)
+
+  cost = 3*a + b
+  print(f"press a {a} times, b {b} times, costing {cost} tokens")
+  return cost
 
 
-def day13(input):
+def day13(input, prize_offset=0):
   machines = parse_input(input)
-  return sum(cost_to_win(m) for m in machines)
+  return sum(cost_to_win(m, prize_offset) for m in machines)
 
 
 test_input = '''\
@@ -66,74 +77,7 @@ print()
 
 # part 2 complication
 
-
-def cost_to_win(machine):
-  print()
-  print("a, b, p:", machine)
-  a, b, p = machine
-  ax, ay = a
-  bx, by = b
-  px, py = p[0] + 10000000000000, p[1] + 10000000000000
-
-  dxy_a = ax - ay
-  dxy_b = bx - by
-  dxy_p = px - py
-
-  print("dxy_a, dxy_b, dxy_p:", dxy_a, dxy_b, dxy_p)
-  if sign(dxy_a) != -sign(dxy_b):
-    print("dxy_a and db don't have opposed signs; unlikely to work")
-    return 0
-
-  gcd = math.gcd(dxy_a, dxy_b)
-  if dxy_p % gcd != 0:
-    print("gcd(dxy_a, dxy_b) doesn't divide dxy_p; no solution possible")
-
-  # TODO: press a and b enough to satisfy dp
-  dxy = 0
-  a, b = 0, 0
-  while dxy != dxy_p:
-    if (dxy < dxy_p and dxy_a > 0) or (dxy > dxy_p and dxy_a < 0):
-      a += 1
-      dxy += dxy_a
-    if (dxy < dxy_p and dxy_b > 0) or (dxy > dxy_p and dxy_b < 0):
-      b += 1
-      dxy += dxy_b
-  print("to satisfy dxy_p -> a,b:", a, b)
-
-  da = abs(dxy_b // gcd)
-  db = abs(dxy_a // gcd)
-  assert math.gcd(da, db) == 1
-  dx = da*ax + db*bx
-  dy = da*ay + db*by
-  print("to increase x,y without changing (x-y) -> da,db:", da, db)
-
-  remain_x = (px - (a * ax) - (b * bx))
-  remain_y = (py - (a * ay) - (b * by))
-  if (remain_x % dx != 0) or (remain_y % dy != 0):
-    print("non-integer solution")
-    return 0
-  i1 = remain_x // dx
-  i2 = remain_y // dy
-  print(f"do that {i1} times to reach px")
-  print(f"do that {i2} times to reach py")
-  if i1 != i2:
-    print("no solution")
-    return 0
-
-  a += i1 * da
-  b += i1 * db
-
-  print(a*ax + b*bx, "==", px)
-  print(a*ay + b*by, "==", py)
-  assert a*ax + b*bx == px
-  assert a*ay + b*by == py
-
-  cost = 3*a + b
-  print(f"press a {a} times, b {b} times, costing {cost} tokens")
-  return cost
-
-
 print('day13, part 2 answer:')
-submit(day13(open('day13_input.txt', 'r').read()),
+submit(day13(open('day13_input.txt', 'r').read(), 10000000000000),
        expected=104140871044942)
 print()
