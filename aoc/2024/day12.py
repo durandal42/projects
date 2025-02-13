@@ -70,23 +70,25 @@ def cost(region, plots):
   return area * perimeter
 
 
-test_input = '''\
+test_input_1 = '''\
 AAAA
 BBCD
 BBCC
 EEEC
 '''
-test_output = 140
 
-assertEqual(test_output, day12(test_input))
-assertEqual(772, day12('''\
+assertEqual(140, day12(test_input_1))
+
+test_input_2 = '''\
 OOOOO
 OXOXO
 OOOOO
 OXOXO
 OOOOO
-'''))
-assertEqual(1930, day12('''\
+'''
+assertEqual(772, day12(test_input_2))
+
+test_input_3 = '''\
 RRRRIICCFF
 RRRRIICCCF
 VVRRRCCFFF
@@ -97,10 +99,68 @@ VVIIICJJEE
 MIIIIIJJEE
 MIIISIJEEE
 MMMISSJEEE
-'''))
+'''
+assertEqual(1930, day12(test_input_3))
 
 
 print('day12 answer:')
 submit(day12(open('day12_input.txt', 'r').read()),
        expected=1488414)
+print()
+
+
+# part 2 complication
+
+def cost(region, plots):
+  c, locs = region
+  plant = plots[c]
+  area = len(locs)
+
+  segments = {}
+  for loc in locs:
+    r, c = loc
+    for dr, dc in [(1, 0), (0, 1), (-1, 0), (0, -1)]:
+      loc2 = r+dr, c+dc
+      if plots.get(loc2) != plant:
+        segments[(r + dr/2, c + dc / 2)] = (dr, dc)
+
+  num_fences = len(segments)
+
+  for loc, d in segments.items():
+    r, c = loc
+    dr, dc = -d[1], d[0]  # rotated 90 degrees
+    neighbor_loc = r+dr, c+dc
+    if segments.get(neighbor_loc) == d:
+      num_fences -= 1
+
+  # print(f"{plant}\t{area}\t{num_fences}\t{locs}")
+  return area * num_fences
+
+
+assertEqual(80, day12(test_input_1))
+assertEqual(436, day12(test_input_2))
+assertEqual(1206, day12(test_input_3))
+
+test_input_4 = '''\
+EEEEE
+EXXXX
+EEEEE
+EXXXX
+EEEEE
+'''
+assertEqual(236, day12(test_input_4))
+
+test_input_5 = '''\
+AAAAAA
+AAABBA
+AAABBA
+ABBAAA
+ABBAAA
+AAAAAA
+'''
+assertEqual(368, day12(test_input_5))
+
+print('day12, part2 answer:')
+submit(day12(open('day12_input.txt', 'r').read()),
+       expected=911750)
 print()
