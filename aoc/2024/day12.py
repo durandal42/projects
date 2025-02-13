@@ -53,20 +53,21 @@ def day12(input):
       if plots.get(loc2) == plant:
         union(uf, loc, loc2)
 
-  price = 0
-  for c, locs in classes(uf).items():
-    plant = plots[c]
-    area = len(locs)
-    perimeter = 0
-    for loc in locs:
-      r, c = loc
-      for loc2 in [(r+1, c), (r, c+1), (r-1, c), (r, c-1)]:
-        if plots.get(loc2) != plant:
-          perimeter += 1
-    # print(f"{plant}\t{area}\t{perimeter}\t{locs}")
-    price += area * perimeter
+  return sum(cost(region, plots) for region in classes(uf).items())
 
-  return price
+
+def cost(region, plots):
+  c, locs = region
+  plant = plots[c]
+  area = len(locs)
+  perimeter = 0
+  for loc in locs:
+    r, c = loc
+    for loc2 in [(r+1, c), (r, c+1), (r-1, c), (r, c-1)]:
+      if plots.get(loc2) != plant:
+        perimeter += 1
+  # print(f"{plant}\t{area}\t{perimeter}\t{locs}")
+  return area * perimeter
 
 
 test_input = '''\
@@ -101,5 +102,5 @@ MMMISSJEEE
 
 print('day12 answer:')
 submit(day12(open('day12_input.txt', 'r').read()),
-       expected=None)
+       expected=1488414)
 print()
