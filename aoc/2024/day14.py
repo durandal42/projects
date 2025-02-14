@@ -4,7 +4,8 @@ from common import sign
 import re
 import collections
 import math
-import time
+import zlib
+import sys
 
 
 def parse_input(input):
@@ -79,23 +80,31 @@ print()
 def render(positions, limit):
   limit_x, limit_y = limit
   positions = set(positions)
-  print("\n".join("".join((x, y) in positions and "X" or " "
-                          for x in range(limit_x))
-                  for y in range(limit_y)))
+  return "\n".join("".join((x, y) in positions and "X" or " "
+                           for x in range(limit_x))
+                   for y in range(limit_y))
 
 
 def day14(input, limit=(101, 103)):
   robots = parse_input(input)
 
+  best_zsize = 2**64
+  best_steps = None
+
   for steps in range(math.prod(limit)):
     final_positions = [extrapolate(pos, v, steps, limit) for pos, v in robots]
-    if steps % 101 != 33:
-      # visually detected significant vertical alignment at step 33
-      continue
-    print("steps:", steps)
-    render(final_positions, limit)
-    time.sleep(1)
-    # return steps
+    image = render(final_positions, limit)
+    zipped = zlib.compress(image.encode())
+    zsize = sys.getsizeof(zipped)
+    if zsize < best_zsize:
+      best_steps = steps
+      best_zsize = zsize
+      print("steps:", steps)
+      print("zsize:", zsize)
+      print(image)
+      print()
+
+  return best_steps
 
 
 print('day14 answer:')
