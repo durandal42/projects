@@ -107,7 +107,7 @@ def day14(input, limit=(101, 103)):
   return best_steps
 
 
-print('day14 answer:')
+print('day14, part 2 answer:')
 submit(day14(open('day14_input.txt', 'r').read()),
        expected=7709)
 print()
