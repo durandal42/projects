@@ -25,8 +25,8 @@ LEGAL_GUESSES = []
 def load_words():
   global WORD_LENGTH
   if DICTIONARY == 'wordle':
-    target_file = 'wordlists/wordle-targets-nyt.txt'
-    guess_file = 'wordlists/wordle-guesses-nyt.txt'
+    target_file = 'wordlists/wordle-targets-wordlearchive-2025-08-25.txt'
+    guess_file = 'wordlists/wordle-guesses-nyt-2025-08-25.txt'
   elif DICTIONARY == 'wordlists/primel':
     target_file = 'wordlists/primel.txt'
     guess_file = '/dev/null'
