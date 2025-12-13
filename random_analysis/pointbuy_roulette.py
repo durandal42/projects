@@ -3,6 +3,7 @@ import random
 import distribution
 import math
 import collections
+import itertools
 
 
 def sample(dist, n):
@@ -92,7 +93,7 @@ def notable_statlines_by_class():
     n = len(stats_and_scores)
     NUM_BUCKETS = 100
     bucket_boundaries = [stats_and_scores[math.floor(n * p / NUM_BUCKETS)][0]
-                         for p in range(NUM_BUCKETS)]
+                         for p in range(NUM_BUCKETS)] + [stats_and_scores[-1][0]]
     # print("percentile boundaries:", bucket_boundaries)
     BUCKET_BOUNDARIES_BY_CLASS[c] = bucket_boundaries
     print("consider instead playing a:",
@@ -105,24 +106,44 @@ def assign_percentile(value, bucket_boundaries):
   for i, bucket_boundary in enumerate(bucket_boundaries):
     if bucket_boundary > value:
       return i
-  return len(bucket_boundaries)
+  return (100 * value) // bucket_boundaries[-1]
 
 
-def evaluate(stats, percentile_f=lambda s, c: s):
+def evaluate(rolled_stats, permit_reorder=False, percentile_f=lambda s, c: s):
   evaluation = []
   for c, weights in STAT_WEIGHTS_BY_CLASS.items():
-    post_racials = pick_racials(stats, weights)
-    score = score_array(post_racials, weights)
+    stats_to_consider = [rolled_stats]
+    if permit_reorder:
+      stats_to_consider = itertools.permutations(rolled_stats)
+
+    stat_evaluations = []
+    for stats in stats_to_consider:
+      post_racials = pick_racials(stats, weights)
+      score = score_array(post_racials, weights)
+      stat_evaluations.append((score, post_racials))
+    best_evaluation = max(stat_evaluations)
+    score, post_racials = best_evaluation
+
     evaluation.append((percentile_f(score, c), c, post_racials))
   evaluation.sort(reverse=True)
   return evaluation
 
+
 BUCKET_BOUNDARIES_BY_CLASS = notable_statlines_by_class()
 
 print("\n16 random pointbuy-legal statlines:")
-for stats in sample(pointbuy_legal, 16):
+# for stats in sample(pointbuy_legal, 16):
+for stats in [
+        # (15, 9, 7, 14, 10, 12),
+        #(9, 10, 15, 15, 14, 15),
+        # (15, 14, 13, 12, 10, 8),
+        # (13, 13, 13, 12, 12, 12),
+    # (15, 15, 15, 8, 8, 8),
+    # (12, 18, 15, 11, 17, 11),
+    (10, 9, 12, 13, 13, 16),
+]:
   print(stats)
-  for e in evaluate(stats, percentile_f=lambda s, c: assign_percentile(s, BUCKET_BOUNDARIES_BY_CLASS[c])):
+  for e in evaluate(stats, permit_reorder=True, percentile_f=lambda s, c: assign_percentile(s, BUCKET_BOUNDARIES_BY_CLASS[c])):
     print("\t", e)
 
 best_class_count = collections.Counter()
