@@ -14,8 +14,12 @@ def stat_3d6():
   return dice(3, 6)
 
 
+def stat_nd6_drop_lowestm(n=4, m=1):
+  return cartesian_product((die(6) for _ in range(n))).map(lambda t: sum(sorted(t)[m:]))
+
+
 def stat_4d6_drop_lowest():
-  return cartesian_product((die(6) for _ in range(4))).map(lambda t: sum(sorted(t)[1:]))
+  return stat_nd6_drop_lowestm()
 
 
 # Methods for generating arrays of ability scores:
@@ -128,36 +132,37 @@ def summarize_party_spread(dist):
 if __name__ == "__main__":
   # execute only if run as a script
 
-  print("Single ability score (4d6, drop lowest)")
-  summarize(stat_4d6_drop_lowest())
-  print()
+  # print("Single ability score (4d6, drop lowest)")
+  # summarize(stat_4d6_drop_lowest())
+  # print()
 
-  print("Utility score of the standard array %s: %d" %
-        (STANDARD_ARRAY, array_utility(STANDARD_ARRAY)))
-  print()
+  # print("Utility score of the standard array %s: %d" %
+  #       (STANDARD_ARRAY, array_utility(STANDARD_ARRAY)))
+  # print()
 
-  print("pointbuy-legal arrays:")
-  pointbuy_legal = (stat_array(lambda: die(8) + 7)
-                    .filter(lambda a: array_pointbuy_cost(a) == 27))
-  print(pointbuy_legal)
-  print("utility distribution of pointbuy-legal arrays:")
-  summarize(pointbuy_legal.map(array_utility))
-  print()
+  # print("pointbuy-legal arrays:")
+  # pointbuy_legal = (stat_array(lambda: die(8) + 7)
+  #                   .filter(lambda a: array_pointbuy_cost(a) == 27))
+  # print(pointbuy_legal)
+  # print("utility distribution of pointbuy-legal arrays:")
+  # summarize(pointbuy_legal.map(array_utility))
+  # print()
 
-  print("highest-utility pointbuy-legal array:")
-  print(max((array_utility(x), x) for x, p in pointbuy_legal.items()))
+  # print("highest-utility pointbuy-legal array:")
+  # print(max((array_utility(x), x) for x, p in pointbuy_legal.items()))
 
   a_4d6_drop_lowest = stat_array(stat_4d6_drop_lowest)
   for description, allocation in [
-      ("standard array", stat_array_standard()),
+      # ("standard array", stat_array_standard()),
       # ("1d20", stat_array(stat_1d20)),
       # ("3d6", stat_array(stat_3d6)),
       ("4d6 drop lowest", a_4d6_drop_lowest),
+      ("5d6 drop lowest 2", stat_array(lambda: stat_nd6_drop_lowestm(5, 2))),
       # ("4d6 drop lowest, reroll if total < 70",
       #  a_4d6_drop_lowest.filter(lambda t: sum(t) >= 70)),
-       ("4d6 drop lowest, reroll if total < 70, reroll unless two 15+'s",
-        a_4d6_drop_lowest.filter(lambda t: sum(
-           t) >= 70).filter(lambda t: t[1] >= 15)),
+      # ("4d6 drop lowest, reroll if total < 70, reroll unless two 15+'s",
+      #  a_4d6_drop_lowest.filter(lambda t: sum(
+      #      t) >= 70).filter(lambda t: t[1] >= 15)),
       # ("4d6 drop lowest, fall back to standard array",
       # a_4d6_drop_lowest.map(lambda a: a if array_utility(a) >=
       # array_utility(STANDARD_ARRAY) else STANDARD_ARRAY))
@@ -171,13 +176,48 @@ if __name__ == "__main__":
   ]:
     print()
     print(description)
-    print("pointbuy cost:")
+    # print("pointbuy cost:")
     pointbuy_cost = allocation.map(array_pointbuy_cost)
-    summarize(pointbuy_cost)
+    # summarize(pointbuy_cost)
 
     # print("pointbuy cost (cumulative):")
     # print(pointbuy_cost.cum())
     # summarize_nth_best(allocation)
 
-    print("utility:")
-    summarize(allocation.map(array_utility))
+    # print("utility:")
+    # summarize(allocation.map(array_utility))
+
+    for character in [
+        ("Maxwell", 18, 14, 18, 13, 10, 18),
+        ("Olethra", 10, 13, 9, 16, 11, 14),
+        # ("Daisuke", 10, 19, 15, 15, 19, 17),
+        # ("Marya", 14, 15, 18, 20, 13, 9),
+        # ("Vanellope", 19, 16, 15, 14, 14, 16),
+        # ("Montgomery", 13, 16, 16, 16, 18, 14),
+    ]:
+      name = character[0]
+      stats = character[1:]
+      character_pointbuy_cost = array_pointbuy_cost(stats)
+      print("character name:", name)
+      # print("\tpointbuy cost:", character_pointbuy_cost)
+
+      print("\t", stats)
+      chance_of_stats_this_good = float(pointbuy_cost.atleast(character_pointbuy_cost))
+      print("\tchance of stats this good:", chance_of_stats_this_good)
+
+      num_asi = 0
+      while chance_of_stats_this_good < 0.95:
+        num_asi += 1
+        print(f"\n\twith {num_asi} ASIs...")
+        stats = sorted(stats, reverse=True)
+        stats[0] -= 1
+        stats = sorted(stats, reverse=True)
+        stats[0] -= 1
+        stats = sorted(stats, reverse=True)
+        print("\t", stats)
+
+        character_pointbuy_cost = array_pointbuy_cost(stats)
+        chance_of_stats_this_good = float(pointbuy_cost.atleast(character_pointbuy_cost))
+        print("\tchance of stats this good:", chance_of_stats_this_good)
+
+      print()
