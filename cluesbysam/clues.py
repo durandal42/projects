@@ -137,6 +137,13 @@ def edges():
   result.update(GRID[-1])
   return frozenset(result)
 
+@functools.cache
+def total():
+  result = set()
+  for row in GRID:
+    result.update(row)
+  return frozenset(result)
+
 
 @functools.cache
 def corners():
@@ -203,11 +210,11 @@ def connected(subjects):
 # TODO: connected
 # TODO: professions
 GRID = [
-    'ACDG',
-    'HIJK',
-    'LMNO',
-    'PRSU',
-    'VWXZ',
+    'ABCE',
+    'FGHI',
+    'JKLM',
+    'NRST',
+    'UVWZ',
 ]
 SUBJECTS = sorted(set(''.join(GRID)))
 print('subjects:', SUBJECTS)
@@ -228,21 +235,28 @@ for _r, _row in enumerate(GRID):
     LOCATIONS[_cell] = (_r, _c)
 print("locations:", LOCATIONS)
 
-assert(connected('HLPV'))
-assert(connected(frozenset({'H', 'A', 'P', 'L', 'V'})))
+# assert(connected('HLPV'))
+# assert(connected(frozenset({'H', 'A', 'P', 'L', 'V'})))
 
 evaluate(
     knowns={
-        H: 1, K: 0, L: 1, O: 0, U: 1, Z: 1,
-        G: 0, P: 1,
-        V: 1, X: 1,
+      S:0,
+      M:1,
+      C:1, H:1, L:0,
+      A:0, E:0,
+      K:1, R:1, 
+      I:0, W:1,
+      B:0,
     },
     claims=[
-        'num_innocents(edges()) == 5 and num_innocents(edges() & neighbors(C)) == 1',
-        'connected(criminals(below(G)))',
-        'num_criminals(column(A)) > max(num_criminals(column(c)) for c in "BCD")',
-        'connected(criminals(column(A)))',
-        'connected(criminals(column(B)))',
-        'num_innocents(neighbors(K)) == 3 and num_innocents(neighbors(K) & column(C)) == 1',
-        'num_innocents(neighbors(S)) == 2'
+      'is_criminal(M) and num_criminals(neighbors(S)) == 5',
+      'connected(innocents(above(W))) and num_innocents(above(W)) == 2',
+      'num_criminals(neighbors(B)) > num_criminals(neighbors(Z))',
+      'num_criminals(neighbors(C)) == num_criminals(neighbors(Z))',
+      'num_innocents(row(1) & corners()) == 2',
+      'num_innocents(neighbors(S) & edges()) == 2',
+      'num_criminals(column(C)) > num_criminals(column(D))',
+      'num_innocents(total()) == 12',
+      'num_innocents(row(5)) == 2',
+
     ])
