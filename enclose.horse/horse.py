@@ -86,13 +86,6 @@ def solve(grid, horse, budget, walls=set(), notwalls=set(), fanout=1):
 
   # print(f"solve(<grid>, {horse}, {budget}, walls={walls}, notwalls={notwalls})")
   escape_path, space = search(grid, horse, walls)
-  # print("escape path:", escape_path)
-  if escape_path:
-    # print("escape path length:", len(escape_path))
-    for x in escape_path:
-      assert x not in walls
-  # print("space roamed:", space)
-  # print()
 
   if not escape_path:
     # the horse didn't escape, so score this as a possible solution
@@ -108,6 +101,7 @@ def solve(grid, horse, budget, walls=set(), notwalls=set(), fanout=1):
 
   if budget == 0:
     # ... but we're out of budget, so we're done with this branch :(
+    PROGRESS += Fraction(1, fanout)
     return 0, []
 
   # iterate over all options for which cell on that path is the FIRST wall
@@ -123,7 +117,6 @@ def solve(grid, horse, budget, walls=set(), notwalls=set(), fanout=1):
                      notwalls=notwalls | set(escape_path[: i]),
                      fanout=fanout*len(options))
                for i in options)
-  PROGRESS += Fraction(1, fanout)
   return result
 
 
