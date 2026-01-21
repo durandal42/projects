@@ -7,6 +7,7 @@ import multiprocessing
 import math
 from enum import Enum
 import time
+import argparse
 
 
 def load_puzzle(id):
@@ -136,25 +137,22 @@ def init_shared_state(grid, adjacency, horse, result_q, status_d):
   global_status_d = status_d
 
 
-NUM_WORKERS = 10
-
-
-def solve(grid, adjacency, horse, budget):
+def solve(grid, adjacency, horse, budget, num_workers=10):
   print(f"solve({grid}, {horse}, {budget})")
   m = multiprocessing.Manager()
   result_q = m.Queue()
   status_d = m.dict()
   init_shared_state(grid, adjacency, horse, result_q, status_d)
 
-  print(f"starting {NUM_WORKERS} workers...")
+  print(f"starting {num_workers} workers...")
   pool = multiprocessing.Pool(
-      processes=NUM_WORKERS,
+      processes=num_workers,
       initializer=init_shared_state,
       initargs=(grid, adjacency, horse, result_q, status_d))
-  workers = [pool.apply_async(solve_worker, (i,)) for i in range(NUM_WORKERS)]
+  workers = [pool.apply_async(solve_worker, (i,)) for i in range(num_workers)]
 
   global_work_q.append((budget, set(), set(), 1))
-  solve_coordinator(NUM_WORKERS)
+  solve_coordinator(num_workers)
   print("solve_coordinator finished.")
 
   # Wait for all workers to finish.
@@ -221,11 +219,11 @@ def solve_coordinator(num_workers):
   looking_for_work = False
   while True:
     process_result_q(global_result_q)
-    print(f"coordinator has {len(global_work_q)} work units ready to hand out")
-    print("coordinator sees status:")
+    # print(f"coordinator has {len(global_work_q)} work units ready to hand out")
+    # print("coordinator sees status:")
     all_workers_idle = True
     for k, v in global_status_d.items():
-      print(f"\t{k}: {v}")
+      # print(f"\t{k}: {v}")
       status, payload = v
 
       if status == ControlSignal.REQUEST_WORK:
@@ -333,7 +331,14 @@ def solve_work_unit(budget, walls, notwalls, fanout):
 
 
 def main():
-  p = load_puzzle('E03KkY')
+  parser = argparse.ArgumentParser(
+      prog='Enclose.Horse Solver',
+      description='Solves daily puzzles offered by enclose.horse')
+  parser.add_argument('-m', '--map', default='Kj7mXp')
+  parser.add_argument('-w', '--workers', default=10)
+  args = parser.parse_args()
+
+  p = load_puzzle(args.map)
   grid = parse_map(p['map'])
   print(grid)
   budget = int(p['budget'])
@@ -345,7 +350,7 @@ def main():
   adjacency = build_adjacency(grid)
   print(adjacency)
 
-  print(solve(grid, adjacency, horse, budget))
+  print(solve(grid, adjacency, horse, budget, num_workers=args.workers))
 
 
 if __name__ == '__main__':
