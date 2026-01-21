@@ -1,6 +1,7 @@
 import json
 from collections import deque
 from collections import defaultdict
+from typing import NamedTuple
 import queue
 from fractions import Fraction
 import multiprocessing
@@ -10,12 +11,27 @@ import time
 import argparse
 
 
-def load_puzzle(id):
+class PuzzleInfo(NamedTuple):
+  grid: list[str]
+  horse: tuple
+  adjacency: dict
+  budget: int
+
+
+def build_puzzle_info(id):
   filecontents = open(f'maps/{id}').read()
   # print(filecontents)
-  p = json.loads(filecontents)
-  # print(p)
-  return p
+  json_spec = json.loads(filecontents)
+
+  grid = parse_map(json_spec['map'])
+  budget = int(json_spec['budget'])
+  horse = find_horse(grid)
+  adjacency = build_adjacency(grid)
+  puzzle_info = PuzzleInfo(grid=grid, horse=horse,
+                           budget=budget, adjacency=adjacency)
+  print(puzzle_info)
+
+  return puzzle_info
 
 
 def parse_map(map_string):
@@ -35,6 +51,7 @@ def build_adjacency(grid):
 
   adjacency = defaultdict(list)
   portals = defaultdict(list)
+  num_spaces = 0
   for r, row in enumerate(grid):
     for c, char in enumerate(row):
       if char != '~':  # wall
@@ -50,6 +67,9 @@ def build_adjacency(grid):
 
       if char.isdigit():
         portals[char].append(current)
+
+      if char == '.':
+        num_spaces += 1
 
   for id, cells in portals.items():
     print(f"linking portal {id}: {cells}")
@@ -69,12 +89,15 @@ def make_path(visited, final):
   return result
 
 
-def search(grid, adjacency, horse, walls=set()):
+def search(puzzle_info, walls=set()):
+  # print(f'search({puzzle_info}, {walls})')
+  grid = puzzle_info.grid
+  adjacency = puzzle_info.adjacency
   rows = len(grid)
   cols = len(grid[0])
 
   frontier = deque()
-  frontier.append((horse, None))
+  frontier.append((puzzle_info.horse, None))
 
   visited = {}
   cherries_visited = 0
@@ -113,9 +136,7 @@ def print_grid(grid, walls):
 
 
 # provided by the master:
-global_grid = None
-global_adjacency = None
-global_horse = None
+global_puzzle_info = None
 global_result_q = None
 global_status_d = None
 
@@ -124,34 +145,30 @@ global_work_q = deque()
 global_most_space = 0
 
 
-def init_shared_state(grid, adjacency, horse, result_q, status_d):
-  global global_grid
-  global_grid = grid
-  global global_adjacency
-  global_adjacency = adjacency
-  global global_horse
-  global_horse = horse
+def init_shared_state(puzzle_info, result_q, status_d):
+  global global_puzzle_info
+  global_puzzle_info = puzzle_info
   global global_result_q
   global_result_q = result_q
   global global_status_d
   global_status_d = status_d
 
 
-def solve(grid, adjacency, horse, budget, num_workers=10):
-  print(f"solve({grid}, {horse}, {budget})")
+def solve(puzzle_info, num_workers=10):
+  print(f"solve({puzzle_info})")
   m = multiprocessing.Manager()
   result_q = m.Queue()
   status_d = m.dict()
-  init_shared_state(grid, adjacency, horse, result_q, status_d)
+  init_shared_state(puzzle_info, result_q, status_d)
 
   print(f"starting {num_workers} workers...")
   pool = multiprocessing.Pool(
       processes=num_workers,
       initializer=init_shared_state,
-      initargs=(grid, adjacency, horse, result_q, status_d))
+      initargs=(puzzle_info, result_q, status_d))
   workers = [pool.apply_async(solve_worker, (i,)) for i in range(num_workers)]
 
-  global_work_q.append((budget, set(), set(), 1))
+  global_work_q.append((puzzle_info.budget, set(), set(), 1))
   solve_coordinator(num_workers)
   print("solve_coordinator finished.")
 
@@ -295,8 +312,7 @@ def solve_worker(worker_id):
 
 def solve_work_unit(budget, walls, notwalls, fanout):
   # print(f"solve_work_unit({budget}, {walls}, {notwalls}, {fanout})")
-  escape_path, space = search(
-      global_grid, global_adjacency, global_horse, walls)
+  escape_path, space = search(global_puzzle_info, walls)
 
   if not escape_path:
     # the horse didn't escape, so score this as a possible solution
@@ -306,7 +322,7 @@ def solve_work_unit(budget, walls, notwalls, fanout):
       result = (
           space,
           f"found a solution using {len(walls)} walls and {space} space!"
-          f"\n{print_grid(global_grid, walls)}")
+          f"\n{print_grid(global_puzzle_info.grid, walls)}")
       global_result_q.put(result)
     return
 
@@ -321,7 +337,7 @@ def solve_work_unit(budget, walls, notwalls, fanout):
   #    never to be picked again in this hypothetical branch)
   options = [i for i in range(len(escape_path) - 1)  # (don't wall the horse)
              if escape_path[i] not in notwalls
-             and global_grid[escape_path[i][0]][escape_path[i][1]] == '.'
+             and global_puzzle_info.grid[escape_path[i][0]][escape_path[i][1]] == '.'
              ]
   for i in options:
     global_work_q.append((budget-1,
@@ -338,19 +354,10 @@ def main():
   parser.add_argument('-w', '--workers', type=int, default=10)
   args = parser.parse_args()
 
-  p = load_puzzle(args.map)
-  grid = parse_map(p['map'])
-  print(grid)
-  budget = int(p['budget'])
-  print("budget:", budget)
+  puzzle_info = build_puzzle_info(args.map)
+  print(puzzle_info)
 
-  horse = find_horse(grid)
-  print(horse)
-
-  adjacency = build_adjacency(grid)
-  print(adjacency)
-
-  print(solve(grid, adjacency, horse, budget, num_workers=args.workers))
+  print(solve(puzzle_info, num_workers=args.workers))
 
 
 if __name__ == '__main__':
