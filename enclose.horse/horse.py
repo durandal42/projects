@@ -335,7 +335,7 @@ def main():
       prog='Enclose.Horse Solver',
       description='Solves daily puzzles offered by enclose.horse')
   parser.add_argument('-m', '--map', default='Kj7mXp')
-  parser.add_argument('-w', '--workers', default=10)
+  parser.add_argument('-w', '--workers', type=int, default=10)
   args = parser.parse_args()
 
   p = load_puzzle(args.map)
