@@ -116,14 +116,14 @@ global_grid = None
 global_adjacency = None
 global_horse = None
 global_result_q = None
-global_control_q = None
+global_status_d = None
 
 # managed by each worker
 global_work_q = deque()
 global_most_space = 0
 
 
-def init_worker(grid, adjacency, horse, result_q, control_q):
+def init_shared_state(grid, adjacency, horse, result_q, status_d):
   global global_grid
   global_grid = grid
   global global_adjacency
@@ -132,8 +132,8 @@ def init_worker(grid, adjacency, horse, result_q, control_q):
   global_horse = horse
   global global_result_q
   global_result_q = result_q
-  global global_control_q
-  global_control_q = control_q
+  global global_status_d
+  global_status_d = status_d
 
 
 NUM_WORKERS = 10
@@ -143,16 +143,16 @@ def solve(grid, adjacency, horse, budget):
   print(f"solve({grid}, {horse}, {budget})")
   m = multiprocessing.Manager()
   result_q = m.Queue()
-  control_q = m.Queue()
+  status_d = m.dict()
+  init_shared_state(grid, adjacency, horse, result_q, status_d)
 
   print(f"starting {NUM_WORKERS} workers...")
   pool = multiprocessing.Pool(
       processes=NUM_WORKERS,
-      initializer=init_worker,
-      initargs=(grid, adjacency, horse, result_q, control_q))
-  workers = [pool.apply_async(solve_worker) for i in range(NUM_WORKERS)]
+      initializer=init_shared_state,
+      initargs=(grid, adjacency, horse, result_q, status_d))
+  workers = [pool.apply_async(solve_worker, (i,)) for i in range(NUM_WORKERS)]
 
-  init_worker(grid, adjacency, horse, result_q, control_q)
   global_work_q.append((budget, set(), set(), 1))
   solve_coordinator(NUM_WORKERS)
   print("solve_coordinator finished.")
@@ -187,138 +187,112 @@ def process_result_q(result_q):
 
 
 class ControlSignal(Enum):
+  # no payload
+  # initial state for all workers
+  STARTING_UP = 1
+
+  # no payload
+  # worker sets this to ask for work to do
+  REQUEST_WORK = 2
+
   # payload = work unit
-  # pushing this message is asking someone to do this work
-  DO_WORK = 1
+  # coordinator sets this to ask a worker to do this work
+  PUSH_WORK = 3
 
   # no payload
-  # pushing this message is asking for more work to do
-  MORE_WORK_PLEASE = 2
+  # worker sets this to indicate they're currently doing work
+  WORKING = 4
 
   # no payload
-  # pushing this message says all work is done, time to shut down
-  ALL_DONE = 3
+  # coordinator sets this to ask a worker to give back a work unit
+  RETURN_WORK = 5
 
+  # payload = work unit
+  # worker sets this status to offer an uncompleted
+  # work unit back to the coordinator
+  OFFER_WORK = 6
 
-def coordinator_try_shutdown():
-  # If there's outstanding work anywhere in the queue, pick it back up
-  # Otherwise, respond to all MORE_WORK_PLEASE requests with ALL_DONE
-  # Either way, return how many net ALL_DONEs we added to the queue.
-  num_more_work_please = 0
-  num_all_done = 0
-  while True:
-    try:
-      message = global_control_q.get(False)
-      if message[0] == ControlSignal.DO_WORK:
-        work = message[1]
-        print(
-            "coordinator: someone sent work back, so we can pick back up:",
-            work)
-        global_work_q.append(work)
-        # put all the MORE_WORK_PLEASE back in the queue
-        for i in range(num_more_work_please):
-          global_control_q.put((ControlSignal.MORE_WORK_PLEASE, None))
-        # recall any ALL_DONEs, replacing them with MORE_WORK_PLEASE
-        for i in range(num_all_done):
-          global_control_q.put((ControlSignal.MORE_WORK_PLEASE, None))
-        return -num_all_done
-      if message[0] == ControlSignal.MORE_WORK_PLEASE:
-        num_more_work_please += 1
-      if message[0] == ControlSignal.ALL_DONE:
-        num_all_done += 1
-    except queue.Empty:
-      break
-  if num_more_work_please > 0:
-    print(
-        f"coordinator: {num_more_work_please} workers are asking for work,"
-        " but we don't have any. Send ALL_DONE! ")
-    for i in range(num_more_work_please):
-      global_control_q.put((ControlSignal.ALL_DONE, None))
-    # put any consumed ALL_DONE's back in the queue
-    for i in range(num_all_done):
-      global_control_q.put((ControlSignal.ALL_DONE, None))
-
-  return num_more_work_please
+  # no payload
+  # coordinator sets this to shut down a worker
+  ALL_DONE = 7
 
 
 def solve_coordinator(num_workers):
+  looking_for_work = False
   while True:
-    # do an amount of work
-    for _ in range(1000):
-      if not global_work_q:
-        # print("coordinator: ran out of local work")
-        time.sleep(1)
-        delta_num_workers = coordinator_try_shutdown()
-        num_workers -= delta_num_workers
-        if delta_num_workers != 0:
-          print(f"coordinator_try_shutdown() resulted in {delta_num_workers} "
-                "being told to shut down")
-          print(f"coordinator: {num_workers} workers "
-                "are believed still to be working.")
-        if num_workers == 0:
-          return
+    process_result_q(global_result_q)
+    print(f"coordinator has {len(global_work_q)} work units ready to hand out")
+    print("coordinator sees status:")
+    all_workers_idle = True
+    for k, v in global_status_d.items():
+      print(f"\t{k}: {v}")
+      status, payload = v
+
+      if status == ControlSignal.REQUEST_WORK:
+        if global_work_q:
+          global_status_d[k] = (ControlSignal.PUSH_WORK, global_work_q.pop())
+          all_workers_idle = False
         else:
-          continue
+          looking_for_work = True
+      else:
+        all_workers_idle = False
+      if status == ControlSignal.WORKING and looking_for_work:
+        global_status_d[k] = (ControlSignal.RETURN_WORK, None)
+      if status == ControlSignal.OFFER_WORK:
+        global_work_q.append(payload)
+        global_status_d[k] = (ControlSignal.WORKING, None)
+        looking_for_work = False
 
-      # print("coordinator: doing local work")
-      budget, walls, notwalls, fanout = global_work_q.pop()
-      solve_work_unit(budget, walls, notwalls, fanout)
-    try:
-      # print("coordinator: processing result queue")
-      process_result_q(global_result_q)
-      # print("coordinator: see if anyone has anything to say")
-      message = global_control_q.get(False)  # nonblocking get
-      if message[0] == ControlSignal.MORE_WORK_PLEASE:
-        if len(global_work_q) > 1:
-          work = global_work_q.popleft()  # oldest outstanding work unit
-          print("coordinator: saw MORE_WORK_PLEASE, "
-                "sharing our oldest work unit:", work)
-          print(f"coordinator: still have {len(global_work_q)} "
-                "local work units.")
-          global_control_q.put((ControlSignal.DO_WORK, work))
-        else:
-          print("coordinator: saw MORE_WORK_PLEASE, "
-                "can't offer any work to do right now")
-          global_control_q.put((ControlSignal.MORE_WORK_PLEASE, work))
-      if message[0] in [ControlSignal.ALL_DONE, ControlSignal.DO_WORK]:
-        # print("coordinator: saw [ALL_DONE,DO_WORK], putting it back")
-        global_control_q.put(message)
-    except queue.Empty:
-      # print("coordinator: there were no messages")
-      pass
+    if all_workers_idle and len(global_status_d) == num_workers and not global_work_q:
+      print("coordinator: all workers are asking for work, and we have nothing to give; shutting down.")
+      for k, v in global_status_d.items():
+        global_status_d[k] = (ControlSignal.ALL_DONE, None)
+      return
+
+    time.sleep(2)
 
 
-def solve_worker():
-  print(f"solve_worker()")
+def solve_worker(worker_id):
+  print(f"solve_worker({worker_id})")
+  global_status_d[worker_id] = (ControlSignal.STARTING_UP, )
+  print(f"worker {worker_id}: set state to STARTING_UP")
+
   global global_work_q
   global_work_q = deque()
   while True:
-    while global_work_q:
-      # print("worker: doing local work")
-      work = global_work_q.pop()
-      budget, walls, notwalls, fanout = work
-      solve_work_unit(budget, walls, notwalls, fanout)
-
-    print("worker: asking for more work")
-    global_control_q.put((ControlSignal.MORE_WORK_PLEASE, None))
-
-    # print("worker: listening for messages...")
-    message = global_control_q.get()  # blocking get; no timeout
-    if message[0] == ControlSignal.DO_WORK:
-      print("worker: got more work:", message[1])
-      global_work_q.append(message[1])
-    if message[0] == ControlSignal.ALL_DONE:
-      print("worker: shutting down.")
-      return
-    if message[0] == ControlSignal.MORE_WORK_PLEASE:
-      if len(global_work_q) > 1:
-        print("worker: saw MORE_WORK_PLEASE, sharing our oldest work unit")
-        work = global_work_q.popleft()  # oldest outstanding work unit
-        global_control_q.put((ControlSignal.DO_WORK, work))
+    # print(f"worker {worker_id}: doing local work")
+    for _ in range(10000):
+      if global_work_q:
+        work = global_work_q.pop()
+        budget, walls, notwalls, fanout = work
+        solve_work_unit(budget, walls, notwalls, fanout)
       else:
-        # print("worker: saw MORE_WORK_PLEASE, can't offer any work to do right now")
-        time.sleep(10)
-        global_control_q.put(message)
+        if global_status_d[worker_id][0] in [
+                ControlSignal.WORKING,
+                ControlSignal.STARTING_UP,
+                ControlSignal.RETURN_WORK]:
+          print(f"worker {worker_id}: asking for more work")
+          global_status_d[worker_id] = (ControlSignal.REQUEST_WORK, None)
+          time.sleep(1)
+        break
+
+    # print(f"worker {worker_id}: checking for status update...")
+    status, payload = global_status_d[worker_id]
+    # print(f"worker {worker_id} status:", status)
+    if status == ControlSignal.PUSH_WORK:
+      print(f"worker {worker_id}: got more work:", payload)
+      global_work_q.append(payload)
+      global_status_d[worker_id] = (ControlSignal.WORKING, None)
+    if status == ControlSignal.ALL_DONE:
+      print(f"worker {worker_id}: shutting down.")
+      return
+    if status == ControlSignal.RETURN_WORK:
+      if len(global_work_q) > 1:
+        print(f"worker {worker_id}: saw RETURN_WORK, sharing our oldest work unit")
+        work = global_work_q.popleft()  # oldest outstanding work unit
+        global_status_d[worker_id] = (ControlSignal.OFFER_WORK, work)
+      else:
+        print(f"worker {worker_id}: saw RETURN_WORK, but has no work to share")
 
 
 def solve_work_unit(budget, walls, notwalls, fanout):
@@ -359,7 +333,7 @@ def solve_work_unit(budget, walls, notwalls, fanout):
 
 
 def main():
-  p = load_puzzle('gl7REy')
+  p = load_puzzle('E03KkY')
   grid = parse_map(p['map'])
   print(grid)
   budget = int(p['budget'])
