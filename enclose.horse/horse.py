@@ -80,15 +80,6 @@ def build_adjacency(grid):
   return adjacency
 
 
-def make_path(visited, final):
-  result = []
-  current = final
-  while current:
-    result.append(current)
-    current = visited[current]
-  return result
-
-
 def search(puzzle_info, walls=set()):
   # print(f'search({puzzle_info}, {walls})')
   grid = puzzle_info.grid
@@ -97,30 +88,35 @@ def search(puzzle_info, walls=set()):
   cols = len(grid[0])
 
   frontier = deque()
-  frontier.append((puzzle_info.horse, None))
+  frontier.append(puzzle_info.horse)
 
-  visited = {}
-  cherries_visited = 0
+  visited = set()
+  bonus_score = 0
 
   while frontier:
-    current, previous = frontier.popleft()
-    # print(previous, "->", current)
+    # print(f"frontier still has {len(frontier)} spaces")
+    current = frontier.popleft()
     if current in visited:
       continue
-    visited[current] = previous
+    visited.add(current)
 
     current_r, current_c = current
     if grid[current_r][current_c] == 'C':
-      cherries_visited += 1
+      # cherries
+      bonus_score += 3
+    if grid[current_r][current_c] == 'S':
+      # bees
+      bonus_score -= 5
     for next in adjacency[current]:
       next_r, next_c = next
       if next_r not in range(0, rows) or next_c not in range(0, cols):
-        return make_path(visited, current), len(visited)
+        # print("not enclosed")
+        return False, 0, visited
       if next not in walls:
         # print(f"adding {next} to frontier")
-        frontier.append((next, current))
+        frontier.append(next)
 
-  return None, len(visited) + 3 * cherries_visited
+  return True, len(visited) + bonus_score, None
 
 
 def print_grid(grid, walls):
@@ -142,7 +138,7 @@ global_status_d = None
 
 # managed by each worker
 global_work_q = deque()
-global_most_space = 0
+global_most_score = 0
 
 
 def init_shared_state(puzzle_info, result_q, status_d):
@@ -189,16 +185,16 @@ def solve(puzzle_info, num_workers=10):
 
   pool.close()
 
-  return global_most_space
+  return global_most_score
 
 
 def process_result_q(result_q):
-  global global_most_space
+  global global_most_score
   while not result_q.empty():
-    space, solution = result_q.get()
-    if space > global_most_space:
+    score, solution = result_q.get()
+    if score > global_most_score:
       print(solution)
-      global_most_space = space
+      global_most_score = score
 
 
 class ControlSignal(Enum):
@@ -312,16 +308,16 @@ def solve_worker(worker_id):
 
 def solve_work_unit(budget, walls, notwalls, fanout):
   # print(f"solve_work_unit({budget}, {walls}, {notwalls}, {fanout})")
-  escape_path, space = search(global_puzzle_info, walls)
+  enclosed, score, visited = search(global_puzzle_info, walls)
 
-  if not escape_path:
-    # the horse didn't escape, so score this as a possible solution
-    global global_most_space
-    if space > global_most_space:
-      global_most_space = space
+  if enclosed:
+    # score this as a possible solution
+    global global_most_score
+    if score > global_most_score:
+      global_most_score = score
       result = (
-          space,
-          f"found a solution using {len(walls)} walls and {space} space!"
+          score,
+          f"found a solution using {len(walls)} walls and {score} score!"
           f"\n{print_grid(global_puzzle_info.grid, walls)}")
       global_result_q.put(result)
     return
@@ -335,14 +331,15 @@ def solve_work_unit(budget, walls, notwalls, fanout):
   # iterate over all options for which cell on that path is the FIRST wall
   #   (and therefore everything up to that point is a non-wall,
   #    never to be picked again in this hypothetical branch)
-  options = [i for i in range(len(escape_path) - 1)  # (don't wall the horse)
-             if escape_path[i] not in notwalls
-             and global_puzzle_info.grid[escape_path[i][0]][escape_path[i][1]] == '.'
-             ]
-  for i in options:
+  options = [
+      (r, c) for r, c in visited
+      if (r, c) not in notwalls
+      and global_puzzle_info.grid[r][c] == '.'
+  ]
+  for i, wall in enumerate(options):
     global_work_q.append((budget-1,
-                          walls | set([escape_path[i]]),
-                          notwalls | set(escape_path[:i]),
+                          walls | set([wall]),
+                          notwalls | set(options[:i]),
                           fanout*len(options)))
 
 
