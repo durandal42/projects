@@ -20,8 +20,8 @@ class PuzzleInfo(NamedTuple):
   budget: int
 
 
-def build_puzzle_info(id):
-  filecontents = open(f'maps/{id}').read()
+def build_puzzle_info(path):
+  filecontents = open(path).read()
   # print(filecontents)
   json_spec = json.loads(filecontents)
 
@@ -485,7 +485,7 @@ def main():
   parser = argparse.ArgumentParser(
       prog='Enclose.Horse Solver',
       description='Solves daily puzzles offered by enclose.horse')
-  parser.add_argument('-m', '--map', default='Kj7mXp')
+  parser.add_argument('-m', '--map', default='maps/Kj7mXp')
   parser.add_argument('-w', '--workers', type=int, default=10)
   args = parser.parse_args()
 

@@ -9,5 +9,6 @@
     "createdAt": 1768973280,
     "isDaily": true,
     "dailyDate": "2026-01-23",
-    "dayNumber": 25
+    "dayNumber": 25,
+    "optimalScore": 25
 }
