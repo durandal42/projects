@@ -9,6 +9,8 @@ import math
 from enum import Enum
 import time
 import argparse
+import igraph as ig
+import matplotlib.pyplot as plt
 
 
 class PuzzleInfo(NamedTuple):
@@ -24,12 +26,13 @@ def build_puzzle_info(id):
   json_spec = json.loads(filecontents)
 
   grid = parse_map(json_spec['map'])
+  print(print_grid(grid))
   budget = int(json_spec['budget'])
   horse = find_horse(grid)
   adjacency = build_adjacency(grid)
   puzzle_info = PuzzleInfo(grid=grid, horse=horse,
                            budget=budget, adjacency=adjacency)
-  print(puzzle_info)
+  # print(puzzle_info)
 
   return puzzle_info
 
@@ -60,10 +63,13 @@ def build_adjacency(grid):
           neighbor_r = r + dr
           neighbor_c = c + dc
           if (neighbor_r not in range(0, rows)
-              or neighbor_c not in range(0, cols)
-                  or grid[neighbor_r][neighbor_c] != '~'):
+                  or neighbor_c not in range(0, cols)):
+            neighbor = "exit"
+          elif grid[neighbor_r][neighbor_c] != '~':
             neighbor = neighbor_r, neighbor_c
-            adjacency[current].append(neighbor)
+          else:
+            continue
+          adjacency[current].append(neighbor)
 
       if char.isdigit():
         portals[char].append(current)
@@ -78,6 +84,53 @@ def build_adjacency(grid):
     adjacency[cells[1]].append(cells[0])
 
   return adjacency
+
+
+def vertex_connectivity(puzzle_info):
+  nodes = []
+  node_ids = {}
+  edges = set()
+  for n1, n2s in puzzle_info.adjacency.items():
+    if n1 not in node_ids:
+      node_ids[n1] = len(nodes)
+      nodes.append(n1)
+    n1i = node_ids[n1]
+    for n2 in n2s:
+      if n2 not in node_ids:
+        node_ids[n2] = len(nodes)
+        nodes.append(n2)
+      n2i = node_ids[n2]
+      if (n2i, n1i) not in edges:
+        edges.add((n1i, n2i))
+
+  # print(nodes)
+  # print(node_ids)
+  # print(edges)
+
+  horse_id = node_ids[puzzle_info.horse]
+  escape_id = node_ids["exit"]
+
+  labels = []
+  for node_id, node in enumerate(nodes):
+    if node == "exit":
+      labels.append("exit")
+    else:
+      r, c = node
+      labels.append(puzzle_info.grid[r][c])
+
+  g = ig.Graph(len(nodes), edges, directed=False)
+  # fig, ax = plt.subplots()
+  # ig.plot(
+  #     g,
+  #     target=ax,
+  #     palette=ig.RainbowPalette(),
+  #     vertex_label=labels,
+  #     # vertex_size=7,
+  #     # vertex_color=list(map(int, ig.rescale(components.membership, (0, 200), clamp=True))),
+  #     # edge_width=0.7
+  # )
+  # plt.show()
+  return g.vertex_connectivity(source=horse_id, target=escape_id)
 
 
 def search(puzzle_info, walls=set()):
@@ -107,24 +160,28 @@ def search(puzzle_info, walls=set()):
     if grid[current_r][current_c] == 'S':
       # bees
       bonus_score -= 5
+    if grid[current_r][current_c] == 'G':
+      # golden apple
+      bonus_score += 10
     for next in adjacency[current]:
-      next_r, next_c = next
-      if next_r not in range(0, rows) or next_c not in range(0, cols):
+      if next == "exit":
         # print("not enclosed")
         return False, 0, visited
       if next not in walls:
         # print(f"adding {next} to frontier")
         frontier.append(next)
 
-  return True, len(visited) + bonus_score, None
+  return True, len(visited) + bonus_score, visited
 
 
-def print_grid(grid, walls):
+def print_grid(grid, paint={}):
   result = []
   for r, row in enumerate(grid):
     for c, char in enumerate(row):
-      if (r, c) in walls:
-        result.append("X")
+      for color, targets in paint.items():
+        if (r, c) in targets:
+          result.append(color)
+          break
       else:
         result.append(char)
     result.append("\n")
@@ -164,7 +221,7 @@ def solve(puzzle_info, num_workers=10):
       initargs=(puzzle_info, result_q, status_d))
   workers = [pool.apply_async(solve_worker, (i,)) for i in range(num_workers)]
 
-  global_work_q.append((puzzle_info.budget, set(), set(), 1))
+  global_work_q.append((puzzle_info.budget, set(), set(), 1, None))
   solve_coordinator(num_workers)
   print("solve_coordinator finished.")
 
@@ -275,8 +332,8 @@ def solve_worker(worker_id):
     for _ in range(10000):
       if global_work_q:
         work = global_work_q.pop()
-        budget, walls, notwalls, fanout = work
-        solve_work_unit(budget, walls, notwalls, fanout)
+        budget, walls, notwalls, fanout, target_walls = work
+        solve_work_unit(budget, walls, notwalls, fanout, target_walls)
       else:
         if global_status_d[worker_id][0] in [
                 ControlSignal.WORKING,
@@ -306,8 +363,9 @@ def solve_worker(worker_id):
         print(f"worker {worker_id}: saw RETURN_WORK, but has no work to share")
 
 
-def solve_work_unit(budget, walls, notwalls, fanout):
-  # print(f"solve_work_unit({budget}, {walls}, {notwalls}, {fanout})")
+def solve_work_unit(budget, walls, notwalls, fanout, target_walls=None):
+  if target_walls:
+    print(f"solve_work_unit({budget}, {walls}, {notwalls}, {fanout})")
   enclosed, score, visited = search(global_puzzle_info, walls)
 
   if enclosed:
@@ -318,11 +376,11 @@ def solve_work_unit(budget, walls, notwalls, fanout):
       result = (
           score,
           f"found a solution using {len(walls)} walls and {score} score!"
-          f"\n{print_grid(global_puzzle_info.grid, walls)}")
+          f"\n{print_grid(global_puzzle_info.grid, {'X':walls})}")
       global_result_q.put(result)
-    return
 
-  # the horse did escape, so we MUST put a wall somewhere on its escape path
+  # the horse escaped, or maybe there were bees
+  # so place another wall somewhere it could go
 
   if budget == 0:
     # ... but we're out of budget, so we're done with this branch :(
@@ -336,11 +394,91 @@ def solve_work_unit(budget, walls, notwalls, fanout):
       if (r, c) not in notwalls
       and global_puzzle_info.grid[r][c] == '.'
   ]
+  if target_walls:
+    print("focusing on the path to the target...")
+    print("target:", target_walls)
+    print(print_grid(global_puzzle_info.grid, {"X": target_walls}))
+    print("options:", options)
+    print(print_grid(global_puzzle_info.grid,
+                     {"X": walls, "?": options, " ": notwalls}))
+    overlap = set(options) & target_walls
+    print("overlap:", overlap)
+    assert len(overlap) > 0
+    for o in options:
+      if o in overlap:
+        options = [o]
+        break
+    else:
+      assert False
+
   for i, wall in enumerate(options):
     global_work_q.append((budget-1,
                           walls | set([wall]),
                           notwalls | set(options[:i]),
-                          fanout*len(options)))
+                          fanout*len(options),
+                          target_walls))
+
+
+def score_manual_solution(txt):
+  grid = parse_map(txt)
+  print("target solution:")
+  print(print_grid(grid))
+  walls = set()
+  for r, row in enumerate(grid):
+    for c, char in enumerate(row):
+      if char == "X":
+        walls.add((r, c))
+
+  grid = parse_map(txt.replace("X", "."))
+  print("unsolved:")
+  print(print_grid(grid))
+
+  horse = find_horse(grid)
+  adjacency = build_adjacency(grid)
+
+  puzzle_info = PuzzleInfo(grid=grid, horse=horse,
+                           budget=len(walls), adjacency=adjacency)
+
+  enclosed, score, _ = search(puzzle_info, walls)
+  assert enclosed
+  print(score)
+
+  global global_puzzle_info
+  global_puzzle_info = puzzle_info
+  global global_result_q
+  global_result_q = queue.Queue()
+
+  global_work_q.append((puzzle_info.budget, set(), set(), 1, walls))
+
+  while global_work_q:
+    work = global_work_q.pop()
+    budget, walls, notwalls, fanout, target_walls = work
+    solve_work_unit(budget, walls, notwalls, fanout,
+                    target_walls=target_walls)
+
+  while not global_result_q.empty():
+    score, solution = global_result_q.get()
+    print(solution)
+  exit(0)
+
+
+# solver doesn't find this!!! why not??
+# answer: solver considered an enclosed horse to be a terminal node,
+# but there were still bees. Left here for posterity.
+# score_manual_solution('''\
+# ~~S~~.~~~.~
+# ~~....~~~..
+# ...~~.~S~.~
+# ~~~~SX...X.
+# ~~S~~.~C~.~
+# ..X..H....X
+# ~~~.~.~~.~~
+# ~SSX~XS~..X
+# ~S~.~.~~S~.
+# ~.~......~~
+# ...X~.~...X
+# ~~~.~X~X~~~
+# ''')
 
 
 def main():
@@ -352,7 +490,10 @@ def main():
   args = parser.parse_args()
 
   puzzle_info = build_puzzle_info(args.map)
-  print(puzzle_info)
+  # print(puzzle_info)
+
+  print("vertex connectivity:", vertex_connectivity(puzzle_info))
+  # return
 
   print(solve(puzzle_info, num_workers=args.workers))
 
