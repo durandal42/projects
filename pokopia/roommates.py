@@ -16,6 +16,9 @@ class Roommates(typing.NamedTuple):
   favorites: set[str]
 
 
+POKEMON_DENYLIST = ["Tangrowth", "Kyogre"]
+
+
 def load_pokemon():
   result = []
   with open('pokemon.csv') as csvfile:
@@ -24,6 +27,8 @@ def load_pokemon():
       if row[0] in ("name", "???"):
         continue
       p = Pokemon(name=row[0], habitat=row[1], favorites=row[2].split("\n"))
+      if p.name in POKEMON_DENYLIST:
+        continue
       result.append(p)
       # print(p)
   return result
