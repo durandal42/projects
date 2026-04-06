@@ -8,26 +8,33 @@ import functools
 
 class Pokemon(typing.NamedTuple):
   name: str
+  zone: str
   habitat: str
   favorites: list[str]
 
 
 class Roommates(typing.NamedTuple):
   names: tuple[str]
+  zone: str
   habitats: set[str]
   favorites: set[str]
 
 
 POKEMON_DENYLIST = [
-    "Tangrowth",  # Professor doesn't want a house
-    "Kyogre",  # Legendary whale is too big for a house
-    "Hoppip",  # event pokemon who "lives" in the poke center?
+    "Ditto",  # Player doesn't have preferences.
+    # "Tangrowth",  # Professor doesn't want a house
+    # unhouseables:
+    "Kyogre",
+    "Mewtwo",
+    "Volcanion",
+    "Snorlax",
+    # "Hoppip",  # event pokemon who "lives" in the poke center?
 ]
 
 
 # Reads data copied from a sheet like https://docs.google.com/spreadsheets/
 # d/1EWKSHFuhiYgJLNarlUZFJJm9Ti8bXb_va-FsNpGNdd8/edit?gid=0#gid=0
-# Columns needed: 'name', 'ideal habitat', 'favorites (csv)'
+# Columns needed: 'name', 'zone', 'ideal habitat', 'favorites (csv)'
 def load_pokemon():
   result = []
   with open('pokemon.csv') as csvfile:
@@ -37,8 +44,16 @@ def load_pokemon():
       if row[0] in ("name", "???"):
         continue
 
+      name, zone, habitat, favorites_str = row
+
+      if not name:
+        continue
+
+      favorites = [f for f in favorites_str.split(",")
+                   if f and ("flavors" not in f)]
+
       # exclude explicitly denylisted
-      p = Pokemon(name=row[0], habitat=row[1], favorites=row[2].split(","))
+      p = Pokemon(name=name, zone=zone, habitat=habitat, favorites=favorites)
       if p.name in POKEMON_DENYLIST:
         continue
 
@@ -48,25 +63,12 @@ def load_pokemon():
 
 
 # Writes data to be pasted back into a sheet.
-# Columns provided: name(s), habitat(s), favorite(s)
+# Columns provided: zone, name1-2, habitat1-2, favorite1-6
 def export_groups(groups):
-  with open('groups.csv', 'w') as csvfile:
-    writer = csv.writer(csvfile, delimiter='\t', quotechar='"')
-    writer.writerow(['name(s)', 'habitat(s)', 'favorite(s)'])
-    for g in groups:
-      writer.writerow([
-          '\n'.join(g.names),
-          '\n'.join(g.habitats),
-          '\n'.join(g.favorites),
-      ])
-
-
-# Writes data to be pasted back into a sheet.
-# Columns provided: name1-4, habitat1, habitat2, favorite1-6
-def export_groups_flat(groups):
   columns = []
+  columns.append('zone')
 
-  column_groups = {'name': 4, 'habitat': 2, 'favorite': 6}
+  column_groups = {'name': 2, 'habitat': 2, 'favorite': 6}
   for name, mulitplicity in column_groups.items():
     for i in range(mulitplicity):
       columns.append(f"{name}{i+1}")
@@ -78,6 +80,7 @@ def export_groups_flat(groups):
 
     for g in groups:
       row_dict = {}
+      row_dict['zone'] = g.zone
       for name, mulitplicity in column_groups.items():
         for i, value in enumerate(getattr(g, name + "s")):
           row_dict[f"{name}{i+1}"] = value
@@ -122,6 +125,10 @@ def roommates(pokemons, group_size,
   for rs in itertools.combinations(pokemons, r=group_size):
     names = tuple([r.name for r in rs])
     habitats = set([r.habitat for r in rs])
+    zones = set([r.zone for r in rs])
+    assert len(zones) == 1
+    zone = list(zones)[0]
+
     if not compatible_habitats(habitats):
       # print(f"excluding {names} because "
       #       f"they have incompatible habitats: {habitats}'")
@@ -139,36 +146,52 @@ def roommates(pokemons, group_size,
       #       f"({len(favorites)} < {min_shared_favorites})'")
       continue
 
-    r = Roommates(names=names, habitats=habitats, favorites=favorites)
+    r = Roommates(names=names, zone=zone,
+                  habitats=habitats, favorites=favorites)
     print(f"\t{r}")
     result.append(r)
 
   return result
 
 
-# A pokemon's popularity is how many eligible groups it appears in.
+# A pokemon's popularity is the total score of all eligible groups it appears in.
 def popularity(eligible_groups):
   result = collections.Counter()
   for eg in eligible_groups:
     for p in eg.names:
-      result[p] += 1
+      result[p] += score_group(eg)
   return result
 
 
-def score_group(group, popularity):
+def score_group(group):
+  # A group with a singular habitat is easier to satisfy
+  # than one with two or three. (4+ have active conflicts)
+  habitat_score = 3 - len(group.habitats)
+
   # Adding more pokemon to a group is always good.
-  # Adding pokemon who are unpopular is even better.
-  return sum(1/popularity[n] for n in group.names)
+  size_score = len(group.names)
+
+  # A group with more shared favorites is more efficient to satisfy.
+  favorites_score = len(group.favorites)
+
+  return (
+      100 * size_score
+      + 10 * habitat_score
+      + favorites_score
+  )
 
 
-def partition_into_roommate_groups(pokemons, max_group_size=4):
+def partition_into_roommate_groups(pokemons, max_group_size=2):
   eligible_groups = []
   # Consider all group sizes up to cap,
   # because a partial group is better than leaving someone alone.
   # (and considering size=1 allows us to express solo housing at all!)
-  for group_size in range(1, max_group_size+1):
-    eligible_groups += roommates(
-        pokemons, group_size=group_size, min_shared_favorites=2)
+  for zone in set([p.zone for p in pokemons]):
+    for group_size in range(1, max_group_size+1):
+      eligible_groups += roommates(
+          [p for p in pokemons if p.zone == zone],
+          group_size=group_size,
+          min_shared_favorites=1, demand_singular_habitat=False)
 
   results = []
   while eligible_groups:
@@ -177,13 +200,15 @@ def partition_into_roommate_groups(pokemons, max_group_size=4):
     for name, num_groups in popularity(eligible_groups).most_common():
       print(f"\t{name}: {num_groups}")
 
-    scored_groups = [(score_group(eg, pop), eg) for eg in eligible_groups]
+    scored_groups = [(score_group(eg),
+                      len(eg.names) / sum(pop[n] for n in eg.names),
+                      eg) for eg in eligible_groups]
     print("\nscore for each group:")
-    for score, eg in sorted(scored_groups)[-10:]:
-      print("\t", score, eg)
+    for score, pop, eg in sorted(scored_groups)[-10:]:
+      print("\t", score, pop, eg)
 
     # Greedily pick the best group available in the current iteration.
-    best_group = max(scored_groups)[1]
+    best_group = max(scored_groups)[-1]
     print("\nbest_group:", best_group)
     results.append(best_group)
 
@@ -203,7 +228,6 @@ def main():
     print(g)
 
   export_groups(best_groups)
-  export_groups_flat(best_groups)
 
 
 if __name__ == "__main__":
