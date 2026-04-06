@@ -1,0 +1,132 @@
+Material	Category	Hearts	Duration	BonusDuration	critter?	Effect	Potency	star?	condiment?
+Palm Fruit	Food	2	30						
+Apple	Food	1	30						
+Wildberry	Food	1	30						
+Hylian Shroom	Food	1	30						
+Hyrule Herb	Food	2	30						
+Hyrule Bass	Food	2	30						
+Sanke Carp	Food	2	30						
+Raw Gourmet Meat	Food	6	30						
+Raw Whole Bird	Food	6	30						
+Raw Prime Meat	Food	3	30						
+Raw Bird Thigh	Food	3	30						
+Raw Meat	Food	2	30						
+Raw Bird Drumstick	Food	2	30						
+Bird Egg	+ Ingredients	2	30	30					
+Fresh Milk	+ Ingredients	1	30	50					
+Acorn	+ Ingredients	1	30	20					
+Chickaloo Tree Nut	+ Ingredients	1	30	10					
+Hylian Rice	+ Ingredients	2	30	30					TRUE
+Tabantha Wheat	+ Ingredients	2	30	30					TRUE
+Cane Sugar	+ Ingredients	0	30	50					TRUE
+Goat Butter	+ Ingredients	0	30	50					TRUE
+Goron Spice	+ Ingredients	0	30	50					TRUE
+Rock Salt	+ Ingredients	0	30	30					TRUE
+Hearty Truffle	Hearty	4				Hearty	1		
+Hearty Bass	Hearty	4				Hearty	2		
+Hearty Radish	Hearty	5				Hearty	3		
+Hearty Blueshell Snail	Hearty	6				Hearty	3		
+Hearty Durian	Hearty	6				Hearty	4		
+Big Hearty Truffle	Hearty	6				Hearty	4		
+Hearty Salmon	Hearty	8				Hearty	4		
+Hearty Lizard	Hearty	8			TRUE	Hearty	4		
+Big Hearty Radish	Hearty	8				Hearty	5		
+Stamella Shroom	Energizing	1				Energizing	1		
+Restless Cricket	Energizing	0			TRUE	Energizing	1		
+Courser Bee Honey	Energizing	4				Energizing	3		
+Bright-Eyed Crab	Energizing	2				Energizing	3		
+Staminoka Bass	Energizing	2				Energizing	5		
+Energetic Rhino Beetle	Energizing	0			TRUE	Energizing	5		
+Endura Shroom	Enduring	2				Enduring	0.5		
+Tireless Frog	Enduring	4			TRUE	Enduring	1		
+Endura Carrot	Enduring	4				Enduring	2		
+Rushroom	Hasty	1	60			Movement Speed Up	1		
+Swift Carrot	Hasty	1	60			Movement Speed Up	1		
+Hightail Lizard	Hasty	0	60		TRUE	Movement Speed Up	1		
+Fleet-Lotus Seeds	Hasty	1	60			Movement Speed Up	2		
+Swift Violet	Hasty	0	60			Movement Speed Up	2		
+Hot-Footed Frog	Hasty	0	60		TRUE	Movement Speed Up	2		
+Blue Nightshade	Sneaky	0	120			Stealth Up	1		
+Sneaky River Snail	Sneaky	2	120			Stealth Up	1		
+Sunset Firefly	Sneaky	0	120		TRUE	Stealth Up	1		
+Silent Shroom	Sneaky	1	120			Stealth Up	2		
+Stealthfin Trout	Sneaky	2	120			Stealth Up	2		
+Silent Princess	Sneaky	2	120			Stealth Up	3		
+Mighty Thistle	Mighty	0	50			Attack Up	1		
+Bladed Rhino Beetle	Mighty	0	50		TRUE	Attack Up	1		
+Mighty Bananas	Mighty	1	50			Attack Up	2		
+Razorshroom	Mighty	1	50			Attack Up	2		
+Mighty Carp	Mighty	2	50			Attack Up	2		
+Razorclaw Crab	Mighty	2	50			Attack Up	2		
+Mighty Porgy	Mighty	2	50			Attack Up	3		
+Armoranth	Tough	0	50			Defense Up	1		
+Rugged Rhino Beetle	Tough	0	50		TRUE	Defense Up	1		
+Fortified Pumpkin	Tough	1	50			Defense Up	2		
+Ironshroom	Tough	1	50			Defense Up	2		
+Armored Carp	Tough	2	50			Defense Up	2		
+Ironshell Crab	Tough	2	50			Defense Up	2		
+Armored Porgy	Tough	2	50			Defense Up	3		
+Spicy Pepper	Spicy	1	150			Cold Resistance	1		
+Warm Safflina	Spicy	0	150			Cold Resistance	1		
+Summerwing Butterfly	Spicy	0	150		TRUE	Cold Resistance	1		
+Sunshroom	Spicy	1	150			Cold Resistance	2		
+Warm Darner	Spicy	0	150		TRUE	Cold Resistance	2		
+Sizzlefin Trout	Spicy	2	150			Cold Resistance	3		
+Hydromelon	Chilly	1	150			Heat Resistance	1		
+Cool Safflina	Chilly	0	150			Heat Resistance	1		
+Winterwing Butterfly	Chilly	0	150		TRUE	Heat Resistance	1		
+Chillshroom	Chilly	1	150			Heat Resistance	2		
+Cold Darner	Chilly	0	150		TRUE	Heat Resistance	2		
+Chillfin Trout	Chilly	2	150			Heat Resistance	3		
+Voltfruit	Electro	1	150			Shock Resistance	1		
+Electric Safflina	Electro	0	150			Shock Resistance	1		
+Thunderwing Butterfly	Electro	0	150		TRUE	Shock Resistance	1		
+Zapshroom	Electro	1	150			Shock Resistance	2		
+Electric Darner	Electro	0	150		TRUE	Shock Resistance	2		
+Voltfin Trout	Electro	2	150			Shock Resistance	3		
+Fireproof Lizard	Fireproof	0	150		TRUE	Flame Guard	1		
+Smotherwing Butterfly	Fireproof	0	150		TRUE	Flame Guard	2		
+Bokoblin Horn	Monster Parts		70						
+Moblin Horn	Monster Parts		70						
+Lizalfos Horn	Monster Parts		70						
+Lynel Horn	Monster Parts		70						
+Hinox Toenail	Monster Parts		70						
+Keese Wing	Monster Parts		70						
+Chuchu Jelly	Monster Parts		70						
+Octorok Tentacle	Monster Parts		70						
+Octo Balloon	Monster Parts		70						
+Ancient Screw	Monster Parts		70						
+Ancient Spring	Monster Parts		70						
+Bokoblin Fang	Monster Parts		110						
+Moblin Fang	Monster Parts		110						
+Lizalfos Talon	Monster Parts		110						
+Lynel Hoof	Monster Parts		110						
+Hinox Tooth	Monster Parts		110						
+Molduga Fin	Monster Parts		110						
+Which Chuchu Jelly	Monster Parts		110						
+Red Chuchu Jelly	Monster Parts		110						
+Yellow Chuchu Jelly	Monster Parts		110						
+Octorok Eyeball	Monster Parts		110						
+Ice Keese Wing	Monster Parts		110						
+Fire Keese Wing	Monster Parts		110						
+Electirc Keese Wing	Monster Parts		110						
+Ancient Gear	Monster Parts		110						
+Ancient Shaft	Monster Parts		110						
+Bokoblin Guts	Monster Parts		190						
+Moblin Guts	Monster Parts		190						
+Lizalfos Tail	Monster Parts		190						
+Lynel Guts	Monster Parts		190						
+Hinox Guts	Monster Parts		190						
+Molduga Guts	Monster Parts		190						
+Keese Eyeball	Monster Parts		190						
+Icy Lizalfos Tail	Monster Parts		190						
+Red Lizalfos Tail	Monster Parts		190						
+Yellow Lizalfos Tail	Monster Parts		190						
+Ancient Core	Monster Parts		190						
+Giant Ancient Core	Monster Parts		190						
+Dragon's Scale	Dragon Parts	1.5	90					TRUE	
+Dragon's Claw	Dragon Parts	2	210					TRUE	
+Shard of Dragon's Fang	Dragon Parts	2.5	630					TRUE	
+Shard of Dragon's Horn	Dragon Parts	3.5	1800					TRUE	
+Star Fragment	Other	0	30					TRUE	
+Fairy	Other	10	30						
